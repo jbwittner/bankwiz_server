@@ -1,0 +1,18 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "debug.terminal.clearBeforeReusing": true,
+    "java.debug.settings.console": "internalConsole",
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false,
+    "java.compile.nullAnalysis.mode": "disabled",
+    "sonarlint.connectedMode.project": {
+        "connectionId": "jbwittner-sonar",
+        "projectKey": "jbwittner_bankwiz_server"
+    },
+    "workbench.colorCustomizations": {
+        "debugConsole.warningForeground": "#eed708",
+        "debugConsole.errorForeground": "#d00",
+        "debugConsole.sourceForeground": "#0c0",
+        "debugConsole.infoForeground": "#fff"
+    }
+}
