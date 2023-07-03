@@ -7,3 +7,4 @@ spring:
             resourceserver:
                 jwt:
                     issuer-uri: https://bankwiz-dev.eu.auth0.com/
+                    jwk-set-uri: https://bankwiz-dev.eu.auth0.com/.well-known/jwks.json
