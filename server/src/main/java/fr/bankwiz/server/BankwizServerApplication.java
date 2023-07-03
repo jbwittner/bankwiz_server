@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BankwizServerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BankwizServerApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(BankwizServerApplication.class, args);
+    }
 }
