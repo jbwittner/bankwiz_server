@@ -22,6 +22,9 @@
     </distributionManagement>
     <properties>
         <java.version>17</java.version>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.organization>jbwittner</sonar.organization>
+        <sonar.projectKey>jbwittner_bankwiz_server</sonar.projectKey>
     </properties>
     <dependencies>
         <!-- Core -->
