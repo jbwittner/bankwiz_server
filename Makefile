@@ -1,7 +1,4 @@
 CURRENT_GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
-SONAR_UT_BRANCH_NAME := $(CURRENT_GIT_BRANCH)_UT
-SONAR_IT_BRANCH_NAME := $(CURRENT_GIT_BRANCH)_IT
-MYSQL_ROOT_PASSWORD := BankwizRootPass2023
 DOCKER_BUILDKIT=1
 
 ifndef USER_GITHUB_LOGIN
@@ -31,6 +28,10 @@ spotless-apply:
 .PHONY: spotless-check
 spotless-check:
 	mvn spotless:check
+
+.PHONY: sonar
+sonar:
+	mvn clean verify sonar:sonar -Dsonar.branch.name=$(CURRENT_GIT_BRANCH)
 
 .PHONY: docker-build
 docker-build:
