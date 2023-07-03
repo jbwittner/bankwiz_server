@@ -8,4 +8,3 @@ To work on this project, it is necessary to define two environment variables: `U
 To ensure a controlled development environment, a DevContainer has been provided for the project. The DevContainer includes a preconfigured development environment with the necessary tools and dependencies. It helps to standardize the development environment across different machines and ensures that all developers have a consistent setup.
 
 By using the provided DevContainer, you can be confident that your development environment is properly configured, including the required environment variables. This helps to streamline the development process and ensures that everyone working on the project has a consistent and controlled environment.
-
