@@ -11,8 +11,15 @@
     <groupId>fr.bankwiz</groupId>
     <artifactId>server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>server</name>
-    <description>Demo project for Spring Boot</description>
+    <name>Bankwiz Server</name>
+    <description>Server for Bankwiz application</description>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>Github Maven repository</name>
+            <url>https://maven.pkg.github.com/jbwittner/bankwiz_server</url>
+        </repository>
+    </distributionManagement>
     <properties>
         <java.version>17</java.version>
     </properties>
