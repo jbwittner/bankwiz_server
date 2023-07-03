@@ -11,22 +11,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
 jobs:
-  check-google-format:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout Git repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Setup-Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'microsoft'
-          java-version: '17'
-          cache: 'maven'
-      - name: Spotless Check
-        run: >-
-          mvn -B spotless:check
   resolve-dependencies:
     runs-on: ubuntu-22.04
     steps:
@@ -41,9 +25,27 @@ jobs:
           java-version: '17'
           cache: 'maven'
       - name: Dependency go-offline
-        run: mvn -b dependency:go-offline
+        run: mvn dependency:go-offline
       - name: Dependency resolve-plugins
-        run: mvn -b dependency:resolve-plugins
+        run: mvn dependency:resolve-plugins
+  check-google-format:
+    runs-on: ubuntu-22.04
+    needs:
+      - resolve-dependencies
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Setup-Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'microsoft'
+          java-version: '17'
+          cache: 'maven'
+      - name: Spotless Check
+        run: >-
+          mvn -B spotless:check
   build-application:
     runs-on: ubuntu-22.04
     needs:
