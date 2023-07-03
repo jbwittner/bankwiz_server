@@ -1,0 +1,9 @@
+
+auth0:
+    audience: Bankwiz_server
+spring:
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: https://bankwiz-dev.eu.auth0.com/
