@@ -5,7 +5,6 @@ application:
 server:
   port : ${application.server.port}
 
-
 auth0:
     audience: Bankwiz_server
 spring:
