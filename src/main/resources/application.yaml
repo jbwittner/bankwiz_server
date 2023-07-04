@@ -4,3 +4,13 @@ application:
 
 server:
   port : ${application.server.port}
+
+auth0:
+    audience: Bankwiz_server
+spring:
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: https://bankwiz-dev.eu.auth0.com/
+                    jwk-set-uri: https://bankwiz-dev.eu.auth0.com/.well-known/jwks.json
