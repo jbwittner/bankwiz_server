@@ -3,6 +3,7 @@ package fr.bankwiz.server.integrationtest.securityconfig;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.integrationtest.testhelper.AbstractIntegrationTestBase;
+import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient.AuthorityEnum;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient.UriEnum;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -50,7 +51,8 @@ public class FilterChainTest extends AbstractIntegrationTestBase {
     @Test
     void adminURI200() throws Exception {
         this.client
-                .doGetWithJwtAndAuthority(UriEnum.STATUS_ADMIN.getUri(), "auth0|13546354", "admin:configuration")
+                .doGetWithJwtAndAuthority(
+                        UriEnum.STATUS_ADMIN.getUri(), "auth0|13546354", AuthorityEnum.ADMIN_CONFIGURATION)
                 .andExpect(status().isOk());
     }
 }
