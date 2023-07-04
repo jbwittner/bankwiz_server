@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public abstract class AbstractIntegrationTestBase {
+public abstract class IntegrationTestBase {
 
     @Autowired
     protected IntegrationMVCClient client;
