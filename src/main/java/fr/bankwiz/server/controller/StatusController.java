@@ -24,9 +24,6 @@ public class StatusController {
 
     @GetMapping("/admin")
     public ResponseEntity<String> getAdminStatus() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        var principal = authentication.getPrincipal();
-
         return new ResponseEntity<>("Admin_status_ok", HttpStatus.OK);
     }
 }
