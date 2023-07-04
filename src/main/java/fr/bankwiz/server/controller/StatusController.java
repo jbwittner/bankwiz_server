@@ -24,5 +24,4 @@ public class StatusController {
     public ResponseEntity<String> getAdminStatus() {
         return new ResponseEntity<>("Admin_status_ok", HttpStatus.OK);
     }
-    
 }
