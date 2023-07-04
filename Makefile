@@ -1,4 +1,6 @@
 CURRENT_GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
+SONAR_UT_BRANCH_NAME := $(CURRENT_GIT_BRANCH)_UT
+SONAR_IT_BRANCH_NAME := $(CURRENT_GIT_BRANCH)_IT
 DOCKER_BUILDKIT=1
 
 ifndef USER_GITHUB_LOGIN
@@ -30,8 +32,16 @@ spotless-check:
 	mvn spotless:check
 
 .PHONY: sonar
-sonar:
-	mvn clean verify sonar:sonar -Dsonar.branch.name=$(CURRENT_GIT_BRANCH)
+sonar: sonar-unittest sonar-integrationtest
+
+.PHONY: sonar-unittest
+sonar-unittest:
+	mvn -Dtest="fr/bankwiz/server/unittest/**/*" clean verify sonar:sonar -Dsonar.branch.name=$(SONAR_UT_BRANCH_NAME)
+
+.PHONY: sonar-integrationtest
+sonar-integrationtest:
+	mvn -Dtest="fr/bankwiz/server/integrationtest/**/*" clean verify sonar:sonar -Dsonar.branch.name=$(SONAR_IT_BRANCH_NAME)
+
 
 .PHONY: docker-build
 docker-build:

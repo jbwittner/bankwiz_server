@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import fr.bankwiz.server.config.AudienceValidator;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
 
-public class AudienceValidatorTest extends UnitTestBase {
+class AudienceValidatorTest extends UnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {}
