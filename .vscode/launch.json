@@ -6,9 +6,9 @@
     "configurations": [
         {
             "type": "java",
-            "name": "ServerApplication",
+            "name": "BankwizServerApplication",
             "request": "launch",
-            "mainClass": "fr.bankwiz.server.ServerApplication",
+            "mainClass": "fr.bankwiz.server.BankwizServerApplication",
             "projectName": "server"
         }
     ]
