@@ -68,7 +68,9 @@ public class SecurityConfig {
                 .requestMatchers("/status/admin").hasAuthority("SCOPE_admin:configuration")
                 .anyRequest().authenticated()
             )
-            .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()).decoder(jwtDecoder())));
+            .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> 
+            jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()).decoder(jwtDecoder()))
+            );
         return http.build();
     }
 
