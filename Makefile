@@ -11,11 +11,11 @@ endif
 
 .PHONY: compile
 compile:
-	mvn compile
+	mvn clean compile
 
 .PHONY: package
 package:
-	mvn package
+	mvn clean package
 
 .PHONY: package-withouttest
 package-withouttest:
