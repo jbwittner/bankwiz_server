@@ -42,7 +42,6 @@ sonar-unittest:
 sonar-integrationtest:
 	mvn -Dtest="fr/bankwiz/server/integrationtest/**/*" clean verify sonar:sonar -Dsonar.branch.name=$(SONAR_IT_BRANCH_NAME)
 
-
 .PHONY: docker-build
 docker-build:
 	docker build --secret id=USER_GITHUB_LOGIN --secret id=USER_GITHUB_KEY -t bankwiz_server .
