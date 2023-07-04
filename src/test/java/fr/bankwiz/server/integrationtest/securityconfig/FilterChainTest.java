@@ -8,7 +8,7 @@ import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient.UriEnum
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class FilterChainTest extends AbstractIntegrationTestBase {
+class FilterChainTest extends AbstractIntegrationTestBase {
 
     @Override
     protected void initDataBeforeEach() {}
@@ -19,17 +19,17 @@ public class FilterChainTest extends AbstractIntegrationTestBase {
     }
 
     @Test
-    void publicURI200() throws Exception {
+    void publicURIOk() throws Exception {
         this.client.doGet(UriEnum.STATUS_PUBLIC.getUri()).andExpect(status().isOk());
     }
 
     @Test
-    void privateURI401() throws Exception {
+    void privateURIUnauthorized() throws Exception {
         this.client.doGet(UriEnum.STATUS_PRIVATE.getUri()).andExpect(status().isUnauthorized());
     }
 
     @Test
-    void privateURI200() throws Exception {
+    void privateURIOk() throws Exception {
         this.client
                 .doGetWithJwt(UriEnum.STATUS_PRIVATE.getUri(), "auth0|13546354")
                 .andExpect(status().isOk());
@@ -37,19 +37,19 @@ public class FilterChainTest extends AbstractIntegrationTestBase {
     }
 
     @Test
-    void adminURI401() throws Exception {
+    void adminURIUnauthorized() throws Exception {
         this.client.doGet(UriEnum.STATUS_ADMIN.getUri()).andExpect(status().isUnauthorized());
     }
 
     @Test
-    void adminURI403() throws Exception {
+    void adminURIForbidden() throws Exception {
         this.client
                 .doGetWithJwt(UriEnum.STATUS_ADMIN.getUri(), "auth0|13546354")
                 .andExpect(status().isForbidden());
     }
 
     @Test
-    void adminURI200() throws Exception {
+    void adminURIOk() throws Exception {
         this.client
                 .doGetWithJwtAndAuthority(
                         UriEnum.STATUS_ADMIN.getUri(), "auth0|13546354", AuthorityEnum.ADMIN_CONFIGURATION)
