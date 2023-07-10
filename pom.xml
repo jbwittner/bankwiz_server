@@ -21,6 +21,7 @@
         </repository>
     </distributionManagement>
     <properties>
+        <bankwiz.openapi.version>0.1.0</bankwiz.openapi.version>
         <java.version>17</java.version>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.organization>jbwittner</sonar.organization>
@@ -28,6 +29,11 @@
     </properties>
     <dependencies>
         <!-- Core -->
+        <dependency>
+            <groupId>fr.bankwiz</groupId>
+            <artifactId>openapi</artifactId>
+            <version>${bankwiz.openapi.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -213,4 +219,26 @@
             </plugin>
         </plugins>
     </build>
+    <!-- Profile -->
+    <profiles>
+        <profile>
+            <id>github-bankwiz</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2</url>
+                </repository>
+                <repository>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <id>github</id>
+                    <url>https://maven.pkg.github.com/jbwittner/*</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
 </project>
