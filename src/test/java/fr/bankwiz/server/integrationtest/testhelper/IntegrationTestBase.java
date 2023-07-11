@@ -1,5 +1,6 @@
 package fr.bankwiz.server.integrationtest.testhelper;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,9 +14,10 @@ import org.testcontainers.utility.DockerImageName;
 public abstract class IntegrationTestBase {
 
     @ServiceConnection
-    private static final MySQLContainer MY_SQL_CONTAINER;
+    private static MySQLContainer MY_SQL_CONTAINER;
 
-    static {
+    @BeforeAll
+    public static void beforeAll() {
         MY_SQL_CONTAINER = new MySQLContainer(DockerImageName.parse("mysql:8.0.33"));
         //MY_SQL_CONTAINER.withInitScript("databases.sql");
         MY_SQL_CONTAINER.start();
