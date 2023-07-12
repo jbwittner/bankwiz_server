@@ -33,7 +33,7 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public ResponseEntity<UserDTO> getUser(Long userId) {
+    public ResponseEntity<UserDTO> getUser(Integer userId) {
         final UserDTO userDTO = this.userService.getUser(userId);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }

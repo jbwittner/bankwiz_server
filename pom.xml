@@ -5,8 +5,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.1.1</version>
-        <relativePath></relativePath>
-        <!-- lookup parent from repository -->
     </parent>
     <groupId>fr.bankwiz</groupId>
     <artifactId>server</artifactId>
@@ -21,7 +19,7 @@
         </repository>
     </distributionManagement>
     <properties>
-        <bankwiz.openapi.version>0.2.0</bankwiz.openapi.version>
+        <bankwiz.openapi.version>0.2.1</bankwiz.openapi.version>
         <java.version>17</java.version>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.organization>jbwittner</sonar.organization>

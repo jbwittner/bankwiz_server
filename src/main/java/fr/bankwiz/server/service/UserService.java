@@ -18,7 +18,7 @@ public class UserService {
         return null;
     }
 
-    public UserDTO getUser(final Long userId) {
+    public UserDTO getUser(final Integer userId) {
         return null;
     }
 
