@@ -2,18 +2,31 @@ package fr.bankwiz.server.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.openapi.model.UserUpdateRequest;
 
-public interface UserService {
+@Service
+public class UserService {
 
-    UserDTO getCurrentUserInfo();
+    public UserDTO getCurrentUserInfo() {
+        return null;
+    }
 
-    UserDTO checkRegistration();
+    public UserDTO checkRegistration() {
+        return null;
+    }
 
-    UserDTO getUser(Long userId);
+    public UserDTO getUser(final Long userId) {
+        return null;
+    }
 
-    UserDTO updateUser(UserUpdateRequest userUpdateRequest);
+    public UserDTO updateUser(final UserUpdateRequest userUpdateRequest) {
+        return null;
+    }
 
-    List<UserDTO> getUsers();
+    public List<UserDTO> getUsers() {
+        return null;
+    }
 }

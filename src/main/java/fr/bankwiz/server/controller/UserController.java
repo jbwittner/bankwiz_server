@@ -4,15 +4,21 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 import fr.bankwiz.openapi.api.UserApi;
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.openapi.model.UserUpdateRequest;
 import fr.bankwiz.server.service.UserService;
 
+@RestController
 public class UserController implements UserApi {
 
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(final UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public ResponseEntity<UserDTO> checkRegistration() {
