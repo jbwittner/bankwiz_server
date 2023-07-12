@@ -14,12 +14,12 @@ import org.testcontainers.utility.DockerImageName;
 public abstract class IntegrationTestBase {
 
     @ServiceConnection
-    private static MySQLContainer MY_SQL_CONTAINER;
+    private static final MySQLContainer<?> MY_SQL_CONTAINER;
 
-    @BeforeAll
-    public static void beforeAll() {
-        MY_SQL_CONTAINER = new MySQLContainer(DockerImageName.parse("mysql:8.0.33"));
-        //MY_SQL_CONTAINER.withInitScript("databases.sql");
+    private static final String MYSQL_IMAGE_NAME = "mysql:8.0.33";
+
+    static {
+        MY_SQL_CONTAINER = new MySQLContainer<>(DockerImageName.parse(MYSQL_IMAGE_NAME));
         MY_SQL_CONTAINER.start();
     }
 
