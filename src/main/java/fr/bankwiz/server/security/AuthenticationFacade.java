@@ -1,10 +1,12 @@
 package fr.bankwiz.server.security;
 
-import fr.bankwiz.server.model.User;
-import fr.bankwiz.server.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+import fr.bankwiz.server.exception.UserNotExistException;
+import fr.bankwiz.server.model.User;
+import fr.bankwiz.server.repository.UserRepository;
 
 @Component
 public class AuthenticationFacade {
@@ -15,9 +17,12 @@ public class AuthenticationFacade {
     }
 
     public User getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authentication.getPrincipal();
-        return null;
+        final String authId = this.getAuthId();
+        return this.userRepository.findByAuthId(authId).orElseThrow(() -> new UserNotExistException(authId));
     }
 
+    public String getAuthId() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
 }

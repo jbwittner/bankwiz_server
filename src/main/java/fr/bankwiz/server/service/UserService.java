@@ -2,24 +2,27 @@ package fr.bankwiz.server.service;
 
 import java.util.List;
 
-import fr.bankwiz.server.model.User;
-import fr.bankwiz.server.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.openapi.model.UserUpdateRequest;
+import fr.bankwiz.server.model.User;
+import fr.bankwiz.server.repository.UserRepository;
+import fr.bankwiz.server.security.AuthenticationFacade;
 
 @Service
 public class UserService {
 
+    private final AuthenticationFacade authenticationFacade;
     private final UserRepository userRepository;
 
-    public UserService(final UserRepository userRepository){
+    public UserService(final AuthenticationFacade authenticationFacade, final UserRepository userRepository) {
+        this.authenticationFacade = authenticationFacade;
         this.userRepository = userRepository;
     }
 
     public UserDTO getCurrentUserInfo() {
-        final User user = this.userRepository.findByAuthId("").orElseThrow();
+        final User user = this.authenticationFacade.getCurrentUser();
         return null;
     }
 
