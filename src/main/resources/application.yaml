@@ -11,13 +11,6 @@ application:
 server:
   port : ${application.server.port}
 
-spring.jpa.properties.javax.persistence.schema-generation.scripts.action: drop-and-create
-spring.jpa.properties.javax.persistence.schema-generation.scripts.create-target: create.sql
-spring.jpa.properties.javax.persistence.schema-generation.scripts.drop-target: drop.sql
-spring.jpa.properties.javax.persistence.schema-generation.create-source: metadata
-spring.jpa.properties.javax.persistence.schema-generation.drop-source: metadata
-
-
 auth0:
     audience: Bankwiz_server
 spring:
