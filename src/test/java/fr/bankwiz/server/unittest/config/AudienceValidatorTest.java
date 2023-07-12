@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.oauth2.jwt.Jwt;
 
-import fr.bankwiz.server.config.AudienceValidator;
+import fr.bankwiz.server.security.AudienceValidator;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
 
 class AudienceValidatorTest extends UnitTestBase {

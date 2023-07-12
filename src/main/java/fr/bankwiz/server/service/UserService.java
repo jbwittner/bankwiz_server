@@ -2,6 +2,8 @@ package fr.bankwiz.server.service;
 
 import java.util.List;
 
+import fr.bankwiz.server.model.User;
+import fr.bankwiz.server.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import fr.bankwiz.openapi.model.UserDTO;
@@ -10,7 +12,14 @@ import fr.bankwiz.openapi.model.UserUpdateRequest;
 @Service
 public class UserService {
 
+    private final UserRepository userRepository;
+
+    public UserService(final UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
+
     public UserDTO getCurrentUserInfo() {
+        final User user = this.userRepository.findByAuthId("").orElseThrow();
         return null;
     }
 
