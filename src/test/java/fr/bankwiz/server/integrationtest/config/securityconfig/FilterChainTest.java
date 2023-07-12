@@ -2,9 +2,9 @@ package fr.bankwiz.server.integrationtest.config.securityconfig;
 
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.integrationtest.testhelper.IntegrationTestBase;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient.AuthorityEnum;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient.UriEnum;
+import fr.bankwiz.server.integrationtest.testhelper.IntegrationTestBase;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
