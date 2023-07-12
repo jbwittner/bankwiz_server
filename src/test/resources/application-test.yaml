@@ -1,0 +1,10 @@
+application:
+  server:
+    context-path: /api
+
+spring:
+  main:
+    banner-mode: OFF
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
