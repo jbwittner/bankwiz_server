@@ -17,7 +17,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer userId;
 
-    @Column(name = "AUTH_ID", nullable = false, updatable = false, insertable = false)
+    @Column(name = "AUTH_ID", nullable = false, updatable = false)
     protected String authId;
 
     @Column(name = "FIRST_NAME", nullable = false, length = 60)

@@ -13,6 +13,7 @@ server:
 
 auth0:
     audience: Bankwiz_server
+
 spring:
   jpa:
     show-sql: false

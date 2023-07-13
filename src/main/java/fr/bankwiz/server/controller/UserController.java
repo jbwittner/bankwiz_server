@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.bankwiz.openapi.api.UserApi;
 import fr.bankwiz.openapi.model.UserDTO;
-import fr.bankwiz.openapi.model.UserUpdateRequest;
+import fr.bankwiz.server.security.AuthenticationFacade;
 import fr.bankwiz.server.service.UserService;
 
 @RestController
@@ -42,11 +42,5 @@ public class UserController implements UserApi {
     public ResponseEntity<List<UserDTO>> getUsers() {
         final List<UserDTO> userDTOs = this.userService.getUsers();
         return new ResponseEntity<>(userDTOs, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<UserDTO> updateUser(UserUpdateRequest userUpdateRequest) {
-        final UserDTO userDTO = this.userService.updateUser(userUpdateRequest);
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 }
