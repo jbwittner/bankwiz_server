@@ -1,7 +1,6 @@
 package fr.bankwiz.server.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -31,21 +30,15 @@ public class UserService {
     }
 
     public UserDTO checkRegistration() {
-        final String authId = this.authenticationFacade.getCurrentAuthId();
-        final Optional<User> optionalUser = this.userRepository.findByAuthId(authId);
-        User user;
-        if (optionalUser.isPresent()) {
-            user = optionalUser.get();
-        } else {
-            final AuthenticationFacade.IdData idData = this.authenticationFacade.getIdData();
-            user = User.builder()
-                    .email(idData.email)
-                    .authId(idData.sub)
-                    .firstName(idData.given_name)
-                    .lastName(idData.family_name)
-                    .build();
-            user = this.userRepository.save(user);
-        }
+        final AuthenticationFacade.IdData idData = this.authenticationFacade.getIdData();
+
+        User user = this.userRepository.findByAuthId(idData.getSub()).orElse(new User());
+
+        user.setAuthId(idData.getSub());
+        user.setEmail(idData.getEmail());
+        user.setFirstName(idData.getGivenName());
+        user.setLastName(idData.getFamilyName());
+        user = this.userRepository.save(user);
 
         return USER_DTO_BUILDER.transform(user);
     }

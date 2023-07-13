@@ -9,9 +9,12 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import fr.bankwiz.server.exception.UserNotExistException;
 import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.repository.UserRepository;
+import lombok.Data;
 
 @Component
 public class AuthenticationFacade {
@@ -50,32 +53,17 @@ public class AuthenticationFacade {
         return responseSpec.bodyToMono(IdData.class).block(Duration.ofMinutes(1));
     }
 
+    @Data
     public static class IdData {
-        public String sub;
-        public String name;
-        public String email;
-        public String given_name;
-        public String family_name;
 
-        @Override
-        public String toString() {
-            return "IdData{"
-                    + "sub='"
-                    + sub
-                    + '\''
-                    + ", name='"
-                    + name
-                    + '\''
-                    + ", email='"
-                    + email
-                    + '\''
-                    + ", given_name='"
-                    + given_name
-                    + '\''
-                    + ", family_name='"
-                    + family_name
-                    + '\''
-                    + '}';
-        }
+        private String sub;
+        private String name;
+        private String email;
+
+        @JsonProperty("given_name")
+        private String givenName;
+
+        @JsonProperty("family_name")
+        private String familyName;
     }
 }
