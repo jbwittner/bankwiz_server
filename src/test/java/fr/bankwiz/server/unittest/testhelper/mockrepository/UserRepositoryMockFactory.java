@@ -1,0 +1,18 @@
+package fr.bankwiz.server.unittest.testhelper.mockrepository;
+
+import fr.bankwiz.server.model.User;
+import fr.bankwiz.server.repository.UserRepository;
+import org.mockito.Mockito;
+
+import java.util.Optional;
+
+public class UserRepositoryMockFactory extends AbstractRepositoryMockFactory<User, UserRepository, Integer> {
+    public UserRepositoryMockFactory() {
+        super(UserRepository.class);
+    }
+
+    public UserRepositoryMockFactory mockFindByAuthId(String authId, Optional<User> optionalUser) {
+        Mockito.when(repository.findByAuthId(authId)).thenReturn(optionalUser);
+        return this;
+    }
+}
