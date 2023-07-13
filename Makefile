@@ -24,7 +24,7 @@ restore-system:
 	@docker exec -i bankwiz_mysql sh -c 'exec mysql -uroot -p"$(MYSQL_ROOT_PASSWORD)"' < sql/prepare.sql
 
 .PHONY: restore-table
-restore-table:
+restore-table: restore-system
 	@docker exec -i bankwiz_mysql sh -c 'exec mysql -uroot -p"$(MYSQL_ROOT_PASSWORD)" bankwiz_db' < sql/databases.sql
 
 .PHONY: restore-data
