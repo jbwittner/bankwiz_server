@@ -26,7 +26,8 @@ public class UserService {
     }
 
     public UserDTO getCurrentUserInfo() {
-        return null;
+        final User user = this.authenticationFacade.getCurrentUser();
+        return USER_DTO_BUILDER.transform(user);
     }
 
     public UserDTO checkRegistration() {

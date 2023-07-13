@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.bankwiz.openapi.api.UserApi;
 import fr.bankwiz.openapi.model.UserDTO;
-import fr.bankwiz.server.security.AuthenticationFacade;
 import fr.bankwiz.server.service.UserService;
 
 @RestController
