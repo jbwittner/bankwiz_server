@@ -1,10 +1,11 @@
 package fr.bankwiz.server.unittest.testhelper.mockrepository;
 
-import fr.bankwiz.server.model.User;
-import fr.bankwiz.server.repository.UserRepository;
+import java.util.Optional;
+
 import org.mockito.Mockito;
 
-import java.util.Optional;
+import fr.bankwiz.server.model.User;
+import fr.bankwiz.server.repository.UserRepository;
 
 public class UserRepositoryMockFactory extends AbstractRepositoryMockFactory<User, UserRepository, Integer> {
     public UserRepositoryMockFactory() {

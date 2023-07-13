@@ -1,8 +1,9 @@
 package fr.bankwiz.server.unittest.testhelper;
 
+import org.junit.jupiter.api.BeforeEach;
+
 import fr.bankwiz.server.PersonalFaker;
 import fr.bankwiz.server.unittest.testhelper.mockrepository.UserRepositoryMockFactory;
-import org.junit.jupiter.api.BeforeEach;
 
 public abstract class UnitTestBase {
     protected PersonalFaker faker;

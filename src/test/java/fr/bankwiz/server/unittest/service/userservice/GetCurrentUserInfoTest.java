@@ -1,19 +1,17 @@
 package fr.bankwiz.server.unittest.service.userservice;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.exception.UserNotExistException;
 import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.security.AuthenticationFacade;
 import fr.bankwiz.server.service.UserService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import java.util.Optional;
 
 class GetCurrentUserInfoTest extends UnitTestBase {
-
 
     private AuthenticationFacade mockAuthenticationFacade;
     private UserService userService;
@@ -21,11 +19,12 @@ class GetCurrentUserInfoTest extends UnitTestBase {
     @Override
     protected void initDataBeforeEach() {
         this.mockAuthenticationFacade = Mockito.mock(AuthenticationFacade.class);
-        this.userService = new UserService(this.mockAuthenticationFacade, this.userRepositoryMockFactory.getRepository());
+        this.userService =
+                new UserService(this.mockAuthenticationFacade, this.userRepositoryMockFactory.getRepository());
     }
 
     @Test
-    void GetCurrentUserInfoOk(){
+    void GetCurrentUserInfoOk() {
         final User user = this.unitTestFactory.getUser();
         Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(user);
         final UserDTO userDTO = this.userService.getCurrentUserInfo();
@@ -33,17 +32,15 @@ class GetCurrentUserInfoTest extends UnitTestBase {
                 () -> Assertions.assertEquals(user.getUserId(), userDTO.getUserId()),
                 () -> Assertions.assertEquals(user.getEmail(), userDTO.getEmail()),
                 () -> Assertions.assertEquals(user.getFirstName(), userDTO.getFirstName()),
-                () -> Assertions.assertEquals(user.getLastName(), userDTO.getLastName())
-        );
+                () -> Assertions.assertEquals(user.getLastName(), userDTO.getLastName()));
     }
 
     @Test
-    void userNotExistException(){
+    void userNotExistException() {
         Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenThrow(new UserNotExistException(""));
 
         Assertions.assertThrows(UserNotExistException.class, () -> {
             this.userService.getCurrentUserInfo();
         });
     }
-
 }

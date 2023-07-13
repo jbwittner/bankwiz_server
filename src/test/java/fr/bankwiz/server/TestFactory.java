@@ -6,7 +6,7 @@ public class TestFactory {
 
     protected final PersonalFaker faker;
 
-    public TestFactory(final PersonalFaker faker){
+    public TestFactory(final PersonalFaker faker) {
         this.faker = faker;
     }
 
