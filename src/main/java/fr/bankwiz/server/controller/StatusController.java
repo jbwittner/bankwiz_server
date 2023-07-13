@@ -23,7 +23,6 @@ public class StatusController {
 
     @GetMapping("/private")
     public ResponseEntity<String> getPrivateStatus() {
-        this.authenticationFacade.getCurrentUser();
         return new ResponseEntity<>("Private_status_ok", HttpStatus.OK);
     }
 

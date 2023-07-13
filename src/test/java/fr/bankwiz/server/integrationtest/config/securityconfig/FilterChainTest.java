@@ -14,7 +14,7 @@ class FilterChainTest extends IntegrationTestBase {
     protected void initDataBeforeEach() {}
 
     @Test
-    void unexistedURI401() throws Exception {
+    void unlistedURI401() throws Exception {
         this.client.doGet(UriEnum.NOT_FOUND.getUri()).andExpect(status().isUnauthorized());
     }
 
@@ -24,7 +24,7 @@ class FilterChainTest extends IntegrationTestBase {
     }
 
     @Test
-    void privateURIUnauthorized() throws Exception {
+    void privateURI401() throws Exception {
         this.client.doGet(UriEnum.STATUS_PRIVATE.getUri()).andExpect(status().isUnauthorized());
     }
 
@@ -33,16 +33,15 @@ class FilterChainTest extends IntegrationTestBase {
         this.client
                 .doGetWithJwt(UriEnum.STATUS_PRIVATE.getUri(), "auth0|13546354")
                 .andExpect(status().isOk());
-        System.out.println("after call");
     }
 
     @Test
-    void adminURIUnauthorized() throws Exception {
+    void adminURI401() throws Exception {
         this.client.doGet(UriEnum.STATUS_ADMIN.getUri()).andExpect(status().isUnauthorized());
     }
 
     @Test
-    void adminURIForbidden() throws Exception {
+    void adminURI403() throws Exception {
         this.client
                 .doGetWithJwt(UriEnum.STATUS_ADMIN.getUri(), "auth0|13546354")
                 .andExpect(status().isForbidden());

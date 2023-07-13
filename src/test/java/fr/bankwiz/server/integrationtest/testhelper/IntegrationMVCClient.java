@@ -83,7 +83,7 @@ public class IntegrationMVCClient {
     public ResultActions doGetWithJwt(final String url, final String subject) throws Exception {
         final Jwt jwt = Jwt.withTokenValue("token")
                 .header("alg", "none")
-                .claim("sub", "user")
+                .claim("sub", subject)
                 .build();
 
         return this.mvc.perform(MockMvcRequestBuilders.get(url)
