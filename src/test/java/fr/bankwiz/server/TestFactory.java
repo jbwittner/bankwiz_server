@@ -4,9 +4,9 @@ import fr.bankwiz.server.model.User;
 
 public class TestFactory {
 
-    protected final PersonalFaker faker;
+    protected PersonalFaker faker;
 
-    public TestFactory(final PersonalFaker faker) {
+    public void setFaker(final PersonalFaker faker){
         this.faker = faker;
     }
 

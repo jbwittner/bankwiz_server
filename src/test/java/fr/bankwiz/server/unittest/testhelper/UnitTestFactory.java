@@ -6,7 +6,7 @@ import fr.bankwiz.server.model.User;
 
 public class UnitTestFactory extends TestFactory {
     public UnitTestFactory(PersonalFaker faker) {
-        super(faker);
+        super.setFaker(faker);
     }
 
     public User getUser() {

@@ -15,42 +15,42 @@ class FilterChainTest extends IntegrationTestBase {
 
     @Test
     void unlistedURI401() throws Exception {
-        this.client.doGet(UriEnum.NOT_FOUND.getUri()).andExpect(status().isUnauthorized());
+        this.client.doGetWithoutJwt(UriEnum.NOT_FOUND.getUri()).andExpect(status().isUnauthorized());
     }
 
     @Test
     void publicURIOk() throws Exception {
-        this.client.doGet(UriEnum.STATUS_PUBLIC.getUri()).andExpect(status().isOk());
+        this.client.doGetWithoutJwt(UriEnum.STATUS_PUBLIC.getUri()).andExpect(status().isOk());
     }
 
     @Test
     void privateURI401() throws Exception {
-        this.client.doGet(UriEnum.STATUS_PRIVATE.getUri()).andExpect(status().isUnauthorized());
+        this.client.doGetWithoutJwt(UriEnum.STATUS_PRIVATE.getUri()).andExpect(status().isUnauthorized());
     }
 
     @Test
     void privateURIOk() throws Exception {
         this.client
-                .doGetWithJwt(UriEnum.STATUS_PRIVATE.getUri(), "auth0|13546354")
+                .doGet(UriEnum.STATUS_PRIVATE.getUri(), "auth0|13546354")
                 .andExpect(status().isOk());
     }
 
     @Test
     void adminURI401() throws Exception {
-        this.client.doGet(UriEnum.STATUS_ADMIN.getUri()).andExpect(status().isUnauthorized());
+        this.client.doGetWithoutJwt(UriEnum.STATUS_ADMIN.getUri()).andExpect(status().isUnauthorized());
     }
 
     @Test
     void adminURI403() throws Exception {
         this.client
-                .doGetWithJwt(UriEnum.STATUS_ADMIN.getUri(), "auth0|13546354")
+                .doGet(UriEnum.STATUS_ADMIN.getUri(), "auth0|13546354")
                 .andExpect(status().isForbidden());
     }
 
     @Test
     void adminURIOk() throws Exception {
         this.client
-                .doGetWithJwtAndAuthority(
+                .doGetWithAuthority(
                         UriEnum.STATUS_ADMIN.getUri(), "auth0|13546354", AuthorityEnum.ADMIN_CONFIGURATION)
                 .andExpect(status().isOk());
     }

@@ -3,6 +3,7 @@ package fr.bankwiz.server.unittest.testhelper.mockrepository;
 import java.util.List;
 import java.util.Optional;
 
+import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -59,14 +60,14 @@ public abstract class AbstractRepositoryMockFactory<T, R extends JpaRepository<T
         return this;
     }
 
-    public AbstractRepositoryMockFactory<T, R, ID> verifySaveCalled(T object) {
-        verify(repository, times(1)).save(object);
-        return this;
+    public ArgumentCaptor<T> verifySaveCalled(Class<T> clazz) {
+        return this.verifySaveCalled(clazz, 1);
     }
 
-    public AbstractRepositoryMockFactory<T, R, ID> verifySaveCalled(T object, int timesCalled) {
-        verify(repository, times(timesCalled)).save(object);
-        return this;
+    public ArgumentCaptor<T> verifySaveCalled(Class<T> clazz, int timesCalled) {
+        ArgumentCaptor<T> argumentCaptor = ArgumentCaptor.forClass(clazz);
+        verify(repository, times(timesCalled)).save(argumentCaptor.capture());
+        return argumentCaptor;
     }
 
     public AbstractRepositoryMockFactory<T, R, ID> verifyDeleteCalled(T object, int timesCalled) {

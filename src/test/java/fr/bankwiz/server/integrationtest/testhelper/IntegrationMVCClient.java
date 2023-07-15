@@ -12,10 +12,12 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
 public class IntegrationMVCClient {
@@ -48,6 +50,7 @@ public class IntegrationMVCClient {
         STATUS_PRIVATE("/status/private"),
         STATUS_ADMIN("/status/admin"),
         USER("/user"),
+        USER_CHECKREGISTRATION("/user/checkregistration"),
         USERS("/user/users"),
         USER_ID("/user/{0}"),
         GROUP("/group"),
@@ -76,11 +79,18 @@ public class IntegrationMVCClient {
         }
     }
 
-    public ResultActions doGet(final String url) throws Exception {
+    public static <T> T convertMvcResultToResponseObject(MvcResult mvcResult, Class<T> responseClass) throws Exception {
+        String contentAsString = mvcResult.getResponse().getContentAsString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(contentAsString, responseClass);
+    }
+
+
+    public ResultActions doGetWithoutJwt(final String url) throws Exception {
         return this.mvc.perform(MockMvcRequestBuilders.get(url));
     }
 
-    public ResultActions doGetWithJwt(final String url, final String subject) throws Exception {
+    public ResultActions doGet(final String url, final String subject) throws Exception {
         final Jwt jwt = Jwt.withTokenValue("token")
                 .header("alg", "none")
                 .claim("sub", subject)
@@ -90,7 +100,7 @@ public class IntegrationMVCClient {
                 .with(SecurityMockMvcRequestPostProcessors.jwt().jwt(jwt)));
     }
 
-    public ResultActions doGetWithJwtAndAuthority(
+    public ResultActions doGetWithAuthority(
             final String url, final String subject, final AuthorityEnum... authorities) throws Exception {
 
         final List<String> authoritiesStringList =

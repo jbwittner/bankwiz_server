@@ -41,10 +41,20 @@ class CheckRegistrationTest extends UnitTestBase {
                 .mockSave();
         final UserDTO userDTO = this.userService.checkRegistration();
 
+        var argumentCaptor = this.userRepositoryMockFactory.verifySaveCalled(User.class);
+        final User userSaved = argumentCaptor.getValue();
+
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(this.idData.getSub(), userSaved.getAuthId()),
+                () -> Assertions.assertEquals(this.idData.getGivenName(), userSaved.getFirstName()),
+                () -> Assertions.assertEquals(this.idData.getFamilyName(), userSaved.getLastName()),
+                () -> Assertions.assertEquals(this.idData.getEmail(), userSaved.getEmail()));
+
         Assertions.assertAll(
                 () -> Assertions.assertEquals(this.idData.getGivenName(), userDTO.getFirstName()),
                 () -> Assertions.assertEquals(this.idData.getFamilyName(), userDTO.getLastName()),
                 () -> Assertions.assertEquals(this.idData.getEmail(), userDTO.getEmail()));
+
     }
 
     @Test
@@ -54,6 +64,15 @@ class CheckRegistrationTest extends UnitTestBase {
                 .mockFindByAuthId(idData.getSub(), Optional.empty())
                 .mockSave();
         final UserDTO userDTO = this.userService.checkRegistration();
+
+        var argumentCaptor = this.userRepositoryMockFactory.verifySaveCalled(User.class);
+        final User userSaved = argumentCaptor.getValue();
+
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(this.idData.getSub(), userSaved.getAuthId()),
+                () -> Assertions.assertEquals(this.idData.getGivenName(), userSaved.getFirstName()),
+                () -> Assertions.assertEquals(this.idData.getFamilyName(), userSaved.getLastName()),
+                () -> Assertions.assertEquals(this.idData.getEmail(), userSaved.getEmail()));
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(this.idData.getGivenName(), userDTO.getFirstName()),
