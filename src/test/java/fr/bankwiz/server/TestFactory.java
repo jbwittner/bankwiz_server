@@ -11,12 +11,11 @@ public class TestFactory {
     }
 
     protected User getUser() {
-        final User user = User.builder()
+
+        return User.builder()
                 .email(this.faker.internet().emailAddress())
                 .firstName(this.faker.name().firstName())
                 .lastName(this.faker.name().lastName())
                 .build();
-
-        return user;
     }
 }

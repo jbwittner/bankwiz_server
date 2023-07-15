@@ -3,6 +3,7 @@ package fr.bankwiz.server.unittest.testhelper.mockrepository;
 import java.util.List;
 import java.util.Optional;
 
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -48,6 +49,13 @@ public abstract class AbstractRepositoryMockFactory<T, R extends JpaRepository<T
 
     public AbstractRepositoryMockFactory<T, R, ID> mockDeleteAll() {
         Mockito.doNothing().when(repository).deleteAll();
+        return this;
+    }
+
+    public AbstractRepositoryMockFactory<T, R, ID> mockSave() {
+        Mockito.when(repository.save(ArgumentMatchers.any())).thenAnswer(invocation -> {
+            return invocation.<T>getArgument(0);
+        });
         return this;
     }
 
