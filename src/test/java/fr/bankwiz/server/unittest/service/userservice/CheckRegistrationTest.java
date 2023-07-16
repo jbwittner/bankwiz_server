@@ -54,7 +54,6 @@ class CheckRegistrationTest extends UnitTestBase {
                 () -> Assertions.assertEquals(this.idData.getGivenName(), userDTO.getFirstName()),
                 () -> Assertions.assertEquals(this.idData.getFamilyName(), userDTO.getLastName()),
                 () -> Assertions.assertEquals(this.idData.getEmail(), userDTO.getEmail()));
-
     }
 
     @Test

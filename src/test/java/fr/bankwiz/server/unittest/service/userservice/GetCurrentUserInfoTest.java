@@ -38,7 +38,6 @@ class GetCurrentUserInfoTest extends UnitTestBase {
     @Test
     void userNotExistException() {
         Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenThrow(new UserNotExistException(""));
-
         Assertions.assertThrows(UserNotExistException.class, () -> {
             this.userService.getCurrentUserInfo();
         });

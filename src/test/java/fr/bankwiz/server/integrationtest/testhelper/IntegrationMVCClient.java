@@ -5,12 +5,15 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.stereotype.Component;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -22,12 +25,16 @@ import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class IntegrationMVCClient {
 
-    private MockMvc mvc;
+    private final MockMvc mvc;
 
-    public IntegrationMVCClient(WebApplicationContext context) {
+    private final WebTestClient client;
+
+    public IntegrationMVCClient(WebApplicationContext context, ApplicationContext applicationContext) {
         this.mvc = MockMvcBuilders.webAppContextSetup(context)
                 .apply(SecurityMockMvcConfigurers.springSecurity())
                 .build();
+
+        this.client = WebTestClient.bindToApplicationContext(applicationContext).build();
     }
 
     public enum AuthorityEnum {
@@ -85,7 +92,6 @@ public class IntegrationMVCClient {
         return objectMapper.readValue(contentAsString, responseClass);
     }
 
-
     public ResultActions doGetWithoutJwt(final String url) throws Exception {
         return this.mvc.perform(MockMvcRequestBuilders.get(url));
     }
@@ -100,8 +106,8 @@ public class IntegrationMVCClient {
                 .with(SecurityMockMvcRequestPostProcessors.jwt().jwt(jwt)));
     }
 
-    public ResultActions doGetWithAuthority(
-            final String url, final String subject, final AuthorityEnum... authorities) throws Exception {
+    public ResultActions doGetWithAuthority(final String url, final String subject, final AuthorityEnum... authorities)
+            throws Exception {
 
         final List<String> authoritiesStringList =
                 Arrays.stream(authorities).map(s -> "SCOPE_" + s.getAuthority()).toList();
