@@ -1,17 +1,13 @@
 package fr.bankwiz.server.integrationtest.config.securityconfig;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.reactive.server.WebTestClient;
 
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient.AuthorityEnum;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient.UriEnum;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationTestBase;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers;
-import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.test.web.servlet.client.MockMvcWebTestClient;
 
-import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockJwt;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class FilterChainTest extends IntegrationTestBase {
