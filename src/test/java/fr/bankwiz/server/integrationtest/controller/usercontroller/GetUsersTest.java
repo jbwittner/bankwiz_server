@@ -16,7 +16,7 @@ import fr.bankwiz.server.integrationtest.testhelper.IntegrationTestBase;
 import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.repository.UserRepository;
 
-public class GetUsersTest extends IntegrationTestBase {
+class GetUsersTest extends IntegrationTestBase {
 
     private static final UserDTOBuilder USER_DTO_BUILDER = new UserDTOBuilder();
 

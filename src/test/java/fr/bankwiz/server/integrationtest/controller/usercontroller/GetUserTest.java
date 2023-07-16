@@ -11,7 +11,7 @@ import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationTestBase;
 import fr.bankwiz.server.model.User;
 
-public class GetUserTest extends IntegrationTestBase {
+class GetUserTest extends IntegrationTestBase {
     @Override
     protected void initDataBeforeEach() {}
 
@@ -21,7 +21,7 @@ public class GetUserTest extends IntegrationTestBase {
         final User user2 = this.integrationTestFactory.getUser();
 
         final var result = this.client
-                .doGet(IntegrationMVCClient.UriEnum.USER.getUri(user2.getUserId()), user.getAuthId())
+                .doGet(IntegrationMVCClient.UriEnum.USER_ID.getUri(user2.getUserId()), user.getAuthId())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
