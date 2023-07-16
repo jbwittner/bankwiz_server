@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import fr.bankwiz.openapi.model.UserDTO;
@@ -43,6 +44,7 @@ class CheckRegistrationTest extends IntegrationTestBase {
 
         final var result = this.client
                 .doGet(IntegrationMVCClient.UriEnum.USER_CHECKREGISTRATION.getUri(), subject)
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
         final UserDTO userDTO = IntegrationMVCClient.convertMvcResultToResponseObject(result, UserDTO.class);
@@ -82,6 +84,7 @@ class CheckRegistrationTest extends IntegrationTestBase {
 
         final var result = this.client
                 .doGet(IntegrationMVCClient.UriEnum.USER_CHECKREGISTRATION.getUri(), subject)
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
         final UserDTO userDTO = IntegrationMVCClient.convertMvcResultToResponseObject(result, UserDTO.class);

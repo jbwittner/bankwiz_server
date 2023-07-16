@@ -2,7 +2,6 @@ package fr.bankwiz.server.integrationtest.controller.usercontroller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -11,22 +10,18 @@ import fr.bankwiz.server.exception.UserNotExistException;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationTestBase;
 import fr.bankwiz.server.model.User;
-import fr.bankwiz.server.repository.UserRepository;
 
-class GetCurrentUserInfoTest extends IntegrationTestBase {
-
-    @Autowired
-    private UserRepository userRepository;
-
+public class GetUserTest extends IntegrationTestBase {
     @Override
     protected void initDataBeforeEach() {}
 
     @Test
-    void getCurrentUserInfoOk() throws Exception {
+    void getUserOk() throws Exception {
         final User user = this.integrationTestFactory.getUser();
+        final User user2 = this.integrationTestFactory.getUser();
 
         final var result = this.client
-                .doGet(IntegrationMVCClient.UriEnum.USER.getUri(), user.getAuthId())
+                .doGet(IntegrationMVCClient.UriEnum.USER.getUri(user2.getUserId()), user.getAuthId())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
@@ -34,20 +29,21 @@ class GetCurrentUserInfoTest extends IntegrationTestBase {
         final UserDTO userDTO = IntegrationMVCClient.convertMvcResultToResponseObject(result, UserDTO.class);
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(user.getUserId(), userDTO.getUserId()),
-                () -> Assertions.assertEquals(user.getEmail(), userDTO.getEmail()),
-                () -> Assertions.assertEquals(user.getFirstName(), userDTO.getFirstName()),
-                () -> Assertions.assertEquals(user.getLastName(), userDTO.getLastName()));
+                () -> Assertions.assertEquals(user2.getUserId(), userDTO.getUserId()),
+                () -> Assertions.assertEquals(user2.getFirstName(), userDTO.getFirstName()),
+                () -> Assertions.assertEquals(user2.getLastName(), userDTO.getLastName()),
+                () -> Assertions.assertEquals(user2.getEmail(), userDTO.getEmail()));
     }
 
     @Test
     void userNotExist() throws Exception {
-        final String authId = "user.getAuthId()";
+        final User user = this.integrationTestFactory.getUser();
+        final Integer id = user.getUserId() + 1;
+        final String uri = IntegrationMVCClient.UriEnum.USER_ID.getUri(id);
+        final var result = this.client.doGet(uri, user.getAuthId());
 
-        final String uri = IntegrationMVCClient.UriEnum.USER.getUri();
-        final var result = this.client.doGet(uri, authId);
+        final UserNotExistException userNotExistException = new UserNotExistException(id);
 
-        final UserNotExistException userNotExistException = new UserNotExistException(authId);
         IntegrationMVCClient.checkResponseFunctionalException(result, uri, userNotExistException);
     }
 }

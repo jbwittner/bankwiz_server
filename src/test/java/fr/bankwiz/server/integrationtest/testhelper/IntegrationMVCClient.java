@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -95,8 +96,18 @@ public class IntegrationMVCClient {
         return objectMapper.readValue(contentAsString, responseClass);
     }
 
+    public static <T> List<T> convertMvcResultToListOfResponseObjects(MvcResult mvcResult, Class<T> responseClass)
+            throws Exception {
+        String contentAsString = mvcResult.getResponse().getContentAsString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        JavaType type = objectMapper.getTypeFactory().constructCollectionType(List.class, responseClass);
+        return objectMapper.readValue(contentAsString, type);
+    }
+
     public static void checkResponseFunctionalException(
-            final ResultActions resultActions, final FunctionalException functionalExceptionExpected) throws Exception {
+            final ResultActions resultActions, final String uri, final FunctionalException functionalExceptionExpected)
+            throws Exception {
 
         resultActions
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
@@ -113,7 +124,7 @@ public class IntegrationMVCClient {
         final FunctionalExceptionDTO functionalExceptionDTO =
                 IntegrationMVCClient.convertMvcResultToResponseObject(response, FunctionalExceptionDTO.class);
 
-        var uri = "uri=" + resultActions.andReturn().getRequest().getRequestURI();
+        var uriDetail = "uri=" + uri;
 
         Assertions.assertAll(
                 "Check functionalExceptionDTO",
@@ -122,7 +133,7 @@ public class IntegrationMVCClient {
                 () -> Assertions.assertEquals(
                         functionalExceptionExpected.getClass().getSimpleName(), functionalExceptionDTO.getException()),
                 () -> Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), functionalExceptionDTO.getStatus()),
-                () -> Assertions.assertEquals(uri, functionalExceptionDTO.getDetails()));
+                () -> Assertions.assertEquals(uriDetail, functionalExceptionDTO.getDetails()));
     }
 
     public ResultActions doGetWithoutJwt(final String url) throws Exception {
