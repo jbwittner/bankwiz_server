@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -12,15 +15,24 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import fr.bankwiz.openapi.model.FunctionalExceptionDTO;
+import fr.bankwiz.server.exception.FunctionalException;
 
 @Component
 public class IntegrationMVCClient {
 
-    private MockMvc mvc;
+    private final MockMvc mvc;
 
     public IntegrationMVCClient(WebApplicationContext context) {
         this.mvc = MockMvcBuilders.webAppContextSetup(context)
@@ -48,6 +60,7 @@ public class IntegrationMVCClient {
         STATUS_PRIVATE("/status/private"),
         STATUS_ADMIN("/status/admin"),
         USER("/user"),
+        USER_CHECKREGISTRATION("/user/checkregistration"),
         USERS("/user/users"),
         USER_ID("/user/{0}"),
         GROUP("/group"),
@@ -76,22 +89,69 @@ public class IntegrationMVCClient {
         }
     }
 
-    public ResultActions doGet(final String url) throws Exception {
+    public static <T> T convertMvcResultToResponseObject(MvcResult mvcResult, Class<T> responseClass) throws Exception {
+        String contentAsString = mvcResult.getResponse().getContentAsString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper.readValue(contentAsString, responseClass);
+    }
+
+    public static <T> List<T> convertMvcResultToListOfResponseObjects(MvcResult mvcResult, Class<T> responseClass)
+            throws Exception {
+        String contentAsString = mvcResult.getResponse().getContentAsString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        JavaType type = objectMapper.getTypeFactory().constructCollectionType(List.class, responseClass);
+        return objectMapper.readValue(contentAsString, type);
+    }
+
+    public static void checkResponseFunctionalException(
+            final ResultActions resultActions, final String uri, final FunctionalException functionalExceptionExpected)
+            throws Exception {
+
+        resultActions
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
+
+        final Exception exception = resultActions.andReturn().getResolvedException();
+
+        Assertions.assertAll(
+                () -> Assertions.assertNotNull(exception),
+                () -> Assertions.assertEquals(functionalExceptionExpected.getClass(), exception.getClass()));
+
+        final var response = resultActions.andReturn();
+
+        final FunctionalExceptionDTO functionalExceptionDTO =
+                IntegrationMVCClient.convertMvcResultToResponseObject(response, FunctionalExceptionDTO.class);
+
+        var uriDetail = "uri=" + uri;
+
+        Assertions.assertAll(
+                "Check functionalExceptionDTO",
+                () -> Assertions.assertEquals(
+                        functionalExceptionExpected.getMessage(), functionalExceptionDTO.getMessage()),
+                () -> Assertions.assertEquals(
+                        functionalExceptionExpected.getClass().getSimpleName(), functionalExceptionDTO.getException()),
+                () -> Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), functionalExceptionDTO.getStatus()),
+                () -> Assertions.assertEquals(uriDetail, functionalExceptionDTO.getDetails()));
+    }
+
+    public ResultActions doGetWithoutJwt(final String url) throws Exception {
         return this.mvc.perform(MockMvcRequestBuilders.get(url));
     }
 
-    public ResultActions doGetWithJwt(final String url, final String subject) throws Exception {
+    public ResultActions doGet(final String url, final String subject) throws Exception {
         final Jwt jwt = Jwt.withTokenValue("token")
                 .header("alg", "none")
-                .claim("sub", "user")
+                .claim("sub", subject)
                 .build();
 
         return this.mvc.perform(MockMvcRequestBuilders.get(url)
                 .with(SecurityMockMvcRequestPostProcessors.jwt().jwt(jwt)));
     }
 
-    public ResultActions doGetWithJwtAndAuthority(
-            final String url, final String subject, final AuthorityEnum... authorities) throws Exception {
+    public ResultActions doGetWithAuthority(final String url, final String subject, final AuthorityEnum... authorities)
+            throws Exception {
 
         final List<String> authoritiesStringList =
                 Arrays.stream(authorities).map(s -> "SCOPE_" + s.getAuthority()).toList();

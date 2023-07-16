@@ -1,4 +1,4 @@
-package fr.bankwiz.server.config;
+package fr.bankwiz.server.security;
 
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
