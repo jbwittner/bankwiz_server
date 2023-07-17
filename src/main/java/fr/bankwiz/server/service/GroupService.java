@@ -41,9 +41,7 @@ public class GroupService {
     }
 
     public GroupDTO addUserToGroup(Integer groupId, AddUserGroupRequest addUserGroupRequest) {
-        Group group = this.groupRepository
-                .findById(groupId)
-                .orElseThrow(() -> new GroupNotExistException(groupId));
+        Group group = this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
 
         final User currentUser = this.authenticationFacade.getCurrentUser();
 

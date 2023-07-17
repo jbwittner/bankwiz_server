@@ -8,18 +8,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import fr.bankwiz.openapi.model.AddUserGroupRequest;
 import fr.bankwiz.openapi.model.GroupAuthorizationEnum;
 import fr.bankwiz.openapi.model.GroupDTO;
-import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationTestBase;
 import fr.bankwiz.server.model.Group;
-import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.model.User;
 
 public class AddUserToGroupTest extends IntegrationTestBase {
 
     @Override
-    protected void initDataBeforeEach() {
-    }
+    protected void initDataBeforeEach() {}
 
     @Test
     void addUserOk() throws Exception {
@@ -33,18 +31,18 @@ public class AddUserToGroupTest extends IntegrationTestBase {
         final AddUserGroupRequest addUserGroupRequest =
                 new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.READ);
 
-        var result = this.client.doPost(IntegrationMVCClient.UriEnum.GROUP_ID_USER.getUri(groupId), admin.getAuthId(), addUserGroupRequest)
+        var result = this.client
+                .doPost(
+                        IntegrationMVCClient.UriEnum.GROUP_ID_USER.getUri(groupId),
+                        admin.getAuthId(),
+                        addUserGroupRequest)
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
         final GroupDTO groupDTO = IntegrationMVCClient.convertMvcResultToResponseObject(result, GroupDTO.class);
 
-                Assertions.assertAll(
+        Assertions.assertAll(
                 () -> Assertions.assertEquals(2, groupDTO.getUsers().size()));
-
-
-
     }
-    
 }

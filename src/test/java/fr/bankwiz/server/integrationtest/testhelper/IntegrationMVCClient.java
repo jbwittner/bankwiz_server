@@ -141,28 +141,29 @@ public class IntegrationMVCClient {
                 () -> Assertions.assertEquals(uriDetail, functionalExceptionDTO.getDetails()));
     }
 
+    private Jwt createJwt(final String subject) {
+        return Jwt.withTokenValue("token")
+                .header("alg", "none")
+                .claim("sub", subject)
+                .build();
+    }
+
     public ResultActions doGetWithoutJwt(final String url) throws Exception {
         return this.mvc.perform(MockMvcRequestBuilders.get(url));
     }
 
     public ResultActions doGet(final String url, final String subject) throws Exception {
-        final Jwt jwt = Jwt.withTokenValue("token")
-                .header("alg", "none")
-                .claim("sub", subject)
-                .build();
+        final Jwt jwt = createJwt(subject);
 
         return this.mvc.perform(MockMvcRequestBuilders.get(url)
                 .with(SecurityMockMvcRequestPostProcessors.jwt().jwt(jwt)));
     }
 
     public ResultActions doPost(final String url, final String subject, Object object) throws Exception {
-        final Jwt jwt = Jwt.withTokenValue("token")
-                .header("alg", "none")
-                .claim("sub", subject)
-                .build();
-    
+        final Jwt jwt = createJwt(subject);
+
         String jsonContent = this.objectMapper.writeValueAsString(object);
-    
+
         return this.mvc.perform(MockMvcRequestBuilders.post(url)
                 .with(SecurityMockMvcRequestPostProcessors.jwt().jwt(jwt))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -170,13 +171,10 @@ public class IntegrationMVCClient {
     }
 
     public ResultActions doPut(final String url, final String subject, Object object) throws Exception {
-        final Jwt jwt = Jwt.withTokenValue("token")
-                .header("alg", "none")
-                .claim("sub", subject)
-                .build();
-    
+        final Jwt jwt = createJwt(subject);
+
         String jsonContent = this.objectMapper.writeValueAsString(object);
-    
+
         return this.mvc.perform(MockMvcRequestBuilders.put(url)
                 .with(SecurityMockMvcRequestPostProcessors.jwt().jwt(jwt))
                 .contentType(MediaType.APPLICATION_JSON)
