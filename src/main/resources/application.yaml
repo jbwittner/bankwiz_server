@@ -14,6 +14,17 @@ server:
 auth0:
     audience: Bankwiz_server
 
+logging:
+  level:
+    root: INFO
+    fr:
+      bankwiz:
+        server:
+          aop:
+            RepositoryInterceptor: ERROR
+            ServiceInterceptor: ERROR
+            ControllerInterceptor: INFO
+
 spring:
   jpa:
     show-sql: false
