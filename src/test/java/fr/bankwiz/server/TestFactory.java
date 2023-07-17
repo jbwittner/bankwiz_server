@@ -39,5 +39,4 @@ public abstract class TestFactory {
         return groupRight;
     }
 
-    protected abstract Group getGroupWithRigh(User userToAdd, GroupRightEnum groupRightEnum);
 }

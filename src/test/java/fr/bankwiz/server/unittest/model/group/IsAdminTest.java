@@ -15,10 +15,10 @@ class IsAdminTest extends UnitTestBase {
 
     @Test
     void userNotAdmin() {
-        final User anotherUser = this.unitTestFactory.getUser();
+        final User userNotAdmin = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroup();
 
-        final boolean result = group.isAdmin(anotherUser);
+        final boolean result = group.isAdmin(userNotAdmin);
 
         Assertions.assertFalse(result);
     }
