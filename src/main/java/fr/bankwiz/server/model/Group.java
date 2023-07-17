@@ -2,6 +2,7 @@ package fr.bankwiz.server.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import fr.bankwiz.server.exception.UserNoReadRightException;
 import fr.bankwiz.server.exception.UserNoWriteRightException;
@@ -40,6 +41,16 @@ public class Group {
         return this.groupRights.stream()
                 .filter(p -> p.getUser().getUserId().equals(user.userId))
                 .anyMatch(p -> p.getGroupRightEnum().equals(right));
+    }
+
+    public boolean hasAnyRight(User user) {
+        return this.groupRights.stream().anyMatch(p -> p.getUser().getUserId().equals(user.userId));
+    }
+
+    public Optional<GroupRight> getFirstRight(User user) {
+        return this.groupRights.stream()
+                .filter(p -> p.getUser().getUserId().equals(user.userId))
+                .findFirst();
     }
 
     public boolean isAdmin(User user) {

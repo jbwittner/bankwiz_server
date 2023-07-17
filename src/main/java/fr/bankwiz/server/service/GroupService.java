@@ -11,6 +11,7 @@ import fr.bankwiz.openapi.model.GroupUpdateRequest;
 import fr.bankwiz.openapi.model.UpdateUserGroupRequest;
 import fr.bankwiz.server.dto.GroupDTOBuilder;
 import fr.bankwiz.server.exception.GroupNotExistException;
+import fr.bankwiz.server.exception.UserAlreadyAccessGroupException;
 import fr.bankwiz.server.exception.UserNotExistException;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
@@ -44,12 +45,20 @@ public class GroupService {
                 .findById(groupId.intValue())
                 .orElseThrow(() -> new GroupNotExistException(groupId.intValue()));
 
+        final User currentUser = this.authenticationFacade.getCurrentUser();
+
+        group.checkIsAdmin(currentUser);
+
         final User userToAdd = this.userRepository
                 .findById(addUserGroupRequest.getUserId())
                 .orElseThrow(() -> new UserNotExistException(addUserGroupRequest.getUserId()));
 
         final GroupRightEnum rightEnum =
                 GroupRightEnum.valueOf(addUserGroupRequest.getAuthorization().getValue());
+
+        if (group.hasAnyRight(userToAdd)) {
+            throw new UserAlreadyAccessGroupException(userToAdd, group);
+        }
 
         final GroupRight groupRight = GroupRight.builder()
                 .groupRightEnum(rightEnum)
