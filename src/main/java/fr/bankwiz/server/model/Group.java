@@ -33,48 +33,22 @@ public class Group {
         groupRight.setGroup(this);
     }
 
+    public boolean hasRight(User user, GroupRightEnum right) {
+        return this.groupRights.stream()
+                .filter(p -> p.getUser().getUserId().equals(user.userId))
+                .anyMatch(p -> p.getGroupRightEnum().equals(right));
+    }
+    
     public boolean isAdmin(User user) {
-        final var resultFilter = this.groupRights.stream()
-                .filter(p -> p.getUser().getUserId().equals(user.userId))
-                .findFirst();
-        boolean result = false;
-        if (resultFilter.isPresent()) {
-            final GroupRight right = resultFilter.get();
-            if (GroupRightEnum.ADMIN.equals(right.getGroupRightEnum())) {
-                result = true;
-            }
-        }
-        return result;
+        return hasRight(user, GroupRightEnum.ADMIN);
     }
-
+    
     public boolean canWrite(User user) {
-        final var resultFilter = this.groupRights.stream()
-                .filter(p -> p.getUser().getUserId().equals(user.userId))
-                .findFirst();
-        boolean result = false;
-        if (resultFilter.isPresent()) {
-            final GroupRight right = resultFilter.get();
-            if (GroupRightEnum.WRITE.equals(right.getGroupRightEnum())
-                    || GroupRightEnum.ADMIN.equals(right.getGroupRightEnum())) {
-                result = true;
-            }
-        }
-        return result;
+        return hasRight(user, GroupRightEnum.WRITE) || isAdmin(user);
     }
-
+    
     public boolean canRead(User user) {
-        final var resultFilter = this.groupRights.stream()
-                .filter(p -> p.getUser().getUserId().equals(user.userId))
-                .findFirst();
-        boolean result = false;
-        if (resultFilter.isPresent()) {
-            final GroupRight right = resultFilter.get();
-            if (GroupRightEnum.WRITE.equals(right.getGroupRightEnum())
-                    || GroupRightEnum.ADMIN.equals(right.getGroupRightEnum())
-                    || GroupRightEnum.READ.equals(right.getGroupRightEnum())) {
-                result = true;
-            }
-        }
-        return result;
+        return hasRight(user, GroupRightEnum.READ) || canWrite(user);
     }
-}
+    
+    }
