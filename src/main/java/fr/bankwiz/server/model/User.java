@@ -35,4 +35,9 @@ public class User {
     @Builder.Default
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<GroupRight> groupRights = new ArrayList<>();
+
+    public void addGroupRight(GroupRight groupRight) {
+        this.groupRights.add(groupRight);
+        groupRight.setUser(this);
+    }
 }
