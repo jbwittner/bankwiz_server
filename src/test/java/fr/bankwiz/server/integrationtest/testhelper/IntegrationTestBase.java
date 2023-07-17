@@ -15,7 +15,7 @@ import fr.bankwiz.server.PersonalFaker;
 
 @Sql(
         scripts = {"/databases.sql"},
-        executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient

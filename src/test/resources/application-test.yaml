@@ -11,4 +11,4 @@ spring:
     banner-mode: OFF
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
