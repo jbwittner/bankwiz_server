@@ -9,7 +9,9 @@ import org.mockito.Mockito;
 import fr.bankwiz.openapi.model.AddUserGroupRequest;
 import fr.bankwiz.openapi.model.GroupAuthorizationEnum;
 import fr.bankwiz.openapi.model.GroupDTO;
+import fr.bankwiz.server.exception.GroupNotExistException;
 import fr.bankwiz.server.exception.UserAlreadyAccessGroupException;
+import fr.bankwiz.server.exception.UserNotAdminException;
 import fr.bankwiz.server.exception.UserNotExistException;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
@@ -118,5 +120,43 @@ class AddUserToGroupTest extends UnitTestBase {
 
         Assertions.assertThrows(
                 UserNotExistException.class, () -> this.groupService.addUserToGroup(groupId, addUserGroupRequest));
+    }
+
+    @Test
+    void userNotAdmin() {
+        final User admin = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroup();
+
+        final Integer groupId = group.getGroupId();
+
+        final Integer userToAddId = admin.getUserId() + 1;
+
+        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(admin);
+
+        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.userRepositoryMockFactory.mockFindById(userToAddId, Optional.empty());
+
+        AddUserGroupRequest addUserGroupRequest = new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);
+
+        Assertions.assertThrows(
+                UserNotAdminException.class, () -> this.groupService.addUserToGroup(groupId, addUserGroupRequest));
+    }
+
+    @Test
+    void groupNotExist() {
+        final User admin = this.unitTestFactory.getUser();
+
+        final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
+
+        final Integer userToAddId = admin.getUserId() + 1;
+
+        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(admin);
+
+        this.groupRepositoryMockFactory.mockFindById(groupId, Optional.empty());
+
+        AddUserGroupRequest addUserGroupRequest = new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);
+
+        Assertions.assertThrows(
+                GroupNotExistException.class, () -> this.groupService.addUserToGroup(groupId, addUserGroupRequest));
     }
 }
