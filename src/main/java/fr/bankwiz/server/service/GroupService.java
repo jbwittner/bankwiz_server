@@ -42,7 +42,7 @@ public class GroupService {
 
     public GroupDTO addUserToGroup(Integer groupId, AddUserGroupRequest addUserGroupRequest) {
         Group group = this.groupRepository
-                .findById(groupId.intValue())
+                .findById(groupId)
                 .orElseThrow(() -> new GroupNotExistException(groupId));
 
         final User currentUser = this.authenticationFacade.getCurrentUser();
