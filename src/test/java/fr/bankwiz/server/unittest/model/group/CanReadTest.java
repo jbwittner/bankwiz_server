@@ -13,42 +13,44 @@ class CanReadTest extends UnitTestBase {
     @Override
     protected void initDataBeforeEach() {}
 
+        @Test
+    void userAdminRight() {
+        final User user = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroupWithRigh(user, GroupRightEnum.ADMIN);
+
+        final boolean result = group.canRead(user);
+
+        Assertions.assertTrue(result);
+    }
+
+
     @Test
     void userWriteRight() {
-        final User anotherUser = this.unitTestFactory.getUser();
-        final Group group = this.unitTestFactory.getGroupWithRigh(anotherUser, GroupRightEnum.WRITE);
+        final User user = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroupWithRigh(user, GroupRightEnum.WRITE);
 
-        final boolean result = group.canRead(anotherUser);
-
-        Assertions.assertTrue(result);
-    }
-
-    @Test
-    void userAdminRight() {
-        final User anotherUser = this.unitTestFactory.getUser();
-        final Group group = this.unitTestFactory.getGroupWithRigh(anotherUser, GroupRightEnum.ADMIN);
-
-        final boolean result = group.canRead(anotherUser);
+        final boolean result = group.canRead(user);
 
         Assertions.assertTrue(result);
     }
+
 
     @Test
     void userReadRight() {
-        final User anotherUser = this.unitTestFactory.getUser();
-        final Group group = this.unitTestFactory.getGroupWithRigh(anotherUser, GroupRightEnum.READ);
+        final User user = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroupWithRigh(user, GroupRightEnum.READ);
 
-        final boolean result = group.canRead(anotherUser);
+        final boolean result = group.canRead(user);
 
         Assertions.assertTrue(result);
     }
 
     @Test
     void userNoRight() {
-        final User anotherUser = this.unitTestFactory.getUser();
+        final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroup();
 
-        final boolean result = group.canRead(anotherUser);
+        final boolean result = group.canRead(user);
 
         Assertions.assertFalse(result);
     }

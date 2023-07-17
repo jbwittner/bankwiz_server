@@ -3,6 +3,9 @@ package fr.bankwiz.server.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.bankwiz.server.exception.UserNoReadRightException;
+import fr.bankwiz.server.exception.UserNoWriteRightException;
+import fr.bankwiz.server.exception.UserNotAdminException;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
 import jakarta.persistence.*;
 import lombok.*;
@@ -49,5 +52,23 @@ public class Group {
 
     public boolean canRead(User user) {
         return hasRight(user, GroupRightEnum.READ) || canWrite(user);
+    }
+
+    public void checkCanWrite(User user) {
+        if (!this.canWrite(user)) {
+            throw new UserNoWriteRightException(user, this);
+        }
+    }
+
+    public void checkCanRead(User user) {
+        if (!this.canRead(user)) {
+            throw new UserNoReadRightException(user, this);
+        }
+    }
+
+    public void checkIsAdmin(User user) {
+        if (!this.isAdmin(user)) {
+            throw new UserNotAdminException(user, this);
+        }
     }
 }

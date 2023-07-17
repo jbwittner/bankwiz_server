@@ -14,22 +14,44 @@ class IsAdminTest extends UnitTestBase {
     protected void initDataBeforeEach() {}
 
     @Test
-    void userNotAdmin() {
-        final User userNotAdmin = this.unitTestFactory.getUser();
-        final Group group = this.unitTestFactory.getGroup();
+    void userAdminRight() {
+        final User user = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroupWithRigh(user, GroupRightEnum.ADMIN);
 
-        final boolean result = group.isAdmin(userNotAdmin);
+        final boolean result = group.isAdmin(user);
+
+        Assertions.assertTrue(result);
+    }
+
+
+    @Test
+    void userWriteRight() {
+        final User user = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroupWithRigh(user, GroupRightEnum.WRITE);
+
+        final boolean result = group.isAdmin(user);
+
+        Assertions.assertFalse(result);
+    }
+
+
+    @Test
+    void userReadRight() {
+        final User user = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroupWithRigh(user, GroupRightEnum.READ);
+
+        final boolean result = group.isAdmin(user);
 
         Assertions.assertFalse(result);
     }
 
     @Test
-    void userAdmin() {
-        final User adminUser = this.unitTestFactory.getUser();
-        final Group group = this.unitTestFactory.getGroupWithRigh(adminUser, GroupRightEnum.ADMIN);
+    void userNoRight() {
+        final User user = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroup();
 
-        final boolean result = group.isAdmin(adminUser);
+        final boolean result = group.isAdmin(user);
 
-        Assertions.assertTrue(result);
+        Assertions.assertFalse(result);
     }
 }
