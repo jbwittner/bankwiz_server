@@ -9,7 +9,10 @@ import org.mockito.Mockito;
 import fr.bankwiz.openapi.model.AddUserGroupRequest;
 import fr.bankwiz.openapi.model.GroupAuthorizationEnum;
 import fr.bankwiz.openapi.model.GroupDTO;
+import fr.bankwiz.server.exception.UserAlreadyAccessGroupException;
+import fr.bankwiz.server.exception.UserNotExistException;
 import fr.bankwiz.server.model.Group;
+import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.security.AuthenticationFacade;
@@ -44,12 +47,8 @@ class AddUserToGroupTest extends UnitTestBase {
         final User userToAdd = this.unitTestFactory.getUser();
         final Integer userToAddId = userToAdd.getUserId();
 
-        this.groupRepositoryMockFactory
-                .mockFindById(groupId, Optional.of(group))
-                .mockSave();
-        this.userRepositoryMockFactory
-                .mockFindById(userToAddId, Optional.of(userToAdd))
-                .mockSave();
+        this.groupRepositoryMockFactory.mockFindById(groupId, group).mockSave();
+        this.userRepositoryMockFactory.mockFindById(userToAddId, userToAdd).mockSave();
 
         final AddUserGroupRequest addUserGroupRequest =
                 new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.READ);
@@ -74,5 +73,50 @@ class AddUserToGroupTest extends UnitTestBase {
                             () -> Assertions.assertEquals(
                                     userToAdd, userSaved.getGroupRights().get(0).getUser()));
                 });
+    }
+
+    @Test
+    void userAlreadyInGroup() {
+        final User admin = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroupWithRigh(admin, GroupRightEnum.ADMIN);
+
+        final Integer groupId = group.getGroupId();
+
+        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(admin);
+
+        final User userToAdd = this.unitTestFactory.getUser();
+        final GroupRight groupRith = this.unitTestFactory.getGroupRight(userToAdd, group, GroupRightEnum.READ);
+        group.addGroupRight(groupRith);
+
+        final Integer userToAddId = userToAdd.getUserId();
+
+        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.userRepositoryMockFactory.mockFindById(userToAddId, userToAdd);
+
+        AddUserGroupRequest addUserGroupRequest = new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);
+
+        Assertions.assertThrows(
+                UserAlreadyAccessGroupException.class,
+                () -> this.groupService.addUserToGroup(groupId, addUserGroupRequest));
+    }
+
+    @Test
+    void userNotExist() {
+        final User admin = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroupWithRigh(admin, GroupRightEnum.ADMIN);
+
+        final Integer groupId = group.getGroupId();
+
+        final Integer userToAddId = admin.getUserId() + 1;
+
+        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(admin);
+
+        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.userRepositoryMockFactory.mockFindById(userToAddId, Optional.empty());
+
+        AddUserGroupRequest addUserGroupRequest = new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);
+
+        Assertions.assertThrows(
+                UserNotExistException.class, () -> this.groupService.addUserToGroup(groupId, addUserGroupRequest));
     }
 }
