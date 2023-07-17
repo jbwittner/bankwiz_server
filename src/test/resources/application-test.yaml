@@ -2,6 +2,10 @@ application:
   server:
     context-path: /api
 
+logging:
+  level:
+    fr: OFF
+
 spring:
   main:
     banner-mode: OFF

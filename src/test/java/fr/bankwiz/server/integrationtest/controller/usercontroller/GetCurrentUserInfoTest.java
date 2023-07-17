@@ -2,7 +2,6 @@ package fr.bankwiz.server.integrationtest.controller.usercontroller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -11,12 +10,8 @@ import fr.bankwiz.server.exception.UserNotExistException;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationTestBase;
 import fr.bankwiz.server.model.User;
-import fr.bankwiz.server.repository.UserRepository;
 
 class GetCurrentUserInfoTest extends IntegrationTestBase {
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Override
     protected void initDataBeforeEach() {}
