@@ -17,5 +17,4 @@ public class IntegrationTestFactory extends TestFactory {
         final User user = super.getUser();
         return this.userRepository.save(user);
     }
-
 }

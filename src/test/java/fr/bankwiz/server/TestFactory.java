@@ -38,5 +38,4 @@ public abstract class TestFactory {
         group.addGroupRight(groupRight);
         return groupRight;
     }
-
 }

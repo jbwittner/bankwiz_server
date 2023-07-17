@@ -38,17 +38,16 @@ public class Group {
                 .filter(p -> p.getUser().getUserId().equals(user.userId))
                 .anyMatch(p -> p.getGroupRightEnum().equals(right));
     }
-    
+
     public boolean isAdmin(User user) {
         return hasRight(user, GroupRightEnum.ADMIN);
     }
-    
+
     public boolean canWrite(User user) {
         return hasRight(user, GroupRightEnum.WRITE) || isAdmin(user);
     }
-    
+
     public boolean canRead(User user) {
         return hasRight(user, GroupRightEnum.READ) || canWrite(user);
     }
-    
-    }
+}

@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.model.Group;
-import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
 
 class CanReadTest extends UnitTestBase {
