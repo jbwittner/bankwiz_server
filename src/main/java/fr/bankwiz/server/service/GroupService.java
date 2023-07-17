@@ -74,38 +74,30 @@ public class GroupService {
 
         return GROUP_DTO_BUILDER.transform(group);
     }
-    ;
 
     public GroupDTO createGroup(GroupCreationRequest groupCreationRequest) {
         return null;
     }
-    ;
 
     public GroupDTO getGroup(Integer groupId) {
         return null;
     }
-    ;
 
     public List<GroupDTO> getGroups() {
         return null;
     }
-    ;
 
     public GroupDTO removeUserFromGroup(Integer groupId, Integer userId) {
         return null;
     }
-    ;
 
     public GroupDTO updateGroup(Integer groupId, GroupUpdateRequest groupUpdateRequest) {
         return null;
     }
-    ;
 
     public GroupDTO updateUserInGroup(Integer groupId, Integer userId, UpdateUserGroupRequest updateUserGroupRequest) {
         return null;
     }
-    ;
 
     public void deleteGroup(Integer groupId) {}
-    ;
 }
