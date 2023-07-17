@@ -23,7 +23,6 @@ class IsAdminTest extends UnitTestBase {
         Assertions.assertTrue(result);
     }
 
-
     @Test
     void userWriteRight() {
         final User user = this.unitTestFactory.getUser();
@@ -33,7 +32,6 @@ class IsAdminTest extends UnitTestBase {
 
         Assertions.assertFalse(result);
     }
-
 
     @Test
     void userReadRight() {

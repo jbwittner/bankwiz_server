@@ -3,7 +3,6 @@ package fr.bankwiz.server.unittest.model.group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.exception.UserNoWriteRightException;
 import fr.bankwiz.server.exception.UserNotAdminException;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
@@ -15,7 +14,7 @@ class CheckIsAdminTest extends UnitTestBase {
     @Override
     protected void initDataBeforeEach() {}
 
-        @Test
+    @Test
     void userAdminRight() {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRigh(user, GroupRightEnum.ADMIN);
@@ -34,7 +33,6 @@ class CheckIsAdminTest extends UnitTestBase {
             group.checkIsAdmin(user);
         });
     }
-
 
     @Test
     void userReadRight() {

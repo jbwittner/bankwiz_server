@@ -13,7 +13,7 @@ class CanReadTest extends UnitTestBase {
     @Override
     protected void initDataBeforeEach() {}
 
-        @Test
+    @Test
     void userAdminRight() {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRigh(user, GroupRightEnum.ADMIN);
@@ -22,7 +22,6 @@ class CanReadTest extends UnitTestBase {
 
         Assertions.assertTrue(result);
     }
-
 
     @Test
     void userWriteRight() {
@@ -33,7 +32,6 @@ class CanReadTest extends UnitTestBase {
 
         Assertions.assertTrue(result);
     }
-
 
     @Test
     void userReadRight() {

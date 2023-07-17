@@ -13,14 +13,16 @@ class CheckCanReadTest extends UnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {}
+
     @Test
     void userAdminRight() {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRigh(user, GroupRightEnum.ADMIN);
 
-Assertions.assertDoesNotThrow(() -> {
+        Assertions.assertDoesNotThrow(() -> {
             group.checkCanRead(user);
-        });    }
+        });
+    }
 
     @Test
     void userWriteRight() {
@@ -30,25 +32,25 @@ Assertions.assertDoesNotThrow(() -> {
         Assertions.assertDoesNotThrow(() -> {
             group.checkCanRead(user);
         });
-
     }
-
 
     @Test
     void userReadRight() {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRigh(user, GroupRightEnum.READ);
 
-Assertions.assertDoesNotThrow(() -> {
+        Assertions.assertDoesNotThrow(() -> {
             group.checkCanRead(user);
-        });    }
+        });
+    }
 
     @Test
     void userNoRight() {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroup();
 
-Assertions.assertThrows(UserNoReadRightException.class, () -> {
+        Assertions.assertThrows(UserNoReadRightException.class, () -> {
             group.checkCanRead(user);
-        });    }
+        });
+    }
 }
