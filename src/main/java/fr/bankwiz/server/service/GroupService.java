@@ -43,7 +43,7 @@ public class GroupService {
     public GroupDTO addUserToGroup(Integer groupId, AddUserGroupRequest addUserGroupRequest) {
         Group group = this.groupRepository
                 .findById(groupId.intValue())
-                .orElseThrow(() -> new GroupNotExistException(groupId.intValue()));
+                .orElseThrow(() -> new GroupNotExistException(groupId));
 
         final User currentUser = this.authenticationFacade.getCurrentUser();
 
