@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import fr.bankwiz.server.TestFactory;
+import fr.bankwiz.server.model.Group;
+import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.repository.UserRepository;
 
@@ -16,5 +18,10 @@ public class IntegrationTestFactory extends TestFactory {
     public User getUser() {
         final User user = super.getUser();
         return this.userRepository.save(user);
+    }
+
+    @Override
+    protected Group getGroupWithRigh(User userToAdd, GroupRightEnum groupRightEnum) {
+        throw new UnsupportedOperationException("Unimplemented method 'getGroupWithRigh'");
     }
 }

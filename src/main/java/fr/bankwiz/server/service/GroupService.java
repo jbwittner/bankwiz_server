@@ -14,8 +14,8 @@ import fr.bankwiz.server.exception.GroupNotExistException;
 import fr.bankwiz.server.exception.UserNotExistException;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
-import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.repository.GroupRepository;
 import fr.bankwiz.server.repository.UserRepository;
 import fr.bankwiz.server.security.AuthenticationFacade;
@@ -25,7 +25,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class GroupService {
 
-        private static final GroupDTOBuilder GROUP_DTO_BUILDER = new GroupDTOBuilder();
+    private static final GroupDTOBuilder GROUP_DTO_BUILDER = new GroupDTOBuilder();
 
     private final GroupRepository groupRepository;
     private final UserRepository userRepository;
@@ -33,15 +33,13 @@ public class GroupService {
     private final AuthenticationFacade authenticationFacade;
 
     public GroupService(
-            AuthenticationFacade authenticationFacade,
-            GroupRepository groupRepository,
-            UserRepository userRepository) {
+            AuthenticationFacade authenticationFacade, GroupRepository groupRepository, UserRepository userRepository) {
         this.authenticationFacade = authenticationFacade;
         this.groupRepository = groupRepository;
         this.userRepository = userRepository;
     }
 
-    public GroupDTO addUserToGroup(Integer groupId, AddUserGroupRequest addUserGroupRequest){
+    public GroupDTO addUserToGroup(Integer groupId, AddUserGroupRequest addUserGroupRequest) {
         Group group = this.groupRepository
                 .findById(groupId.intValue())
                 .orElseThrow(() -> new GroupNotExistException(groupId.intValue()));
@@ -66,33 +64,39 @@ public class GroupService {
         this.userRepository.save(userToAdd);
 
         return GROUP_DTO_BUILDER.transform(group);
+    }
+    ;
 
-    };
-
-    public GroupDTO createGroup(GroupCreationRequest groupCreationRequest){
+    public GroupDTO createGroup(GroupCreationRequest groupCreationRequest) {
         return null;
-    };
+    }
+    ;
 
-    public GroupDTO getGroup(Integer groupId){
+    public GroupDTO getGroup(Integer groupId) {
         return null;
-    };
+    }
+    ;
 
-    public List<GroupDTO> getGroups(){
+    public List<GroupDTO> getGroups() {
         return null;
-    };
+    }
+    ;
 
-    public GroupDTO removeUserFromGroup(Integer groupId, Integer userId){
+    public GroupDTO removeUserFromGroup(Integer groupId, Integer userId) {
         return null;
-    };
+    }
+    ;
 
-    public GroupDTO updateGroup(Integer groupId, GroupUpdateRequest groupUpdateRequest){
+    public GroupDTO updateGroup(Integer groupId, GroupUpdateRequest groupUpdateRequest) {
         return null;
-    };
+    }
+    ;
 
-    public GroupDTO updateUserInGroup(Integer groupId, Integer userId, UpdateUserGroupRequest updateUserGroupRequest){
+    public GroupDTO updateUserInGroup(Integer groupId, Integer userId, UpdateUserGroupRequest updateUserGroupRequest) {
         return null;
-    };
+    }
+    ;
 
-    public void deleteGroup(Integer groupId){
-    };
+    public void deleteGroup(Integer groupId) {}
+    ;
 }

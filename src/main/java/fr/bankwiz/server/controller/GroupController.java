@@ -67,5 +67,4 @@ public class GroupController implements GroupApi {
         this.groupService.deleteGroup(groupId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

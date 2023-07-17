@@ -33,7 +33,7 @@ public class Group {
         groupRight.setGroup(this);
     }
 
-        public boolean isAdmin(User user) {
+    public boolean isAdmin(User user) {
         final var resultFilter = this.groupRights.stream()
                 .filter(p -> p.getUser().getUserId().equals(user.userId))
                 .findFirst();
@@ -77,5 +77,4 @@ public class Group {
         }
         return result;
     }
-
 }

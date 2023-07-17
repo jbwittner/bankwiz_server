@@ -1,8 +1,11 @@
 package fr.bankwiz.server;
 
+import fr.bankwiz.server.model.Group;
+import fr.bankwiz.server.model.GroupRight;
+import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.model.User;
 
-public class TestFactory {
+public abstract class TestFactory {
 
     protected PersonalFaker faker;
 
@@ -20,4 +23,21 @@ public class TestFactory {
                 .authId(authId)
                 .build();
     }
+
+    protected Group getGroup() {
+        return Group.builder().groupName(this.faker.zelda().character()).build();
+    }
+
+    protected GroupRight getGroupRight(User user, Group group, GroupRightEnum groupRightEnum) {
+        final GroupRight groupRight = GroupRight.builder()
+                .user(user)
+                .group(group)
+                .groupRightEnum(groupRightEnum)
+                .build();
+        user.addGroupRight(groupRight);
+        group.addGroupRight(groupRight);
+        return groupRight;
+    }
+
+    protected abstract Group getGroupWithRigh(User userToAdd, GroupRightEnum groupRightEnum);
 }
