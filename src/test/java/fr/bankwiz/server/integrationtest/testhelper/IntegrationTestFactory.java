@@ -34,14 +34,14 @@ public class IntegrationTestFactory extends TestFactory {
         return this.groupRepository.save(group);
     }
 
-    public GroupRight getGroupRight(User user, Group group, GroupRightEnum groupRightEnum) {
+    public void addUserToGroup(Group group, User user, GroupRightEnum groupRightEnum) {
         GroupRight groupRight = super.getGroupRight(user, group, groupRightEnum);
-        return this.groupRightRepository.save(groupRight);
+        this.groupRightRepository.save(groupRight);
     }
 
-    public Group getGroupWithRigh(User userToAdd, GroupRightEnum groupRightEnum) {
+    public Group getGroupWithRight(User userToAdd, GroupRightEnum groupRightEnum) {
         final Group group = this.getGroup();
-        this.getGroupRight(userToAdd, group, groupRightEnum);
+        this.addUserToGroup(group, userToAdd, groupRightEnum);
         return group;
     }
 }

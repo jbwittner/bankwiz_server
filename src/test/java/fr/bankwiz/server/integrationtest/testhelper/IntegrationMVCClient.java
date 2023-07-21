@@ -67,17 +67,17 @@ public class IntegrationMVCClient {
         USER("/user"),
         USER_CHECKREGISTRATION("/user/checkregistration"),
         USERS("/user/users"),
-        USER_ID("/user/{0}"),
+        USER_ID("/user/{0,number,#}"),
         GROUP("/group"),
-        GROUP_ID_USER("/group/{0}/user"),
-        GROUP_ID("/group/{0}"),
+        GROUP_ID_USER("/group/{0,number,#}/user"),
+        GROUP_ID("/group/{0,number,#}"),
         GROUPS("/group/groups"),
-        GROUP_ID_USER_ID("/group/{0}/user/{1}"),
+        GROUP_ID_USER_ID("/group/{0,number,#}/user/{1,number,#}"),
         ACCOUNT("/account"),
-        ACCOUNT_ID_ACCOUNT("/account/{0}"),
+        ACCOUNT_ID_ACCOUNT("/account/{0,number,#}"),
         ACCOUNTS("/account/accounts"),
         ACCOUNTLINE("/accountline"),
-        ACCOUNTLINE_ID_LINE("/accountline/{0}");
+        ACCOUNTLINE_ID_LINE("/accountline/{0,number,#}");
 
         private final String uri;
 
