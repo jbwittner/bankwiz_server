@@ -18,6 +18,7 @@ import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.repository.GroupRepository;
+import fr.bankwiz.server.repository.GroupRightRepository;
 import fr.bankwiz.server.repository.UserRepository;
 import fr.bankwiz.server.security.AuthenticationFacade;
 import jakarta.transaction.Transactional;
@@ -31,13 +32,19 @@ public class GroupService {
     private final GroupRepository groupRepository;
     private final UserRepository userRepository;
 
+    private final GroupRightRepository groupRightRepository;
+
     private final AuthenticationFacade authenticationFacade;
 
     public GroupService(
-            AuthenticationFacade authenticationFacade, GroupRepository groupRepository, UserRepository userRepository) {
+            AuthenticationFacade authenticationFacade,
+            GroupRepository groupRepository,
+            UserRepository userRepository,
+            GroupRightRepository groupRightRepository) {
         this.authenticationFacade = authenticationFacade;
         this.groupRepository = groupRepository;
         this.userRepository = userRepository;
+        this.groupRightRepository = groupRightRepository;
     }
 
     public GroupDTO addUserToGroup(Integer groupId, AddUserGroupRequest addUserGroupRequest) {
@@ -58,17 +65,16 @@ public class GroupService {
             throw new UserAlreadyAccessGroupException(userToAdd, group);
         }
 
-        final GroupRight groupRight = GroupRight.builder()
+        GroupRight groupRight = GroupRight.builder()
                 .groupRightEnum(rightEnum)
                 .user(userToAdd)
                 .group(group)
                 .build();
 
+        groupRight = this.groupRightRepository.save(groupRight);
+
         group.addGroupRight(groupRight);
         userToAdd.addGroupRight(groupRight);
-
-        group = this.groupRepository.save(group);
-        this.userRepository.save(userToAdd);
 
         return GROUP_DTO_BUILDER.transform(group);
     }
@@ -87,11 +93,10 @@ public class GroupService {
                 .groupRightEnum(GroupRightEnum.ADMIN)
                 .build();
 
-        user.addGroupRight(groupRight);
-        group.addGroupRight(groupRight);
+        groupRight = this.groupRightRepository.save(groupRight);
 
-        this.userRepository.save(user);
-        group = this.groupRepository.save(group);
+        group.addGroupRight(groupRight);
+        user.addGroupRight(groupRight);
 
         return GROUP_DTO_BUILDER.transform(group);
     }
