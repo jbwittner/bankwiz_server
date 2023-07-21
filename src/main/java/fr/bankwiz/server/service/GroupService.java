@@ -74,7 +74,26 @@ public class GroupService {
     }
 
     public GroupDTO createGroup(GroupCreationRequest groupCreationRequest) {
-        return null;
+        Group group =
+                Group.builder().groupName(groupCreationRequest.getGroupName()).build();
+
+        group = this.groupRepository.save(group);
+
+        final User user = this.authenticationFacade.getCurrentUser();
+
+        GroupRight groupRight = GroupRight.builder()
+                .group(group)
+                .user(user)
+                .groupRightEnum(GroupRightEnum.ADMIN)
+                .build();
+
+        user.addGroupRight(groupRight);
+        group.addGroupRight(groupRight);
+
+        this.userRepository.save(user);
+        group = this.groupRepository.save(group);
+
+        return GROUP_DTO_BUILDER.transform(group);
     }
 
     public GroupDTO getGroup(Integer groupId) {
