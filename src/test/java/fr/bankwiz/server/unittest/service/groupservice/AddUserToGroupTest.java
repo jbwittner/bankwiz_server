@@ -34,7 +34,8 @@ class AddUserToGroupTest extends UnitTestBase {
         this.groupService = new GroupService(
                 this.mockAuthenticationFacade,
                 this.groupRepositoryMockFactory.getRepository(),
-                this.userRepositoryMockFactory.getRepository());
+                this.userRepositoryMockFactory.getRepository(),
+                this.groupRightRepositoryMockFactory.getRepository());
     }
 
     @Test
