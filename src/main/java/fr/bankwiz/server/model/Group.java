@@ -39,7 +39,6 @@ public class Group {
 
     public void removeGroupRight(GroupRight groupRight) {
         this.groupRights.remove(groupRight);
-        groupRight.setGroup(null);
     }
 
     public boolean hasRight(User user, GroupRightEnum right) {

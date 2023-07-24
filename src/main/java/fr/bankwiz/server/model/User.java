@@ -43,6 +43,5 @@ public class User {
 
     public void removeGroupRight(GroupRight groupRight) {
         this.groupRights.remove(groupRight);
-        groupRight.setGroup(null);
     }
 }

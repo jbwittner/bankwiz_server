@@ -173,6 +173,11 @@ public class GroupService {
         final Group group =
                 this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
         final User user = this.authenticationFacade.getCurrentUser();
+        group.getGroupRights().forEach(groupRight -> {
+            group.removeGroupRight(groupRight);
+            groupRight.getUser().removeGroupRight(groupRight);
+            this.groupRightRepository.delete(groupRight);
+        });
         group.checkIsAdmin(user);
         this.groupRepository.delete(group);
     }
