@@ -50,31 +50,32 @@ class AddUserToGroupTest extends UnitTestBase {
         final User userToAdd = this.unitTestFactory.getUser();
         final Integer userToAddId = userToAdd.getUserId();
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group).mockSave();
-        this.userRepositoryMockFactory.mockFindById(userToAddId, userToAdd).mockSave();
+        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.userRepositoryMockFactory.mockFindById(userToAddId, userToAdd);
+        this.groupRightRepositoryMockFactory.mockSave();
 
         final AddUserGroupRequest addUserGroupRequest =
                 new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.READ);
 
         final GroupDTO groupDTO = this.groupService.addUserToGroup(groupId, addUserGroupRequest);
 
-        var argumentCaptor = this.userRepositoryMockFactory.verifySaveCalled(User.class);
-        final User userSaved = argumentCaptor.getValue();
+        var argumentCaptor = this.groupRightRepositoryMockFactory.verifySaveCalled(GroupRight.class);
+        final GroupRight rightSaved = argumentCaptor.getValue();
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(2, groupDTO.getUsers().size()),
-                () -> Assertions.assertEquals(userToAddId, userSaved.getUserId()),
+                () -> Assertions.assertEquals(userToAddId, rightSaved.getUser().getUserId()),
                 () -> {
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(
-                                    1, userSaved.getGroupRights().size()),
+                                    1, rightSaved.getUser().getGroupRights().size()),
                             () -> Assertions.assertEquals(
                                     GroupRightEnum.READ,
-                                    userSaved.getGroupRights().get(0).getGroupRightEnum()),
+                                    rightSaved.getGroupRightEnum()),
                             () -> Assertions.assertEquals(
-                                    group, userSaved.getGroupRights().get(0).getGroup()),
+                                    group, rightSaved.getGroup()),
                             () -> Assertions.assertEquals(
-                                    userToAdd, userSaved.getGroupRights().get(0).getUser()));
+                                    userToAdd, rightSaved.getUser()));
                 });
     }
 
