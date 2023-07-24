@@ -40,4 +40,9 @@ public class User {
         this.groupRights.add(groupRight);
         groupRight.setUser(this);
     }
+
+    public void removeGroupRight(GroupRight groupRight) {
+        this.groupRights.remove(groupRight);
+        groupRight.setGroup(null);
+    }
 }

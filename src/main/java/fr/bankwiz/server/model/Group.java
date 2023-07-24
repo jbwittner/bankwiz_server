@@ -37,6 +37,11 @@ public class Group {
         groupRight.setGroup(this);
     }
 
+    public void removeGroupRight(GroupRight groupRight) {
+        this.groupRights.remove(groupRight);
+        groupRight.setGroup(null);
+    }
+
     public boolean hasRight(User user, GroupRightEnum right) {
         return this.groupRights.stream()
                 .filter(p -> p.getUser().getUserId().equals(user.userId))

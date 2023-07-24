@@ -85,8 +85,8 @@ class AddUserToGroupTest extends UnitTestBase {
         Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(admin);
 
         final User userToAdd = this.unitTestFactory.getUser();
-        final GroupRight groupRith = this.unitTestFactory.getGroupRight(userToAdd, group, GroupRightEnum.READ);
-        group.addGroupRight(groupRith);
+        final GroupRight groupRight = this.unitTestFactory.getGroupRight(userToAdd, group, GroupRightEnum.READ);
+        group.addGroupRight(groupRight);
 
         final Integer userToAddId = userToAdd.getUserId();
 

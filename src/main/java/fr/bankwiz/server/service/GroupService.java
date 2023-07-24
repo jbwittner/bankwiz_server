@@ -12,6 +12,7 @@ import fr.bankwiz.openapi.model.UpdateUserGroupRequest;
 import fr.bankwiz.server.dto.GroupDTOBuilder;
 import fr.bankwiz.server.exception.GroupNotExistException;
 import fr.bankwiz.server.exception.UserAlreadyAccessGroupException;
+import fr.bankwiz.server.exception.UserNoAccessGroupException;
 import fr.bankwiz.server.exception.UserNotExistException;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
@@ -102,24 +103,77 @@ public class GroupService {
     }
 
     public GroupDTO getGroup(Integer groupId) {
-        return null;
+        final Group group =
+                this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+        final User user = this.authenticationFacade.getCurrentUser();
+        group.checkCanRead(user);
+        return GROUP_DTO_BUILDER.transform(group);
     }
 
     public List<GroupDTO> getGroups() {
-        return null;
+        final User user = this.authenticationFacade.getCurrentUser();
+        final var groups =
+                user.getGroupRights().stream().map(GroupRight::getGroup).toList();
+        return GROUP_DTO_BUILDER.transformAll(groups);
     }
 
     public GroupDTO removeUserFromGroup(Integer groupId, Integer userId) {
-        return null;
+        Group group = this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+
+        final User user = this.authenticationFacade.getCurrentUser();
+
+        group.checkIsAdmin(user);
+
+        final User userToRemove =
+                this.userRepository.findById(userId).orElseThrow(() -> new UserNotExistException(userId));
+
+        final GroupRight groupRightToRemove = group.getGroupRights().stream()
+                .filter(groupRight -> groupRight.getUser().equals(userToRemove))
+                .findFirst()
+                .orElseThrow(() -> new UserNoAccessGroupException(userToRemove, group));
+
+        this.groupRightRepository.delete(groupRightToRemove);
+        group.removeGroupRight(groupRightToRemove);
+        user.removeGroupRight(groupRightToRemove);
+
+        return GROUP_DTO_BUILDER.transform(group);
     }
 
     public GroupDTO updateGroup(Integer groupId, GroupUpdateRequest groupUpdateRequest) {
-        return null;
+        Group group = this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+        final User user = this.authenticationFacade.getCurrentUser();
+        group.checkIsAdmin(user);
+        group.setGroupName(groupUpdateRequest.getGroupName());
+        return GROUP_DTO_BUILDER.transform(group);
     }
 
     public GroupDTO updateUserInGroup(Integer groupId, Integer userId, UpdateUserGroupRequest updateUserGroupRequest) {
-        return null;
+        final Group group =
+                this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+        final User user = this.authenticationFacade.getCurrentUser();
+        group.checkIsAdmin(user);
+
+        final User userToUpdate =
+                this.userRepository.findById(userId).orElseThrow(() -> new UserNotExistException(userId));
+
+        final GroupRight groupRightToUpdate = group.getGroupRights().stream()
+                .filter(groupRight -> groupRight.getUser().equals(userToUpdate))
+                .findFirst()
+                .orElseThrow(() -> new UserNoAccessGroupException(userToUpdate, group));
+
+        final GroupRightEnum rightEnum =
+                GroupRightEnum.valueOf(updateUserGroupRequest.getAuthorization().getValue());
+
+        groupRightToUpdate.setGroupRightEnum(rightEnum);
+
+        return GROUP_DTO_BUILDER.transform(group);
     }
 
-    public void deleteGroup(Integer groupId) {}
+    public void deleteGroup(Integer groupId) {
+        final Group group =
+                this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+        final User user = this.authenticationFacade.getCurrentUser();
+        group.checkIsAdmin(user);
+        this.groupRepository.delete(group);
+    }
 }
