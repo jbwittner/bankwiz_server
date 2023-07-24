@@ -29,7 +29,7 @@ public class Group {
     private String groupName;
 
     @Builder.Default
-    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<GroupRight> groupRights = new ArrayList<>();
 
     public void addGroupRight(GroupRight groupRight) {

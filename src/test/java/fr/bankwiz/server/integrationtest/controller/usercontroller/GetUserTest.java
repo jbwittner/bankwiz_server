@@ -12,6 +12,7 @@ import fr.bankwiz.server.integrationtest.testhelper.IntegrationTestBase;
 import fr.bankwiz.server.model.User;
 
 class GetUserTest extends IntegrationTestBase {
+
     @Override
     protected void initDataBeforeEach() {}
 

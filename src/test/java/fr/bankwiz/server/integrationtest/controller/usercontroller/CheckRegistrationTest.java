@@ -3,7 +3,6 @@ package fr.bankwiz.server.integrationtest.controller.usercontroller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -12,13 +11,9 @@ import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationTestBase;
 import fr.bankwiz.server.model.User;
-import fr.bankwiz.server.repository.UserRepository;
 import fr.bankwiz.server.security.AuthenticationFacade;
 
 class CheckRegistrationTest extends IntegrationTestBase {
-
-    @Autowired
-    private UserRepository userRepository;
 
     @MockBean
     protected AuthenticationFacade authenticationFacade;

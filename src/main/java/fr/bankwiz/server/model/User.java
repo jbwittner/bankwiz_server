@@ -33,7 +33,7 @@ public class User {
     private String email;
 
     @Builder.Default
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<GroupRight> groupRights = new ArrayList<>();
 
     public void addGroupRight(GroupRight groupRight) {

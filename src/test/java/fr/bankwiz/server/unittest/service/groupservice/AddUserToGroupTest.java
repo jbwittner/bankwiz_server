@@ -69,13 +69,9 @@ class AddUserToGroupTest extends UnitTestBase {
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(
                                     1, rightSaved.getUser().getGroupRights().size()),
-                            () -> Assertions.assertEquals(
-                                    GroupRightEnum.READ,
-                                    rightSaved.getGroupRightEnum()),
-                            () -> Assertions.assertEquals(
-                                    group, rightSaved.getGroup()),
-                            () -> Assertions.assertEquals(
-                                    userToAdd, rightSaved.getUser()));
+                            () -> Assertions.assertEquals(GroupRightEnum.READ, rightSaved.getGroupRightEnum()),
+                            () -> Assertions.assertEquals(group, rightSaved.getGroup()),
+                            () -> Assertions.assertEquals(userToAdd, rightSaved.getUser()));
                 });
     }
 

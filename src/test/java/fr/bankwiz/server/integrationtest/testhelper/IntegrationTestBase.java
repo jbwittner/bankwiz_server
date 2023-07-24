@@ -12,6 +12,9 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 import fr.bankwiz.server.PersonalFaker;
+import fr.bankwiz.server.repository.GroupRepository;
+import fr.bankwiz.server.repository.GroupRightRepository;
+import fr.bankwiz.server.repository.UserRepository;
 
 @Sql(
         scripts = {"/databases.sql"},
@@ -25,6 +28,15 @@ public abstract class IntegrationTestBase {
 
     @Autowired
     protected IntegrationTestFactory integrationTestFactory;
+
+    @Autowired
+    protected UserRepository userRepository;
+
+    @Autowired
+    protected GroupRepository groupRepository;
+
+    @Autowired
+    protected GroupRightRepository groupRightRepository;
 
     @LocalServerPort
     protected int port;
