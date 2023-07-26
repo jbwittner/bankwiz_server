@@ -26,13 +26,13 @@ CREATE TABLE `GROUP_RIGHTS` (
   `GROUP_ID` int NOT NULL,
   `RIGHT_ID` int NOT NULL AUTO_INCREMENT,
   `USER_ID` int NOT NULL,
-  `GROUP_RIGHT` enum('ADMIN','READ','WRITE') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `GROUP_RIGHT` enum('ADMIN','READ','WRITE') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`RIGHT_ID`),
   KEY `FK_GROUP` (`GROUP_ID`),
   KEY `FK_USER` (`USER_ID`),
   CONSTRAINT `FK_GROUP` FOREIGN KEY (`GROUP_ID`) REFERENCES `USER_GROUP` (`GROUP_ID`),
   CONSTRAINT `FK_USER` FOREIGN KEY (`USER_ID`) REFERENCES `USER_ACCOUNT` (`USER_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,12 +44,12 @@ DROP TABLE IF EXISTS `USER_ACCOUNT`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `USER_ACCOUNT` (
   `USER_ID` int NOT NULL AUTO_INCREMENT,
-  `FIRST_NAME` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `LAST_NAME` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `AUTH_ID` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `EMAIL` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `FIRST_NAME` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `LAST_NAME` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `AUTH_ID` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `EMAIL` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`USER_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,9 +61,9 @@ DROP TABLE IF EXISTS `USER_GROUP`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `USER_GROUP` (
   `GROUP_ID` int NOT NULL AUTO_INCREMENT,
-  `GROUP_NAME` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `GROUP_NAME` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`GROUP_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -75,4 +75,4 @@ CREATE TABLE `USER_GROUP` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-17 11:38:24
+-- Dump completed on 2023-07-26 15:49:19

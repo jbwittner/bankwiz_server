@@ -174,22 +174,19 @@ public class GroupService {
     public void deleteGroup(Integer groupId) {
         final Group group =
                 this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+
         final User user = this.authenticationFacade.getCurrentUser();
 
         group.checkIsAdmin(user);
 
-        System.out.println(group.getGroupRights().size());
+        List<GroupRight> groupRights = this.groupRightRepository.findAllByGroup(group);
 
-        group.getGroupRights().forEach(groupRight -> {
-            System.out.println(groupRight.getRightId());
-            var delete1 = group.removeGroupRight(groupRight);
-            var delete2 = groupRight.getUser().removeGroupRight(groupRight);
-            System.out.println(delete1);
-            System.out.println(delete2);
+        groupRights.forEach(groupRight -> {
+            group.removeGroupRight(groupRight);
+            groupRight.getUser().removeGroupRight(groupRight);
             this.groupRightRepository.delete(groupRight);
         });
 
-
-        //this.groupRepository.delete(group);
+        this.groupRepository.delete(group);
     }
 }
