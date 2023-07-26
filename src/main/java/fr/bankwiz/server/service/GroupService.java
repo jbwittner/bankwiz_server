@@ -134,7 +134,9 @@ public class GroupService {
 
         this.groupRightRepository.delete(groupRightToRemove);
         group.removeGroupRight(groupRightToRemove);
-        user.removeGroupRight(groupRightToRemove);
+        userToRemove.removeGroupRight(groupRightToRemove);
+        this.groupRepository.save(group);
+        this.userRepository.save(user);
 
         return GROUP_DTO_BUILDER.transform(group);
     }
@@ -173,12 +175,21 @@ public class GroupService {
         final Group group =
                 this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
         final User user = this.authenticationFacade.getCurrentUser();
+
+        group.checkIsAdmin(user);
+
+        System.out.println(group.getGroupRights().size());
+
         group.getGroupRights().forEach(groupRight -> {
-            group.removeGroupRight(groupRight);
-            groupRight.getUser().removeGroupRight(groupRight);
+            System.out.println(groupRight.getRightId());
+            var delete1 = group.removeGroupRight(groupRight);
+            var delete2 = groupRight.getUser().removeGroupRight(groupRight);
+            System.out.println(delete1);
+            System.out.println(delete2);
             this.groupRightRepository.delete(groupRight);
         });
-        group.checkIsAdmin(user);
-        this.groupRepository.delete(group);
+
+
+        //this.groupRepository.delete(group);
     }
 }
