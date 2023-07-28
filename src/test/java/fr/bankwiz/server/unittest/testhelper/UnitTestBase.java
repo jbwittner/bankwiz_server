@@ -1,8 +1,10 @@
 package fr.bankwiz.server.unittest.testhelper;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.mockito.Mockito;
 
 import fr.bankwiz.server.PersonalFaker;
+import fr.bankwiz.server.security.AuthenticationFacade;
 import fr.bankwiz.server.unittest.testhelper.mockrepository.GroupRepositoryMockFactory;
 import fr.bankwiz.server.unittest.testhelper.mockrepository.GroupRightRepositoryMockFactory;
 import fr.bankwiz.server.unittest.testhelper.mockrepository.UserRepositoryMockFactory;
@@ -10,6 +12,9 @@ import fr.bankwiz.server.unittest.testhelper.mockrepository.UserRepositoryMockFa
 public abstract class UnitTestBase {
     protected PersonalFaker faker;
     protected UnitTestFactory unitTestFactory;
+    protected AuthenticationFacade mockAuthenticationFacade;
+    protected AuthenticationFacadeMockFactory authenticationFacadeMockFactory;
+
     protected UserRepositoryMockFactory userRepositoryMockFactory;
     protected GroupRepositoryMockFactory groupRepositoryMockFactory;
     protected GroupRightRepositoryMockFactory groupRightRepositoryMockFactory;
@@ -19,6 +24,8 @@ public abstract class UnitTestBase {
     public void beforeEach() {
         this.faker = new PersonalFaker();
         this.unitTestFactory = new UnitTestFactory(this.faker);
+        this.authenticationFacadeMockFactory = new AuthenticationFacadeMockFactory();
+        this.mockAuthenticationFacade = Mockito.mock(AuthenticationFacade.class);
         this.userRepositoryMockFactory = new UserRepositoryMockFactory();
         this.groupRepositoryMockFactory = new GroupRepositoryMockFactory();
         this.groupRightRepositoryMockFactory = new GroupRightRepositoryMockFactory();

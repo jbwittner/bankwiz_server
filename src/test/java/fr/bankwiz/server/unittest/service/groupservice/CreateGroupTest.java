@@ -2,12 +2,10 @@ package fr.bankwiz.server.unittest.service.groupservice;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import fr.bankwiz.openapi.model.GroupCreationRequest;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.User;
-import fr.bankwiz.server.security.AuthenticationFacade;
 import fr.bankwiz.server.service.GroupService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
 
@@ -15,14 +13,10 @@ class CreateGroupTest extends UnitTestBase {
 
     private GroupService groupService;
 
-    private AuthenticationFacade mockAuthenticationFacade;
-
     @Override
     protected void initDataBeforeEach() {
-        this.mockAuthenticationFacade = Mockito.mock(AuthenticationFacade.class);
-
         this.groupService = new GroupService(
-                this.mockAuthenticationFacade,
+                this.authenticationFacadeMockFactory.getAuthenticationFacade(),
                 this.groupRepositoryMockFactory.getRepository(),
                 this.userRepositoryMockFactory.getRepository(),
                 this.groupRightRepositoryMockFactory.getRepository());
@@ -35,7 +29,7 @@ class CreateGroupTest extends UnitTestBase {
         final GroupCreationRequest groupCreationRequest =
                 new GroupCreationRequest(this.faker.lordOfTheRings().location());
 
-        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(admin);
+        this.authenticationFacadeMockFactory.mockGetCurrentUser(admin);
 
         this.groupRepositoryMockFactory.mockSave();
         this.groupRightRepositoryMockFactory.mockSave();

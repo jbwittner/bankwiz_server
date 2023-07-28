@@ -13,22 +13,17 @@ import fr.bankwiz.server.exception.UserNoReadRightException;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.User;
-import fr.bankwiz.server.security.AuthenticationFacade;
 import fr.bankwiz.server.service.GroupService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
 
-public class GetGroupTest extends UnitTestBase {
+class GetGroupTest extends UnitTestBase {
 
     private GroupService groupService;
 
-    private AuthenticationFacade mockAuthenticationFacade;
-
     @Override
     protected void initDataBeforeEach() {
-        this.mockAuthenticationFacade = Mockito.mock(AuthenticationFacade.class);
-
         this.groupService = new GroupService(
-                this.mockAuthenticationFacade,
+                this.authenticationFacadeMockFactory.getAuthenticationFacade(),
                 this.groupRepositoryMockFactory.getRepository(),
                 this.userRepositoryMockFactory.getRepository(),
                 this.groupRightRepositoryMockFactory.getRepository());
@@ -44,7 +39,7 @@ public class GetGroupTest extends UnitTestBase {
         final Integer groupId = group.getGroupId();
 
         this.groupRepositoryMockFactory.mockFindById(groupId, group);
-        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(user);
+        this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         final GroupDTO groupDTO = this.groupService.getGroup(groupId);
 

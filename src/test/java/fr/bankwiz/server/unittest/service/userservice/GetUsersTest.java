@@ -19,7 +19,9 @@ class GetUsersTest extends UnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {
-        this.userService = new UserService(null, this.userRepositoryMockFactory.getRepository());
+        this.userService = new UserService(
+                this.authenticationFacadeMockFactory.getAuthenticationFacade(),
+                this.userRepositoryMockFactory.getRepository());
     }
 
     @Test

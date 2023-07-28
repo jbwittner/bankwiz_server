@@ -13,16 +13,15 @@ import fr.bankwiz.server.service.UserService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
 
 class CheckRegistrationTest extends UnitTestBase {
-    private AuthenticationFacade mockAuthenticationFacade;
     private UserService userService;
 
     private AuthenticationFacade.IdData idData;
 
     @Override
     protected void initDataBeforeEach() {
-        this.mockAuthenticationFacade = Mockito.mock(AuthenticationFacade.class);
-        this.userService =
-                new UserService(this.mockAuthenticationFacade, this.userRepositoryMockFactory.getRepository());
+        this.userService = new UserService(
+                this.authenticationFacadeMockFactory.getAuthenticationFacade(),
+                this.userRepositoryMockFactory.getRepository());
 
         this.idData = new AuthenticationFacade.IdData();
         idData.setEmail(this.faker.internet().emailAddress());
