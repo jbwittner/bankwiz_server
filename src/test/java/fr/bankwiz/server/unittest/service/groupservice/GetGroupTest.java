@@ -1,11 +1,15 @@
 package fr.bankwiz.server.unittest.service.groupservice;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import fr.bankwiz.openapi.model.GroupDTO;
 import fr.bankwiz.openapi.model.UserGroupDTO;
+import fr.bankwiz.server.exception.GroupNotExistException;
+import fr.bankwiz.server.exception.UserNoReadRightException;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.User;
@@ -62,5 +66,32 @@ public class GetGroupTest extends UnitTestBase {
                                 userGroupDTO.getAuthorization().getValue());
                     });
                 });
+    }
+
+    @Test
+    void userNoReadRightException() {
+        final User user = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroup();
+        final Integer groupId = group.getGroupId();
+
+        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(user);
+
+        Assertions.assertThrows(UserNoReadRightException.class, () -> {
+            this.groupService.getGroup(groupId);
+        });
+    }
+
+    @Test
+    void groupNotExistException() {
+        final User user = this.unitTestFactory.getUser();
+        final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
+
+        this.groupRepositoryMockFactory.mockFindById(groupId, Optional.empty());
+        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(user);
+
+        Assertions.assertThrows(GroupNotExistException.class, () -> {
+            this.groupService.getGroup(groupId);
+        });
     }
 }
