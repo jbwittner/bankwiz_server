@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import fr.bankwiz.openapi.model.GroupDTO;
 import fr.bankwiz.openapi.model.UserGroupDTO;
@@ -70,7 +69,7 @@ class GetGroupTest extends UnitTestBase {
         final Integer groupId = group.getGroupId();
 
         this.groupRepositoryMockFactory.mockFindById(groupId, group);
-        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(user);
+        this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         Assertions.assertThrows(UserNoReadRightException.class, () -> {
             this.groupService.getGroup(groupId);
@@ -83,7 +82,7 @@ class GetGroupTest extends UnitTestBase {
         final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
         this.groupRepositoryMockFactory.mockFindById(groupId, Optional.empty());
-        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(user);
+        this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         Assertions.assertThrows(GroupNotExistException.class, () -> {
             this.groupService.getGroup(groupId);

@@ -19,4 +19,9 @@ public class AuthenticationFacadeMockFactory {
         Mockito.when(this.authenticationFacade.getCurrentUser()).thenReturn(user);
         return this;
     }
+
+    public AuthenticationFacadeMockFactory mockGetIdData(AuthenticationFacade.IdData idData) {
+        Mockito.when(this.authenticationFacade.getIdData()).thenReturn(idData);
+        return this;
+    }
 }

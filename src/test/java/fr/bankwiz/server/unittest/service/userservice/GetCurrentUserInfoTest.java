@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.exception.UserNotExistException;
 import fr.bankwiz.server.model.User;
+import fr.bankwiz.server.security.AuthenticationFacade;
 import fr.bankwiz.server.service.UserService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
 
@@ -35,7 +36,9 @@ class GetCurrentUserInfoTest extends UnitTestBase {
 
     @Test
     void userNotExistException() {
-        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenThrow(new UserNotExistException(""));
+        final AuthenticationFacade authenticationFacade =
+                this.authenticationFacadeMockFactory.getAuthenticationFacade();
+        Mockito.when(authenticationFacade.getCurrentUser()).thenThrow(new UserNotExistException(""));
         Assertions.assertThrows(UserNotExistException.class, () -> {
             this.userService.getCurrentUserInfo();
         });

@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.model.User;
@@ -33,7 +32,7 @@ class CheckRegistrationTest extends UnitTestBase {
 
     @Test
     void userAlreadyExist() {
-        Mockito.when(this.mockAuthenticationFacade.getIdData()).thenReturn(idData);
+        this.authenticationFacadeMockFactory.mockGetIdData(idData);
         final User userBefore = this.unitTestFactory.getUser();
         this.userRepositoryMockFactory
                 .mockFindByAuthId(idData.getSub(), Optional.of(userBefore))
@@ -57,7 +56,7 @@ class CheckRegistrationTest extends UnitTestBase {
 
     @Test
     void userNotRegistered() {
-        Mockito.when(this.mockAuthenticationFacade.getIdData()).thenReturn(idData);
+        this.authenticationFacadeMockFactory.mockGetIdData(idData);
         this.userRepositoryMockFactory
                 .mockFindByAuthId(idData.getSub(), Optional.empty())
                 .mockSave();
