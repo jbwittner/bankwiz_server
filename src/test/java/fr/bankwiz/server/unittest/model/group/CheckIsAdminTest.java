@@ -17,7 +17,7 @@ class CheckIsAdminTest extends UnitTestBase {
     @Test
     void userAdminRight() {
         final User user = this.unitTestFactory.getUser();
-        final Group group = this.unitTestFactory.getGroupWithRigh(user, GroupRightEnum.ADMIN);
+        final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRightEnum.ADMIN);
 
         Assertions.assertDoesNotThrow(() -> {
             group.checkIsAdmin(user);
@@ -27,7 +27,7 @@ class CheckIsAdminTest extends UnitTestBase {
     @Test
     void userWriteRight() {
         final User user = this.unitTestFactory.getUser();
-        final Group group = this.unitTestFactory.getGroupWithRigh(user, GroupRightEnum.WRITE);
+        final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRightEnum.WRITE);
 
         Assertions.assertThrows(UserNotAdminException.class, () -> {
             group.checkIsAdmin(user);
@@ -37,7 +37,7 @@ class CheckIsAdminTest extends UnitTestBase {
     @Test
     void userReadRight() {
         final User user = this.unitTestFactory.getUser();
-        final Group group = this.unitTestFactory.getGroupWithRigh(user, GroupRightEnum.READ);
+        final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRightEnum.READ);
 
         Assertions.assertThrows(UserNotAdminException.class, () -> {
             group.checkIsAdmin(user);

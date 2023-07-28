@@ -41,7 +41,7 @@ class AddUserToGroupTest extends UnitTestBase {
     @Test
     void addUserOk() {
         final User admin = this.unitTestFactory.getUser();
-        final Group group = this.unitTestFactory.getGroupWithRigh(admin, GroupRightEnum.ADMIN);
+        final Group group = this.unitTestFactory.getGroupWithRight(admin, GroupRightEnum.ADMIN);
 
         final Integer groupId = group.getGroupId();
 
@@ -78,7 +78,7 @@ class AddUserToGroupTest extends UnitTestBase {
     @Test
     void userAlreadyInGroup() {
         final User admin = this.unitTestFactory.getUser();
-        final Group group = this.unitTestFactory.getGroupWithRigh(admin, GroupRightEnum.ADMIN);
+        final Group group = this.unitTestFactory.getGroupWithRight(admin, GroupRightEnum.ADMIN);
 
         final Integer groupId = group.getGroupId();
 
@@ -103,7 +103,7 @@ class AddUserToGroupTest extends UnitTestBase {
     @Test
     void userNotExist() {
         final User admin = this.unitTestFactory.getUser();
-        final Group group = this.unitTestFactory.getGroupWithRigh(admin, GroupRightEnum.ADMIN);
+        final Group group = this.unitTestFactory.getGroupWithRight(admin, GroupRightEnum.ADMIN);
 
         final Integer groupId = group.getGroupId();
 

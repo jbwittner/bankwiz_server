@@ -44,9 +44,9 @@ public class GroupController implements GroupApi {
     }
 
     @Override
-    public ResponseEntity<GroupDTO> removeUserFromGroup(Integer groupId, Integer userId) {
-        final GroupDTO result = this.groupService.removeUserFromGroup(groupId, userId);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<Void> removeUserFromGroup(Integer groupId, Integer userId) {
+        this.groupService.removeUserFromGroup(groupId, userId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override

@@ -28,13 +28,17 @@ public class UnitTestFactory extends TestFactory {
         return group;
     }
 
+    public void addUserToGroup(User user, Group group, GroupRightEnum groupRightEnum) {
+        this.getGroupRight(user, group, groupRightEnum);
+    }
+
     public GroupRight getGroupRight(User user, Group group, GroupRightEnum groupRightEnum) {
         GroupRight groupRight = super.getGroupRight(user, group, groupRightEnum);
         groupRight.setRightId(getRandomId());
         return groupRight;
     }
 
-    public Group getGroupWithRigh(User userToAdd, GroupRightEnum groupRightEnum) {
+    public Group getGroupWithRight(User userToAdd, GroupRightEnum groupRightEnum) {
         final Group group = this.getGroup();
         this.getGroupRight(userToAdd, group, groupRightEnum);
         return group;
