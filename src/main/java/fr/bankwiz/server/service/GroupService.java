@@ -117,7 +117,7 @@ public class GroupService {
         return GROUP_DTO_BUILDER.transformAll(groups);
     }
 
-    public GroupDTO removeUserFromGroup(Integer groupId, Integer userId) {
+    public void removeUserFromGroup(Integer groupId, Integer userId) {
         Group group = this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
 
         final User user = this.authenticationFacade.getCurrentUser();
@@ -137,8 +137,6 @@ public class GroupService {
         userToRemove.removeGroupRight(groupRightToRemove);
         this.groupRepository.save(group);
         this.userRepository.save(user);
-
-        return GROUP_DTO_BUILDER.transform(group);
     }
 
     public GroupDTO updateGroup(Integer groupId, GroupUpdateRequest groupUpdateRequest) {
