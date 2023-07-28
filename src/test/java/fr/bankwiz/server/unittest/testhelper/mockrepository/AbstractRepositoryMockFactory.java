@@ -70,6 +70,11 @@ public abstract class AbstractRepositoryMockFactory<T, R extends JpaRepository<T
         return argumentCaptor;
     }
 
+    public AbstractRepositoryMockFactory<T, R, ID> verifyDeleteCalled(T object) {
+        this.verifyDeleteCalled(object, 1);
+        return this;
+    }
+
     public AbstractRepositoryMockFactory<T, R, ID> verifyDeleteCalled(T object, int timesCalled) {
         verify(repository, times(timesCalled)).delete(object);
         return this;

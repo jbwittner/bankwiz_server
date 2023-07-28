@@ -1,10 +1,16 @@
 package fr.bankwiz.server.unittest.service.groupservice;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import fr.bankwiz.openapi.model.*;
+import fr.bankwiz.server.exception.GroupNotExistException;
+import fr.bankwiz.server.exception.UserNoAccessGroupException;
+import fr.bankwiz.server.exception.UserNotAdminException;
+import fr.bankwiz.server.exception.UserNotExistException;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.User;
@@ -59,5 +65,80 @@ public class UpdateUserInGroupTest extends UnitTestBase {
         Assertions.assertEquals(
                 GroupRight.GroupRightEnum.WRITE,
                 userToUpdate.getGroupRights().get(0).getGroupRightEnum());
+    }
+
+    @Test
+    void userNoAccessGroupException() {
+        final User user = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.ADMIN);
+        final User userToUpdate = this.unitTestFactory.getUser();
+
+        final UpdateUserGroupRequest updateUserGroupRequest = new UpdateUserGroupRequest();
+        updateUserGroupRequest.setAuthorization(GroupAuthorizationEnum.WRITE);
+
+        final Integer groupId = group.getGroupId();
+        final Integer userToUpdateId = userToUpdate.getUserId();
+
+        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.userRepositoryMockFactory.mockFindById(userToUpdateId, userToUpdate);
+        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(user);
+
+        Assertions.assertThrows(UserNoAccessGroupException.class, () -> {
+            this.groupService.updateUserInGroup(groupId, userToUpdateId, updateUserGroupRequest);
+        });
+    }
+
+    @Test
+    void userNotExistException() {
+        final User user = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.ADMIN);
+
+        final UpdateUserGroupRequest updateUserGroupRequest = new UpdateUserGroupRequest();
+
+        final Integer groupId = group.getGroupId();
+        final Integer userToUpdateId = this.faker.random().nextInt(Integer.MAX_VALUE);
+
+        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.userRepositoryMockFactory.mockFindById(userToUpdateId, Optional.empty());
+        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(user);
+
+        Assertions.assertThrows(UserNotExistException.class, () -> {
+            this.groupService.updateUserInGroup(groupId, userToUpdateId, updateUserGroupRequest);
+        });
+    }
+
+    @Test
+    void userNotAdminException() {
+        final User user = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.WRITE);
+
+        final UpdateUserGroupRequest updateUserGroupRequest = new UpdateUserGroupRequest();
+
+        final Integer groupId = group.getGroupId();
+        final Integer userToUpdateId = this.faker.random().nextInt(Integer.MAX_VALUE);
+
+        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(user);
+
+        Assertions.assertThrows(UserNotAdminException.class, () -> {
+            this.groupService.updateUserInGroup(groupId, userToUpdateId, updateUserGroupRequest);
+        });
+    }
+
+    @Test
+    void groupNotExistException() {
+        final User user = this.unitTestFactory.getUser();
+
+        final UpdateUserGroupRequest updateUserGroupRequest = new UpdateUserGroupRequest();
+
+        final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
+        final Integer userToUpdateId = this.faker.random().nextInt(Integer.MAX_VALUE);
+
+        this.groupRepositoryMockFactory.mockFindById(groupId, Optional.empty());
+        Mockito.when(this.mockAuthenticationFacade.getCurrentUser()).thenReturn(user);
+
+        Assertions.assertThrows(GroupNotExistException.class, () -> {
+            this.groupService.updateUserInGroup(groupId, userToUpdateId, updateUserGroupRequest);
+        });
     }
 }
