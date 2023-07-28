@@ -1,14 +1,17 @@
 package fr.bankwiz.server.unittest.service.groupservice;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import fr.bankwiz.openapi.model.GroupDTO;
+import fr.bankwiz.openapi.model.UserGroupDTO;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.security.AuthenticationFacade;
 import fr.bankwiz.server.service.GroupService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 public class GetGroupTest extends UnitTestBase {
 
@@ -41,7 +44,23 @@ public class GetGroupTest extends UnitTestBase {
 
         final GroupDTO groupDTO = this.groupService.getGroup(groupId);
 
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(2, groupDTO.getUsers().size()),
+                () -> Assertions.assertEquals(group.getGroupName(), groupDTO.getGroupName()),
+                () -> Assertions.assertEquals(group.getGroupId(), groupDTO.getGroupId()),
+                () -> {
+                    group.getGroupRights().forEach(groupRight -> {
+                        UserGroupDTO userGroupDTO = groupDTO.getUsers().stream()
+                                .filter(u -> u.getUser()
+                                        .getUserId()
+                                        .equals(groupRight.getUser().getUserId()))
+                                .findFirst()
+                                .orElseThrow();
+
+                        Assertions.assertEquals(
+                                groupRight.getGroupRightEnum().name(),
+                                userGroupDTO.getAuthorization().getValue());
+                    });
+                });
     }
-
-
 }
