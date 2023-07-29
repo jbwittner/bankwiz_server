@@ -34,10 +34,15 @@ public class IntegrationMVCClient {
 
     private final MockMvc mvc;
 
+    private final ObjectMapper objectMapper;
+
     public IntegrationMVCClient(WebApplicationContext context) {
         this.mvc = MockMvcBuilders.webAppContextSetup(context)
                 .apply(SecurityMockMvcConfigurers.springSecurity())
                 .build();
+
+        this.objectMapper = new ObjectMapper();
+        this.objectMapper.registerModule(new JavaTimeModule());
     }
 
     public enum AuthorityEnum {
@@ -62,17 +67,17 @@ public class IntegrationMVCClient {
         USER("/user"),
         USER_CHECKREGISTRATION("/user/checkregistration"),
         USERS("/user/users"),
-        USER_ID("/user/{0}"),
+        USER_ID("/user/{0,number,#}"),
         GROUP("/group"),
-        GROUP_ID_USER("/group/{0}/user"),
-        GROUP_ID("/group/{0}"),
+        GROUP_ID_USER("/group/{0,number,#}/user"),
+        GROUP_ID("/group/{0,number,#}"),
         GROUPS("/group/groups"),
-        GROUP_ID_USER_ID("/group/{0}/user/{1}"),
+        GROUP_ID_USER_ID("/group/{0,number,#}/user/{1,number,#}"),
         ACCOUNT("/account"),
-        ACCOUNT_ID_ACCOUNT("/account/{0}"),
+        ACCOUNT_ID_ACCOUNT("/account/{0,number,#}"),
         ACCOUNTS("/account/accounts"),
         ACCOUNTLINE("/accountline"),
-        ACCOUNTLINE_ID_LINE("/accountline/{0}");
+        ACCOUNTLINE_ID_LINE("/accountline/{0,number,#}");
 
         private final String uri;
 
@@ -136,18 +141,51 @@ public class IntegrationMVCClient {
                 () -> Assertions.assertEquals(uriDetail, functionalExceptionDTO.getDetails()));
     }
 
+    private Jwt createJwt(final String subject) {
+        return Jwt.withTokenValue("token")
+                .header("alg", "none")
+                .claim("sub", subject)
+                .build();
+    }
+
     public ResultActions doGetWithoutJwt(final String url) throws Exception {
         return this.mvc.perform(MockMvcRequestBuilders.get(url));
     }
 
     public ResultActions doGet(final String url, final String subject) throws Exception {
-        final Jwt jwt = Jwt.withTokenValue("token")
-                .header("alg", "none")
-                .claim("sub", subject)
-                .build();
+        final Jwt jwt = createJwt(subject);
 
         return this.mvc.perform(MockMvcRequestBuilders.get(url)
                 .with(SecurityMockMvcRequestPostProcessors.jwt().jwt(jwt)));
+    }
+
+    public ResultActions doDelete(final String url, final String subject) throws Exception {
+        final Jwt jwt = createJwt(subject);
+
+        return this.mvc.perform(MockMvcRequestBuilders.delete(url)
+                .with(SecurityMockMvcRequestPostProcessors.jwt().jwt(jwt)));
+    }
+
+    public ResultActions doPost(final String url, final String subject, Object object) throws Exception {
+        final Jwt jwt = createJwt(subject);
+
+        String jsonContent = this.objectMapper.writeValueAsString(object);
+
+        return this.mvc.perform(MockMvcRequestBuilders.post(url)
+                .with(SecurityMockMvcRequestPostProcessors.jwt().jwt(jwt))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonContent));
+    }
+
+    public ResultActions doPut(final String url, final String subject, Object object) throws Exception {
+        final Jwt jwt = createJwt(subject);
+
+        String jsonContent = this.objectMapper.writeValueAsString(object);
+
+        return this.mvc.perform(MockMvcRequestBuilders.put(url)
+                .with(SecurityMockMvcRequestPostProcessors.jwt().jwt(jwt))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonContent));
     }
 
     public ResultActions doGetWithAuthority(final String url, final String subject, final AuthorityEnum... authorities)

@@ -10,8 +10,10 @@ import fr.bankwiz.server.exception.UserNotExistException;
 import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.repository.UserRepository;
 import fr.bankwiz.server.security.AuthenticationFacade;
+import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class UserService {
 
     private static final UserDTOBuilder USER_DTO_BUILDER = new UserDTOBuilder();

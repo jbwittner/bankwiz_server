@@ -1,5 +1,8 @@
 package fr.bankwiz.server.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,4 +31,17 @@ public class User {
 
     @Column(name = "EMAIL", nullable = false)
     private String email;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<GroupRight> groupRights = new ArrayList<>();
+
+    public void addGroupRight(GroupRight groupRight) {
+        this.groupRights.add(groupRight);
+        groupRight.setUser(this);
+    }
+
+    public boolean removeGroupRight(GroupRight groupRight) {
+        return this.groupRights.remove(groupRight);
+    }
 }

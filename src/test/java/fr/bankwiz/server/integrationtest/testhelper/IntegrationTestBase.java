@@ -12,10 +12,13 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 import fr.bankwiz.server.PersonalFaker;
+import fr.bankwiz.server.repository.GroupRepository;
+import fr.bankwiz.server.repository.GroupRightRepository;
+import fr.bankwiz.server.repository.UserRepository;
 
 @Sql(
         scripts = {"/databases.sql"},
-        executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
@@ -25,6 +28,15 @@ public abstract class IntegrationTestBase {
 
     @Autowired
     protected IntegrationTestFactory integrationTestFactory;
+
+    @Autowired
+    protected UserRepository userRepository;
+
+    @Autowired
+    protected GroupRepository groupRepository;
+
+    @Autowired
+    protected GroupRightRepository groupRightRepository;
 
     @LocalServerPort
     protected int port;

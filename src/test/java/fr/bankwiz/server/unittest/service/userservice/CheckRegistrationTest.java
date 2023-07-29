@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.model.User;
@@ -13,16 +12,15 @@ import fr.bankwiz.server.service.UserService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
 
 class CheckRegistrationTest extends UnitTestBase {
-    private AuthenticationFacade mockAuthenticationFacade;
     private UserService userService;
 
     private AuthenticationFacade.IdData idData;
 
     @Override
     protected void initDataBeforeEach() {
-        this.mockAuthenticationFacade = Mockito.mock(AuthenticationFacade.class);
-        this.userService =
-                new UserService(this.mockAuthenticationFacade, this.userRepositoryMockFactory.getRepository());
+        this.userService = new UserService(
+                this.authenticationFacadeMockFactory.getAuthenticationFacade(),
+                this.userRepositoryMockFactory.getRepository());
 
         this.idData = new AuthenticationFacade.IdData();
         idData.setEmail(this.faker.internet().emailAddress());
@@ -34,7 +32,7 @@ class CheckRegistrationTest extends UnitTestBase {
 
     @Test
     void userAlreadyExist() {
-        Mockito.when(this.mockAuthenticationFacade.getIdData()).thenReturn(idData);
+        this.authenticationFacadeMockFactory.mockGetIdData(idData);
         final User userBefore = this.unitTestFactory.getUser();
         this.userRepositoryMockFactory
                 .mockFindByAuthId(idData.getSub(), Optional.of(userBefore))
@@ -58,7 +56,7 @@ class CheckRegistrationTest extends UnitTestBase {
 
     @Test
     void userNotRegistered() {
-        Mockito.when(this.mockAuthenticationFacade.getIdData()).thenReturn(idData);
+        this.authenticationFacadeMockFactory.mockGetIdData(idData);
         this.userRepositoryMockFactory
                 .mockFindByAuthId(idData.getSub(), Optional.empty())
                 .mockSave();
