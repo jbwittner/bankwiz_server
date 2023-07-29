@@ -58,7 +58,7 @@ class AddUserToGroupTest extends IntegrationTestBase {
         final Integer groupId = group.getGroupId();
 
         final User userToAdd = this.integrationTestFactory.getUser();
-        this.integrationTestFactory.addUserToGroup(group, userToAdd, GroupRightEnum.READ);
+        this.integrationTestFactory.addUserToGroup(userToAdd, group, GroupRightEnum.READ);
 
         final Integer userToAddId = userToAdd.getUserId();
 

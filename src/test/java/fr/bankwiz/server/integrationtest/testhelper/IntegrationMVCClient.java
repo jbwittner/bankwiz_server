@@ -159,6 +159,13 @@ public class IntegrationMVCClient {
                 .with(SecurityMockMvcRequestPostProcessors.jwt().jwt(jwt)));
     }
 
+    public ResultActions doDelete(final String url, final String subject) throws Exception {
+        final Jwt jwt = createJwt(subject);
+
+        return this.mvc.perform(MockMvcRequestBuilders.delete(url)
+                .with(SecurityMockMvcRequestPostProcessors.jwt().jwt(jwt)));
+    }
+
     public ResultActions doPost(final String url, final String subject, Object object) throws Exception {
         final Jwt jwt = createJwt(subject);
 
