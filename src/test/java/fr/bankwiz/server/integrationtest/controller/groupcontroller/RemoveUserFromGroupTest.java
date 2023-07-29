@@ -10,7 +10,7 @@ import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.User;
 
-public class RemoveUserFromGroupTest extends IntegrationTestBase {
+class RemoveUserFromGroupTest extends IntegrationTestBase {
 
     @Override
     protected void initDataBeforeEach() {}
