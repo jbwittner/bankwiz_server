@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class GroupRight {
 
     @Id
-    @Column(name = "RIGHT_ID", nullable = false, updatable = false, insertable = false)
+    @Column(name = "GROUP_RIGHT_ID", nullable = false, updatable = false, insertable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer rightId;
 
