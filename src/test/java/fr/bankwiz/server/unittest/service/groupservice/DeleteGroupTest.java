@@ -40,13 +40,13 @@ class DeleteGroupTest extends UnitTestBase {
         groupRights.add(this.unitTestFactory.getGroupRight(user, group, GroupRight.GroupRightEnum.ADMIN));
         groupRights.add(this.unitTestFactory.getGroupRight(anotherUser, group, GroupRight.GroupRightEnum.READ));
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
         this.groupRightRepositoryMockFactory.mockFindAllByGroup(group, groupRights);
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
 
-        this.groupService.deleteGroup(groupId);
+        this.groupService.deleteGroup(userGroupId);
 
         this.groupRepositoryMockFactory.verifyDeleteCalled(group);
 
@@ -65,13 +65,13 @@ class DeleteGroupTest extends UnitTestBase {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.WRITE);
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
 
         Assertions.assertThrows(UserNotAdminException.class, () -> {
-            this.groupService.deleteGroup(groupId);
+            this.groupService.deleteGroup(userGroupId);
         });
     }
 
@@ -79,13 +79,13 @@ class DeleteGroupTest extends UnitTestBase {
     void groupNotExistException() {
         final User user = this.unitTestFactory.getUser();
 
-        final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
+        final Integer userGroupId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
-        this.groupRepositoryMockFactory.mockFindById(groupId, Optional.empty());
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, Optional.empty());
 
         Assertions.assertThrows(GroupNotExistException.class, () -> {
-            this.groupService.deleteGroup(groupId);
+            this.groupService.deleteGroup(userGroupId);
         });
     }
 }

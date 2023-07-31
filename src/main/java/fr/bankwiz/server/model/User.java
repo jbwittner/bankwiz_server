@@ -16,9 +16,9 @@ import lombok.*;
 public class User {
 
     @Id
-    @Column(name = "USER_ID", nullable = false, updatable = false, insertable = false)
+    @Column(name = "USER_ACCOUNT_ID", nullable = false, updatable = false, insertable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer userId;
+    protected Integer userAccountId;
 
     @Column(name = "AUTH_ID", nullable = false, updatable = false)
     protected String authId;

@@ -38,18 +38,20 @@ class CreateGroupTest extends IntegrationTestBase {
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(1, users.size()),
                             () -> Assertions.assertEquals(
-                                    admin.getUserId(), users.get(0).getUser().getUserId()));
+                                    admin.getUserAccountId(),
+                                    users.get(0).getUser().getUserId()));
                 });
 
         final Group group = this.groupRepository.findById(groupDTO.getGroupId()).orElseThrow();
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(groupCreationRequest.getGroupName(), group.getGroupName()), () -> {
+                () -> Assertions.assertEquals(groupCreationRequest.getGroupName(), group.getName()), () -> {
                     var users = group.getGroupRights();
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(1, users.size()),
                             () -> Assertions.assertEquals(
-                                    admin.getUserId(), users.get(0).getUser().getUserId()));
+                                    admin.getUserAccountId(),
+                                    users.get(0).getUser().getUserAccountId()));
                 });
     }
 }

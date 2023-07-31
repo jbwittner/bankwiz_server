@@ -28,10 +28,10 @@ class UpdateGroupTest extends IntegrationTestBase {
         final GroupUpdateRequest groupUpdateRequest = new GroupUpdateRequest();
         groupUpdateRequest.setGroupName(this.faker.hitchhikersGuideToTheGalaxy().character());
 
-        final String oldGroupName = group.getGroupName();
-        final Integer groupId = group.getGroupId();
+        final String oldGroupName = group.getName();
+        final Integer userGroupId = group.getUserGroupId();
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(groupId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(userGroupId);
 
         var result = this.client
                 .doPut(uri, user.getAuthId(), groupUpdateRequest)
@@ -41,13 +41,13 @@ class UpdateGroupTest extends IntegrationTestBase {
 
         final GroupDTO groupDTO = IntegrationMVCClient.convertMvcResultToResponseObject(result, GroupDTO.class);
 
-        final Group groupUpdated = this.groupRepository.findById(groupId).orElseThrow();
+        final Group groupUpdated = this.groupRepository.findById(userGroupId).orElseThrow();
 
         Assertions.assertAll(
                 () -> Assertions.assertNotEquals(oldGroupName, groupDTO.getGroupName()),
                 () -> Assertions.assertEquals(groupUpdateRequest.getGroupName(), groupDTO.getGroupName()),
-                () -> Assertions.assertNotEquals(oldGroupName, groupUpdated.getGroupName()),
-                () -> Assertions.assertEquals(groupUpdateRequest.getGroupName(), groupUpdated.getGroupName()));
+                () -> Assertions.assertNotEquals(oldGroupName, groupUpdated.getName()),
+                () -> Assertions.assertEquals(groupUpdateRequest.getGroupName(), groupUpdated.getName()));
     }
 
     @Test
@@ -56,9 +56,9 @@ class UpdateGroupTest extends IntegrationTestBase {
         final Group group = this.integrationTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.READ);
         final GroupUpdateRequest groupUpdateRequest = new GroupUpdateRequest();
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(groupId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(userGroupId);
 
         final var result = this.client.doPut(uri, user.getAuthId(), groupUpdateRequest);
 
@@ -72,13 +72,13 @@ class UpdateGroupTest extends IntegrationTestBase {
         final User user = this.integrationTestFactory.getUser();
         final GroupUpdateRequest groupUpdateRequest = new GroupUpdateRequest();
 
-        final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
+        final Integer userGroupId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(groupId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(userGroupId);
 
         final var result = this.client.doPut(uri, user.getAuthId(), groupUpdateRequest);
 
-        final GroupNotExistException exception = new GroupNotExistException(groupId);
+        final GroupNotExistException exception = new GroupNotExistException(userGroupId);
 
         IntegrationMVCClient.checkResponseFunctionalException(result, uri, exception);
     }

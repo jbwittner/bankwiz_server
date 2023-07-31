@@ -29,18 +29,19 @@ class DeleteGroupTest extends IntegrationTestBase {
         this.integrationTestFactory.addUserToGroup(user, group, GroupRight.GroupRightEnum.ADMIN);
         this.integrationTestFactory.addUserToGroup(anotherUser, group, GroupRight.GroupRightEnum.READ);
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(groupId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(userGroupId);
 
         this.client
                 .doDelete(uri, user.getAuthId())
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
-        final User userUpdated = this.userRepository.findById(user.getUserId()).orElseThrow();
+        final User userUpdated =
+                this.userRepository.findById(user.getUserAccountId()).orElseThrow();
         final User anotherUserUpdated =
-                this.userRepository.findById(anotherUser.getUserId()).orElseThrow();
-        final Optional<Group> optionalGroupUpdated = this.groupRepository.findById(groupId);
+                this.userRepository.findById(anotherUser.getUserAccountId()).orElseThrow();
+        final Optional<Group> optionalGroupUpdated = this.groupRepository.findById(userGroupId);
 
         Assertions.assertAll(
                 () -> Assertions.assertFalse(optionalGroupUpdated.isPresent()),
@@ -54,9 +55,9 @@ class DeleteGroupTest extends IntegrationTestBase {
         final User user = this.integrationTestFactory.getUser();
         final Group group = this.integrationTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.WRITE);
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(groupId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(userGroupId);
 
         final var result = this.client.doDelete(uri, user.getAuthId());
 
@@ -69,13 +70,13 @@ class DeleteGroupTest extends IntegrationTestBase {
     void groupNotExistException() throws Exception {
         final User user = this.integrationTestFactory.getUser();
 
-        final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
+        final Integer userGroupId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(groupId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(userGroupId);
 
         final var result = this.client.doDelete(uri, user.getAuthId());
 
-        final GroupNotExistException exception = new GroupNotExistException(groupId);
+        final GroupNotExistException exception = new GroupNotExistException(userGroupId);
 
         IntegrationMVCClient.checkResponseFunctionalException(result, uri, exception);
     }

@@ -10,6 +10,6 @@ public class UserNoAccessGroupException extends FunctionalException {
     public UserNoAccessGroupException(final User user, final Group group) {
         super(MessageFormat.format(
                 "The user {0} {1} does not have access to group {2}",
-                user.getFirstName(), user.getLastName(), group.getGroupName()));
+                user.getFirstName(), user.getLastName(), group.getName()));
     }
 }

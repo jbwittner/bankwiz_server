@@ -39,14 +39,14 @@ class RemoveUserFromGroupTest extends UnitTestBase {
                 () -> Assertions.assertEquals(2, group.getGroupRights().size()),
                 () -> Assertions.assertEquals(1, userToRemove.getGroupRights().size()));
 
-        final Integer groupId = group.getGroupId();
-        final Integer userToRemoveId = userToRemove.getUserId();
+        final Integer userGroupId = group.getUserGroupId();
+        final Integer userToRemoveId = userToRemove.getUserAccountId();
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToRemoveId, userToRemove);
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
-        this.groupService.removeUserFromGroup(groupId, userToRemoveId);
+        this.groupService.removeUserFromGroup(userGroupId, userToRemoveId);
 
         Assertions.assertEquals(1, group.getGroupRights().size());
         final GroupRight groupRight = group.getGroupRights().get(0);
@@ -56,7 +56,7 @@ class RemoveUserFromGroupTest extends UnitTestBase {
                         GroupRight.GroupRightEnum.ADMIN.name(),
                         groupRight.getGroupRightEnum().name()),
                 () -> Assertions.assertEquals(
-                        user.getUserId(), groupRight.getUser().getUserId()),
+                        user.getUserAccountId(), groupRight.getUser().getUserAccountId()),
                 () -> Assertions.assertEquals(0, userToRemove.getGroupRights().size()));
     }
 
@@ -70,15 +70,15 @@ class RemoveUserFromGroupTest extends UnitTestBase {
                 () -> Assertions.assertEquals(1, group.getGroupRights().size()),
                 () -> Assertions.assertEquals(0, userToRemove.getGroupRights().size()));
 
-        final Integer groupId = group.getGroupId();
-        final Integer userToRemoveId = userToRemove.getUserId();
+        final Integer userGroupId = group.getUserGroupId();
+        final Integer userToRemoveId = userToRemove.getUserAccountId();
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToRemoveId, userToRemove);
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         Assertions.assertThrows(UserNoAccessGroupException.class, () -> {
-            this.groupService.removeUserFromGroup(groupId, userToRemoveId);
+            this.groupService.removeUserFromGroup(userGroupId, userToRemoveId);
         });
     }
 
@@ -87,14 +87,14 @@ class RemoveUserFromGroupTest extends UnitTestBase {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.ADMIN);
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
         final Integer userToRemoveId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         Assertions.assertThrows(UserNotExistException.class, () -> {
-            this.groupService.removeUserFromGroup(groupId, userToRemoveId);
+            this.groupService.removeUserFromGroup(userGroupId, userToRemoveId);
         });
     }
 
@@ -103,14 +103,14 @@ class RemoveUserFromGroupTest extends UnitTestBase {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.WRITE);
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
         final Integer userToRemoveId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         Assertions.assertThrows(UserNotAdminException.class, () -> {
-            this.groupService.removeUserFromGroup(groupId, userToRemoveId);
+            this.groupService.removeUserFromGroup(userGroupId, userToRemoveId);
         });
     }
 
@@ -118,14 +118,14 @@ class RemoveUserFromGroupTest extends UnitTestBase {
     void groupNotExistException() {
         final User user = this.unitTestFactory.getUser();
 
-        final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
+        final Integer userGroupId = this.faker.random().nextInt(Integer.MAX_VALUE);
         final Integer userToRemoveId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, Optional.empty());
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, Optional.empty());
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         Assertions.assertThrows(GroupNotExistException.class, () -> {
-            this.groupService.removeUserFromGroup(groupId, userToRemoveId);
+            this.groupService.removeUserFromGroup(userGroupId, userToRemoveId);
         });
     }
 }

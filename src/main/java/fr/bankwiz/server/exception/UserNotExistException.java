@@ -6,7 +6,7 @@ public class UserNotExistException extends FunctionalException {
         super("No user with authId : " + authId);
     }
 
-    public UserNotExistException(final Integer userId) {
-        super("No user with id : " + userId);
+    public UserNotExistException(final Integer userAccountId) {
+        super("No user with id : " + userAccountId);
     }
 }

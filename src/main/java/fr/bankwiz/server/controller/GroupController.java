@@ -20,8 +20,8 @@ public class GroupController implements GroupApi {
     }
 
     @Override
-    public ResponseEntity<GroupDTO> addUserToGroup(Integer groupId, AddUserGroupRequest addUserGroupRequest) {
-        final GroupDTO result = this.groupService.addUserToGroup(groupId, addUserGroupRequest);
+    public ResponseEntity<GroupDTO> addUserToGroup(Integer userGroupId, AddUserGroupRequest addUserGroupRequest) {
+        final GroupDTO result = this.groupService.addUserToGroup(userGroupId, addUserGroupRequest);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -32,8 +32,8 @@ public class GroupController implements GroupApi {
     }
 
     @Override
-    public ResponseEntity<GroupDTO> getGroup(Integer groupId) {
-        final GroupDTO result = this.groupService.getGroup(groupId);
+    public ResponseEntity<GroupDTO> getGroup(Integer userGroupId) {
+        final GroupDTO result = this.groupService.getGroup(userGroupId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -44,27 +44,27 @@ public class GroupController implements GroupApi {
     }
 
     @Override
-    public ResponseEntity<Void> removeUserFromGroup(Integer groupId, Integer userId) {
-        this.groupService.removeUserFromGroup(groupId, userId);
+    public ResponseEntity<Void> removeUserFromGroup(Integer userGroupId, Integer userAccountId) {
+        this.groupService.removeUserFromGroup(userGroupId, userAccountId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<GroupDTO> updateGroup(Integer groupId, GroupUpdateRequest groupUpdateRequest) {
-        final GroupDTO result = this.groupService.updateGroup(groupId, groupUpdateRequest);
+    public ResponseEntity<GroupDTO> updateGroup(Integer userGroupId, GroupUpdateRequest groupUpdateRequest) {
+        final GroupDTO result = this.groupService.updateGroup(userGroupId, groupUpdateRequest);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<GroupDTO> updateUserInGroup(
-            Integer groupId, Integer userId, UpdateUserGroupRequest updateUserGroupRequest) {
-        final GroupDTO result = this.groupService.updateUserInGroup(groupId, userId, updateUserGroupRequest);
+            Integer userGroupId, Integer userAccountId, UpdateUserGroupRequest updateUserGroupRequest) {
+        final GroupDTO result = this.groupService.updateUserInGroup(userGroupId, userAccountId, updateUserGroupRequest);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Void> deleteGroup(Integer groupId) {
-        this.groupService.deleteGroup(groupId);
+    public ResponseEntity<Void> deleteGroup(Integer userGroupId) {
+        this.groupService.deleteGroup(userGroupId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

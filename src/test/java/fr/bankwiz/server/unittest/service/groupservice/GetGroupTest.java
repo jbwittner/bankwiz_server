@@ -35,23 +35,23 @@ class GetGroupTest extends UnitTestBase {
         final User anotherUser = this.unitTestFactory.getUser();
         this.unitTestFactory.addUserToGroup(anotherUser, group, GroupRight.GroupRightEnum.READ);
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
-        final GroupDTO groupDTO = this.groupService.getGroup(groupId);
+        final GroupDTO groupDTO = this.groupService.getGroup(userGroupId);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(2, groupDTO.getUsers().size()),
-                () -> Assertions.assertEquals(group.getGroupName(), groupDTO.getGroupName()),
-                () -> Assertions.assertEquals(group.getGroupId(), groupDTO.getGroupId()),
+                () -> Assertions.assertEquals(group.getName(), groupDTO.getGroupName()),
+                () -> Assertions.assertEquals(group.getUserGroupId(), groupDTO.getGroupId()),
                 () -> {
                     group.getGroupRights().forEach(groupRight -> {
                         UserGroupDTO userGroupDTO = groupDTO.getUsers().stream()
                                 .filter(u -> u.getUser()
                                         .getUserId()
-                                        .equals(groupRight.getUser().getUserId()))
+                                        .equals(groupRight.getUser().getUserAccountId()))
                                 .findFirst()
                                 .orElseThrow();
 
@@ -66,26 +66,26 @@ class GetGroupTest extends UnitTestBase {
     void userNoReadRightException() {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroup();
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         Assertions.assertThrows(UserNoReadRightException.class, () -> {
-            this.groupService.getGroup(groupId);
+            this.groupService.getGroup(userGroupId);
         });
     }
 
     @Test
     void groupNotExistException() {
         final User user = this.unitTestFactory.getUser();
-        final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
+        final Integer userGroupId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, Optional.empty());
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, Optional.empty());
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         Assertions.assertThrows(GroupNotExistException.class, () -> {
-            this.groupService.getGroup(groupId);
+            this.groupService.getGroup(userGroupId);
         });
     }
 }

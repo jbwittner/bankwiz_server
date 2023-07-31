@@ -27,8 +27,8 @@ class GetGroupTest extends IntegrationTestBase {
         final Group group = this.integrationTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.READ);
         this.integrationTestFactory.addUserToGroup(anotherUser, group, GroupRight.GroupRightEnum.READ);
 
-        final Integer groupId = group.getGroupId();
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(groupId);
+        final Integer userGroupId = group.getUserGroupId();
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(userGroupId);
 
         var result = this.client
                 .doGet(uri, user.getAuthId())
@@ -40,14 +40,14 @@ class GetGroupTest extends IntegrationTestBase {
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(2, groupDTO.getUsers().size()),
-                () -> Assertions.assertEquals(group.getGroupName(), groupDTO.getGroupName()),
-                () -> Assertions.assertEquals(group.getGroupId(), groupDTO.getGroupId()),
+                () -> Assertions.assertEquals(group.getName(), groupDTO.getGroupName()),
+                () -> Assertions.assertEquals(group.getUserGroupId(), groupDTO.getGroupId()),
                 () -> {
                     group.getGroupRights().forEach(groupRight -> {
                         UserGroupDTO userGroupDTO = groupDTO.getUsers().stream()
                                 .filter(u -> u.getUser()
                                         .getUserId()
-                                        .equals(groupRight.getUser().getUserId()))
+                                        .equals(groupRight.getUser().getUserAccountId()))
                                 .findFirst()
                                 .orElseThrow();
 
@@ -63,8 +63,8 @@ class GetGroupTest extends IntegrationTestBase {
         final User user = this.integrationTestFactory.getUser();
         final Group group = this.integrationTestFactory.getGroup();
 
-        final Integer groupId = group.getGroupId();
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(groupId);
+        final Integer userGroupId = group.getUserGroupId();
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(userGroupId);
 
         final UserNoReadRightException exception = new UserNoReadRightException(user, group);
 
@@ -77,12 +77,12 @@ class GetGroupTest extends IntegrationTestBase {
     void groupNotExistException() throws Exception {
         final User user = this.integrationTestFactory.getUser();
 
-        final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(groupId);
+        final Integer userGroupId = this.faker.random().nextInt(Integer.MAX_VALUE);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(userGroupId);
 
         var result = this.client.doGet(uri, user.getAuthId());
 
-        final GroupNotExistException exception = new GroupNotExistException(groupId);
+        final GroupNotExistException exception = new GroupNotExistException(userGroupId);
 
         IntegrationMVCClient.checkResponseFunctionalException(result, uri, exception);
     }

@@ -42,19 +42,21 @@ class CreateGroupTest extends UnitTestBase {
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(1, users.size()),
                             () -> Assertions.assertEquals(
-                                    admin.getUserId(), users.get(0).getUser().getUserId()));
+                                    admin.getUserAccountId(),
+                                    users.get(0).getUser().getUserId()));
                 });
 
         var argumentCaptor = this.groupRepositoryMockFactory.verifySaveCalled(Group.class);
         final Group groupSaved = argumentCaptor.getValue();
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(groupCreationRequest.getGroupName(), groupSaved.getGroupName()), () -> {
+                () -> Assertions.assertEquals(groupCreationRequest.getGroupName(), groupSaved.getName()), () -> {
                     var users = groupSaved.getGroupRights();
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(1, users.size()),
                             () -> Assertions.assertEquals(
-                                    admin.getUserId(), users.get(0).getUser().getUserId()));
+                                    admin.getUserAccountId(),
+                                    users.get(0).getUser().getUserAccountId()));
                 });
     }
 }

@@ -12,6 +12,6 @@ public class GroupDTOBuilder implements Transformer<Group, GroupDTO> {
 
     public GroupDTO transform(final Group input) {
         final List<UserGroupDTO> userDTOs = USER_GROUP_DTO_BUILDER.transformAll(input.getGroupRights());
-        return new GroupDTO(input.getGroupId(), input.getGroupName(), userDTOs);
+        return new GroupDTO(input.getUserGroupId(), input.getName(), userDTOs);
     }
 }

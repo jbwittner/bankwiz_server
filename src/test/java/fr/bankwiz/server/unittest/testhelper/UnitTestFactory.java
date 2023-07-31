@@ -18,13 +18,13 @@ public class UnitTestFactory extends TestFactory {
 
     public User getUser() {
         User user = super.getUser();
-        user.setUserId(this.getRandomId());
+        user.setUserAccountId(this.getRandomId());
         return user;
     }
 
     public Group getGroup() {
         Group group = super.getGroup();
-        group.setGroupId(this.getRandomId());
+        group.setUserGroupId(this.getRandomId());
         return group;
     }
 

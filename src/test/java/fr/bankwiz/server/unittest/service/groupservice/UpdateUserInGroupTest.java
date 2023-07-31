@@ -39,14 +39,15 @@ class UpdateUserInGroupTest extends UnitTestBase {
         final UpdateUserGroupRequest updateUserGroupRequest = new UpdateUserGroupRequest();
         updateUserGroupRequest.setAuthorization(GroupAuthorizationEnum.WRITE);
 
-        final Integer groupId = group.getGroupId();
-        final Integer userToUpdateId = userToUpdate.getUserId();
+        final Integer userGroupId = group.getUserGroupId();
+        final Integer userToUpdateId = userToUpdate.getUserAccountId();
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToUpdateId, userToUpdate);
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
-        final GroupDTO groupDTO = this.groupService.updateUserInGroup(groupId, userToUpdateId, updateUserGroupRequest);
+        final GroupDTO groupDTO =
+                this.groupService.updateUserInGroup(userGroupId, userToUpdateId, updateUserGroupRequest);
 
         Assertions.assertEquals(2, groupDTO.getUsers().size());
 
@@ -70,15 +71,15 @@ class UpdateUserInGroupTest extends UnitTestBase {
         final UpdateUserGroupRequest updateUserGroupRequest = new UpdateUserGroupRequest();
         updateUserGroupRequest.setAuthorization(GroupAuthorizationEnum.WRITE);
 
-        final Integer groupId = group.getGroupId();
-        final Integer userToUpdateId = userToUpdate.getUserId();
+        final Integer userGroupId = group.getUserGroupId();
+        final Integer userToUpdateId = userToUpdate.getUserAccountId();
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToUpdateId, userToUpdate);
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         Assertions.assertThrows(UserNoAccessGroupException.class, () -> {
-            this.groupService.updateUserInGroup(groupId, userToUpdateId, updateUserGroupRequest);
+            this.groupService.updateUserInGroup(userGroupId, userToUpdateId, updateUserGroupRequest);
         });
     }
 
@@ -89,15 +90,15 @@ class UpdateUserInGroupTest extends UnitTestBase {
 
         final UpdateUserGroupRequest updateUserGroupRequest = new UpdateUserGroupRequest();
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
         final Integer userToUpdateId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToUpdateId, Optional.empty());
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         Assertions.assertThrows(UserNotExistException.class, () -> {
-            this.groupService.updateUserInGroup(groupId, userToUpdateId, updateUserGroupRequest);
+            this.groupService.updateUserInGroup(userGroupId, userToUpdateId, updateUserGroupRequest);
         });
     }
 
@@ -108,14 +109,14 @@ class UpdateUserInGroupTest extends UnitTestBase {
 
         final UpdateUserGroupRequest updateUserGroupRequest = new UpdateUserGroupRequest();
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
         final Integer userToUpdateId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         Assertions.assertThrows(UserNotAdminException.class, () -> {
-            this.groupService.updateUserInGroup(groupId, userToUpdateId, updateUserGroupRequest);
+            this.groupService.updateUserInGroup(userGroupId, userToUpdateId, updateUserGroupRequest);
         });
     }
 
@@ -125,14 +126,14 @@ class UpdateUserInGroupTest extends UnitTestBase {
 
         final UpdateUserGroupRequest updateUserGroupRequest = new UpdateUserGroupRequest();
 
-        final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
+        final Integer userGroupId = this.faker.random().nextInt(Integer.MAX_VALUE);
         final Integer userToUpdateId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, Optional.empty());
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, Optional.empty());
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         Assertions.assertThrows(GroupNotExistException.class, () -> {
-            this.groupService.updateUserInGroup(groupId, userToUpdateId, updateUserGroupRequest);
+            this.groupService.updateUserInGroup(userGroupId, userToUpdateId, updateUserGroupRequest);
         });
     }
 }

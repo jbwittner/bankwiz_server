@@ -35,19 +35,19 @@ class UpdateGroupTest extends UnitTestBase {
         final GroupUpdateRequest groupUpdateRequest = new GroupUpdateRequest();
         groupUpdateRequest.setGroupName(this.faker.hitchhikersGuideToTheGalaxy().character());
 
-        final String oldGroupName = group.getGroupName();
-        final Integer groupId = group.getGroupId();
+        final String oldGroupName = group.getName();
+        final Integer userGroupId = group.getUserGroupId();
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
-        final GroupDTO groupDTO = this.groupService.updateGroup(groupId, groupUpdateRequest);
+        final GroupDTO groupDTO = this.groupService.updateGroup(userGroupId, groupUpdateRequest);
 
         Assertions.assertAll(
                 () -> Assertions.assertNotEquals(oldGroupName, groupDTO.getGroupName()),
                 () -> Assertions.assertEquals(groupUpdateRequest.getGroupName(), groupDTO.getGroupName()),
-                () -> Assertions.assertNotEquals(oldGroupName, group.getGroupName()),
-                () -> Assertions.assertEquals(groupUpdateRequest.getGroupName(), group.getGroupName()));
+                () -> Assertions.assertNotEquals(oldGroupName, group.getName()),
+                () -> Assertions.assertEquals(groupUpdateRequest.getGroupName(), group.getName()));
     }
 
     @Test
@@ -56,13 +56,13 @@ class UpdateGroupTest extends UnitTestBase {
         final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.READ);
         final GroupUpdateRequest groupUpdateRequest = new GroupUpdateRequest();
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         Assertions.assertThrows(UserNotAdminException.class, () -> {
-            this.groupService.updateGroup(groupId, groupUpdateRequest);
+            this.groupService.updateGroup(userGroupId, groupUpdateRequest);
         });
     }
 
@@ -71,13 +71,13 @@ class UpdateGroupTest extends UnitTestBase {
         final User user = this.unitTestFactory.getUser();
         final GroupUpdateRequest groupUpdateRequest = new GroupUpdateRequest();
 
-        final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
+        final Integer userGroupId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, Optional.empty());
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, Optional.empty());
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
         Assertions.assertThrows(GroupNotExistException.class, () -> {
-            this.groupService.updateGroup(groupId, groupUpdateRequest);
+            this.groupService.updateGroup(userGroupId, groupUpdateRequest);
         });
     }
 }

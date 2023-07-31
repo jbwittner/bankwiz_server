@@ -22,7 +22,7 @@ class GetUserTest extends IntegrationTestBase {
         final User user2 = this.integrationTestFactory.getUser();
 
         final var result = this.client
-                .doGet(IntegrationMVCClient.UriEnum.USER_ID.getUri(user2.getUserId()), user.getAuthId())
+                .doGet(IntegrationMVCClient.UriEnum.USER_ID.getUri(user2.getUserAccountId()), user.getAuthId())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
@@ -30,7 +30,7 @@ class GetUserTest extends IntegrationTestBase {
         final UserDTO userDTO = IntegrationMVCClient.convertMvcResultToResponseObject(result, UserDTO.class);
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(user2.getUserId(), userDTO.getUserId()),
+                () -> Assertions.assertEquals(user2.getUserAccountId(), userDTO.getUserId()),
                 () -> Assertions.assertEquals(user2.getFirstName(), userDTO.getFirstName()),
                 () -> Assertions.assertEquals(user2.getLastName(), userDTO.getLastName()),
                 () -> Assertions.assertEquals(user2.getEmail(), userDTO.getEmail()));
@@ -39,7 +39,7 @@ class GetUserTest extends IntegrationTestBase {
     @Test
     void userNotExist() throws Exception {
         final User user = this.integrationTestFactory.getUser();
-        final Integer id = user.getUserId() + 1;
+        final Integer id = user.getUserAccountId() + 1;
         final String uri = IntegrationMVCClient.UriEnum.USER_ID.getUri(id);
         final var result = this.client.doGet(uri, user.getAuthId());
 

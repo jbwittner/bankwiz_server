@@ -27,17 +27,17 @@ class AddUserToGroupTest extends IntegrationTestBase {
     void addUserOk() throws Exception {
         final User admin = this.integrationTestFactory.getUser();
         final Group group = this.integrationTestFactory.getGroupWithRight(admin, GroupRightEnum.ADMIN);
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
         final User userToAdd = this.integrationTestFactory.getUser();
-        final Integer userToAddId = userToAdd.getUserId();
+        final Integer userToAddId = userToAdd.getUserAccountId();
 
         final AddUserGroupRequest addUserGroupRequest =
                 new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.READ);
 
         var result = this.client
                 .doPost(
-                        IntegrationMVCClient.UriEnum.GROUP_ID_USER.getUri(groupId),
+                        IntegrationMVCClient.UriEnum.GROUP_ID_USER.getUri(userGroupId),
                         admin.getAuthId(),
                         addUserGroupRequest)
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -55,17 +55,17 @@ class AddUserToGroupTest extends IntegrationTestBase {
 
         final User admin = this.integrationTestFactory.getUser();
         final Group group = this.integrationTestFactory.getGroupWithRight(admin, GroupRightEnum.ADMIN);
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
         final User userToAdd = this.integrationTestFactory.getUser();
         this.integrationTestFactory.addUserToGroup(userToAdd, group, GroupRightEnum.READ);
 
-        final Integer userToAddId = userToAdd.getUserId();
+        final Integer userToAddId = userToAdd.getUserAccountId();
 
         final AddUserGroupRequest addUserGroupRequest =
                 new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER.getUri(groupId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER.getUri(userGroupId);
 
         final var result = this.client.doPost(uri, admin.getAuthId(), addUserGroupRequest);
 
@@ -80,14 +80,14 @@ class AddUserToGroupTest extends IntegrationTestBase {
 
         final User admin = this.integrationTestFactory.getUser();
         final Group group = this.integrationTestFactory.getGroupWithRight(admin, GroupRightEnum.ADMIN);
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
-        final Integer userToAddId = admin.getUserId() + 1;
+        final Integer userToAddId = admin.getUserAccountId() + 1;
 
         final AddUserGroupRequest addUserGroupRequest =
                 new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER.getUri(groupId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER.getUri(userGroupId);
 
         final var result = this.client.doPost(uri, admin.getAuthId(), addUserGroupRequest);
 
@@ -101,14 +101,14 @@ class AddUserToGroupTest extends IntegrationTestBase {
 
         final User admin = this.integrationTestFactory.getUser();
         final Group group = this.integrationTestFactory.getGroupWithRight(admin, GroupRightEnum.WRITE);
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
-        final Integer userToAddId = admin.getUserId() + 1;
+        final Integer userToAddId = admin.getUserAccountId() + 1;
 
         final AddUserGroupRequest addUserGroupRequest =
                 new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER.getUri(groupId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER.getUri(userGroupId);
 
         final var result = this.client.doPost(uri, admin.getAuthId(), addUserGroupRequest);
 
@@ -121,18 +121,18 @@ class AddUserToGroupTest extends IntegrationTestBase {
     void groupNotExist() throws Exception {
 
         final User admin = this.integrationTestFactory.getUser();
-        final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
+        final Integer userGroupId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
         final Integer userToAddId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
         final AddUserGroupRequest addUserGroupRequest =
                 new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER.getUri(groupId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER.getUri(userGroupId);
 
         final var result = this.client.doPost(uri, admin.getAuthId(), addUserGroupRequest);
 
-        final GroupNotExistException groupNotExistException = new GroupNotExistException(groupId);
+        final GroupNotExistException groupNotExistException = new GroupNotExistException(userGroupId);
 
         IntegrationMVCClient.checkResponseFunctionalException(result, uri, groupNotExistException);
     }
