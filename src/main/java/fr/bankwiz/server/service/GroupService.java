@@ -56,8 +56,8 @@ public class GroupService {
         group.checkIsAdmin(currentUser);
 
         final User userToAdd = this.userRepository
-                .findById(addUserGroupRequest.getUserAccountId())
-                .orElseThrow(() -> new UserNotExistException(addUserGroupRequest.getUserAccountId()));
+                .findById(addUserGroupRequest.getUserId())
+                .orElseThrow(() -> new UserNotExistException(addUserGroupRequest.getUserId()));
 
         final GroupRightEnum rightEnum =
                 GroupRightEnum.valueOf(addUserGroupRequest.getAuthorization().getValue());

@@ -30,7 +30,7 @@ class GetUserTest extends IntegrationTestBase {
         final UserDTO userDTO = IntegrationMVCClient.convertMvcResultToResponseObject(result, UserDTO.class);
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(user2.getUserAccountId(), userDTO.getUserAccountId()),
+                () -> Assertions.assertEquals(user2.getUserAccountId(), userDTO.getUserId()),
                 () -> Assertions.assertEquals(user2.getFirstName(), userDTO.getFirstName()),
                 () -> Assertions.assertEquals(user2.getLastName(), userDTO.getLastName()),
                 () -> Assertions.assertEquals(user2.getEmail(), userDTO.getEmail()));

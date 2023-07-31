@@ -50,7 +50,7 @@ class UpdateUserInGroupTest extends IntegrationTestBase {
         Assertions.assertEquals(2, groupDTO.getUsers().size());
 
         UserGroupDTO userGroupDTO = groupDTO.getUsers().stream()
-                .filter(u -> u.getUser().getUserAccountId().equals(userToUpdateId))
+                .filter(u -> u.getUser().getUserId().equals(userToUpdateId))
                 .findFirst()
                 .orElseThrow();
 

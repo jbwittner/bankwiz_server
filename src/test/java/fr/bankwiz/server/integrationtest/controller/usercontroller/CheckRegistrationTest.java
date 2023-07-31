@@ -49,7 +49,7 @@ class CheckRegistrationTest extends IntegrationTestBase {
                 () -> Assertions.assertEquals(idData.getFamilyName(), userDTO.getLastName()),
                 () -> Assertions.assertEquals(idData.getEmail(), userDTO.getEmail()));
 
-        final User userSaved = this.userRepository.findById(userDTO.getUserAccountId()).orElseThrow();
+        final User userSaved = this.userRepository.findById(userDTO.getUserId()).orElseThrow();
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(idData.getSub(), userSaved.getAuthId()),
@@ -89,7 +89,7 @@ class CheckRegistrationTest extends IntegrationTestBase {
                 () -> Assertions.assertEquals(idData.getFamilyName(), userDTO.getLastName()),
                 () -> Assertions.assertEquals(idData.getEmail(), userDTO.getEmail()));
 
-        final User userSaved = this.userRepository.findById(userDTO.getUserAccountId()).orElseThrow();
+        final User userSaved = this.userRepository.findById(userDTO.getUserId()).orElseThrow();
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(idData.getSub(), userSaved.getAuthId()),

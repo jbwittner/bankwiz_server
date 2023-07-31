@@ -28,7 +28,7 @@ class GetUserTest extends UnitTestBase {
         final UserDTO userDto = this.userService.getUser(user.getUserAccountId());
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(user.getUserAccountId(), userDto.getUserAccountId()),
+                () -> Assertions.assertEquals(user.getUserAccountId(), userDto.getUserId()),
                 () -> Assertions.assertEquals(user.getFirstName(), userDto.getFirstName()),
                 () -> Assertions.assertEquals(user.getLastName(), userDto.getLastName()),
                 () -> Assertions.assertEquals(user.getEmail(), userDto.getEmail()));

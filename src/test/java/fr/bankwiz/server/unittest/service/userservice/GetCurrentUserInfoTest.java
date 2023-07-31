@@ -28,7 +28,7 @@ class GetCurrentUserInfoTest extends UnitTestBase {
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
         final UserDTO userDTO = this.userService.getCurrentUserInfo();
         Assertions.assertAll(
-                () -> Assertions.assertEquals(user.getUserAccountId(), userDTO.getUserAccountId()),
+                () -> Assertions.assertEquals(user.getUserAccountId(), userDTO.getUserId()),
                 () -> Assertions.assertEquals(user.getEmail(), userDTO.getEmail()),
                 () -> Assertions.assertEquals(user.getFirstName(), userDTO.getFirstName()),
                 () -> Assertions.assertEquals(user.getLastName(), userDTO.getLastName()));
