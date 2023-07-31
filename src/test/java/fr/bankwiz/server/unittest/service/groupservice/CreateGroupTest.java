@@ -42,7 +42,8 @@ class CreateGroupTest extends UnitTestBase {
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(1, users.size()),
                             () -> Assertions.assertEquals(
-                                    admin.getUserAccountId(), users.get(0).getUser().getUserId()));
+                                    admin.getUserAccountId(),
+                                    users.get(0).getUser().getUserId()));
                 });
 
         var argumentCaptor = this.groupRepositoryMockFactory.verifySaveCalled(Group.class);
@@ -54,7 +55,8 @@ class CreateGroupTest extends UnitTestBase {
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(1, users.size()),
                             () -> Assertions.assertEquals(
-                                    admin.getUserAccountId(), users.get(0).getUser().getUserAccountId()));
+                                    admin.getUserAccountId(),
+                                    users.get(0).getUser().getUserAccountId()));
                 });
     }
 }

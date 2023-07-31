@@ -49,7 +49,8 @@ public class GroupService {
     }
 
     public GroupDTO addUserToGroup(Integer userGroupId, AddUserGroupRequest addUserGroupRequest) {
-        Group group = this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
+        Group group =
+                this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
 
         final User currentUser = this.authenticationFacade.getCurrentUser();
 
@@ -81,8 +82,7 @@ public class GroupService {
     }
 
     public GroupDTO createGroup(GroupCreationRequest groupCreationRequest) {
-        Group group =
-                Group.builder().name(groupCreationRequest.getGroupName()).build();
+        Group group = Group.builder().name(groupCreationRequest.getGroupName()).build();
 
         group = this.groupRepository.save(group);
 
@@ -118,7 +118,8 @@ public class GroupService {
     }
 
     public void removeUserFromGroup(Integer userGroupId, Integer userAccountId) {
-        Group group = this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
+        Group group =
+                this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
 
         final User user = this.authenticationFacade.getCurrentUser();
 
@@ -140,14 +141,16 @@ public class GroupService {
     }
 
     public GroupDTO updateGroup(Integer userGroupId, GroupUpdateRequest groupUpdateRequest) {
-        Group group = this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
+        Group group =
+                this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
         final User user = this.authenticationFacade.getCurrentUser();
         group.checkIsAdmin(user);
         group.setName(groupUpdateRequest.getGroupName());
         return GROUP_DTO_BUILDER.transform(group);
     }
 
-    public GroupDTO updateUserInGroup(Integer userGroupId, Integer userAccountId, UpdateUserGroupRequest updateUserGroupRequest) {
+    public GroupDTO updateUserInGroup(
+            Integer userGroupId, Integer userAccountId, UpdateUserGroupRequest updateUserGroupRequest) {
         final Group group =
                 this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
         final User user = this.authenticationFacade.getCurrentUser();

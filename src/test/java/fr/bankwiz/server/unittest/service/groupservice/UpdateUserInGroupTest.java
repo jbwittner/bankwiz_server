@@ -46,7 +46,8 @@ class UpdateUserInGroupTest extends UnitTestBase {
         this.userRepositoryMockFactory.mockFindById(userToUpdateId, userToUpdate);
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
 
-        final GroupDTO groupDTO = this.groupService.updateUserInGroup(userGroupId, userToUpdateId, updateUserGroupRequest);
+        final GroupDTO groupDTO =
+                this.groupService.updateUserInGroup(userGroupId, userToUpdateId, updateUserGroupRequest);
 
         Assertions.assertEquals(2, groupDTO.getUsers().size());
 

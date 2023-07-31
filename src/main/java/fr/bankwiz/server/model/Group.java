@@ -48,7 +48,8 @@ public class Group {
     }
 
     public boolean hasAnyRight(User user) {
-        return this.groupRights.stream().anyMatch(p -> p.getUser().getUserAccountId().equals(user.userAccountId));
+        return this.groupRights.stream()
+                .anyMatch(p -> p.getUser().getUserAccountId().equals(user.userAccountId));
     }
 
     public Optional<GroupRight> getFirstRight(User user) {
