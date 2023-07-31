@@ -42,7 +42,7 @@ class AddUserToGroupTest extends UnitTestBase {
         this.authenticationFacadeMockFactory.mockGetCurrentUser(admin);
 
         final User userToAdd = this.unitTestFactory.getUser();
-        final Integer userToAddId = userToAdd.getUserId();
+        final Integer userToAddId = userToAdd.getUserAccountId();
 
         this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToAddId, userToAdd);
@@ -58,7 +58,7 @@ class AddUserToGroupTest extends UnitTestBase {
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(2, groupDTO.getUsers().size()),
-                () -> Assertions.assertEquals(userToAddId, rightSaved.getUser().getUserId()),
+                () -> Assertions.assertEquals(userToAddId, rightSaved.getUser().getUserAccountId()),
                 () -> {
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(
@@ -82,7 +82,7 @@ class AddUserToGroupTest extends UnitTestBase {
         final GroupRight groupRight = this.unitTestFactory.getGroupRight(userToAdd, group, GroupRightEnum.READ);
         group.addGroupRight(groupRight);
 
-        final Integer userToAddId = userToAdd.getUserId();
+        final Integer userToAddId = userToAdd.getUserAccountId();
 
         this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToAddId, userToAdd);
@@ -101,7 +101,7 @@ class AddUserToGroupTest extends UnitTestBase {
 
         final Integer userGroupId = group.getUserGroupId();
 
-        final Integer userToAddId = admin.getUserId() + 1;
+        final Integer userToAddId = admin.getUserAccountId() + 1;
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(admin);
 
@@ -121,7 +121,7 @@ class AddUserToGroupTest extends UnitTestBase {
 
         final Integer userGroupId = group.getUserGroupId();
 
-        final Integer userToAddId = admin.getUserId() + 1;
+        final Integer userToAddId = admin.getUserAccountId() + 1;
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(admin);
 
@@ -140,7 +140,7 @@ class AddUserToGroupTest extends UnitTestBase {
 
         final Integer userGroupId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        final Integer userToAddId = admin.getUserId() + 1;
+        final Integer userToAddId = admin.getUserAccountId() + 1;
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(admin);
 

@@ -24,11 +24,11 @@ class GetUserTest extends UnitTestBase {
     @Test
     void getUserOk() {
         final User user = this.unitTestFactory.getUser();
-        this.userRepositoryMockFactory.mockFindById(user.getUserId(), Optional.of(user));
-        final UserDTO userDto = this.userService.getUser(user.getUserId());
+        this.userRepositoryMockFactory.mockFindById(user.getUserAccountId(), Optional.of(user));
+        final UserDTO userDto = this.userService.getUser(user.getUserAccountId());
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(user.getUserId(), userDto.getUserId()),
+                () -> Assertions.assertEquals(user.getUserAccountId(), userDto.getUserAccountId()),
                 () -> Assertions.assertEquals(user.getFirstName(), userDto.getFirstName()),
                 () -> Assertions.assertEquals(user.getLastName(), userDto.getLastName()),
                 () -> Assertions.assertEquals(user.getEmail(), userDto.getEmail()));

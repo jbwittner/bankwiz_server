@@ -35,7 +35,7 @@ class UpdateUserInGroupTest extends IntegrationTestBase {
         updateUserGroupRequest.setAuthorization(GroupAuthorizationEnum.WRITE);
 
         final Integer userGroupId = group.getUserGroupId();
-        final Integer userToUpdateId = userToUpdate.getUserId();
+        final Integer userToUpdateId = userToUpdate.getUserAccountId();
 
         final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(userGroupId, userToUpdateId);
 
@@ -50,7 +50,7 @@ class UpdateUserInGroupTest extends IntegrationTestBase {
         Assertions.assertEquals(2, groupDTO.getUsers().size());
 
         UserGroupDTO userGroupDTO = groupDTO.getUsers().stream()
-                .filter(u -> u.getUser().getUserId().equals(userToUpdateId))
+                .filter(u -> u.getUser().getUserAccountId().equals(userToUpdateId))
                 .findFirst()
                 .orElseThrow();
 
@@ -73,7 +73,7 @@ class UpdateUserInGroupTest extends IntegrationTestBase {
         updateUserGroupRequest.setAuthorization(GroupAuthorizationEnum.WRITE);
 
         final Integer userGroupId = group.getUserGroupId();
-        final Integer userToUpdateId = userToUpdate.getUserId();
+        final Integer userToUpdateId = userToUpdate.getUserAccountId();
 
         final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(userGroupId, userToUpdateId);
 

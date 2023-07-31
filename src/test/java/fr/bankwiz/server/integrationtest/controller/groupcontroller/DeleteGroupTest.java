@@ -37,9 +37,9 @@ class DeleteGroupTest extends IntegrationTestBase {
                 .doDelete(uri, user.getAuthId())
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
-        final User userUpdated = this.userRepository.findById(user.getUserId()).orElseThrow();
+        final User userUpdated = this.userRepository.findById(user.getUserAccountId()).orElseThrow();
         final User anotherUserUpdated =
-                this.userRepository.findById(anotherUser.getUserId()).orElseThrow();
+                this.userRepository.findById(anotherUser.getUserAccountId()).orElseThrow();
         final Optional<Group> optionalGroupUpdated = this.groupRepository.findById(userGroupId);
 
         Assertions.assertAll(

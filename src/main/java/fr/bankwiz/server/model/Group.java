@@ -43,17 +43,17 @@ public class Group {
 
     public boolean hasRight(User user, GroupRightEnum right) {
         return this.groupRights.stream()
-                .filter(p -> p.getUser().getUserId().equals(user.userId))
+                .filter(p -> p.getUser().getUserAccountId().equals(user.userAccountId))
                 .anyMatch(p -> p.getGroupRightEnum().equals(right));
     }
 
     public boolean hasAnyRight(User user) {
-        return this.groupRights.stream().anyMatch(p -> p.getUser().getUserId().equals(user.userId));
+        return this.groupRights.stream().anyMatch(p -> p.getUser().getUserAccountId().equals(user.userAccountId));
     }
 
     public Optional<GroupRight> getFirstRight(User user) {
         return this.groupRights.stream()
-                .filter(p -> p.getUser().getUserId().equals(user.userId))
+                .filter(p -> p.getUser().getUserAccountId().equals(user.userAccountId))
                 .findFirst();
     }
 

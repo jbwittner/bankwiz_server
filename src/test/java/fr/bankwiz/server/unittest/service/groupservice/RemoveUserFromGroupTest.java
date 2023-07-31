@@ -40,7 +40,7 @@ class RemoveUserFromGroupTest extends UnitTestBase {
                 () -> Assertions.assertEquals(1, userToRemove.getGroupRights().size()));
 
         final Integer userGroupId = group.getUserGroupId();
-        final Integer userToRemoveId = userToRemove.getUserId();
+        final Integer userToRemoveId = userToRemove.getUserAccountId();
 
         this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToRemoveId, userToRemove);
@@ -56,7 +56,7 @@ class RemoveUserFromGroupTest extends UnitTestBase {
                         GroupRight.GroupRightEnum.ADMIN.name(),
                         groupRight.getGroupRightEnum().name()),
                 () -> Assertions.assertEquals(
-                        user.getUserId(), groupRight.getUser().getUserId()),
+                        user.getUserAccountId(), groupRight.getUser().getUserAccountId()),
                 () -> Assertions.assertEquals(0, userToRemove.getGroupRights().size()));
     }
 
@@ -71,7 +71,7 @@ class RemoveUserFromGroupTest extends UnitTestBase {
                 () -> Assertions.assertEquals(0, userToRemove.getGroupRights().size()));
 
         final Integer userGroupId = group.getUserGroupId();
-        final Integer userToRemoveId = userToRemove.getUserId();
+        final Integer userToRemoveId = userToRemove.getUserAccountId();
 
         this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToRemoveId, userToRemove);

@@ -40,7 +40,7 @@ class UpdateUserInGroupTest extends UnitTestBase {
         updateUserGroupRequest.setAuthorization(GroupAuthorizationEnum.WRITE);
 
         final Integer userGroupId = group.getUserGroupId();
-        final Integer userToUpdateId = userToUpdate.getUserId();
+        final Integer userToUpdateId = userToUpdate.getUserAccountId();
 
         this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToUpdateId, userToUpdate);
@@ -51,7 +51,7 @@ class UpdateUserInGroupTest extends UnitTestBase {
         Assertions.assertEquals(2, groupDTO.getUsers().size());
 
         UserGroupDTO userGroupDTO = groupDTO.getUsers().stream()
-                .filter(u -> u.getUser().getUserId().equals(userToUpdateId))
+                .filter(u -> u.getUser().getUserAccountId().equals(userToUpdateId))
                 .findFirst()
                 .orElseThrow();
 
@@ -71,7 +71,7 @@ class UpdateUserInGroupTest extends UnitTestBase {
         updateUserGroupRequest.setAuthorization(GroupAuthorizationEnum.WRITE);
 
         final Integer userGroupId = group.getUserGroupId();
-        final Integer userToUpdateId = userToUpdate.getUserId();
+        final Integer userToUpdateId = userToUpdate.getUserAccountId();
 
         this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToUpdateId, userToUpdate);

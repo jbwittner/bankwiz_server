@@ -30,7 +30,7 @@ class AddUserToGroupTest extends IntegrationTestBase {
         final Integer userGroupId = group.getUserGroupId();
 
         final User userToAdd = this.integrationTestFactory.getUser();
-        final Integer userToAddId = userToAdd.getUserId();
+        final Integer userToAddId = userToAdd.getUserAccountId();
 
         final AddUserGroupRequest addUserGroupRequest =
                 new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.READ);
@@ -60,7 +60,7 @@ class AddUserToGroupTest extends IntegrationTestBase {
         final User userToAdd = this.integrationTestFactory.getUser();
         this.integrationTestFactory.addUserToGroup(userToAdd, group, GroupRightEnum.READ);
 
-        final Integer userToAddId = userToAdd.getUserId();
+        final Integer userToAddId = userToAdd.getUserAccountId();
 
         final AddUserGroupRequest addUserGroupRequest =
                 new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);
@@ -82,7 +82,7 @@ class AddUserToGroupTest extends IntegrationTestBase {
         final Group group = this.integrationTestFactory.getGroupWithRight(admin, GroupRightEnum.ADMIN);
         final Integer userGroupId = group.getUserGroupId();
 
-        final Integer userToAddId = admin.getUserId() + 1;
+        final Integer userToAddId = admin.getUserAccountId() + 1;
 
         final AddUserGroupRequest addUserGroupRequest =
                 new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);
@@ -103,7 +103,7 @@ class AddUserToGroupTest extends IntegrationTestBase {
         final Group group = this.integrationTestFactory.getGroupWithRight(admin, GroupRightEnum.WRITE);
         final Integer userGroupId = group.getUserGroupId();
 
-        final Integer userToAddId = admin.getUserId() + 1;
+        final Integer userToAddId = admin.getUserAccountId() + 1;
 
         final AddUserGroupRequest addUserGroupRequest =
                 new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);

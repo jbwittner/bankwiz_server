@@ -27,7 +27,7 @@ class RemoveUserFromGroupTest extends IntegrationTestBase {
                 () -> Assertions.assertEquals(1, userToRemove.getGroupRights().size()));
 
         final Integer userGroupId = group.getUserGroupId();
-        final Integer userToRemoveId = userToRemove.getUserId();
+        final Integer userToRemoveId = userToRemove.getUserAccountId();
 
         final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(userGroupId, userToRemoveId);
 
@@ -47,7 +47,7 @@ class RemoveUserFromGroupTest extends IntegrationTestBase {
                         GroupRight.GroupRightEnum.ADMIN.name(),
                         groupRight.getGroupRightEnum().name()),
                 () -> Assertions.assertEquals(
-                        user.getUserId(), groupRight.getUser().getUserId()),
+                        user.getUserAccountId(), groupRight.getUser().getUserAccountId()),
                 () -> Assertions.assertEquals(
                         0, userRemovedResult.getGroupRights().size()));
     }

@@ -50,8 +50,8 @@ class GetGroupTest extends UnitTestBase {
                     group.getGroupRights().forEach(groupRight -> {
                         UserGroupDTO userGroupDTO = groupDTO.getUsers().stream()
                                 .filter(u -> u.getUser()
-                                        .getUserId()
-                                        .equals(groupRight.getUser().getUserId()))
+                                        .getUserAccountId()
+                                        .equals(groupRight.getUser().getUserAccountId()))
                                 .findFirst()
                                 .orElseThrow();
 

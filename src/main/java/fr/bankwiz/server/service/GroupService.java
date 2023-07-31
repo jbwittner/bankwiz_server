@@ -56,8 +56,8 @@ public class GroupService {
         group.checkIsAdmin(currentUser);
 
         final User userToAdd = this.userRepository
-                .findById(addUserGroupRequest.getUserId())
-                .orElseThrow(() -> new UserNotExistException(addUserGroupRequest.getUserId()));
+                .findById(addUserGroupRequest.getUserAccountId())
+                .orElseThrow(() -> new UserNotExistException(addUserGroupRequest.getUserAccountId()));
 
         final GroupRightEnum rightEnum =
                 GroupRightEnum.valueOf(addUserGroupRequest.getAuthorization().getValue());
@@ -117,7 +117,7 @@ public class GroupService {
         return GROUP_DTO_BUILDER.transformAll(groups);
     }
 
-    public void removeUserFromGroup(Integer userGroupId, Integer userId) {
+    public void removeUserFromGroup(Integer userGroupId, Integer userAccountId) {
         Group group = this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
 
         final User user = this.authenticationFacade.getCurrentUser();
@@ -125,7 +125,7 @@ public class GroupService {
         group.checkIsAdmin(user);
 
         final User userToRemove =
-                this.userRepository.findById(userId).orElseThrow(() -> new UserNotExistException(userId));
+                this.userRepository.findById(userAccountId).orElseThrow(() -> new UserNotExistException(userAccountId));
 
         final GroupRight groupRightToRemove = group.getGroupRights().stream()
                 .filter(groupRight -> groupRight.getUser().equals(userToRemove))
@@ -147,14 +147,14 @@ public class GroupService {
         return GROUP_DTO_BUILDER.transform(group);
     }
 
-    public GroupDTO updateUserInGroup(Integer userGroupId, Integer userId, UpdateUserGroupRequest updateUserGroupRequest) {
+    public GroupDTO updateUserInGroup(Integer userGroupId, Integer userAccountId, UpdateUserGroupRequest updateUserGroupRequest) {
         final Group group =
                 this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
         final User user = this.authenticationFacade.getCurrentUser();
         group.checkIsAdmin(user);
 
         final User userToUpdate =
-                this.userRepository.findById(userId).orElseThrow(() -> new UserNotExistException(userId));
+                this.userRepository.findById(userAccountId).orElseThrow(() -> new UserNotExistException(userAccountId));
 
         final GroupRight groupRightToUpdate = group.getGroupRights().stream()
                 .filter(groupRight -> groupRight.getUser().equals(userToUpdate))

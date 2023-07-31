@@ -56,8 +56,8 @@ public class UserService {
         return USER_DTO_BUILDER.transform(user);
     }
 
-    public UserDTO getUser(final Integer userId) {
-        final User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotExistException(userId));
+    public UserDTO getUser(final Integer userAccountId) {
+        final User user = this.userRepository.findById(userAccountId).orElseThrow(() -> new UserNotExistException(userAccountId));
         return USER_DTO_BUILDER.transform(user);
     }
 
