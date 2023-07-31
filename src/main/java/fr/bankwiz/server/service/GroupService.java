@@ -48,8 +48,8 @@ public class GroupService {
         this.groupRightRepository = groupRightRepository;
     }
 
-    public GroupDTO addUserToGroup(Integer groupId, AddUserGroupRequest addUserGroupRequest) {
-        Group group = this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+    public GroupDTO addUserToGroup(Integer userGroupId, AddUserGroupRequest addUserGroupRequest) {
+        Group group = this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
 
         final User currentUser = this.authenticationFacade.getCurrentUser();
 
@@ -102,9 +102,9 @@ public class GroupService {
         return GROUP_DTO_BUILDER.transform(group);
     }
 
-    public GroupDTO getGroup(Integer groupId) {
+    public GroupDTO getGroup(Integer userGroupId) {
         final Group group =
-                this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+                this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
         final User user = this.authenticationFacade.getCurrentUser();
         group.checkCanRead(user);
         return GROUP_DTO_BUILDER.transform(group);
@@ -117,8 +117,8 @@ public class GroupService {
         return GROUP_DTO_BUILDER.transformAll(groups);
     }
 
-    public void removeUserFromGroup(Integer groupId, Integer userId) {
-        Group group = this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+    public void removeUserFromGroup(Integer userGroupId, Integer userId) {
+        Group group = this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
 
         final User user = this.authenticationFacade.getCurrentUser();
 
@@ -139,17 +139,17 @@ public class GroupService {
         this.userRepository.save(user);
     }
 
-    public GroupDTO updateGroup(Integer groupId, GroupUpdateRequest groupUpdateRequest) {
-        Group group = this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+    public GroupDTO updateGroup(Integer userGroupId, GroupUpdateRequest groupUpdateRequest) {
+        Group group = this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
         final User user = this.authenticationFacade.getCurrentUser();
         group.checkIsAdmin(user);
         group.setGroupName(groupUpdateRequest.getGroupName());
         return GROUP_DTO_BUILDER.transform(group);
     }
 
-    public GroupDTO updateUserInGroup(Integer groupId, Integer userId, UpdateUserGroupRequest updateUserGroupRequest) {
+    public GroupDTO updateUserInGroup(Integer userGroupId, Integer userId, UpdateUserGroupRequest updateUserGroupRequest) {
         final Group group =
-                this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+                this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
         final User user = this.authenticationFacade.getCurrentUser();
         group.checkIsAdmin(user);
 
@@ -169,9 +169,9 @@ public class GroupService {
         return GROUP_DTO_BUILDER.transform(group);
     }
 
-    public void deleteGroup(Integer groupId) {
+    public void deleteGroup(Integer userGroupId) {
         final Group group =
-                this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+                this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
 
         final User user = this.authenticationFacade.getCurrentUser();
 

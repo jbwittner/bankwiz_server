@@ -23,7 +23,7 @@ public class Group {
     @Id
     @Column(name = "USER_GROUP_ID", nullable = false, updatable = false, insertable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer groupId;
+    protected Integer userGroupId;
 
     @Column(name = "NAME", nullable = false, length = 60)
     private String groupName;

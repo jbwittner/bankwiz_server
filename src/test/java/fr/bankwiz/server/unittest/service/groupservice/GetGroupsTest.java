@@ -42,7 +42,7 @@ class GetGroupsTest extends UnitTestBase {
 
         groups.forEach(g -> {
             GroupDTO groupDTO = groupDTOs.stream()
-                    .filter(gDto -> gDto.getGroupId().equals(g.getGroupId()))
+                    .filter(gDto -> gDto.getGroupId().equals(g.getUserGroupId()))
                     .findFirst()
                     .orElseThrow();
             Assertions.assertEquals(g.getGroupName(), groupDTO.getGroupName());

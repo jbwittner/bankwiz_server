@@ -34,10 +34,10 @@ class UpdateUserInGroupTest extends IntegrationTestBase {
         final UpdateUserGroupRequest updateUserGroupRequest = new UpdateUserGroupRequest();
         updateUserGroupRequest.setAuthorization(GroupAuthorizationEnum.WRITE);
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
         final Integer userToUpdateId = userToUpdate.getUserId();
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(groupId, userToUpdateId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(userGroupId, userToUpdateId);
 
         var result = this.client
                 .doPut(uri, user.getAuthId(), updateUserGroupRequest)
@@ -72,10 +72,10 @@ class UpdateUserInGroupTest extends IntegrationTestBase {
         final UpdateUserGroupRequest updateUserGroupRequest = new UpdateUserGroupRequest();
         updateUserGroupRequest.setAuthorization(GroupAuthorizationEnum.WRITE);
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
         final Integer userToUpdateId = userToUpdate.getUserId();
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(groupId, userToUpdateId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(userGroupId, userToUpdateId);
 
         final var result = this.client.doPut(uri, user.getAuthId(), updateUserGroupRequest);
 
@@ -91,10 +91,10 @@ class UpdateUserInGroupTest extends IntegrationTestBase {
 
         final UpdateUserGroupRequest updateUserGroupRequest = new UpdateUserGroupRequest();
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
         final Integer userToUpdateId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(groupId, userToUpdateId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(userGroupId, userToUpdateId);
 
         final var result = this.client.doPut(uri, user.getAuthId(), updateUserGroupRequest);
 
@@ -110,10 +110,10 @@ class UpdateUserInGroupTest extends IntegrationTestBase {
 
         final UpdateUserGroupRequest updateUserGroupRequest = new UpdateUserGroupRequest();
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
         final Integer userToUpdateId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(groupId, userToUpdateId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(userGroupId, userToUpdateId);
 
         final var result = this.client.doPut(uri, user.getAuthId(), updateUserGroupRequest);
 
@@ -128,14 +128,14 @@ class UpdateUserInGroupTest extends IntegrationTestBase {
 
         final UpdateUserGroupRequest updateUserGroupRequest = new UpdateUserGroupRequest();
 
-        final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
+        final Integer userGroupId = this.faker.random().nextInt(Integer.MAX_VALUE);
         final Integer userToUpdateId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(groupId, userToUpdateId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(userGroupId, userToUpdateId);
 
         final var result = this.client.doPut(uri, user.getAuthId(), updateUserGroupRequest);
 
-        final GroupNotExistException exception = new GroupNotExistException(groupId);
+        final GroupNotExistException exception = new GroupNotExistException(userGroupId);
 
         IntegrationMVCClient.checkResponseFunctionalException(result, uri, exception);
     }

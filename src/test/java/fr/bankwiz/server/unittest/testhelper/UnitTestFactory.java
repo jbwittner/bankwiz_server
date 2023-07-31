@@ -24,7 +24,7 @@ public class UnitTestFactory extends TestFactory {
 
     public Group getGroup() {
         Group group = super.getGroup();
-        group.setGroupId(this.getRandomId());
+        group.setUserGroupId(this.getRandomId());
         return group;
     }
 

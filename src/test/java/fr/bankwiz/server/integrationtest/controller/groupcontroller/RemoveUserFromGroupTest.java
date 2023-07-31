@@ -26,16 +26,16 @@ class RemoveUserFromGroupTest extends IntegrationTestBase {
                 () -> Assertions.assertEquals(2, group.getGroupRights().size()),
                 () -> Assertions.assertEquals(1, userToRemove.getGroupRights().size()));
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
         final Integer userToRemoveId = userToRemove.getUserId();
 
-        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(groupId, userToRemoveId);
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID_USER_ID.getUri(userGroupId, userToRemoveId);
 
         this.client
                 .doDelete(uri, user.getAuthId())
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
-        final Group groupResult = this.groupRepository.findById(groupId).orElseThrow();
+        final Group groupResult = this.groupRepository.findById(userGroupId).orElseThrow();
         final User userRemovedResult =
                 this.userRepository.findById(userToRemoveId).orElseThrow();
 

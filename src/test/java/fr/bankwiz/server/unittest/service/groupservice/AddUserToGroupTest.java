@@ -37,21 +37,21 @@ class AddUserToGroupTest extends UnitTestBase {
         final User admin = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRight(admin, GroupRightEnum.ADMIN);
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(admin);
 
         final User userToAdd = this.unitTestFactory.getUser();
         final Integer userToAddId = userToAdd.getUserId();
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToAddId, userToAdd);
         this.groupRightRepositoryMockFactory.mockSave();
 
         final AddUserGroupRequest addUserGroupRequest =
                 new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.READ);
 
-        final GroupDTO groupDTO = this.groupService.addUserToGroup(groupId, addUserGroupRequest);
+        final GroupDTO groupDTO = this.groupService.addUserToGroup(userGroupId, addUserGroupRequest);
 
         var argumentCaptor = this.groupRightRepositoryMockFactory.verifySaveCalled(GroupRight.class);
         final GroupRight rightSaved = argumentCaptor.getValue();
@@ -74,7 +74,7 @@ class AddUserToGroupTest extends UnitTestBase {
         final User admin = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRight(admin, GroupRightEnum.ADMIN);
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(admin);
 
@@ -84,14 +84,14 @@ class AddUserToGroupTest extends UnitTestBase {
 
         final Integer userToAddId = userToAdd.getUserId();
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToAddId, userToAdd);
 
         AddUserGroupRequest addUserGroupRequest = new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);
 
         Assertions.assertThrows(
                 UserAlreadyAccessGroupException.class,
-                () -> this.groupService.addUserToGroup(groupId, addUserGroupRequest));
+                () -> this.groupService.addUserToGroup(userGroupId, addUserGroupRequest));
     }
 
     @Test
@@ -99,19 +99,19 @@ class AddUserToGroupTest extends UnitTestBase {
         final User admin = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRight(admin, GroupRightEnum.ADMIN);
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
         final Integer userToAddId = admin.getUserId() + 1;
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(admin);
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToAddId, Optional.empty());
 
         AddUserGroupRequest addUserGroupRequest = new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);
 
         Assertions.assertThrows(
-                UserNotExistException.class, () -> this.groupService.addUserToGroup(groupId, addUserGroupRequest));
+                UserNotExistException.class, () -> this.groupService.addUserToGroup(userGroupId, addUserGroupRequest));
     }
 
     @Test
@@ -119,36 +119,36 @@ class AddUserToGroupTest extends UnitTestBase {
         final User admin = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroup();
 
-        final Integer groupId = group.getGroupId();
+        final Integer userGroupId = group.getUserGroupId();
 
         final Integer userToAddId = admin.getUserId() + 1;
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(admin);
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, group);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
         this.userRepositoryMockFactory.mockFindById(userToAddId, Optional.empty());
 
         AddUserGroupRequest addUserGroupRequest = new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);
 
         Assertions.assertThrows(
-                UserNotAdminException.class, () -> this.groupService.addUserToGroup(groupId, addUserGroupRequest));
+                UserNotAdminException.class, () -> this.groupService.addUserToGroup(userGroupId, addUserGroupRequest));
     }
 
     @Test
     void groupNotExist() {
         final User admin = this.unitTestFactory.getUser();
 
-        final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
+        final Integer userGroupId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
         final Integer userToAddId = admin.getUserId() + 1;
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(admin);
 
-        this.groupRepositoryMockFactory.mockFindById(groupId, Optional.empty());
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, Optional.empty());
 
         AddUserGroupRequest addUserGroupRequest = new AddUserGroupRequest(userToAddId, GroupAuthorizationEnum.WRITE);
 
         Assertions.assertThrows(
-                GroupNotExistException.class, () -> this.groupService.addUserToGroup(groupId, addUserGroupRequest));
+                GroupNotExistException.class, () -> this.groupService.addUserToGroup(userGroupId, addUserGroupRequest));
     }
 }
