@@ -28,7 +28,7 @@ public class GroupRight {
     private User user;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "RIGHT", columnDefinition = "ENUM('READ','WRITE','ADMIN')", nullable = false)
+    @Column(name = "GROUP_RIGHT", columnDefinition = "ENUM('READ','WRITE','ADMIN')", nullable = false)
     private GroupRightEnum groupRightEnum;
 
     public enum GroupRightEnum {

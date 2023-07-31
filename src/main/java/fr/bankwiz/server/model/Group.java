@@ -21,7 +21,7 @@ import lombok.*;
 public class Group {
 
     @Id
-    @Column(name = "GROUP_ID", nullable = false, updatable = false, insertable = false)
+    @Column(name = "USER_GROUP_ID", nullable = false, updatable = false, insertable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer groupId;
 
