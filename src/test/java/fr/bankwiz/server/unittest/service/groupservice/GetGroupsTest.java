@@ -45,7 +45,7 @@ class GetGroupsTest extends UnitTestBase {
                     .filter(gDto -> gDto.getGroupId().equals(g.getUserGroupId()))
                     .findFirst()
                     .orElseThrow();
-            Assertions.assertEquals(g.getGroupName(), groupDTO.getGroupName());
+            Assertions.assertEquals(g.getName(), groupDTO.getGroupName());
         });
     }
 }

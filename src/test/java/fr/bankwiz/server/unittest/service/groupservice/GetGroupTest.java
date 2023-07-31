@@ -44,7 +44,7 @@ class GetGroupTest extends UnitTestBase {
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(2, groupDTO.getUsers().size()),
-                () -> Assertions.assertEquals(group.getGroupName(), groupDTO.getGroupName()),
+                () -> Assertions.assertEquals(group.getName(), groupDTO.getGroupName()),
                 () -> Assertions.assertEquals(group.getUserGroupId(), groupDTO.getGroupId()),
                 () -> {
                     group.getGroupRights().forEach(groupRight -> {

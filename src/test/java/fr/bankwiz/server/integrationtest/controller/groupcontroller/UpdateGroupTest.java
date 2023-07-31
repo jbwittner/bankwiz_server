@@ -28,7 +28,7 @@ class UpdateGroupTest extends IntegrationTestBase {
         final GroupUpdateRequest groupUpdateRequest = new GroupUpdateRequest();
         groupUpdateRequest.setGroupName(this.faker.hitchhikersGuideToTheGalaxy().character());
 
-        final String oldGroupName = group.getGroupName();
+        final String oldGroupName = group.getName();
         final Integer userGroupId = group.getUserGroupId();
 
         final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(userGroupId);
@@ -46,8 +46,8 @@ class UpdateGroupTest extends IntegrationTestBase {
         Assertions.assertAll(
                 () -> Assertions.assertNotEquals(oldGroupName, groupDTO.getGroupName()),
                 () -> Assertions.assertEquals(groupUpdateRequest.getGroupName(), groupDTO.getGroupName()),
-                () -> Assertions.assertNotEquals(oldGroupName, groupUpdated.getGroupName()),
-                () -> Assertions.assertEquals(groupUpdateRequest.getGroupName(), groupUpdated.getGroupName()));
+                () -> Assertions.assertNotEquals(oldGroupName, groupUpdated.getName()),
+                () -> Assertions.assertEquals(groupUpdateRequest.getGroupName(), groupUpdated.getName()));
     }
 
     @Test

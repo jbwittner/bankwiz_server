@@ -10,6 +10,6 @@ public class UserNoWriteRightException extends FunctionalException {
     public UserNoWriteRightException(final User user, final Group group) {
         super(MessageFormat.format(
                 "The user {0} {1} have no write right of group {2}",
-                user.getFirstName(), user.getLastName(), group.getGroupName()));
+                user.getFirstName(), user.getLastName(), group.getName()));
     }
 }

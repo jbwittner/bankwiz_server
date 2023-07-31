@@ -82,7 +82,7 @@ public class GroupService {
 
     public GroupDTO createGroup(GroupCreationRequest groupCreationRequest) {
         Group group =
-                Group.builder().groupName(groupCreationRequest.getGroupName()).build();
+                Group.builder().name(groupCreationRequest.getGroupName()).build();
 
         group = this.groupRepository.save(group);
 
@@ -143,7 +143,7 @@ public class GroupService {
         Group group = this.groupRepository.findById(userGroupId).orElseThrow(() -> new GroupNotExistException(userGroupId));
         final User user = this.authenticationFacade.getCurrentUser();
         group.checkIsAdmin(user);
-        group.setGroupName(groupUpdateRequest.getGroupName());
+        group.setName(groupUpdateRequest.getGroupName());
         return GROUP_DTO_BUILDER.transform(group);
     }
 

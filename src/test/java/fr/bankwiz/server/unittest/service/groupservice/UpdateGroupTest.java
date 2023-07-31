@@ -35,7 +35,7 @@ class UpdateGroupTest extends UnitTestBase {
         final GroupUpdateRequest groupUpdateRequest = new GroupUpdateRequest();
         groupUpdateRequest.setGroupName(this.faker.hitchhikersGuideToTheGalaxy().character());
 
-        final String oldGroupName = group.getGroupName();
+        final String oldGroupName = group.getName();
         final Integer userGroupId = group.getUserGroupId();
 
         this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
@@ -46,8 +46,8 @@ class UpdateGroupTest extends UnitTestBase {
         Assertions.assertAll(
                 () -> Assertions.assertNotEquals(oldGroupName, groupDTO.getGroupName()),
                 () -> Assertions.assertEquals(groupUpdateRequest.getGroupName(), groupDTO.getGroupName()),
-                () -> Assertions.assertNotEquals(oldGroupName, group.getGroupName()),
-                () -> Assertions.assertEquals(groupUpdateRequest.getGroupName(), group.getGroupName()));
+                () -> Assertions.assertNotEquals(oldGroupName, group.getName()),
+                () -> Assertions.assertEquals(groupUpdateRequest.getGroupName(), group.getName()));
     }
 
     @Test

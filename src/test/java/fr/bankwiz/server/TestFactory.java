@@ -25,7 +25,7 @@ public abstract class TestFactory {
     }
 
     protected Group getGroup() {
-        return Group.builder().groupName(this.faker.zelda().character()).build();
+        return Group.builder().name(this.faker.zelda().character()).build();
     }
 
     protected GroupRight getGroupRight(User user, Group group, GroupRightEnum groupRightEnum) {

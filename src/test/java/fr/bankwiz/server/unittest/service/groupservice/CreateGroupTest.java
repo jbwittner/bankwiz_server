@@ -49,7 +49,7 @@ class CreateGroupTest extends UnitTestBase {
         final Group groupSaved = argumentCaptor.getValue();
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(groupCreationRequest.getGroupName(), groupSaved.getGroupName()), () -> {
+                () -> Assertions.assertEquals(groupCreationRequest.getGroupName(), groupSaved.getName()), () -> {
                     var users = groupSaved.getGroupRights();
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(1, users.size()),

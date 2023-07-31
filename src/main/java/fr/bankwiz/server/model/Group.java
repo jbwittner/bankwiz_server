@@ -26,7 +26,7 @@ public class Group {
     protected Integer userGroupId;
 
     @Column(name = "NAME", nullable = false, length = 60)
-    private String groupName;
+    private String name;
 
     @Builder.Default
     @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

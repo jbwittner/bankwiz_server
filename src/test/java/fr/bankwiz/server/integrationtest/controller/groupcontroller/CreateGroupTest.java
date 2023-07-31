@@ -44,7 +44,7 @@ class CreateGroupTest extends IntegrationTestBase {
         final Group group = this.groupRepository.findById(groupDTO.getGroupId()).orElseThrow();
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(groupCreationRequest.getGroupName(), group.getGroupName()), () -> {
+                () -> Assertions.assertEquals(groupCreationRequest.getGroupName(), group.getName()), () -> {
                     var users = group.getGroupRights();
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(1, users.size()),
