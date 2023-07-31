@@ -25,7 +25,7 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer groupId;
 
-    @Column(name = "GROUP_NAME", nullable = false, length = 60)
+    @Column(name = "NAME", nullable = false, length = 60)
     private String groupName;
 
     @Builder.Default

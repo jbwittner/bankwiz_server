@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "GROUP_RIGHTS")
+@Table(name = "GROUP_RIGHT")
 public class GroupRight {
 
     @Id
@@ -28,7 +28,7 @@ public class GroupRight {
     private User user;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "GROUP_RIGHT", columnDefinition = "ENUM('READ','WRITE','ADMIN')", nullable = false)
+    @Column(name = "RIGHT", columnDefinition = "ENUM('READ','WRITE','ADMIN')", nullable = false)
     private GroupRightEnum groupRightEnum;
 
     public enum GroupRightEnum {
