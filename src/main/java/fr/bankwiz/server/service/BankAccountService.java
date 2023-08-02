@@ -5,14 +5,13 @@ import fr.bankwiz.openapi.model.BankAccountDTO;
 import fr.bankwiz.openapi.model.BankAccountGroupDTO;
 import fr.bankwiz.openapi.model.BankAccountUpdateRequest;
 import jakarta.transaction.Transactional;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @Transactional
-public class BankingAccountService {
+public class BankAccountService {
 
     public BankAccountDTO addAccount(BankAccountCreationRequest bankAccountCreationRequest) {
         return null;

@@ -5,7 +5,7 @@ import fr.bankwiz.openapi.model.BankAccountCreationRequest;
 import fr.bankwiz.openapi.model.BankAccountDTO;
 import fr.bankwiz.openapi.model.BankAccountGroupDTO;
 import fr.bankwiz.openapi.model.BankAccountUpdateRequest;
-import fr.bankwiz.server.service.BankingAccountService;
+import fr.bankwiz.server.service.BankAccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,41 +13,41 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class BankingAccountController implements BankAccountApi {
+public class BankAccountController implements BankAccountApi {
 
-    private final BankingAccountService bankingAccountService;
+    private final BankAccountService bankAccountService;
 
-    public BankingAccountController(BankingAccountService bankingAccountService){
-        this.bankingAccountService = bankingAccountService;
+    public BankAccountController(BankAccountService bankAccountService){
+        this.bankAccountService = bankAccountService;
     }
 
     @Override
     public ResponseEntity<BankAccountDTO> addAccount(BankAccountCreationRequest bankAccountCreationRequest) {
-        final BankAccountDTO result = bankingAccountService.addAccount(bankAccountCreationRequest);
+        final BankAccountDTO result = bankAccountService.addAccount(bankAccountCreationRequest);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Void> deleteAccount(Integer bankAccountId) {
-        bankingAccountService.deleteAccount(bankAccountId);
+        bankAccountService.deleteAccount(bankAccountId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<BankAccountDTO> getAccount(Integer bankAccountId) {
-        final BankAccountDTO result = bankingAccountService.getAccount(bankAccountId);
+        final BankAccountDTO result = bankAccountService.getAccount(bankAccountId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<BankAccountGroupDTO>> getBankAccounts() {
-        final List<BankAccountGroupDTO> result = bankingAccountService.getBankAccounts();
+        final List<BankAccountGroupDTO> result = bankAccountService.getBankAccounts();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<BankAccountDTO> updateAccount(Integer bankAccountId, BankAccountUpdateRequest bankAccountUpdateRequest) {
-        final BankAccountDTO result = bankingAccountService.updateAccount(bankAccountId, bankAccountUpdateRequest);
+        final BankAccountDTO result = bankAccountService.updateAccount(bankAccountId, bankAccountUpdateRequest);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
