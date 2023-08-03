@@ -9,9 +9,12 @@ import fr.bankwiz.openapi.model.BankAccountDTO;
 import fr.bankwiz.openapi.model.BankAccountGroupDTO;
 import fr.bankwiz.openapi.model.BankAccountUpdateRequest;
 import fr.bankwiz.server.dto.BankAccountDTOBuilder;
+import fr.bankwiz.server.dto.BankAccountGroupDTOBuilder;
+import fr.bankwiz.server.exception.BankAccountNotExistException;
 import fr.bankwiz.server.exception.GroupNotExistException;
 import fr.bankwiz.server.model.BankAccount;
 import fr.bankwiz.server.model.Group;
+import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.repository.BankAccountRepository;
 import fr.bankwiz.server.repository.GroupRepository;
@@ -23,6 +26,7 @@ import jakarta.transaction.Transactional;
 public class BankAccountService {
 
     private static final BankAccountDTOBuilder BANK_ACCOUNT_DTO_BUILDER = new BankAccountDTOBuilder();
+    private static final BankAccountGroupDTOBuilder BANK_ACCOUNT_GROUP_DTO_BUILDER = new BankAccountGroupDTOBuilder();
 
     private final AuthenticationFacade authenticationFacade;
     private final GroupRepository groupRepository;
@@ -52,21 +56,39 @@ public class BankAccountService {
                 .baseAmountDecimal(bankAccountCreationRequest.getBaseAmountDecimal())
                 .build();
 
-        bankAccount = this.bankAccountRepository.save(bankAccount);
-
         group.addBankAccount(bankAccount);
+
+        bankAccount = this.bankAccountRepository.save(bankAccount);
 
         return BANK_ACCOUNT_DTO_BUILDER.transform(bankAccount);
     }
 
-    public void deleteAccount(Integer bankAccountId) {}
+    public void deleteAccount(Integer bankAccountId) {
+        final BankAccount bankAccount = this.bankAccountRepository
+                .findById(bankAccountId)
+                .orElseThrow(() -> new BankAccountNotExistException(bankAccountId));
+        final Group group = bankAccount.getGroup();
+        final User user = this.authenticationFacade.getCurrentUser();
+        group.checkIsAdmin(user);
+        group.removeBankAccount(bankAccount);
+        this.bankAccountRepository.delete(bankAccount);
+    }
 
     public BankAccountDTO getAccount(Integer bankAccountId) {
-        return null;
+        final BankAccount bankAccount = this.bankAccountRepository
+                .findById(bankAccountId)
+                .orElseThrow(() -> new BankAccountNotExistException(bankAccountId));
+        final Group group = bankAccount.getGroup();
+        final User user = this.authenticationFacade.getCurrentUser();
+        group.checkIsAdmin(user);
+        return BANK_ACCOUNT_DTO_BUILDER.transform(bankAccount);
     }
 
     public List<BankAccountGroupDTO> getBankAccounts() {
-        return null;
+        final User user = this.authenticationFacade.getCurrentUser();
+        final List<Group> groups =
+                user.getGroupRights().stream().map(GroupRight::getGroup).toList();
+        return BANK_ACCOUNT_GROUP_DTO_BUILDER.transformAll(groups);
     }
 
     public BankAccountDTO updateAccount(Integer bankAccountId, BankAccountUpdateRequest bankAccountUpdateRequest) {

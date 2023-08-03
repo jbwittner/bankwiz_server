@@ -49,6 +49,10 @@ public class Group {
         this.groupRights.remove(groupRight);
     }
 
+    public void removeBankAccount(BankAccount bankAccount) {
+        this.bankAccounts.remove(bankAccount);
+    }
+
     public boolean hasRight(User user, GroupRightEnum right) {
         return this.groupRights.stream()
                 .filter(p -> p.getUser().getUserAccountId().equals(user.userAccountId))
