@@ -2,7 +2,6 @@ package fr.bankwiz.server.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import fr.bankwiz.server.exception.UserNoReadRightException;
 import fr.bankwiz.server.exception.UserNoWriteRightException;
@@ -32,13 +31,22 @@ public class Group {
     @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<GroupRight> groupRights = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<BankAccount> bankAccounts = new ArrayList<>();
+
     public void addGroupRight(GroupRight groupRight) {
         this.groupRights.add(groupRight);
         groupRight.setGroup(this);
     }
 
-    public boolean removeGroupRight(GroupRight groupRight) {
-        return this.groupRights.remove(groupRight);
+    public void addBankAccount(BankAccount bankAccount) {
+        this.bankAccounts.add(bankAccount);
+        bankAccount.setGroup(this);
+    }
+
+    public void removeGroupRight(GroupRight groupRight) {
+        this.groupRights.remove(groupRight);
     }
 
     public boolean hasRight(User user, GroupRightEnum right) {
@@ -50,12 +58,6 @@ public class Group {
     public boolean hasAnyRight(User user) {
         return this.groupRights.stream()
                 .anyMatch(p -> p.getUser().getUserAccountId().equals(user.userAccountId));
-    }
-
-    public Optional<GroupRight> getFirstRight(User user) {
-        return this.groupRights.stream()
-                .filter(p -> p.getUser().getUserAccountId().equals(user.userAccountId))
-                .findFirst();
     }
 
     public boolean isAdmin(User user) {

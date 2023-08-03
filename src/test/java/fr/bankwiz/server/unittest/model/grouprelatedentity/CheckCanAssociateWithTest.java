@@ -1,11 +1,12 @@
 package fr.bankwiz.server.unittest.model.grouprelatedentity;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import fr.bankwiz.server.exception.IncompatibleGroupException;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRelatedEntity;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 class CheckCanAssociateWithTest extends UnitTestBase {
 
