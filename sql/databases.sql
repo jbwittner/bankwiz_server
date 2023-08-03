@@ -16,6 +16,24 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `GROUP_ACCOUNT`
+--
+
+DROP TABLE IF EXISTS `GROUP_ACCOUNT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `GROUP_ACCOUNT` (
+  `BASE_AMOUNT` int NOT NULL,
+  `GROUP_ID` int NOT NULL,
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_GROUP` (`GROUP_ID`),
+  CONSTRAINT `FK_GROUP` FOREIGN KEY (`GROUP_ID`) REFERENCES `USER_GROUP` (`USER_GROUP_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `GROUP_RIGHT`
 --
 
@@ -28,9 +46,7 @@ CREATE TABLE `GROUP_RIGHT` (
   `USER_ID` int NOT NULL,
   `GROUP_RIGHT` enum('ADMIN','READ','WRITE') COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`GROUP_RIGHT_ID`),
-  KEY `FK_GROUP` (`GROUP_ID`),
   KEY `FK_USER` (`USER_ID`),
-  CONSTRAINT `FK_GROUP` FOREIGN KEY (`GROUP_ID`) REFERENCES `USER_GROUP` (`USER_GROUP_ID`),
   CONSTRAINT `FK_USER` FOREIGN KEY (`USER_ID`) REFERENCES `USER_ACCOUNT` (`USER_ACCOUNT_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -75,4 +91,4 @@ CREATE TABLE `USER_GROUP` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-31 14:19:45
+-- Dump completed on 2023-08-03 14:40:42
