@@ -69,7 +69,7 @@ public class BankAccountService {
                 .orElseThrow(() -> new BankAccountNotExistException(bankAccountId));
         final Group group = bankAccount.getGroup();
         final User user = this.authenticationFacade.getCurrentUser();
-        group.checkIsAdmin(user);
+        bankAccount.checkIsAdminOfGroup(user);
         group.removeBankAccount(bankAccount);
         this.bankAccountRepository.delete(bankAccount);
     }
@@ -78,9 +78,8 @@ public class BankAccountService {
         final BankAccount bankAccount = this.bankAccountRepository
                 .findById(bankAccountId)
                 .orElseThrow(() -> new BankAccountNotExistException(bankAccountId));
-        final Group group = bankAccount.getGroup();
         final User user = this.authenticationFacade.getCurrentUser();
-        group.checkIsAdmin(user);
+        bankAccount.checkIsAdminOfGroup(user);
         return BANK_ACCOUNT_DTO_BUILDER.transform(bankAccount);
     }
 
@@ -92,6 +91,18 @@ public class BankAccountService {
     }
 
     public BankAccountDTO updateAccount(Integer bankAccountId, BankAccountUpdateRequest bankAccountUpdateRequest) {
-        return null;
+        BankAccount bankAccount = this.bankAccountRepository
+                .findById(bankAccountId)
+                .orElseThrow(() -> new BankAccountNotExistException(bankAccountId));
+        final User user = this.authenticationFacade.getCurrentUser();
+        bankAccount.checkIsAdminOfGroup(user);
+        if (bankAccountUpdateRequest.getAccountName() != null) {
+            bankAccount.setName(bankAccountUpdateRequest.getAccountName());
+        }
+        if (bankAccountUpdateRequest.getBaseAmountDecimal() != null) {
+            bankAccount.setBaseAmountDecimal(bankAccountUpdateRequest.getBaseAmountDecimal());
+        }
+        bankAccount = this.bankAccountRepository.save(bankAccount);
+        return BANK_ACCOUNT_DTO_BUILDER.transform(bankAccount);
     }
 }

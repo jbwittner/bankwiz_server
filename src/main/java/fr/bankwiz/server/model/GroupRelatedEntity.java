@@ -24,4 +24,16 @@ public abstract class GroupRelatedEntity {
             throw new IncompatibleGroupException(this.group, targetGroup);
         }
     }
+
+    public void checkCanWriteGroup(User user) {
+        this.group.checkCanWrite(user);
+    }
+
+    public void checkCanReadGroup(User user) {
+        this.group.checkCanRead(user);
+    }
+
+    public void checkIsAdminOfGroup(User user) {
+        this.group.checkIsAdmin(user);
+    }
 }
