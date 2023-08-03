@@ -2,6 +2,7 @@ package fr.bankwiz.server.unittest.testhelper;
 
 import fr.bankwiz.server.PersonalFaker;
 import fr.bankwiz.server.TestFactory;
+import fr.bankwiz.server.model.BankAccount;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
@@ -42,5 +43,20 @@ public class UnitTestFactory extends TestFactory {
         final Group group = this.getGroup();
         this.getGroupRight(userToAdd, group, groupRightEnum);
         return group;
+    }
+
+    public BankAccount getBankAccount(Integer baseAmountDecimal, String name, Group group) {
+        BankAccount bankAccount = super.getBankAccount(baseAmountDecimal, name, group);
+        bankAccount.setId(getRandomId());
+        return bankAccount;
+    }
+
+    public BankAccount getBankAccount(Group group) {
+        BankAccount bankAccount = super.getBankAccount(
+                this.faker.random().nextInt(Integer.MAX_VALUE),
+                this.faker.leagueOfLegends().champion(),
+                group);
+        bankAccount.setId(getRandomId());
+        return bankAccount;
     }
 }

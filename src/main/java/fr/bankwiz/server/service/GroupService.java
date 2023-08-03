@@ -10,10 +10,7 @@ import fr.bankwiz.openapi.model.GroupDTO;
 import fr.bankwiz.openapi.model.GroupUpdateRequest;
 import fr.bankwiz.openapi.model.UpdateUserGroupRequest;
 import fr.bankwiz.server.dto.GroupDTOBuilder;
-import fr.bankwiz.server.exception.GroupNotExistException;
-import fr.bankwiz.server.exception.UserAlreadyAccessGroupException;
-import fr.bankwiz.server.exception.UserNoAccessGroupException;
-import fr.bankwiz.server.exception.UserNotExistException;
+import fr.bankwiz.server.exception.*;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
@@ -179,6 +176,10 @@ public class GroupService {
         final User user = this.authenticationFacade.getCurrentUser();
 
         group.checkIsAdmin(user);
+
+        if (!group.getBankAccounts().isEmpty()) {
+            throw new OneToManyElementException();
+        }
 
         List<GroupRight> groupRights = this.groupRightRepository.findAllByGroup(group);
 

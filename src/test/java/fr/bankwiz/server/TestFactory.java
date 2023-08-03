@@ -1,5 +1,6 @@
 package fr.bankwiz.server;
 
+import fr.bankwiz.server.model.BankAccount;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
@@ -37,5 +38,14 @@ public abstract class TestFactory {
         user.addGroupRight(groupRight);
         group.addGroupRight(groupRight);
         return groupRight;
+    }
+
+    protected BankAccount getBankAccount(Integer baseAmountDecimal, String name, Group group) {
+        final BankAccount bankAccount = BankAccount.builder()
+                .baseAmountDecimal(baseAmountDecimal)
+                .name(name)
+                .build();
+        group.addBankAccount(bankAccount);
+        return bankAccount;
     }
 }
