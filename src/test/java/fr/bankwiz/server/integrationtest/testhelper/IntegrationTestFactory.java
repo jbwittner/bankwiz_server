@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import fr.bankwiz.server.TestFactory;
+import fr.bankwiz.server.model.BankAccount;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.model.User;
+import fr.bankwiz.server.repository.BankAccountRepository;
 import fr.bankwiz.server.repository.GroupRepository;
 import fr.bankwiz.server.repository.GroupRightRepository;
 import fr.bankwiz.server.repository.UserRepository;
@@ -23,6 +25,9 @@ public class IntegrationTestFactory extends TestFactory {
 
     @Autowired
     private GroupRightRepository groupRightRepository;
+
+    @Autowired
+    private BankAccountRepository bankAccountRepository;
 
     public User getUser() {
         final User user = super.getUser();
@@ -43,5 +48,20 @@ public class IntegrationTestFactory extends TestFactory {
         final Group group = this.getGroup();
         this.addUserToGroup(userToAdd, group, groupRightEnum);
         return group;
+    }
+
+    public BankAccount getBankAccount(Integer baseAmountDecimal, String name, Group group) {
+        BankAccount bankAccount = super.getBankAccount(baseAmountDecimal, name, group);
+        bankAccount = this.bankAccountRepository.save(bankAccount);
+        return bankAccount;
+    }
+
+    public BankAccount getBankAccount(Group group) {
+        BankAccount bankAccount = super.getBankAccount(
+                this.faker.random().nextInt(Integer.MAX_VALUE),
+                this.faker.leagueOfLegends().champion(),
+                group);
+        bankAccount = this.bankAccountRepository.save(bankAccount);
+        return bankAccount;
     }
 }
