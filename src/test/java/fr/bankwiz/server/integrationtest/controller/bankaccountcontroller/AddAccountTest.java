@@ -28,7 +28,7 @@ class AddAccountTest extends IntegrationTestBase {
 
         BankAccountCreationRequest bankAccountCreationRequest = new BankAccountCreationRequest(
                 group.getUserGroupId(),
-                this.faker.witcher().character(),
+                this.faker.pokemon().name(),
                 this.faker.random().nextInt(Integer.MAX_VALUE));
 
         final String uri = IntegrationMVCClient.UriEnum.BANK_ACCOUNT.getUri();
@@ -72,7 +72,7 @@ class AddAccountTest extends IntegrationTestBase {
 
         BankAccountCreationRequest bankAccountCreationRequest = new BankAccountCreationRequest(
                 group.getUserGroupId(),
-                this.faker.witcher().character(),
+                this.faker.pokemon().name(),
                 this.faker.random().nextInt(Integer.MAX_VALUE));
 
         final String uri = IntegrationMVCClient.UriEnum.BANK_ACCOUNT.getUri();
@@ -91,7 +91,7 @@ class AddAccountTest extends IntegrationTestBase {
         final Integer groupId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
         BankAccountCreationRequest bankAccountCreationRequest = new BankAccountCreationRequest(
-                groupId, this.faker.witcher().character(), this.faker.random().nextInt(Integer.MAX_VALUE));
+                groupId, this.faker.pokemon().name(), this.faker.random().nextInt(Integer.MAX_VALUE));
 
         final String uri = IntegrationMVCClient.UriEnum.BANK_ACCOUNT.getUri();
 

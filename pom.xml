@@ -19,7 +19,7 @@
         </repository>
     </distributionManagement>
     <properties>
-        <bankwiz.openapi.version>0.2.3</bankwiz.openapi.version>
+        <bankwiz.openapi.version>0.2.5</bankwiz.openapi.version>
         <java.version>17</java.version>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.organization>jbwittner</sonar.organization>

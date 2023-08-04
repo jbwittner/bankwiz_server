@@ -35,7 +35,7 @@ class AddAccountTest extends UnitTestBase {
 
         BankAccountCreationRequest bankAccountCreationRequest = new BankAccountCreationRequest(
                 group.getUserGroupId(),
-                this.faker.witcher().character(),
+                this.faker.pokemon().name(),
                 this.faker.random().nextInt(Integer.MAX_VALUE));
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
