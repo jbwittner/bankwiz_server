@@ -16,7 +16,7 @@ import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.service.BankAccountService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
 
-public class UpdateAccountTest extends UnitTestBase {
+class UpdateAccountTest extends UnitTestBase {
 
     private BankAccountService bankAccountService;
 
@@ -29,7 +29,7 @@ public class UpdateAccountTest extends UnitTestBase {
     }
 
     @Test
-    public void updateAllOk() {
+    void updateAllOk() {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.ADMIN);
         final BankAccount bankAccount = this.unitTestFactory.getBankAccount(group);
@@ -76,7 +76,7 @@ public class UpdateAccountTest extends UnitTestBase {
     }
 
     @Test
-    public void updateAccountName() {
+    void updateAccountName() {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.ADMIN);
         final BankAccount bankAccount = this.unitTestFactory.getBankAccount(group);
@@ -117,7 +117,7 @@ public class UpdateAccountTest extends UnitTestBase {
     }
 
     @Test
-    public void updateBaseAmount() {
+    void updateBaseAmount() {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.ADMIN);
         final BankAccount bankAccount = this.unitTestFactory.getBankAccount(group);
@@ -159,7 +159,7 @@ public class UpdateAccountTest extends UnitTestBase {
     }
 
     @Test
-    public void userNotAdminException() {
+    void userNotAdminException() {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.WRITE);
         final BankAccount bankAccount = this.unitTestFactory.getBankAccount(group);
@@ -177,7 +177,7 @@ public class UpdateAccountTest extends UnitTestBase {
     }
 
     @Test
-    public void bankAccountNotExistException() {
+    void bankAccountNotExistException() {
 
         final Integer bankAccountId = this.faker.random().nextInt(Integer.MAX_VALUE);
 

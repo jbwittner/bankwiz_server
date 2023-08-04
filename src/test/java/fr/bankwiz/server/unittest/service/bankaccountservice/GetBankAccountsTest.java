@@ -12,7 +12,7 @@ import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.service.BankAccountService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
 
-public class GetBankAccountsTest extends UnitTestBase {
+class GetBankAccountsTest extends UnitTestBase {
 
     private BankAccountService bankAccountService;
 
@@ -25,7 +25,7 @@ public class GetBankAccountsTest extends UnitTestBase {
     }
 
     @Test
-    public void getBankAccountsOk() {
+    void getBankAccountsOk() {
         final User user = this.unitTestFactory.getUser();
         final Group group1 = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.READ);
         final BankAccount bankAccount11 = this.unitTestFactory.getBankAccount(group1);

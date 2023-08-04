@@ -15,7 +15,7 @@ import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.service.BankAccountService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
 
-public class GetBankAccountTest extends UnitTestBase {
+class GetBankAccountTest extends UnitTestBase {
 
     private BankAccountService bankAccountService;
 
@@ -28,7 +28,7 @@ public class GetBankAccountTest extends UnitTestBase {
     }
 
     @Test
-    public void getAccountTest() {
+    void getAccountTest() {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.READ);
         final BankAccount bankAccount = this.unitTestFactory.getBankAccount(group);
@@ -55,7 +55,7 @@ public class GetBankAccountTest extends UnitTestBase {
     }
 
     @Test
-    public void userNoReadRightException() {
+    void userNoReadRightException() {
         final User user = this.unitTestFactory.getUser();
         final Group group = this.unitTestFactory.getGroup();
         final BankAccount bankAccount = this.unitTestFactory.getBankAccount(group);
@@ -71,7 +71,7 @@ public class GetBankAccountTest extends UnitTestBase {
     }
 
     @Test
-    public void bankAccountNotExistException() {
+    void bankAccountNotExistException() {
         final Integer bankAccountId = this.faker.random().nextInt(Integer.MAX_VALUE);
 
         this.bankAccountRepositoryMockFactory.mockFindById(bankAccountId, Optional.empty());

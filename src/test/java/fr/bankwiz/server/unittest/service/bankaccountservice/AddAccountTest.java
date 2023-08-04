@@ -16,7 +16,7 @@ import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.service.BankAccountService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
 
-public class AddAccountTest extends UnitTestBase {
+class AddAccountTest extends UnitTestBase {
 
     private BankAccountService bankAccountService;
 

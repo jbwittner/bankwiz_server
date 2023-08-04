@@ -14,7 +14,7 @@ import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.service.BankAccountService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
 
-public class DeleteAccountTest extends UnitTestBase {
+class DeleteAccountTest extends UnitTestBase {
 
     private BankAccountService bankAccountService;
 
