@@ -1,10 +1,14 @@
 package fr.bankwiz.server.unittest.service.bankaccountservice;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.openapi.model.BankAccountCreationRequest;
 import fr.bankwiz.openapi.model.BankAccountDTO;
+import fr.bankwiz.server.exception.GroupNotExistException;
+import fr.bankwiz.server.exception.UserNotAdminException;
 import fr.bankwiz.server.model.BankAccount;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
@@ -61,5 +65,30 @@ public class AddAccountTest extends UnitTestBase {
                 () -> Assertions.assertEquals(
                         bankAccountCreationRequest.getGroupId(),
                         bankAccountSaved.getGroup().getUserGroupId()));
+    }
+
+    @Test
+    void userNotAdminException() {
+        final User user = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.WRITE);
+
+        BankAccountCreationRequest bankAccountCreationRequest = new BankAccountCreationRequest();
+
+        this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
+        this.groupRepositoryMockFactory.mockFindById(bankAccountCreationRequest.getGroupId(), group);
+
+        Assertions.assertThrows(UserNotAdminException.class, () -> {
+            this.bankAccountService.addAccount(bankAccountCreationRequest);
+        });
+    }
+
+    @Test
+    void groupNotExistException() {
+        BankAccountCreationRequest bankAccountCreationRequest = new BankAccountCreationRequest();
+        this.groupRepositoryMockFactory.mockFindById(bankAccountCreationRequest.getGroupId(), Optional.empty());
+
+        Assertions.assertThrows(GroupNotExistException.class, () -> {
+            this.bankAccountService.addAccount(bankAccountCreationRequest);
+        });
     }
 }
