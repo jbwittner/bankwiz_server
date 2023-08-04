@@ -36,7 +36,7 @@ public class BankAccountController implements BankAccountApi {
 
     @Override
     public ResponseEntity<BankAccountDTO> getAccount(Integer bankAccountId) {
-        final BankAccountDTO result = bankAccountService.getAccount(bankAccountId);
+        final BankAccountDTO result = bankAccountService.getBankAccount(bankAccountId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

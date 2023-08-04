@@ -74,7 +74,7 @@ public class BankAccountService {
         this.bankAccountRepository.delete(bankAccount);
     }
 
-    public BankAccountDTO getAccount(Integer bankAccountId) {
+    public BankAccountDTO getBankAccount(Integer bankAccountId) {
         final BankAccount bankAccount = this.bankAccountRepository
                 .findById(bankAccountId)
                 .orElseThrow(() -> new BankAccountNotExistException(bankAccountId));

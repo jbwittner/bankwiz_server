@@ -15,7 +15,7 @@ import fr.bankwiz.server.model.User;
 import fr.bankwiz.server.service.BankAccountService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
 
-public class GetAccountTest extends UnitTestBase {
+public class GetBankAccountTest extends UnitTestBase {
 
     private BankAccountService bankAccountService;
 
@@ -38,7 +38,7 @@ public class GetAccountTest extends UnitTestBase {
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
         this.bankAccountRepositoryMockFactory.mockFindById(bankAccountId, bankAccount);
 
-        final BankAccountDTO bankAccountDTO = this.bankAccountService.getAccount(bankAccountId);
+        final BankAccountDTO bankAccountDTO = this.bankAccountService.getBankAccount(bankAccountId);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(
@@ -66,7 +66,7 @@ public class GetAccountTest extends UnitTestBase {
         this.bankAccountRepositoryMockFactory.mockFindById(bankAccountId, bankAccount);
 
         Assertions.assertThrows(UserNoReadRightException.class, () -> {
-            this.bankAccountService.getAccount(bankAccountId);
+            this.bankAccountService.getBankAccount(bankAccountId);
         });
     }
 
@@ -77,7 +77,7 @@ public class GetAccountTest extends UnitTestBase {
         this.bankAccountRepositoryMockFactory.mockFindById(bankAccountId, Optional.empty());
 
         Assertions.assertThrows(BankAccountNotExistException.class, () -> {
-            this.bankAccountService.getAccount(bankAccountId);
+            this.bankAccountService.getBankAccount(bankAccountId);
         });
     }
 }
