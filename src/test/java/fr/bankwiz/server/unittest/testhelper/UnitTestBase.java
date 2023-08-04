@@ -3,6 +3,7 @@ package fr.bankwiz.server.unittest.testhelper;
 import org.junit.jupiter.api.BeforeEach;
 
 import fr.bankwiz.server.PersonalFaker;
+import fr.bankwiz.server.unittest.testhelper.mockrepository.BankAccountRepositoryMockFactory;
 import fr.bankwiz.server.unittest.testhelper.mockrepository.GroupRepositoryMockFactory;
 import fr.bankwiz.server.unittest.testhelper.mockrepository.GroupRightRepositoryMockFactory;
 import fr.bankwiz.server.unittest.testhelper.mockrepository.UserRepositoryMockFactory;
@@ -17,6 +18,8 @@ public abstract class UnitTestBase {
     protected GroupRepositoryMockFactory groupRepositoryMockFactory;
     protected GroupRightRepositoryMockFactory groupRightRepositoryMockFactory;
 
+    protected BankAccountRepositoryMockFactory bankAccountRepositoryMockFactory;
+
     /** Method launch before each test */
     @BeforeEach
     public void beforeEach() {
@@ -26,6 +29,7 @@ public abstract class UnitTestBase {
         this.userRepositoryMockFactory = new UserRepositoryMockFactory();
         this.groupRepositoryMockFactory = new GroupRepositoryMockFactory();
         this.groupRightRepositoryMockFactory = new GroupRightRepositoryMockFactory();
+        this.bankAccountRepositoryMockFactory = new BankAccountRepositoryMockFactory();
 
         this.initDataBeforeEach();
     }

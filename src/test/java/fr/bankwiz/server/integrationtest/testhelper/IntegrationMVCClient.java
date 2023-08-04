@@ -73,9 +73,9 @@ public class IntegrationMVCClient {
         GROUP_ID("/group/{0,number,#}"),
         GROUPS("/group/groups"),
         GROUP_ID_USER_ID("/group/{0,number,#}/user/{1,number,#}"),
-        ACCOUNT("/account"),
-        ACCOUNT_ID_ACCOUNT("/account/{0,number,#}"),
-        ACCOUNTS("/account/accounts"),
+        BANK_ACCOUNT("/bankAccount"),
+        BANK_ACCOUNT_ID_ACCOUNT("/bankAccount/{0,number,#}"),
+        BANK_ACCOUNTS("/bankAccount/bankAccounts"),
         ACCOUNTLINE("/accountline"),
         ACCOUNTLINE_ID_LINE("/accountline/{0,number,#}");
 

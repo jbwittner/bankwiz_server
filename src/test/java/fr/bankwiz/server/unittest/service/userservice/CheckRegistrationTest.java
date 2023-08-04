@@ -24,7 +24,7 @@ class CheckRegistrationTest extends UnitTestBase {
 
         this.idData = new AuthenticationFacade.IdData();
         idData.setEmail(this.faker.internet().emailAddress());
-        idData.setSub(this.faker.witcher().witcher());
+        idData.setSub(this.faker.pokemon().name());
         idData.setName(this.faker.name().username());
         idData.setFamilyName(this.faker.name().lastName());
         idData.setGivenName(this.faker.name().firstName());

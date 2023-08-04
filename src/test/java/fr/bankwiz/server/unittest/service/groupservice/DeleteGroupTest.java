@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.exception.GroupNotExistException;
+import fr.bankwiz.server.exception.OneToManyElementException;
 import fr.bankwiz.server.exception.UserNotAdminException;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
@@ -85,6 +86,22 @@ class DeleteGroupTest extends UnitTestBase {
         this.groupRepositoryMockFactory.mockFindById(userGroupId, Optional.empty());
 
         Assertions.assertThrows(GroupNotExistException.class, () -> {
+            this.groupService.deleteGroup(userGroupId);
+        });
+    }
+
+    @Test
+    void oneToManyElementException() {
+        final User user = this.unitTestFactory.getUser();
+        final Group group = this.unitTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.ADMIN);
+        this.unitTestFactory.getBankAccount(group);
+
+        final Integer userGroupId = group.getUserGroupId();
+
+        this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
+        this.groupRepositoryMockFactory.mockFindById(userGroupId, group);
+
+        Assertions.assertThrows(OneToManyElementException.class, () -> {
             this.groupService.deleteGroup(userGroupId);
         });
     }
