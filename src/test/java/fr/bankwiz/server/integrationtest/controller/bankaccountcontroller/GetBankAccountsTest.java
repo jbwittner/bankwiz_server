@@ -16,7 +16,7 @@ import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.User;
 
-public class GetBankAccountsTest extends IntegrationTestBase {
+class GetBankAccountsTest extends IntegrationTestBase {
 
     @Override
     protected void initDataBeforeEach() {}
