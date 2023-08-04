@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import fr.bankwiz.server.exception.GroupNotExistException;
+import fr.bankwiz.server.exception.OneToManyElementException;
 import fr.bankwiz.server.exception.UserNotAdminException;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationTestBase;
@@ -77,6 +78,23 @@ class DeleteGroupTest extends IntegrationTestBase {
         final var result = this.client.doDelete(uri, user.getAuthId());
 
         final GroupNotExistException exception = new GroupNotExistException(userGroupId);
+
+        IntegrationMVCClient.checkResponseFunctionalException(result, uri, exception);
+    }
+
+    @Test
+    void oneToManyElementException() throws Exception {
+        final User user = this.integrationTestFactory.getUser();
+        final Group group = this.integrationTestFactory.getGroupWithRight(user, GroupRight.GroupRightEnum.ADMIN);
+        this.integrationTestFactory.getBankAccount(group);
+
+        final Integer userGroupId = group.getUserGroupId();
+
+        final String uri = IntegrationMVCClient.UriEnum.GROUP_ID.getUri(userGroupId);
+
+        final var result = this.client.doDelete(uri, user.getAuthId());
+
+        final OneToManyElementException exception = new OneToManyElementException();
 
         IntegrationMVCClient.checkResponseFunctionalException(result, uri, exception);
     }

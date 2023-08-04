@@ -12,6 +12,7 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 import fr.bankwiz.server.PersonalFaker;
+import fr.bankwiz.server.repository.BankAccountRepository;
 import fr.bankwiz.server.repository.GroupRepository;
 import fr.bankwiz.server.repository.GroupRightRepository;
 import fr.bankwiz.server.repository.UserRepository;
@@ -37,6 +38,9 @@ public abstract class IntegrationTestBase {
 
     @Autowired
     protected GroupRightRepository groupRightRepository;
+
+    @Autowired
+    protected BankAccountRepository bankAccountRepository;
 
     @LocalServerPort
     protected int port;

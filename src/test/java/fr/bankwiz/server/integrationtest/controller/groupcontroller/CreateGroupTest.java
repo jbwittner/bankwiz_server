@@ -22,7 +22,7 @@ class CreateGroupTest extends IntegrationTestBase {
         final User admin = this.integrationTestFactory.getUser();
 
         final GroupCreationRequest groupCreationRequest =
-                new GroupCreationRequest(this.faker.witcher().witcher());
+                new GroupCreationRequest(this.faker.pokemon().name());
 
         var result = this.client
                 .doPost(IntegrationMVCClient.UriEnum.GROUP.getUri(), admin.getAuthId(), groupCreationRequest)

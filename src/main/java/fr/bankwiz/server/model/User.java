@@ -41,7 +41,7 @@ public class User {
         groupRight.setUser(this);
     }
 
-    public boolean removeGroupRight(GroupRight groupRight) {
-        return this.groupRights.remove(groupRight);
+    public void removeGroupRight(GroupRight groupRight) {
+        this.groupRights.remove(groupRight);
     }
 }
