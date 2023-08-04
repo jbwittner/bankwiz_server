@@ -79,7 +79,7 @@ public class BankAccountService {
                 .findById(bankAccountId)
                 .orElseThrow(() -> new BankAccountNotExistException(bankAccountId));
         final User user = this.authenticationFacade.getCurrentUser();
-        bankAccount.checkIsAdminOfGroup(user);
+        bankAccount.checkCanReadGroup(user);
         return BANK_ACCOUNT_DTO_BUILDER.transform(bankAccount);
     }
 
