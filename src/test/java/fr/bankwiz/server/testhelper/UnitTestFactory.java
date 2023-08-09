@@ -30,7 +30,10 @@ public class UnitTestFactory {
     }
 
     public Group getGroup() {
-        return Group.builder().name(this.faker.zelda().character()).userGroupId(this.getRandomId()).build();
+        return Group.builder()
+                .name(this.faker.zelda().character())
+                .userGroupId(this.getRandomId())
+                .build();
     }
 
     public void addUserToGroup(User user, Group group, GroupRightEnum groupRightEnum) {
@@ -83,9 +86,8 @@ public class UnitTestFactory {
                 .date(date)
                 .bankAccount(bankAccount)
                 .build();
-                transaction.setTransactionId(getRandomId());
-                return transaction;
-
+        transaction.setTransactionId(getRandomId());
+        return transaction;
     }
 
     public Transaction getTransaction(BankAccount bankAccount) {
