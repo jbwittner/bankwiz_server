@@ -1,8 +1,6 @@
 #!/bin/bash
 
 CURRENT_GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-SONAR_UT_BRANCH_NAME="${CURRENT_GIT_BRANCH}_UT"
-SONAR_IT_BRANCH_NAME="${CURRENT_GIT_BRANCH}_IT"
 MYSQL_ROOT_PASSWORD="BankwizRootPass2023"
 DOCKER_BUILDKIT=1
 
@@ -36,7 +34,6 @@ restore() {
 
 dump-table() {
   docker exec bankwiz_mysql sh -c 'exec mysqldump --no-data -uroot -p"$MYSQL_ROOT_PASSWORD" --single-transaction bankwiz_db' > sql/databases.sql
-  docker exec bankwiz_mysql sh -c 'exec mysqldump --no-data -uroot -p"$MYSQL_ROOT_PASSWORD" --single-transaction bankwiz_db' > src/test/resources/databases.sql
 }
 
 dump-data() {
@@ -56,10 +53,6 @@ test-unit() {
   mvn test -Dtest="fr/bankwiz/server/unittest/**/*"
 }
 
-test-integration() {
-  mvn test -Dtest="fr/bankwiz/server/integrationtest/**/*"
-}
-
 package() {
   mvn package
 }
@@ -76,17 +69,8 @@ spotless-check() {
   mvn spotless:check
 }
 
-sonar-all() {
-  sonar-unittest
-  sonar-integrationtest
-}
-
-sonar-unittest() {
-  mvn -Dtest="fr/bankwiz/server/unittest/**/*" clean verify sonar:sonar -Dsonar.branch.name="$SONAR_UT_BRANCH_NAME"
-}
-
-sonar-integrationtest() {
-  mvn -Dtest="fr/bankwiz/server/integrationtest/**/*" clean verify sonar:sonar -Dsonar.branch.name="$SONAR_IT_BRANCH_NAME"
+sonar() {
+  mvn clean verify sonar:sonar -Dsonar.branch.name="$CURRENT_GIT_BRANCH"
 }
 
 docker-build() {
