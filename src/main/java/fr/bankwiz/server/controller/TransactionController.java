@@ -40,7 +40,8 @@ public class TransactionController implements TransactionApi {
     }
 
     @Override
-    public ResponseEntity<TransactionDTO> updateTransaction(Integer transactionId, TransactionUpdateRequest transactionUpdateRequest) {
+    public ResponseEntity<TransactionDTO> updateTransaction(
+            Integer transactionId, TransactionUpdateRequest transactionUpdateRequest) {
         final TransactionDTO result = transactionService.updateTransaction(transactionId, transactionUpdateRequest);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
