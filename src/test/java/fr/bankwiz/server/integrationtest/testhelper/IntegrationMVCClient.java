@@ -76,8 +76,10 @@ public class IntegrationMVCClient {
         BANK_ACCOUNT("/bankAccount"),
         BANK_ACCOUNT_ID_ACCOUNT("/bankAccount/{0,number,#}"),
         BANK_ACCOUNTS("/bankAccount/bankAccounts"),
-        ACCOUNTLINE("/accountline"),
-        ACCOUNTLINE_ID_LINE("/accountline/{0,number,#}");
+        TRANSACTION("/transaction"),
+        TRANSACTION_ID("/transaction/{0,number,#}"),
+        TRANSACTION_FINDBYBANKACCOUNT("/transaction/findByBankAccount"),
+        TRANSACTION_FINDBYGROUP("/transaction/findByGroup");
 
         private final String uri;
 

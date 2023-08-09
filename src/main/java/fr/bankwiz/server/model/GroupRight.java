@@ -20,11 +20,11 @@ public class GroupRight {
     private Integer rightId;
 
     @ManyToOne
-    @JoinColumn(name = "GROUP_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_GROUP"))
+    @JoinColumn(name = "GROUP_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_GROUP_RIGHT_GROUP"))
     private Group group;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_USER"))
+    @JoinColumn(name = "USER_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_GROUP_RIGHT_USER"))
     private User user;
 
     @Enumerated(EnumType.STRING)

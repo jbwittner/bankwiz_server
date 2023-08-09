@@ -14,7 +14,7 @@ public abstract class GroupRelatedEntity {
     protected Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "GROUP_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_GROUP"))
+    @JoinColumn(name = "GROUP_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_GROUPRELATEDENTITY_GROUP"))
     protected Group group;
 
     public void checkCanAssociateWith(final GroupRelatedEntity otherEntity) {

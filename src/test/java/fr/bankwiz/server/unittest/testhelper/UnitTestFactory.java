@@ -2,11 +2,10 @@ package fr.bankwiz.server.unittest.testhelper;
 
 import fr.bankwiz.server.PersonalFaker;
 import fr.bankwiz.server.TestFactory;
-import fr.bankwiz.server.model.BankAccount;
-import fr.bankwiz.server.model.Group;
-import fr.bankwiz.server.model.GroupRight;
+import fr.bankwiz.server.model.*;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
-import fr.bankwiz.server.model.User;
+
+import java.time.ZoneId;
 
 public class UnitTestFactory extends TestFactory {
     public UnitTestFactory(PersonalFaker faker) {
@@ -58,5 +57,14 @@ public class UnitTestFactory extends TestFactory {
                 group);
         bankAccount.setId(getRandomId());
         return bankAccount;
+    }
+
+    public Transaction getTransaction(BankAccount bankAccount) {
+        Transaction transaction = super.getTransaction(
+                faker.random().nextInt(Integer.MAX_VALUE),
+                faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                bankAccount);
+        transaction.setTransactionId(getRandomId());
+        return transaction;
     }
 }

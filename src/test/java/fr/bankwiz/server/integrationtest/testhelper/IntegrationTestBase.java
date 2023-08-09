@@ -1,5 +1,6 @@
 package fr.bankwiz.server.integrationtest.testhelper;
 
+import fr.bankwiz.server.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -12,10 +13,6 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 import fr.bankwiz.server.PersonalFaker;
-import fr.bankwiz.server.repository.BankAccountRepository;
-import fr.bankwiz.server.repository.GroupRepository;
-import fr.bankwiz.server.repository.GroupRightRepository;
-import fr.bankwiz.server.repository.UserRepository;
 
 @Sql(
         scripts = {"/databases.sql"},
@@ -41,6 +38,9 @@ public abstract class IntegrationTestBase {
 
     @Autowired
     protected BankAccountRepository bankAccountRepository;
+
+    @Autowired
+    protected TransactionRepository transactionRepository;
 
     @LocalServerPort
     protected int port;
