@@ -54,8 +54,14 @@ public class UnitTestFactory extends TestFactory {
     }
 
     public BankAccount getBankAccount(Integer baseAmountDecimal, String name, Group group) {
-        BankAccount bankAccount = super.getBankAccount(baseAmountDecimal, name, group);
+        final BankAccount bankAccount = BankAccount.builder()
+                .baseAmountDecimal(baseAmountDecimal)
+                .name(name)
+                .build();
+
         bankAccount.setId(getRandomId());
+
+        group.addBankAccount(bankAccount);
         return bankAccount;
     }
 
