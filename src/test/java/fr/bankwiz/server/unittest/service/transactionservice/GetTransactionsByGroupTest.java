@@ -128,8 +128,10 @@ class GetTransactionsByGroupTest extends UnitTestBase {
         this.groupRepositoryMockFactory.mockFindById(bankAccount.getGroup().getUserGroupId(), bankAccount.getGroup());
         this.bankAccountRepositoryMockFactory.mockFindById(bankAccount.getId(), bankAccount);
 
+        Integer userGroupId = group.getUserGroupId();
+
         Assertions.assertThrows(UserNoReadRightException.class, () -> {
-            this.transactionService.getTransactionsByGroup(group.getUserGroupId());
+            this.transactionService.getTransactionsByGroup(userGroupId);
         });
     }
 
