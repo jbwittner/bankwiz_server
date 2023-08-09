@@ -1,10 +1,9 @@
 package fr.bankwiz.server;
 
-import fr.bankwiz.server.model.BankAccount;
-import fr.bankwiz.server.model.Group;
-import fr.bankwiz.server.model.GroupRight;
+import java.time.LocalDate;
+
+import fr.bankwiz.server.model.*;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
-import fr.bankwiz.server.model.User;
 
 public abstract class TestFactory {
 
@@ -47,5 +46,13 @@ public abstract class TestFactory {
                 .build();
         group.addBankAccount(bankAccount);
         return bankAccount;
+    }
+
+    protected Transaction getTransaction(Integer amount, LocalDate date, BankAccount bankAccount) {
+        return Transaction.builder()
+                .amount(amount)
+                .date(date)
+                .bankAccount(bankAccount)
+                .build();
     }
 }

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "GROUP_ACCOUNT")
+@Table(name = "BANK_ACCOUNT")
 public class BankAccount extends GroupRelatedEntity {
 
     @Column(name = "NAME", nullable = false, length = 60)

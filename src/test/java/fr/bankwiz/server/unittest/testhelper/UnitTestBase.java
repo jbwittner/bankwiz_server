@@ -6,6 +6,7 @@ import fr.bankwiz.server.PersonalFaker;
 import fr.bankwiz.server.unittest.testhelper.mockrepository.BankAccountRepositoryMockFactory;
 import fr.bankwiz.server.unittest.testhelper.mockrepository.GroupRepositoryMockFactory;
 import fr.bankwiz.server.unittest.testhelper.mockrepository.GroupRightRepositoryMockFactory;
+import fr.bankwiz.server.unittest.testhelper.mockrepository.TransactionRepositoryMockFactory;
 import fr.bankwiz.server.unittest.testhelper.mockrepository.UserRepositoryMockFactory;
 
 public abstract class UnitTestBase {
@@ -20,6 +21,8 @@ public abstract class UnitTestBase {
 
     protected BankAccountRepositoryMockFactory bankAccountRepositoryMockFactory;
 
+    protected TransactionRepositoryMockFactory transactionRepositoryMockFactory;
+
     /** Method launch before each test */
     @BeforeEach
     public void beforeEach() {
@@ -30,6 +33,7 @@ public abstract class UnitTestBase {
         this.groupRepositoryMockFactory = new GroupRepositoryMockFactory();
         this.groupRightRepositoryMockFactory = new GroupRightRepositoryMockFactory();
         this.bankAccountRepositoryMockFactory = new BankAccountRepositoryMockFactory();
+        this.transactionRepositoryMockFactory = new TransactionRepositoryMockFactory();
 
         this.initDataBeforeEach();
     }

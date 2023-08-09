@@ -24,3 +24,6 @@ build/
 !**/src/test/**/build/
 
 ### VS Code ###
+
+### IntelliJ IDEA ###
+.idea/**
