@@ -6,7 +6,6 @@
         "vmware.vscode-spring-boot",
         "vscjava.vscode-lombok",
         "ms-azuretools.vscode-docker",
-        "sonarsource.sonarlint-vscode",
-        "rangav.vscode-thunder-client"
+        "sonarsource.sonarlint-vscode"
     ]
 }
