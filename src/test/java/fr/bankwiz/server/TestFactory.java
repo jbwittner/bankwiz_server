@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import fr.bankwiz.server.model.*;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.testhelper.PersonalFaker;
 
 public abstract class TestFactory {
 

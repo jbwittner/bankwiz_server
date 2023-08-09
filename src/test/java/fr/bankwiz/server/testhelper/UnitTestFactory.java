@@ -2,7 +2,6 @@ package fr.bankwiz.server.testhelper;
 
 import java.time.ZoneId;
 
-import fr.bankwiz.server.PersonalFaker;
 import fr.bankwiz.server.TestFactory;
 import fr.bankwiz.server.model.*;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;

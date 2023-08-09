@@ -1,4 +1,4 @@
-package fr.bankwiz.server;
+package fr.bankwiz.server.testhelper;
 
 import com.github.javafaker.Faker;
 

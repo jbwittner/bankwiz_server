@@ -2,7 +2,6 @@ package fr.bankwiz.server.testhelper;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import fr.bankwiz.server.PersonalFaker;
 import fr.bankwiz.server.testhelper.mockrepository.BankAccountRepositoryMockFactory;
 import fr.bankwiz.server.testhelper.mockrepository.GroupRepositoryMockFactory;
 import fr.bankwiz.server.testhelper.mockrepository.GroupRightRepositoryMockFactory;
