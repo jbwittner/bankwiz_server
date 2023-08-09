@@ -35,8 +35,15 @@ public class UnitTestFactory extends TestFactory {
     }
 
     public GroupRight getGroupRight(User user, Group group, GroupRightEnum groupRightEnum) {
-        GroupRight groupRight = super.getGroupRight(user, group, groupRightEnum);
-        groupRight.setRightId(getRandomId());
+        final GroupRight groupRight = GroupRight.builder()
+                .user(user)
+                .group(group)
+                .groupRightEnum(groupRightEnum)
+                .rightId(getRandomId())
+                .build();
+
+        user.addGroupRight(groupRight);
+        group.addGroupRight(groupRight);
         return groupRight;
     }
 
