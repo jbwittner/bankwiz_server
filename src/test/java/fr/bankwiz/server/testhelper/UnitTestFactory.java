@@ -16,15 +16,18 @@ public class UnitTestFactory extends TestFactory {
     }
 
     public User getUser() {
-        User user = super.getUser();
-        user.setUserAccountId(this.getRandomId());
-        return user;
+        final String authId = "auth|" + this.faker.random().nextInt(Integer.MAX_VALUE);
+        return User.builder()
+                .email(this.faker.internet().emailAddress())
+                .firstName(this.faker.name().firstName())
+                .lastName(this.faker.name().lastName())
+                .authId(authId)
+                .userAccountId(this.getRandomId())
+                .build();
     }
 
     public Group getGroup() {
-        Group group = super.getGroup();
-        group.setUserGroupId(this.getRandomId());
-        return group;
+        return Group.builder().name(this.faker.zelda().character()).userGroupId(this.getRandomId()).build();
     }
 
     public void addUserToGroup(User user, Group group, GroupRightEnum groupRightEnum) {
