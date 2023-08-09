@@ -49,7 +49,7 @@ public class UnitTestFactory extends TestFactory {
 
     public Group getGroupWithRight(User userToAdd, GroupRightEnum groupRightEnum) {
         final Group group = this.getGroup();
-        this.getGroupRight(userToAdd, group, groupRightEnum);
+        this.addUserToGroup(userToAdd, group, groupRightEnum);
         return group;
     }
 
