@@ -66,7 +66,7 @@ public class UnitTestFactory extends TestFactory {
     }
 
     public BankAccount getBankAccount(Group group) {
-        BankAccount bankAccount = super.getBankAccount(
+        BankAccount bankAccount = this.getBankAccount(
                 this.faker.random().nextInt(Integer.MAX_VALUE),
                 this.faker.leagueOfLegends().champion(),
                 group);
