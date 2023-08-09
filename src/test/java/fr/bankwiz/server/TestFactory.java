@@ -1,9 +1,9 @@
 package fr.bankwiz.server;
 
+import java.time.LocalDate;
+
 import fr.bankwiz.server.model.*;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
-
-import java.time.LocalDate;
 
 public abstract class TestFactory {
 

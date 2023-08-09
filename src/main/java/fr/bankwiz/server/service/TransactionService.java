@@ -1,5 +1,9 @@
 package fr.bankwiz.server.service;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import fr.bankwiz.openapi.model.TransactionCreationRequest;
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.openapi.model.TransactionUpdateRequest;
@@ -13,9 +17,6 @@ import fr.bankwiz.server.repository.GroupRepository;
 import fr.bankwiz.server.repository.TransactionRepository;
 import fr.bankwiz.server.security.AuthenticationFacade;
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -32,8 +33,7 @@ public class TransactionService {
             AuthenticationFacade authenticationFacade,
             BankAccountRepository bankAccountRepository,
             GroupRepository groupRepository,
-            TransactionRepository transactionRepository
-    ) {
+            TransactionRepository transactionRepository) {
         this.authenticationFacade = authenticationFacade;
         this.bankAccountRepository = bankAccountRepository;
         this.groupRepository = groupRepository;
@@ -61,7 +61,9 @@ public class TransactionService {
     }
 
     public void deleteTransaction(Integer transactionId) {
-        final Transaction transaction = this.transactionRepository.findById(transactionId).orElseThrow(() -> new TransactionNotExistException(transactionId));
+        final Transaction transaction = this.transactionRepository
+                .findById(transactionId)
+                .orElseThrow(() -> new TransactionNotExistException(transactionId));
 
         final BankAccount bankAccount = transaction.getBankAccount();
 
@@ -71,7 +73,9 @@ public class TransactionService {
     }
 
     public TransactionDTO getTransaction(final Integer transactionId) {
-        final Transaction transaction = this.transactionRepository.findById(transactionId).orElseThrow(() -> new TransactionNotExistException(transactionId));
+        final Transaction transaction = this.transactionRepository
+                .findById(transactionId)
+                .orElseThrow(() -> new TransactionNotExistException(transactionId));
 
         final BankAccount bankAccount = transaction.getBankAccount();
 
@@ -80,8 +84,11 @@ public class TransactionService {
         return TRANSACTION_DTO_BUILDER.transform(transaction);
     }
 
-    public TransactionDTO updateTransaction(final Integer transactionId, final TransactionUpdateRequest transactionUpdateRequest) {
-        Transaction transaction = this.transactionRepository.findById(transactionId).orElseThrow(() -> new TransactionNotExistException(transactionId));
+    public TransactionDTO updateTransaction(
+            final Integer transactionId, final TransactionUpdateRequest transactionUpdateRequest) {
+        Transaction transaction = this.transactionRepository
+                .findById(transactionId)
+                .orElseThrow(() -> new TransactionNotExistException(transactionId));
 
         final BankAccount bankAccount = transaction.getBankAccount();
 
@@ -114,13 +121,13 @@ public class TransactionService {
     public List<TransactionDTO> getTransactionsByGroup(final Integer groupId) {
         final User user = this.authenticationFacade.getCurrentUser();
 
-        final Group group = this.groupRepository
-                .findById(groupId)
-                .orElseThrow(() -> new GroupNotExistException(groupId));
+        final Group group =
+                this.groupRepository.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
 
         group.checkCanRead(user);
 
-        final List<Transaction> transactions = this.transactionRepository.findAllByBankAccountIn(group.getBankAccounts());
+        final List<Transaction> transactions =
+                this.transactionRepository.findAllByBankAccountIn(group.getBankAccounts());
 
         return TRANSACTION_DTO_BUILDER.transformAll(transactions);
     }

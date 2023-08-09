@@ -1,5 +1,11 @@
 package fr.bankwiz.server.controller;
 
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
+
 import fr.bankwiz.openapi.api.TransactionApi;
 import fr.bankwiz.openapi.model.TransactionCreationRequest;
 import fr.bankwiz.openapi.model.TransactionDTO;
@@ -8,11 +14,6 @@ import fr.bankwiz.server.service.TransactionService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class TransactionController implements TransactionApi {
@@ -43,25 +44,20 @@ public class TransactionController implements TransactionApi {
 
     @Override
     public ResponseEntity<TransactionDTO> updateTransaction(
-            @Min(1L) Integer transactionId,
-            @Valid TransactionUpdateRequest transactionUpdateRequest
-    ) {
+            @Min(1L) Integer transactionId, @Valid TransactionUpdateRequest transactionUpdateRequest) {
         final TransactionDTO result = transactionService.updateTransaction(transactionId, transactionUpdateRequest);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<TransactionDTO>> getTransactionsByBankAccount(
-            @NotNull @Min(1L) @Valid Integer bankAccountId
-    ) {
+            @NotNull @Min(1L) @Valid Integer bankAccountId) {
         final List<TransactionDTO> result = transactionService.getTransactionsByBankAccount(bankAccountId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<List<TransactionDTO>> getTransactionsByGroup(
-            @NotNull @Min(1L) @Valid Integer groupId
-    ) {
+    public ResponseEntity<List<TransactionDTO>> getTransactionsByGroup(@NotNull @Min(1L) @Valid Integer groupId) {
         final List<TransactionDTO> result = transactionService.getTransactionsByGroup(groupId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

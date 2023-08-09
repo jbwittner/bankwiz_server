@@ -1,5 +1,12 @@
 package fr.bankwiz.server.integrationtest.controller.transactioncontroller;
 
+import java.time.ZoneId;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import fr.bankwiz.openapi.model.TransactionCreationRequest;
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.server.exception.BankAccountNotExistException;
@@ -7,12 +14,6 @@ import fr.bankwiz.server.exception.UserNoWriteRightException;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationTestBase;
 import fr.bankwiz.server.model.*;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.time.ZoneId;
 
 class AddTransactionTest extends IntegrationTestBase {
 
@@ -29,8 +30,11 @@ class AddTransactionTest extends IntegrationTestBase {
         TransactionCreationRequest transactionCreationRequest = new TransactionCreationRequest(
                 bankAccount.getId(),
                 faker.random().nextInt(Integer.MAX_VALUE),
-                faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-        );
+                faker.date()
+                        .birthday()
+                        .toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate());
 
         final String uri = IntegrationMVCClient.UriEnum.TRANSACTION.getUri();
 
@@ -54,16 +58,17 @@ class AddTransactionTest extends IntegrationTestBase {
                         transactionCreationRequest.getDate(),
                         transactionDTO.getTransactionIndexDTO().getDate()));
 
-        final Transaction transactionSaved =
-                this.transactionRepository.findById(transactionDTO.getTransactionIndexDTO().getTransactionId()).orElseThrow();
+        final Transaction transactionSaved = this.transactionRepository
+                .findById(transactionDTO.getTransactionIndexDTO().getTransactionId())
+                .orElseThrow();
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(transactionCreationRequest.getAccountId(), transactionSaved.getBankAccount().getId()),
+                () -> Assertions.assertEquals(
+                        transactionCreationRequest.getAccountId(),
+                        transactionSaved.getBankAccount().getId()),
                 () -> Assertions.assertEquals(
                         transactionCreationRequest.getAmountInCents(), transactionSaved.getAmount()),
-                () -> Assertions.assertEquals(
-                        transactionCreationRequest.getDate(),
-                        transactionSaved.getDate()));
+                () -> Assertions.assertEquals(transactionCreationRequest.getDate(), transactionSaved.getDate()));
     }
 
     @Test
@@ -76,8 +81,11 @@ class AddTransactionTest extends IntegrationTestBase {
         TransactionCreationRequest transactionCreationRequest = new TransactionCreationRequest(
                 bankAccount.getId(),
                 faker.random().nextInt(Integer.MAX_VALUE),
-                faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-        );
+                faker.date()
+                        .birthday()
+                        .toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate());
 
         final String uri = IntegrationMVCClient.UriEnum.TRANSACTION.getUri();
 
@@ -101,16 +109,17 @@ class AddTransactionTest extends IntegrationTestBase {
                         transactionCreationRequest.getDate(),
                         transactionDTO.getTransactionIndexDTO().getDate()));
 
-        final Transaction transactionSaved =
-                this.transactionRepository.findById(transactionDTO.getTransactionIndexDTO().getTransactionId()).orElseThrow();
+        final Transaction transactionSaved = this.transactionRepository
+                .findById(transactionDTO.getTransactionIndexDTO().getTransactionId())
+                .orElseThrow();
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(transactionCreationRequest.getAccountId(), transactionSaved.getBankAccount().getId()),
+                () -> Assertions.assertEquals(
+                        transactionCreationRequest.getAccountId(),
+                        transactionSaved.getBankAccount().getId()),
                 () -> Assertions.assertEquals(
                         transactionCreationRequest.getAmountInCents(), transactionSaved.getAmount()),
-                () -> Assertions.assertEquals(
-                        transactionCreationRequest.getDate(),
-                        transactionSaved.getDate()));
+                () -> Assertions.assertEquals(transactionCreationRequest.getDate(), transactionSaved.getDate()));
     }
 
     @Test
@@ -123,8 +132,11 @@ class AddTransactionTest extends IntegrationTestBase {
         TransactionCreationRequest transactionCreationRequest = new TransactionCreationRequest(
                 bankAccount.getId(),
                 faker.random().nextInt(Integer.MAX_VALUE),
-                faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-        );
+                faker.date()
+                        .birthday()
+                        .toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate());
 
         final String uri = IntegrationMVCClient.UriEnum.TRANSACTION.getUri();
 
@@ -144,8 +156,11 @@ class AddTransactionTest extends IntegrationTestBase {
         TransactionCreationRequest transactionCreationRequest = new TransactionCreationRequest(
                 bankAccountId,
                 faker.random().nextInt(Integer.MAX_VALUE),
-                faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-        );
+                faker.date()
+                        .birthday()
+                        .toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate());
 
         final String uri = IntegrationMVCClient.UriEnum.TRANSACTION.getUri();
 

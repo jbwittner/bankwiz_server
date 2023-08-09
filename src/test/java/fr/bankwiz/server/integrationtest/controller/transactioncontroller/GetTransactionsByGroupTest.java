@@ -1,5 +1,12 @@
 package fr.bankwiz.server.integrationtest.controller.transactioncontroller;
 
+import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.server.exception.GroupNotExistException;
 import fr.bankwiz.server.exception.UserNoReadRightException;
@@ -9,12 +16,6 @@ import fr.bankwiz.server.model.BankAccount;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.User;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.util.List;
 
 class GetTransactionsByGroupTest extends IntegrationTestBase {
 
@@ -40,18 +41,14 @@ class GetTransactionsByGroupTest extends IntegrationTestBase {
         final List<TransactionDTO> transactionDTOs =
                 IntegrationMVCClient.convertMvcResultToListOfResponseObjects(result, TransactionDTO.class);
 
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(1, transactionDTOs.size()),
-                () -> {
-                    for (TransactionDTO transactionDTO : transactionDTOs) {
-                        Assertions.assertTrue(
-                                group.getBankAccounts().stream()
-                                        .map(BankAccount::getId)
-                                        .anyMatch(id -> id.equals(transactionDTO.getAccountIndexDTO().getAccountId()))
-                        );
-                    }
-                }
-        );
+        Assertions.assertAll(() -> Assertions.assertEquals(1, transactionDTOs.size()), () -> {
+            for (TransactionDTO transactionDTO : transactionDTOs) {
+                Assertions.assertTrue(group.getBankAccounts().stream()
+                        .map(BankAccount::getId)
+                        .anyMatch(id ->
+                                id.equals(transactionDTO.getAccountIndexDTO().getAccountId())));
+            }
+        });
     }
 
     @Test
@@ -76,18 +73,14 @@ class GetTransactionsByGroupTest extends IntegrationTestBase {
         final List<TransactionDTO> transactionDTOs =
                 IntegrationMVCClient.convertMvcResultToListOfResponseObjects(result, TransactionDTO.class);
 
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(3, transactionDTOs.size()),
-                () -> {
-                    for (TransactionDTO transactionDTO : transactionDTOs) {
-                        Assertions.assertTrue(
-                                group.getBankAccounts().stream()
-                                        .map(BankAccount::getId)
-                                        .anyMatch(id -> id.equals(transactionDTO.getAccountIndexDTO().getAccountId()))
-                        );
-                    }
-                }
-        );
+        Assertions.assertAll(() -> Assertions.assertEquals(3, transactionDTOs.size()), () -> {
+            for (TransactionDTO transactionDTO : transactionDTOs) {
+                Assertions.assertTrue(group.getBankAccounts().stream()
+                        .map(BankAccount::getId)
+                        .anyMatch(id ->
+                                id.equals(transactionDTO.getAccountIndexDTO().getAccountId())));
+            }
+        });
     }
 
     @Test
@@ -117,18 +110,14 @@ class GetTransactionsByGroupTest extends IntegrationTestBase {
         final List<TransactionDTO> transactionDTOs =
                 IntegrationMVCClient.convertMvcResultToListOfResponseObjects(result, TransactionDTO.class);
 
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(3, transactionDTOs.size()),
-                () -> {
-                    for (TransactionDTO transactionDTO : transactionDTOs) {
-                        Assertions.assertTrue(
-                                group.getBankAccounts().stream()
-                                        .map(BankAccount::getId)
-                                        .anyMatch(id -> id.equals(transactionDTO.getAccountIndexDTO().getAccountId()))
-                        );
-                    }
-                }
-        );
+        Assertions.assertAll(() -> Assertions.assertEquals(3, transactionDTOs.size()), () -> {
+            for (TransactionDTO transactionDTO : transactionDTOs) {
+                Assertions.assertTrue(group.getBankAccounts().stream()
+                        .map(BankAccount::getId)
+                        .anyMatch(id ->
+                                id.equals(transactionDTO.getAccountIndexDTO().getAccountId())));
+            }
+        });
     }
 
     @Test
@@ -156,7 +145,7 @@ class GetTransactionsByGroupTest extends IntegrationTestBase {
 
         final String uri = IntegrationMVCClient.UriEnum.TRANSACTION_FINDBYGROUP.getUri();
 
-        final var result = this.client.doGet(uri+ "?groupId=" + groupId, user.getAuthId());
+        final var result = this.client.doGet(uri + "?groupId=" + groupId, user.getAuthId());
 
         final GroupNotExistException exception = new GroupNotExistException(groupId);
 

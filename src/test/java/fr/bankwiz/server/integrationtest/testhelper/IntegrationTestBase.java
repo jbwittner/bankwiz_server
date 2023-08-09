@@ -1,6 +1,5 @@
 package fr.bankwiz.server.integrationtest.testhelper;
 
-import fr.bankwiz.server.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -13,6 +12,7 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 import fr.bankwiz.server.PersonalFaker;
+import fr.bankwiz.server.repository.*;
 
 @Sql(
         scripts = {"/databases.sql"},

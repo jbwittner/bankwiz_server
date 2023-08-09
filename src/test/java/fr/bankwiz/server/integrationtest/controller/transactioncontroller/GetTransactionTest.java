@@ -1,15 +1,16 @@
 package fr.bankwiz.server.integrationtest.controller.transactioncontroller;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.server.exception.TransactionNotExistException;
 import fr.bankwiz.server.exception.UserNoReadRightException;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationTestBase;
 import fr.bankwiz.server.model.*;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 class GetTransactionTest extends IntegrationTestBase {
 

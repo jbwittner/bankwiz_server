@@ -1,14 +1,15 @@
 package fr.bankwiz.server.unittest.service.transactionservice;
 
+import java.util.Optional;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import fr.bankwiz.server.exception.TransactionNotExistException;
 import fr.bankwiz.server.exception.UserNoWriteRightException;
 import fr.bankwiz.server.model.*;
 import fr.bankwiz.server.service.TransactionService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
 
 class DeleteTransactionTest extends UnitTestBase {
 
@@ -20,8 +21,7 @@ class DeleteTransactionTest extends UnitTestBase {
                 this.authenticationFacadeMockFactory.getAuthenticationFacade(),
                 this.bankAccountRepositoryMockFactory.getRepository(),
                 this.groupRepositoryMockFactory.getRepository(),
-                this.transactionRepositoryMockFactory.getRepository()
-        );
+                this.transactionRepositoryMockFactory.getRepository());
     }
 
     @Test

@@ -1,13 +1,14 @@
 package fr.bankwiz.server.integrationtest.testhelper;
 
+import java.time.ZoneId;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import fr.bankwiz.server.TestFactory;
 import fr.bankwiz.server.model.*;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.time.ZoneId;
 
 @Component
 public class IntegrationTestFactory extends TestFactory {
@@ -66,7 +67,11 @@ public class IntegrationTestFactory extends TestFactory {
     public Transaction getTransaction(BankAccount bankAccount) {
         Transaction transaction = super.getTransaction(
                 faker.random().nextInt(Integer.MAX_VALUE),
-                faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                faker.date()
+                        .birthday()
+                        .toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate(),
                 bankAccount);
         transaction = this.transactionRepository.save(transaction);
         return transaction;

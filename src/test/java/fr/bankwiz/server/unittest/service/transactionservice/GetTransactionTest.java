@@ -1,12 +1,13 @@
 package fr.bankwiz.server.unittest.service.transactionservice;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import fr.bankwiz.server.exception.TransactionNotExistException;
 import fr.bankwiz.server.exception.UserNoReadRightException;
 import fr.bankwiz.server.model.*;
 import fr.bankwiz.server.service.TransactionService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 class GetTransactionTest extends UnitTestBase {
 
@@ -18,8 +19,7 @@ class GetTransactionTest extends UnitTestBase {
                 this.authenticationFacadeMockFactory.getAuthenticationFacade(),
                 this.bankAccountRepositoryMockFactory.getRepository(),
                 this.groupRepositoryMockFactory.getRepository(),
-                this.transactionRepositoryMockFactory.getRepository()
-        );
+                this.transactionRepositoryMockFactory.getRepository());
     }
 
     @Test
@@ -48,11 +48,9 @@ class GetTransactionTest extends UnitTestBase {
                         transaction.getBankAccount().getBaseAmountDecimal(),
                         result.getAccountIndexDTO().getBaseAmountDecimal()),
                 () -> Assertions.assertEquals(
-                        transaction.getAmount(),
-                        result.getTransactionIndexDTO().getAmountInCents()),
+                        transaction.getAmount(), result.getTransactionIndexDTO().getAmountInCents()),
                 () -> Assertions.assertEquals(
-                        transaction.getDate(),
-                        result.getTransactionIndexDTO().getDate()));
+                        transaction.getDate(), result.getTransactionIndexDTO().getDate()));
     }
 
     @Test
@@ -81,11 +79,9 @@ class GetTransactionTest extends UnitTestBase {
                         transaction.getBankAccount().getBaseAmountDecimal(),
                         result.getAccountIndexDTO().getBaseAmountDecimal()),
                 () -> Assertions.assertEquals(
-                        transaction.getAmount(),
-                        result.getTransactionIndexDTO().getAmountInCents()),
+                        transaction.getAmount(), result.getTransactionIndexDTO().getAmountInCents()),
                 () -> Assertions.assertEquals(
-                        transaction.getDate(),
-                        result.getTransactionIndexDTO().getDate()));
+                        transaction.getDate(), result.getTransactionIndexDTO().getDate()));
     }
 
     @Test
@@ -114,11 +110,9 @@ class GetTransactionTest extends UnitTestBase {
                         transaction.getBankAccount().getBaseAmountDecimal(),
                         result.getAccountIndexDTO().getBaseAmountDecimal()),
                 () -> Assertions.assertEquals(
-                        transaction.getAmount(),
-                        result.getTransactionIndexDTO().getAmountInCents()),
+                        transaction.getAmount(), result.getTransactionIndexDTO().getAmountInCents()),
                 () -> Assertions.assertEquals(
-                        transaction.getDate(),
-                        result.getTransactionIndexDTO().getDate()));
+                        transaction.getDate(), result.getTransactionIndexDTO().getDate()));
     }
 
     @Test

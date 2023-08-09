@@ -1,16 +1,17 @@
 package fr.bankwiz.server.unittest.service.transactionservice;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.server.exception.GroupNotExistException;
 import fr.bankwiz.server.exception.UserNoReadRightException;
 import fr.bankwiz.server.model.*;
 import fr.bankwiz.server.service.TransactionService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 class GetTransactionsByGroupTest extends UnitTestBase {
 
@@ -22,8 +23,7 @@ class GetTransactionsByGroupTest extends UnitTestBase {
                 this.authenticationFacadeMockFactory.getAuthenticationFacade(),
                 this.bankAccountRepositoryMockFactory.getRepository(),
                 this.groupRepositoryMockFactory.getRepository(),
-                this.transactionRepositoryMockFactory.getRepository()
-        );
+                this.transactionRepositoryMockFactory.getRepository());
     }
 
     @Test
@@ -42,18 +42,14 @@ class GetTransactionsByGroupTest extends UnitTestBase {
 
         var result = this.transactionService.getTransactionsByGroup(group.getUserGroupId());
 
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(1, result.size()),
-                () -> {
-                    for (TransactionDTO transactionDTO : result) {
-                        Assertions.assertTrue(
-                                group.getBankAccounts().stream()
-                                        .map(BankAccount::getId)
-                                        .anyMatch(id -> id.equals(transactionDTO.getAccountIndexDTO().getAccountId()))
-                        );
-                    }
-                }
-        );
+        Assertions.assertAll(() -> Assertions.assertEquals(1, result.size()), () -> {
+            for (TransactionDTO transactionDTO : result) {
+                Assertions.assertTrue(group.getBankAccounts().stream()
+                        .map(BankAccount::getId)
+                        .anyMatch(id ->
+                                id.equals(transactionDTO.getAccountIndexDTO().getAccountId())));
+            }
+        });
     }
 
     @Test
@@ -71,22 +67,19 @@ class GetTransactionsByGroupTest extends UnitTestBase {
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
         this.bankAccountRepositoryMockFactory.mockFindById(bankAccount2.getId(), bankAccount2);
         this.groupRepositoryMockFactory.mockFindById(group.getUserGroupId(), group);
-        this.transactionRepositoryMockFactory.mockFindAllByBankAccountIn(List.of(bankAccount, bankAccount2), transactions);
+        this.transactionRepositoryMockFactory.mockFindAllByBankAccountIn(
+                List.of(bankAccount, bankAccount2), transactions);
 
         var result = this.transactionService.getTransactionsByGroup(group.getUserGroupId());
 
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(3, result.size()),
-                () -> {
-                    for (TransactionDTO transactionDTO : result) {
-                        Assertions.assertTrue(
-                                group.getBankAccounts().stream()
-                                        .map(BankAccount::getId)
-                                        .anyMatch(id -> id.equals(transactionDTO.getAccountIndexDTO().getAccountId()))
-                        );
-                    }
-                }
-        );
+        Assertions.assertAll(() -> Assertions.assertEquals(3, result.size()), () -> {
+            for (TransactionDTO transactionDTO : result) {
+                Assertions.assertTrue(group.getBankAccounts().stream()
+                        .map(BankAccount::getId)
+                        .anyMatch(id ->
+                                id.equals(transactionDTO.getAccountIndexDTO().getAccountId())));
+            }
+        });
     }
 
     @Test
@@ -109,22 +102,19 @@ class GetTransactionsByGroupTest extends UnitTestBase {
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
         this.bankAccountRepositoryMockFactory.mockFindById(bankAccount2.getId(), bankAccount2);
         this.groupRepositoryMockFactory.mockFindById(group.getUserGroupId(), group);
-        this.transactionRepositoryMockFactory.mockFindAllByBankAccountIn(List.of(bankAccount, bankAccount2), transactions);
+        this.transactionRepositoryMockFactory.mockFindAllByBankAccountIn(
+                List.of(bankAccount, bankAccount2), transactions);
 
         var result = this.transactionService.getTransactionsByGroup(group.getUserGroupId());
 
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(3, result.size()),
-                () -> {
-                    for (TransactionDTO transactionDTO : result) {
-                        Assertions.assertTrue(
-                                group.getBankAccounts().stream()
-                                        .map(BankAccount::getId)
-                                        .anyMatch(id -> id.equals(transactionDTO.getAccountIndexDTO().getAccountId()))
-                        );
-                    }
-                }
-        );
+        Assertions.assertAll(() -> Assertions.assertEquals(3, result.size()), () -> {
+            for (TransactionDTO transactionDTO : result) {
+                Assertions.assertTrue(group.getBankAccounts().stream()
+                        .map(BankAccount::getId)
+                        .anyMatch(id ->
+                                id.equals(transactionDTO.getAccountIndexDTO().getAccountId())));
+            }
+        });
     }
 
     @Test

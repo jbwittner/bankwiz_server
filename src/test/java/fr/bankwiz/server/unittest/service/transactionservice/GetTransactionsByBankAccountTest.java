@@ -1,16 +1,17 @@
 package fr.bankwiz.server.unittest.service.transactionservice;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.server.exception.BankAccountNotExistException;
 import fr.bankwiz.server.exception.UserNoReadRightException;
 import fr.bankwiz.server.model.*;
 import fr.bankwiz.server.service.TransactionService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import java.util.Optional;
 
 class GetTransactionsByBankAccountTest extends UnitTestBase {
 
@@ -22,8 +23,7 @@ class GetTransactionsByBankAccountTest extends UnitTestBase {
                 this.authenticationFacadeMockFactory.getAuthenticationFacade(),
                 this.bankAccountRepositoryMockFactory.getRepository(),
                 this.groupRepositoryMockFactory.getRepository(),
-                this.transactionRepositoryMockFactory.getRepository()
-        );
+                this.transactionRepositoryMockFactory.getRepository());
     }
 
     @Test
@@ -40,14 +40,12 @@ class GetTransactionsByBankAccountTest extends UnitTestBase {
 
         var result = this.transactionService.getTransactionsByBankAccount(bankAccount.getId());
 
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(1, result.size()),
-                () -> {
-                    for (TransactionDTO transactionDTO : result) {
-                        Assertions.assertEquals(bankAccount.getId(), transactionDTO.getAccountIndexDTO().getAccountId());
-                    }
-                }
-        );
+        Assertions.assertAll(() -> Assertions.assertEquals(1, result.size()), () -> {
+            for (TransactionDTO transactionDTO : result) {
+                Assertions.assertEquals(
+                        bankAccount.getId(), transactionDTO.getAccountIndexDTO().getAccountId());
+            }
+        });
     }
 
     @Test
@@ -60,9 +58,7 @@ class GetTransactionsByBankAccountTest extends UnitTestBase {
         this.unitTestFactory.getTransaction(bankAccount);
         final BankAccount bankAccount2 = this.unitTestFactory.getBankAccount(group2);
         List<Transaction> transactions = List.of(
-                this.unitTestFactory.getTransaction(bankAccount2),
-                this.unitTestFactory.getTransaction(bankAccount2)
-        );
+                this.unitTestFactory.getTransaction(bankAccount2), this.unitTestFactory.getTransaction(bankAccount2));
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
         this.bankAccountRepositoryMockFactory.mockFindById(bankAccount2.getId(), bankAccount2);
@@ -70,14 +66,13 @@ class GetTransactionsByBankAccountTest extends UnitTestBase {
 
         var result = this.transactionService.getTransactionsByBankAccount(bankAccount2.getId());
 
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(2, result.size()),
-                () -> {
-                    for (TransactionDTO transactionDTO : result) {
-                        Assertions.assertEquals(bankAccount2.getId(), transactionDTO.getAccountIndexDTO().getAccountId());
-                    }
-                }
-        );
+        Assertions.assertAll(() -> Assertions.assertEquals(2, result.size()), () -> {
+            for (TransactionDTO transactionDTO : result) {
+                Assertions.assertEquals(
+                        bankAccount2.getId(),
+                        transactionDTO.getAccountIndexDTO().getAccountId());
+            }
+        });
     }
 
     @Test

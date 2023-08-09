@@ -43,6 +43,9 @@ public class Transaction {
     private LocalDate date;
 
     @ManyToOne
-    @JoinColumn(name = "BANK_ACCOUNT_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_TRANSACTION_BANK_ACCOUNT"))
+    @JoinColumn(
+            name = "BANK_ACCOUNT_ID",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_TRANSACTION_BANK_ACCOUNT"))
     protected BankAccount bankAccount;
 }

@@ -1,5 +1,11 @@
 package fr.bankwiz.server.unittest.service.transactionservice;
 
+import java.time.ZoneId;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import fr.bankwiz.openapi.model.TransactionCreationRequest;
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.server.exception.BankAccountNotExistException;
@@ -7,11 +13,6 @@ import fr.bankwiz.server.exception.UserNoWriteRightException;
 import fr.bankwiz.server.model.*;
 import fr.bankwiz.server.service.TransactionService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import java.time.ZoneId;
-import java.util.Optional;
 
 class AddTransactionTest extends UnitTestBase {
 
@@ -23,8 +24,7 @@ class AddTransactionTest extends UnitTestBase {
                 this.authenticationFacadeMockFactory.getAuthenticationFacade(),
                 this.bankAccountRepositoryMockFactory.getRepository(),
                 this.groupRepositoryMockFactory.getRepository(),
-                this.transactionRepositoryMockFactory.getRepository()
-        );
+                this.transactionRepositoryMockFactory.getRepository());
     }
 
     @Test
@@ -37,16 +37,18 @@ class AddTransactionTest extends UnitTestBase {
         TransactionCreationRequest transactionCreationRequest = new TransactionCreationRequest(
                 bankAccount.getId(),
                 faker.random().nextInt(Integer.MAX_VALUE),
-                faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-        );
+                faker.date()
+                        .birthday()
+                        .toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate());
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
         this.groupRepositoryMockFactory.mockFindById(bankAccount.getGroup().getUserGroupId(), group);
         this.bankAccountRepositoryMockFactory.mockFindById(bankAccount.getId(), bankAccount);
         this.transactionRepositoryMockFactory.mockSave();
 
-        final TransactionDTO transactionDTO =
-                this.transactionService.addTransaction(transactionCreationRequest);
+        final TransactionDTO transactionDTO = this.transactionService.addTransaction(transactionCreationRequest);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(
@@ -63,12 +65,12 @@ class AddTransactionTest extends UnitTestBase {
         final Transaction transactionSaved = argumentCaptor.getValue();
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(transactionCreationRequest.getAccountId(), transactionSaved.getBankAccount().getId()),
+                () -> Assertions.assertEquals(
+                        transactionCreationRequest.getAccountId(),
+                        transactionSaved.getBankAccount().getId()),
                 () -> Assertions.assertEquals(
                         transactionCreationRequest.getAmountInCents(), transactionSaved.getAmount()),
-                () -> Assertions.assertEquals(
-                        transactionCreationRequest.getDate(),
-                        transactionSaved.getDate()));
+                () -> Assertions.assertEquals(transactionCreationRequest.getDate(), transactionSaved.getDate()));
     }
 
     @Test
@@ -81,16 +83,18 @@ class AddTransactionTest extends UnitTestBase {
         TransactionCreationRequest transactionCreationRequest = new TransactionCreationRequest(
                 bankAccount.getId(),
                 faker.random().nextInt(Integer.MAX_VALUE),
-                faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-        );
+                faker.date()
+                        .birthday()
+                        .toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate());
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
         this.groupRepositoryMockFactory.mockFindById(bankAccount.getGroup().getUserGroupId(), group);
         this.bankAccountRepositoryMockFactory.mockFindById(bankAccount.getId(), bankAccount);
         this.transactionRepositoryMockFactory.mockSave();
 
-        final TransactionDTO transactionDTO =
-                this.transactionService.addTransaction(transactionCreationRequest);
+        final TransactionDTO transactionDTO = this.transactionService.addTransaction(transactionCreationRequest);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(
@@ -107,12 +111,12 @@ class AddTransactionTest extends UnitTestBase {
         final Transaction transactionSaved = argumentCaptor.getValue();
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(transactionCreationRequest.getAccountId(), transactionSaved.getBankAccount().getId()),
+                () -> Assertions.assertEquals(
+                        transactionCreationRequest.getAccountId(),
+                        transactionSaved.getBankAccount().getId()),
                 () -> Assertions.assertEquals(
                         transactionCreationRequest.getAmountInCents(), transactionSaved.getAmount()),
-                () -> Assertions.assertEquals(
-                        transactionCreationRequest.getDate(),
-                        transactionSaved.getDate()));
+                () -> Assertions.assertEquals(transactionCreationRequest.getDate(), transactionSaved.getDate()));
     }
 
     @Test
@@ -129,8 +133,11 @@ class AddTransactionTest extends UnitTestBase {
         TransactionCreationRequest transactionCreationRequest = new TransactionCreationRequest(
                 bankAccount.getId(),
                 faker.random().nextInt(Integer.MAX_VALUE),
-                faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-        );
+                faker.date()
+                        .birthday()
+                        .toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate());
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
         this.groupRepositoryMockFactory.mockFindById(bankAccount.getGroup().getUserGroupId(), bankAccount.getGroup());
@@ -147,8 +154,11 @@ class AddTransactionTest extends UnitTestBase {
         TransactionCreationRequest transactionCreationRequest = new TransactionCreationRequest(
                 bankAccountId,
                 faker.random().nextInt(Integer.MAX_VALUE),
-                faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-        );
+                faker.date()
+                        .birthday()
+                        .toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate());
 
         this.bankAccountRepositoryMockFactory.mockFindById(bankAccountId, Optional.empty());
 

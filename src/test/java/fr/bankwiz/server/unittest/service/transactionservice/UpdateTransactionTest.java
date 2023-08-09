@@ -1,15 +1,16 @@
 package fr.bankwiz.server.unittest.service.transactionservice;
 
+import java.time.ZoneId;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import fr.bankwiz.openapi.model.TransactionUpdateRequest;
 import fr.bankwiz.server.exception.TransactionNotExistException;
 import fr.bankwiz.server.exception.UserNoWriteRightException;
 import fr.bankwiz.server.model.*;
 import fr.bankwiz.server.service.TransactionService;
 import fr.bankwiz.server.unittest.testhelper.UnitTestBase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import java.time.ZoneId;
 
 class UpdateTransactionTest extends UnitTestBase {
 
@@ -21,8 +22,7 @@ class UpdateTransactionTest extends UnitTestBase {
                 this.authenticationFacadeMockFactory.getAuthenticationFacade(),
                 this.bankAccountRepositoryMockFactory.getRepository(),
                 this.groupRepositoryMockFactory.getRepository(),
-                this.transactionRepositoryMockFactory.getRepository()
-        );
+                this.transactionRepositoryMockFactory.getRepository());
     }
 
     @Test
@@ -36,7 +36,12 @@ class UpdateTransactionTest extends UnitTestBase {
         final Integer transactionId = transaction.getTransactionId();
 
         TransactionUpdateRequest transactionUpdateRequest = new TransactionUpdateRequest();
-        transactionUpdateRequest.setDate(this.faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        transactionUpdateRequest.setDate(this.faker
+                .date()
+                .birthday()
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate());
         transactionUpdateRequest.setAmountInCents(this.faker.random().nextInt(Integer.MAX_VALUE));
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
@@ -60,10 +65,7 @@ class UpdateTransactionTest extends UnitTestBase {
         Assertions.assertAll(
                 () -> Assertions.assertEquals(
                         transactionUpdateRequest.getAmountInCents(), transactionSaved.getAmount()),
-                () -> Assertions.assertEquals(
-                        transactionUpdateRequest.getDate(),
-                        transactionSaved.getDate())
-        );
+                () -> Assertions.assertEquals(transactionUpdateRequest.getDate(), transactionSaved.getDate()));
     }
 
     @Test
@@ -77,7 +79,12 @@ class UpdateTransactionTest extends UnitTestBase {
         final Integer transactionId = transaction.getTransactionId();
 
         TransactionUpdateRequest transactionUpdateRequest = new TransactionUpdateRequest();
-        transactionUpdateRequest.setDate(this.faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        transactionUpdateRequest.setDate(this.faker
+                .date()
+                .birthday()
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate());
         transactionUpdateRequest.setAmountInCents(this.faker.random().nextInt(Integer.MAX_VALUE));
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);
@@ -101,10 +108,7 @@ class UpdateTransactionTest extends UnitTestBase {
         Assertions.assertAll(
                 () -> Assertions.assertEquals(
                         transactionUpdateRequest.getAmountInCents(), transactionSaved.getAmount()),
-                () -> Assertions.assertEquals(
-                        transactionUpdateRequest.getDate(),
-                        transactionSaved.getDate())
-        );
+                () -> Assertions.assertEquals(transactionUpdateRequest.getDate(), transactionSaved.getDate()));
     }
 
     @Test
@@ -118,7 +122,12 @@ class UpdateTransactionTest extends UnitTestBase {
         final Integer transactionId = transaction.getTransactionId();
 
         TransactionUpdateRequest transactionUpdateRequest = new TransactionUpdateRequest();
-        transactionUpdateRequest.setDate(this.faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        transactionUpdateRequest.setDate(this.faker
+                .date()
+                .birthday()
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate());
         transactionUpdateRequest.setAmountInCents(this.faker.random().nextInt(Integer.MAX_VALUE));
 
         this.authenticationFacadeMockFactory.mockGetCurrentUser(user);

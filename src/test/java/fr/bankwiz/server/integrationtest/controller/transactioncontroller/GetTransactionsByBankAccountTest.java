@@ -1,5 +1,12 @@
 package fr.bankwiz.server.integrationtest.controller.transactioncontroller;
 
+import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.server.exception.BankAccountNotExistException;
 import fr.bankwiz.server.exception.UserNoReadRightException;
@@ -9,12 +16,6 @@ import fr.bankwiz.server.model.BankAccount;
 import fr.bankwiz.server.model.Group;
 import fr.bankwiz.server.model.GroupRight;
 import fr.bankwiz.server.model.User;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.util.List;
 
 class GetTransactionsByBankAccountTest extends IntegrationTestBase {
 
@@ -40,14 +41,12 @@ class GetTransactionsByBankAccountTest extends IntegrationTestBase {
         final List<TransactionDTO> transactionDTOs =
                 IntegrationMVCClient.convertMvcResultToListOfResponseObjects(result, TransactionDTO.class);
 
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(1, transactionDTOs.size()),
-                () -> {
-                    for (TransactionDTO transactionDTO : transactionDTOs) {
-                        Assertions.assertEquals(bankAccount.getId(), transactionDTO.getAccountIndexDTO().getAccountId());
-                    }
-                }
-        );
+        Assertions.assertAll(() -> Assertions.assertEquals(1, transactionDTOs.size()), () -> {
+            for (TransactionDTO transactionDTO : transactionDTOs) {
+                Assertions.assertEquals(
+                        bankAccount.getId(), transactionDTO.getAccountIndexDTO().getAccountId());
+            }
+        });
     }
 
     @Test
@@ -73,14 +72,13 @@ class GetTransactionsByBankAccountTest extends IntegrationTestBase {
         final List<TransactionDTO> transactionDTOs =
                 IntegrationMVCClient.convertMvcResultToListOfResponseObjects(result, TransactionDTO.class);
 
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(2, transactionDTOs.size()),
-                () -> {
-                    for (TransactionDTO transactionDTO : transactionDTOs) {
-                        Assertions.assertEquals(bankAccount2.getId(), transactionDTO.getAccountIndexDTO().getAccountId());
-                    }
-                }
-        );
+        Assertions.assertAll(() -> Assertions.assertEquals(2, transactionDTOs.size()), () -> {
+            for (TransactionDTO transactionDTO : transactionDTOs) {
+                Assertions.assertEquals(
+                        bankAccount2.getId(),
+                        transactionDTO.getAccountIndexDTO().getAccountId());
+            }
+        });
     }
 
     @Test
@@ -135,7 +133,7 @@ class GetTransactionsByBankAccountTest extends IntegrationTestBase {
 
         final String uri = IntegrationMVCClient.UriEnum.TRANSACTION_FINDBYBANKACCOUNT.getUri();
 
-        final var result = this.client.doGet(uri+ "?bankAccountId=" + bankAccountId, user.getAuthId());
+        final var result = this.client.doGet(uri + "?bankAccountId=" + bankAccountId, user.getAuthId());
 
         final BankAccountNotExistException exception = new BankAccountNotExistException(bankAccountId);
 

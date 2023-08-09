@@ -1,5 +1,12 @@
 package fr.bankwiz.server.integrationtest.controller.transactioncontroller;
 
+import java.time.ZoneId;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.openapi.model.TransactionUpdateRequest;
 import fr.bankwiz.server.exception.TransactionNotExistException;
@@ -7,12 +14,6 @@ import fr.bankwiz.server.exception.UserNoWriteRightException;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationMVCClient;
 import fr.bankwiz.server.integrationtest.testhelper.IntegrationTestBase;
 import fr.bankwiz.server.model.*;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.time.ZoneId;
 
 class UpdateTransactionTest extends IntegrationTestBase {
 
@@ -30,7 +31,12 @@ class UpdateTransactionTest extends IntegrationTestBase {
         final Integer transactionId = transaction.getTransactionId();
 
         TransactionUpdateRequest transactionUpdateRequest = new TransactionUpdateRequest();
-        transactionUpdateRequest.setDate(this.faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        transactionUpdateRequest.setDate(this.faker
+                .date()
+                .birthday()
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate());
         transactionUpdateRequest.setAmountInCents(this.faker.random().nextInt(Integer.MAX_VALUE));
 
         final String uri = IntegrationMVCClient.UriEnum.TRANSACTION_ID.getUri(transactionId);
@@ -52,16 +58,14 @@ class UpdateTransactionTest extends IntegrationTestBase {
                         transactionUpdateRequest.getDate(),
                         transactionDTO.getTransactionIndexDTO().getDate()));
 
-        final Transaction transactionSaved =
-                this.transactionRepository.findById(transactionDTO.getTransactionIndexDTO().getTransactionId()).orElseThrow();
+        final Transaction transactionSaved = this.transactionRepository
+                .findById(transactionDTO.getTransactionIndexDTO().getTransactionId())
+                .orElseThrow();
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(
                         transactionUpdateRequest.getAmountInCents(), transactionSaved.getAmount()),
-                () -> Assertions.assertEquals(
-                        transactionUpdateRequest.getDate(),
-                        transactionSaved.getDate())
-        );
+                () -> Assertions.assertEquals(transactionUpdateRequest.getDate(), transactionSaved.getDate()));
     }
 
     @Test
@@ -75,7 +79,12 @@ class UpdateTransactionTest extends IntegrationTestBase {
         final Integer transactionId = transaction.getTransactionId();
 
         TransactionUpdateRequest transactionUpdateRequest = new TransactionUpdateRequest();
-        transactionUpdateRequest.setDate(this.faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        transactionUpdateRequest.setDate(this.faker
+                .date()
+                .birthday()
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate());
         transactionUpdateRequest.setAmountInCents(this.faker.random().nextInt(Integer.MAX_VALUE));
 
         final String uri = IntegrationMVCClient.UriEnum.TRANSACTION_ID.getUri(transactionId);
@@ -97,16 +106,14 @@ class UpdateTransactionTest extends IntegrationTestBase {
                         transactionUpdateRequest.getDate(),
                         transactionDTO.getTransactionIndexDTO().getDate()));
 
-        final Transaction transactionSaved =
-                this.transactionRepository.findById(transactionDTO.getTransactionIndexDTO().getTransactionId()).orElseThrow();
+        final Transaction transactionSaved = this.transactionRepository
+                .findById(transactionDTO.getTransactionIndexDTO().getTransactionId())
+                .orElseThrow();
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(
                         transactionUpdateRequest.getAmountInCents(), transactionSaved.getAmount()),
-                () -> Assertions.assertEquals(
-                        transactionUpdateRequest.getDate(),
-                        transactionSaved.getDate())
-        );
+                () -> Assertions.assertEquals(transactionUpdateRequest.getDate(), transactionSaved.getDate()));
     }
 
     @Test
@@ -120,13 +127,17 @@ class UpdateTransactionTest extends IntegrationTestBase {
         final Integer transactionId = transaction.getTransactionId();
 
         TransactionUpdateRequest transactionUpdateRequest = new TransactionUpdateRequest();
-        transactionUpdateRequest.setDate(this.faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        transactionUpdateRequest.setDate(this.faker
+                .date()
+                .birthday()
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate());
         transactionUpdateRequest.setAmountInCents(this.faker.random().nextInt(Integer.MAX_VALUE));
 
         final String uri = IntegrationMVCClient.UriEnum.TRANSACTION_ID.getUri(transactionId);
 
-        var result = this.client
-                .doPut(uri, user.getAuthId(), transactionUpdateRequest);
+        var result = this.client.doPut(uri, user.getAuthId(), transactionUpdateRequest);
 
         final Transaction transactionSaved =
                 this.transactionRepository.findById(transactionId).orElseThrow();
@@ -134,10 +145,7 @@ class UpdateTransactionTest extends IntegrationTestBase {
         Assertions.assertAll(
                 () -> Assertions.assertNotEquals(
                         transactionUpdateRequest.getAmountInCents(), transactionSaved.getAmount()),
-                () -> Assertions.assertNotEquals(
-                        transactionUpdateRequest.getDate(),
-                        transactionSaved.getDate())
-        );
+                () -> Assertions.assertNotEquals(transactionUpdateRequest.getDate(), transactionSaved.getDate()));
 
         final UserNoWriteRightException exception = new UserNoWriteRightException(user, group);
 
