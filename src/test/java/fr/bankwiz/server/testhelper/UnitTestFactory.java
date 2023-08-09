@@ -1,5 +1,6 @@
 package fr.bankwiz.server.testhelper;
 
+import java.time.LocalDate;
 import java.time.ZoneId;
 
 import fr.bankwiz.server.TestFactory;
@@ -74,6 +75,17 @@ public class UnitTestFactory extends TestFactory {
         return bankAccount;
     }
 
+    public Transaction getTransaction(Integer amount, LocalDate date, BankAccount bankAccount) {
+        Transaction transaction = Transaction.builder()
+                .amount(amount)
+                .date(date)
+                .bankAccount(bankAccount)
+                .build();
+                transaction.setTransactionId(getRandomId());
+                return transaction;
+
+    }
+
     public Transaction getTransaction(BankAccount bankAccount) {
         Transaction transaction = super.getTransaction(
                 faker.random().nextInt(Integer.MAX_VALUE),
@@ -83,7 +95,6 @@ public class UnitTestFactory extends TestFactory {
                         .atZone(ZoneId.systemDefault())
                         .toLocalDate(),
                 bankAccount);
-        transaction.setTransactionId(getRandomId());
         return transaction;
     }
 }
