@@ -1,4 +1,4 @@
-package fr.bankwiz.server.config;
+package fr.bankwiz.server.security;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.oauth2.jwt.Jwt;
 
-import fr.bankwiz.server.security.AudienceValidator;
 import fr.bankwiz.server.testhelper.UnitTestBase;
 
 class AudienceValidatorTest extends UnitTestBase {
