@@ -7,9 +7,12 @@ import fr.bankwiz.server.TestFactory;
 import fr.bankwiz.server.model.*;
 import fr.bankwiz.server.model.GroupRight.GroupRightEnum;
 
-public class UnitTestFactory extends TestFactory {
+public class UnitTestFactory {
+
+    private PersonalFaker faker;
+
     public UnitTestFactory(PersonalFaker faker) {
-        super.setFaker(faker);
+        this.faker = faker;
     }
 
     protected Integer getRandomId() {
@@ -87,7 +90,7 @@ public class UnitTestFactory extends TestFactory {
     }
 
     public Transaction getTransaction(BankAccount bankAccount) {
-        Transaction transaction = super.getTransaction(
+        Transaction transaction = this.getTransaction(
                 faker.random().nextInt(Integer.MAX_VALUE),
                 faker.date()
                         .birthday()
