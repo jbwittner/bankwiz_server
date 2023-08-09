@@ -1,14 +1,6 @@
 CURRENT_GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
-SONAR_UT_BRANCH_NAME := $(CURRENT_GIT_BRANCH)_UT
-SONAR_IT_BRANCH_NAME := $(CURRENT_GIT_BRANCH)_IT
 MYSQL_ROOT_PASSWORD := BankwizRootPass2023
 DOCKER_BUILDKIT=1
-
-ORIGINAL_LINE_START_FOREIGN_KEY_CHECKS := \/\*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 \*\/;
-NEW_LINE_START_FOREIGN_KEY_CHECKS := SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-
-ORIGINAL_LINE_END_FOREIGN_KEY_CHECKS := \/\*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS \*\/;
-NEW_LINE_END_FOREIGN_KEY_CHECKS := SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 
 
 ifndef USER_GITHUB_LOGIN
@@ -37,9 +29,6 @@ restore: restore-system restore-table restore-data
 .PHONY: dump-table
 dump-table:
 	@docker exec bankwiz_mysql sh -c 'exec mysqldump --no-data -uroot -p"$(MYSQL_ROOT_PASSWORD)" --single-transaction bankwiz_db' > sql/databases.sql
-	@docker exec bankwiz_mysql sh -c 'exec mysqldump --no-data -uroot -p"$(MYSQL_ROOT_PASSWORD)" --single-transaction bankwiz_db' > src/test/resources/databases.sql
-	sed -i 's/$(ORIGINAL_LINE_START_FOREIGN_KEY_CHECKS)/$(NEW_LINE_START_FOREIGN_KEY_CHECKS)/g' src/test/resources/databases.sql
-	sed -i 's/$(ORIGINAL_LINE_END_FOREIGN_KEY_CHECKS)/$(NEW_LINE_END_FOREIGN_KEY_CHECKS)/g' src/test/resources/databases.sql
 
 .PHONY: dump-data
 dump-data:
@@ -69,15 +58,8 @@ spotless-check:
 	mvn spotless:check
 
 .PHONY: sonar
-sonar: sonar-unittest sonar-integrationtest
-
-.PHONY: sonar-unittest
-sonar-unittest:
-	mvn -Dtest="fr/bankwiz/server/unittest/**/*" clean verify sonar:sonar -Dsonar.branch.name=$(SONAR_UT_BRANCH_NAME)
-
-.PHONY: sonar-integrationtest
-sonar-integrationtest:
-	mvn -Dtest="fr/bankwiz/server/integrationtest/**/*" clean verify sonar:sonar -Dsonar.branch.name=$(SONAR_IT_BRANCH_NAME)
+sonar:
+	mvn clean verify sonar:sonar -Dsonar.branch.name=$(CURRENT_GIT_BRANCH)
 
 .PHONY: docker-build
 docker-build:
