@@ -15,8 +15,6 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -53,17 +51,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors(cors -> cors.disable())
-            .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/status/public")
-                .permitAll()
-                .requestMatchers("/status/admin")
-                .hasAuthority("SCOPE_admin:configuration")
-                .anyRequest()
-                .authenticated())
-            .oauth2ResourceServer(
-                oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())
-                        .decoder(jwtDecoder())));
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/status/public")
+                        .permitAll()
+                        .requestMatchers("/status/admin")
+                        .hasAuthority("SCOPE_admin:configuration")
+                        .anyRequest()
+                        .authenticated())
+                .oauth2ResourceServer(
+                        oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())
+                                .decoder(jwtDecoder())));
         return http.build();
     }
-
 }
