@@ -17,6 +17,7 @@ auth0:
 logging:
   level:
     root: INFO
+    org.springframework.security: INFO
     fr:
       bankwiz:
         server:
