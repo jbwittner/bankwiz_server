@@ -12,7 +12,6 @@ import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.service.UserService;
 
 @RestController
-@CrossOrigin
 public class UserController implements UserApi {
 
     private final UserService userService;

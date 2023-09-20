@@ -15,7 +15,6 @@ import fr.bankwiz.openapi.model.BankAccountUpdateRequest;
 import fr.bankwiz.server.service.BankAccountService;
 
 @RestController
-@CrossOrigin
 public class BankAccountController implements BankAccountApi {
 
     private final BankAccountService bankAccountService;

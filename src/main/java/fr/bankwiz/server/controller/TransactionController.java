@@ -14,7 +14,6 @@ import fr.bankwiz.openapi.model.TransactionUpdateRequest;
 import fr.bankwiz.server.service.TransactionService;
 
 @RestController
-@CrossOrigin
 public class TransactionController implements TransactionApi {
 
     private final TransactionService transactionService;

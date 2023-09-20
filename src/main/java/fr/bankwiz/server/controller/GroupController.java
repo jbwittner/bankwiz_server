@@ -12,7 +12,6 @@ import fr.bankwiz.openapi.model.*;
 import fr.bankwiz.server.service.GroupService;
 
 @RestController
-@CrossOrigin
 public class GroupController implements GroupApi {
 
     private final GroupService groupService;
