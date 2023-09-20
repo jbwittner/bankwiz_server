@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.bankwiz.openapi.api.GroupApi;
@@ -11,6 +12,7 @@ import fr.bankwiz.openapi.model.*;
 import fr.bankwiz.server.service.GroupService;
 
 @RestController
+@CrossOrigin
 public class GroupController implements GroupApi {
 
     private final GroupService groupService;

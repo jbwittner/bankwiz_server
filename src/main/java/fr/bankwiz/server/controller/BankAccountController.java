@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.bankwiz.openapi.api.BankAccountApi;
@@ -14,6 +15,7 @@ import fr.bankwiz.openapi.model.BankAccountUpdateRequest;
 import fr.bankwiz.server.service.BankAccountService;
 
 @RestController
+@CrossOrigin
 public class BankAccountController implements BankAccountApi {
 
     private final BankAccountService bankAccountService;

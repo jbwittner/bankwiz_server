@@ -52,26 +52,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/status/public")
-                        .permitAll()
-                        .requestMatchers("/status/admin")
-                        .hasAuthority("SCOPE_admin:configuration")
-                        .anyRequest()
-                        .authenticated())
-                .oauth2ResourceServer(
-                        oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())
-                                .decoder(jwtDecoder())));
+        http.cors(cors -> cors.disable())
+            .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/status/public")
+                .permitAll()
+                .requestMatchers("/status/admin")
+                .hasAuthority("SCOPE_admin:configuration")
+                .anyRequest()
+                .authenticated())
+            .oauth2ResourceServer(
+                oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())
+                        .decoder(jwtDecoder())));
         return http.build();
     }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:3000");
-            }
-        };
-    }
 }
