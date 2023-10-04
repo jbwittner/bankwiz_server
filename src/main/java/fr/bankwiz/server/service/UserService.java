@@ -38,19 +38,6 @@ public class UserService {
 
         user.setAuthId(idData.getSub());
         user.setEmail(idData.getEmail());
-
-        if (idData.getGivenName() != null) {
-            user.setFirstName(idData.getGivenName());
-        } else {
-            user.setFirstName("FIRST_NAME_NOT_FOUND");
-        }
-
-        if (idData.getFamilyName() != null) {
-            user.setLastName(idData.getFamilyName());
-        } else {
-            user.setLastName("LAST_NAME_NOT_FOUND");
-        }
-
         user = this.userRepository.save(user);
 
         return USER_DTO_BUILDER.transform(user);

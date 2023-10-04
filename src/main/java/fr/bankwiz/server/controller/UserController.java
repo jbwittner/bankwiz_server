@@ -1,7 +1,5 @@
 package fr.bankwiz.server.controller;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,15 +29,4 @@ public class UserController implements UserApi {
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
-    @Override
-    public ResponseEntity<UserDTO> getUser(Integer userAccountId) {
-        final UserDTO userDTO = this.userService.getUser(userAccountId);
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<UserDTO>> getUsers() {
-        final List<UserDTO> userDTOs = this.userService.getUsers();
-        return new ResponseEntity<>(userDTOs, HttpStatus.OK);
-    }
 }

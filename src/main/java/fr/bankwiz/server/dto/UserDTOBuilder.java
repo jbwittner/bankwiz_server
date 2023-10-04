@@ -6,6 +6,6 @@ import fr.bankwiz.server.model.User;
 public class UserDTOBuilder implements Transformer<User, UserDTO> {
 
     public UserDTO transform(final User input) {
-        return new UserDTO(input.getUserAccountId(), input.getFirstName(), input.getLastName(), input.getEmail());
+        return new UserDTO(input.getUserAccountId(), input.getEmail());
     }
 }
