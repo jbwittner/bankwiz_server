@@ -1,8 +1,11 @@
 package fr.bankwiz.server.infrastructure;
 
-public class Infrastructure {
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
+public class Infrastructure {
     public static void main(String[] args) {
-        System.out.println("Infrastructure");
+        SpringApplication.run(Infrastructure.class, args);
     }
 }

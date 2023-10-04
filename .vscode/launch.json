@@ -6,17 +6,10 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Domain",
+            "name": "Infrastructure",
             "request": "launch",
-            "mainClass": "fr.bankwiz.server.domain.Domain",
-            "projectName": "domain"
-        },
-        {
-            "type": "java",
-            "name": "BankwizServerApplication",
-            "request": "launch",
-            "mainClass": "fr.bankwiz.server.BankwizServerApplication",
-            "projectName": "server"
+            "mainClass": "fr.bankwiz.server.infrastructure.Infrastructure",
+            "projectName": "infrastructure"
         }
     ]
 }

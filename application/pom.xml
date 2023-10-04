@@ -13,6 +13,13 @@
     <properties>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>fr.bankwiz.server</groupId>
+            <artifactId>domain</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
     <build>
     </build>
