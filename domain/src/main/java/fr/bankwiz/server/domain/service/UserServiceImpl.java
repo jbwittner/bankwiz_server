@@ -5,7 +5,9 @@ import fr.bankwiz.server.domain.model.User;
 
 public class UserServiceImpl implements UserService {
 
-    public UserServiceImpl() {}
+    public UserServiceImpl() {
+        /* */
+    }
 
     @Override
     public User createUser(Long id) {
