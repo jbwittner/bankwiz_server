@@ -5,13 +5,10 @@ import fr.bankwiz.server.domain.model.User;
 
 public class UserServiceImpl implements UserService {
 
-    public UserServiceImpl() {
-        System.out.println("USerserviceImpl");
-    }
+    public UserServiceImpl() {}
 
     @Override
     public User createUser(Long id) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createUser'");
     }
 }
