@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>fr.bankwiz.server</groupId>
-    <artifactId>parent</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
-    <name>Bankwiz Server - Parent</name>
-    <description>Server for Bankwiz application</description>
-    <packaging>pom</packaging>
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.1.4</version>
     </parent>
-
+    <groupId>fr.bankwiz.server</groupId>
+    <artifactId>parent</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Bankwiz Server - Parent</name>
+    <description>Server for Bankwiz application</description>
+    <modules>
+        <module>domain</module>
+        <module>infrastructure</module>
+    </modules>
     <properties>
         <bankwiz.openapi.version>0.3.1</bankwiz.openapi.version>
         <java.version>17</java.version>
@@ -23,12 +23,104 @@
         <sonar.organization>jbwittner</sonar.organization>
         <sonar.projectKey>jbwittner_bankwiz_server</sonar.projectKey>
     </properties>
-
-    <modules>
-        <module>domain</module>
-        <module>infrastructure</module>
-    </modules>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>2.40.0</version>
+                <configuration>
+                    <formats>
+                        <!-- you can define as many formats as you want, each is independent -->
+                        <format>
+                            <!-- define the files to apply to -->
+                            <includes>
+                                <include>*.md</include>
+                                <include>.gitignore</include>
+                            </includes>
+                            <!-- define the steps to apply to those files -->
+                            <trimTrailingWhitespace></trimTrailingWhitespace>
+                            <endWithNewline></endWithNewline>
+                            <indent>
+                                <tabs>false</tabs>
+                                <spaces>true</spaces>
+                                <spacesPerTab>4</spacesPerTab>
+                            </indent>
+                        </format>
+                    </formats>
+                    <!-- optional: limit format enforcement to just the files changed by this feature branch -->
+                    <java>
+                        <!-- These are the defaults, you can override if you want -->
+                        <includes>
+                            <include>src/main/java/**/*.java</include>
+                            <include>src/test/java/**/*.java</include>
+                        </includes>
+                        <!-- Cleanthat will refactor your code, but it may break your style: apply it before your formatter -->
+                        <cleanthat></cleanthat>
+                        <!-- has its own section below -->
+                        <googleJavaFormat></googleJavaFormat>
+                        <palantirJavaFormat></palantirJavaFormat>
+                        <!-- has its own section below -->
+                        <importOrder></importOrder>
+                        <!-- standard import order -->
+                        <importOrder>
+                            <!-- or a custom ordering -->
+                            <wildcardsLast>false</wildcardsLast>
+                            <!-- Optional, default false. Sort wildcard import after specific imports -->
+                            <order>java|javax,org,com,com.diffplug,,\#com.diffplug,\#</order>
+                            <!-- or use <file>${project.basedir}/eclipse.importorder</file> -->
+                            <!-- you can use an empty string for all the imports you didn't specify explicitly, '|' to join group without blank line, and '\#` prefix for static imports. -->
+                        </importOrder>
+                        <removeUnusedImports></removeUnusedImports>
+                        <!-- self-explanatory -->
+                        <formatAnnotations></formatAnnotations>
+                        <!-- fixes formatting of type annotations, see below -->
+                    </java>
+                    <pom>
+                        <!-- These are the defaults, you can override if you want -->
+                        <includes>
+                            <include>pom.xml</include>
+                        </includes>
+                        <sortPom>
+                            <encoding>UTF-8</encoding>
+                            <!-- The encoding of the pom files -->
+                            <lineSeparator>${line.separator}</lineSeparator>
+                            <!-- line separator to use -->
+                            <expandEmptyElements>true</expandEmptyElements>
+                            <!-- Should empty elements be expanded-->
+                            <spaceBeforeCloseEmptyElement>false</spaceBeforeCloseEmptyElement>
+                            <!-- Should a space be added inside self-closing elements-->
+                            <keepBlankLines>false</keepBlankLines>
+                            <!-- Keep empty lines -->
+                            <nrOfIndentSpace>4</nrOfIndentSpace>
+                            <!-- Indentation -->
+                            <indentBlankLines>false</indentBlankLines>
+                            <!-- Should empty lines be indented -->
+                            <indentSchemaLocation>false</indentSchemaLocation>
+                            <!-- Should schema locations be indended -->
+                            <predefinedSortOrder>recommended_2008_06</predefinedSortOrder>
+                            <!-- Sort order of elements: https://github.com/Ekryd/sortpom/wiki/PredefinedSortOrderProfiles-->
+                            <sortOrderFile></sortOrderFile>
+                            <!-- Custom sort order of elements: https://raw.githubusercontent.com/Ekryd/sortpom/master/sorter/src/main/resources/custom_1.xml -->
+                            <sortDependencies></sortDependencies>
+                            <!-- Sort dependencies: https://github.com/Ekryd/sortpom/wiki/SortDependencies-->
+                            <sortDependencyExclusions></sortDependencyExclusions>
+                            <!-- Sort dependency exclusions: https://github.com/Ekryd/sortpom/wiki/SortDependencies-->
+                            <sortPlugins></sortPlugins>
+                            <!-- Sort plugins: https://github.com/Ekryd/sortpom/wiki/SortPlugins -->
+                            <sortProperties>true</sortProperties>
+                            <!-- Sort properties -->
+                            <sortModules>true</sortModules>
+                            <!-- Sort modules -->
+                            <sortExecutions>true</sortExecutions>
+                            <!-- Sort plugin executions -->
+                        </sortPom>
+                        <!-- has its own section below -->
+                    </pom>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <profiles>
         <profile>
             <id>github-bankwiz</id>
@@ -50,6 +142,4 @@
             </repositories>
         </profile>
     </profiles>
-
-
 </project>

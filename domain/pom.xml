@@ -10,10 +10,7 @@
     <artifactId>domain</artifactId>
     <name>Bankwiz Server - Domain</name>
     <description>Domain layer of Bankwiz application</description>
-    <properties>
-    </properties>
-    <dependencies>
-    </dependencies>
-    <build>
-    </build>
+    <properties></properties>
+    <dependencies></dependencies>
+    <build></build>
 </project>

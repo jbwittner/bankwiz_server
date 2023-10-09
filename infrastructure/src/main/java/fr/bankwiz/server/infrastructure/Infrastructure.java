@@ -11,7 +11,7 @@ public class Infrastructure {
 
     @Autowired
     UserService userService;
-    
+
     public static void main(String[] args) {
         SpringApplication.run(Infrastructure.class, args);
     }
