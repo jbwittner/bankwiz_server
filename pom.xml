@@ -23,6 +23,15 @@
         <sonar.organization>jbwittner</sonar.organization>
         <sonar.projectKey>jbwittner_bankwiz_server</sonar.projectKey>
     </properties>
+    <dependencies>
+        <!-- Core -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>

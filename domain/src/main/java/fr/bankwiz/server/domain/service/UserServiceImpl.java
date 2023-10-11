@@ -11,6 +11,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(Long id) {
-        throw new UnsupportedOperationException("Unimplemented method 'createUser'");
+        return User.builder().userId(id).build();
     }
 }
