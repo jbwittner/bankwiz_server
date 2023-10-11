@@ -1,7 +1,6 @@
 package fr.bankwiz.server.infrastructure.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 

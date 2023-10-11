@@ -15,7 +15,8 @@ public class UserTransformer {
 
         @Override
         public UserDTO transform(User input) {
-            throw new UnsupportedOperationException("Unimplemented method 'transform'");
+            final UserDTO userDTO = new UserDTO();
+            return userDTO;
         }
     }
 }
