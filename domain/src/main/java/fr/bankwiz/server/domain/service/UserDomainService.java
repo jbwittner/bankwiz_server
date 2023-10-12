@@ -6,11 +6,11 @@ import fr.bankwiz.server.domain.model.User;
 import fr.bankwiz.server.domain.spi.UserSpi;
 
 @DomainService
-public class UserService implements UserApi {
+public class UserDomainService implements UserApi {
 
     private final UserSpi userSpi;
 
-    public UserService(UserSpi userSpi) {
+    public UserDomainService(UserSpi userSpi) {
         this.userSpi = userSpi;
     }
 

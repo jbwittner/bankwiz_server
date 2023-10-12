@@ -6,20 +6,20 @@ import org.springframework.stereotype.Controller;
 
 import fr.bankwiz.openapi.api.UserApi;
 import fr.bankwiz.openapi.model.UserDTO;
-import fr.bankwiz.server.infrastructure.service.UserServiceInfra;
+import fr.bankwiz.server.infrastructure.service.UserInfraService;
 
 @Controller
 public class UserController implements UserApi {
 
-    private UserServiceInfra userServiceInfra;
+    private UserInfraService userInfraService;
 
-    public UserController(UserServiceInfra userServiceInfra) {
-        this.userServiceInfra = userServiceInfra;
+    public UserController(UserInfraService userInfraService) {
+        this.userInfraService = userInfraService;
     }
 
     @Override
     public ResponseEntity<UserDTO> checkRegistration() {
-        UserDTO userDTO = userServiceInfra.createUser(1L);
+        UserDTO userDTO = userInfraService.createUser(1L);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
