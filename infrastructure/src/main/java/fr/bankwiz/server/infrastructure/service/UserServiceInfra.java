@@ -3,7 +3,7 @@ package fr.bankwiz.server.infrastructure.service;
 import org.springframework.stereotype.Service;
 
 import fr.bankwiz.openapi.model.UserDTO;
-import fr.bankwiz.server.domain.api.UserService;
+import fr.bankwiz.server.domain.api.UserApi;
 import fr.bankwiz.server.domain.model.User;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 
@@ -12,9 +12,9 @@ public class UserServiceInfra {
 
     private static final UserTransformer USER_TRANSFORMER = new UserTransformer();
 
-    private final UserService userService;
+    private final UserApi userService;
 
-    public UserServiceInfra(UserService userService) {
+    public UserServiceInfra(UserApi userService) {
         this.userService = userService;
     }
 

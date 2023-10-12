@@ -41,6 +41,9 @@
             <artifactId>openapi</artifactId>
             <version>${bankwiz.openapi.version}</version>
         </dependency>
+        <!-- Core -->
+        <!-- DB -->
+        <!-- DB -->
     </dependencies>
     <build></build>
 </project>

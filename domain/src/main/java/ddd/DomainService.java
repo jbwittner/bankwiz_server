@@ -20,7 +20,7 @@ import java.lang.annotation.RetentionPolicy;
  * </pre>
  *
  * @see <a href="https://domaindrivendesign.org/">Domain-Driven Design</a>
- * 
+ *
  * @since 1.0
  * @author Your Name
  */
