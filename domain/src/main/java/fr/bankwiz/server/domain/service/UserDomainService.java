@@ -22,7 +22,9 @@ public class UserDomainService implements UserApi {
     public User checkRegistration() {
         final UserAuthentication userAuthentication = this.authenticationFacadeSpi.getUserAuthentication();
 
-        final User user = this.userSpi.findByAuthId(userAuthentication.getSub()).orElse(User.builder().authId(userAuthentication.getSub()).build());
+        final User user = this.userSpi
+                .findByAuthId(userAuthentication.getSub())
+                .orElse(User.builder().authId(userAuthentication.getSub()).build());
         user.setEmail(userAuthentication.getEmail());
 
         return this.userSpi.save(user);

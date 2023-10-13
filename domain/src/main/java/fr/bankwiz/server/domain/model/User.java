@@ -13,9 +13,8 @@ public class User {
     private String authId;
     private String email;
 
-    public User setEmail(String email){
+    public User setEmail(String email) {
         this.email = email;
         return this;
     }
-
 }

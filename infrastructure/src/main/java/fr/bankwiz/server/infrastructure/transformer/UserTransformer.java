@@ -16,6 +16,8 @@ public class UserTransformer {
         @Override
         public UserDTO transform(User input) {
             final UserDTO userDTO = new UserDTO();
+            userDTO.setEmail(input.getEmail());
+            userDTO.setUserId(1);
             return userDTO;
         }
     }

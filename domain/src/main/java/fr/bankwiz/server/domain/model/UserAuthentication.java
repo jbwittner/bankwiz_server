@@ -10,6 +10,4 @@ public class UserAuthentication {
     private String sub;
     private String name;
     private String email;
-    private String givenName;
-    private String familyName;
 }

@@ -1,6 +1,7 @@
 package fr.bankwiz.server.infrastructure.spi;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
@@ -12,12 +13,12 @@ public class UserSpiImpl implements UserSpi {
 
     @Override
     public Optional<User> findByAuthId(String authId) {
-        throw new UnsupportedOperationException("Unimplemented method 'findByAuthId'");
+        User user = User.builder().authId("authId").email("email").userUuid(UUID.randomUUID()).build();
+        return Optional.of(user);
     }
 
     @Override
     public User save(User user) {
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        return user;
     }
-
 }
