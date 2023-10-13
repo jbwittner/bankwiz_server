@@ -19,7 +19,7 @@ public class UserController implements UserApi {
 
     @Override
     public ResponseEntity<UserDTO> checkRegistration() {
-        UserDTO userDTO = userInfraService.createUser(1L);
+        UserDTO userDTO = userInfraService.checkRegistration();
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 

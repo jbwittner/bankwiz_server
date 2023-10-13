@@ -8,11 +8,8 @@ import fr.bankwiz.server.domain.spi.UserSpi;
 @Component
 public class UserSpiImpl implements UserSpi {
 
-    public UserSpiImpl() {}
-
     @Override
     public User findById(Long id) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
 }

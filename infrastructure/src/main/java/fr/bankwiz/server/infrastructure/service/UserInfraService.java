@@ -18,8 +18,8 @@ public class UserInfraService {
         this.userApi = userApi;
     }
 
-    public UserDTO createUser(Long id) {
-        final User user = this.userApi.createUser(id);
+    public UserDTO checkRegistration() {
+        final User user = this.userApi.checkRegistration();
         return USER_TRANSFORMER.transformToUserDTO(user);
     }
 }
