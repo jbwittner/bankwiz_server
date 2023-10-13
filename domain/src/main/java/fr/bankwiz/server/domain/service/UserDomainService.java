@@ -21,6 +21,10 @@ public class UserDomainService implements UserApi {
     @Override
     public User checkRegistration() {
         final UserAuthentication userAuthentication = this.authenticationFacadeSpi.getUserAuthentication();
-        return User.builder().userId(1L).build();
+
+        final User user = this.userSpi.findByAuthId(userAuthentication.getSub()).orElse(User.builder().authId(userAuthentication.getSub()).build());
+        user.setEmail(userAuthentication.getEmail());
+
+        return this.userSpi.save(user);
     }
 }
