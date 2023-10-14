@@ -34,4 +34,9 @@ public class UserDomainService implements UserApi {
 
         return this.userSpi.save(user);
     }
+
+    @Override
+    public User getCurrentUser() {
+        return this.authenticationFacadeSpi.getCurrentUser();
+    }
 }
