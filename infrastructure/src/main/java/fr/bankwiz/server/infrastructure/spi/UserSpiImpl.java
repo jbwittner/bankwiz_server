@@ -13,7 +13,11 @@ public class UserSpiImpl implements UserSpi {
 
     @Override
     public Optional<User> findByAuthId(String authId) {
-        User user = User.builder().authId("authId").email("email").userUuid(UUID.randomUUID()).build();
+        User user = User.builder()
+                .authId("authId")
+                .email("email")
+                .userUuid(UUID.randomUUID())
+                .build();
         return Optional.of(user);
     }
 
