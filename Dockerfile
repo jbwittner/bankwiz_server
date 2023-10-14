@@ -14,6 +14,8 @@ WORKDIR /app
 
 # Copy the pom.xml file to download dependencies
 COPY pom.xml pom.xml
+COPY infrastructure/pom.xml infrastructure/pom.xml
+COPY domain/pom.xml domain/pom.xml
 
 # Copy the settings.xml file from the "maven" directory in the project
 COPY maven/settings.xml /root/.m2/settings.xml
@@ -34,7 +36,8 @@ WORKDIR /app
 COPY pom.xml pom.xml
 
 # Copy the project source code
-COPY src src
+COPY infrastructure infrastructure
+COPY domain domain
 
 # Run the Maven command to compile the project
 RUN mvn clean package -DskipTests
@@ -52,7 +55,7 @@ ENV JVM_OPTS="-Xms512m -Xmx1024m"
 ENV PROFILE="production"
 
 # Copy the compiled JAR file from the previous stage
-COPY --from=build /app/target/server-*.jar bankwiz-server.jar
+COPY --from=build /app/infrastructure/target/infrastructure-*.jar bankwiz-server.jar
 
 # Expose the port on which your application listens
 EXPOSE 8080
