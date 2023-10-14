@@ -1,5 +1,7 @@
 package fr.bankwiz.server.domain.service;
 
+import java.util.UUID;
+
 import ddd.DomainService;
 import fr.bankwiz.server.domain.api.UserApi;
 import fr.bankwiz.server.domain.model.User;
@@ -24,7 +26,7 @@ public class UserDomainService implements UserApi {
 
         final User user = this.userSpi
                 .findByAuthId(userAuthentication.getSub())
-                .orElse(User.builder().authId(userAuthentication.getSub()).build());
+                .orElse(User.builder().authId(userAuthentication.getSub()).userUuid(UUID.randomUUID()).build());
         user.setEmail(userAuthentication.getEmail());
 
         return this.userSpi.save(user);

@@ -10,7 +10,9 @@
     <artifactId>domain</artifactId>
     <name>Bankwiz Server - Domain</name>
     <description>Domain layer of Bankwiz application</description>
-    <properties></properties>
+    <properties>
+        <sonar.projectKey>jbwittner_bankwiz_server_domain</sonar.projectKey>
+    </properties>
     <dependencies></dependencies>
     <build></build>
 </project>

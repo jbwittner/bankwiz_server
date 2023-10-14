@@ -17,7 +17,7 @@ public class UserTransformer {
         public UserDTO transform(User input) {
             final UserDTO userDTO = new UserDTO();
             userDTO.setEmail(input.getEmail());
-            userDTO.setUserId(1);
+            userDTO.setId(input.getUserUuid());
             return userDTO;
         }
     }
