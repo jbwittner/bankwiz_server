@@ -22,4 +22,9 @@ public class UserInfraService {
         final User user = this.userApi.checkRegistration();
         return USER_TRANSFORMER.transformToUserDTO(user);
     }
+
+    public UserDTO getCurrentUser() {
+        final User user = this.userApi.getCurrentUser();
+        return USER_TRANSFORMER.transformToUserDTO(user);
+    }
 }
