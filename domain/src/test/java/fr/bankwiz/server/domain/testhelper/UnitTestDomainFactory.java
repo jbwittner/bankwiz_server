@@ -20,7 +20,6 @@ public class UnitTestDomainFactory {
     public UserAuthentication getUserAuthentication() {
         return UserAuthentication.builder()
                 .email(this.domainFaker.internet().emailAddress())
-                .name(this.domainFaker.leagueOfLegends().champion())
                 .sub(this.getAuthId())
                 .build();
     }

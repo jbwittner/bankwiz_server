@@ -10,19 +10,13 @@ import fr.bankwiz.server.domain.model.User;
 import fr.bankwiz.server.domain.model.UserAuthentication;
 import fr.bankwiz.server.domain.service.UserDomainService;
 import fr.bankwiz.server.domain.testhelper.UnitTestDomainBase;
-import fr.bankwiz.server.domain.testhelper.mock.MockAuthenticationSpi;
-import fr.bankwiz.server.domain.testhelper.mock.MockUserSpi;
 
 class CheckRegistrationTest extends UnitTestDomainBase {
 
-    UserDomainService userDomainService;
-    MockAuthenticationSpi mockAuthenticationSpi;
-    MockUserSpi mockUserSpi;
+    private UserDomainService userDomainService;
 
     @Override
     protected void initDataBeforeEach() {
-        this.mockUserSpi = new MockUserSpi();
-        this.mockAuthenticationSpi = new MockAuthenticationSpi();
         this.userDomainService =
                 new UserDomainService(this.mockAuthenticationSpi.getMock(), this.mockUserSpi.getMock());
     }

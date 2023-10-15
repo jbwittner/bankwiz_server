@@ -16,7 +16,6 @@ public class AuthenticationSpiImpl implements AuthenticationSpi {
         return UserAuthentication.builder()
                 .email("toto@email.com")
                 .sub("suuuuuub")
-                .name("thisisname")
                 .build();
     }
 
