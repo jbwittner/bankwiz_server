@@ -6,23 +6,23 @@ import ddd.DomainService;
 import fr.bankwiz.server.domain.api.UserApi;
 import fr.bankwiz.server.domain.model.User;
 import fr.bankwiz.server.domain.model.UserAuthentication;
-import fr.bankwiz.server.domain.spi.AuthenticationFacadeSpi;
+import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.UserSpi;
 
 @DomainService
 public class UserDomainService implements UserApi {
 
     private final UserSpi userSpi;
-    private final AuthenticationFacadeSpi authenticationFacadeSpi;
+    private final AuthenticationSpi authenticationSpi;
 
-    public UserDomainService(AuthenticationFacadeSpi authenticationFacadeSpi, UserSpi userSpi) {
-        this.authenticationFacadeSpi = authenticationFacadeSpi;
+    public UserDomainService(AuthenticationSpi authenticationSpi, UserSpi userSpi) {
+        this.authenticationSpi = authenticationSpi;
         this.userSpi = userSpi;
     }
 
     @Override
     public User checkRegistration() {
-        final UserAuthentication userAuthentication = this.authenticationFacadeSpi.getUserAuthentication();
+        final UserAuthentication userAuthentication = this.authenticationSpi.getUserAuthentication();
 
         final User user = this.userSpi
                 .findByAuthId(userAuthentication.getSub())
@@ -37,6 +37,6 @@ public class UserDomainService implements UserApi {
 
     @Override
     public User getCurrentUser() {
-        return this.authenticationFacadeSpi.getCurrentUser();
+        return this.authenticationSpi.getCurrentUser();
     }
 }

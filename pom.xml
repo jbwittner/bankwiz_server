@@ -29,13 +29,22 @@
         <sonar.organization>jbwittner</sonar.organization>
     </properties>
     <dependencies>
-        <!-- Core -->
+        <!-- Dev -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Dev -->
+        <!-- Test -->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Test -->
     </dependencies>
     <build>
         <plugins>

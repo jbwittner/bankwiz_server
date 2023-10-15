@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 
 import fr.bankwiz.server.domain.model.User;
 import fr.bankwiz.server.domain.model.UserAuthentication;
-import fr.bankwiz.server.domain.spi.AuthenticationFacadeSpi;
+import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 
 @Component
-public class AuthenticationFacadeSpiImpl implements AuthenticationFacadeSpi {
+public class AuthenticationSpiImpl implements AuthenticationSpi {
 
     @Override
     public UserAuthentication getUserAuthentication() {
