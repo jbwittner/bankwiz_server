@@ -6,7 +6,7 @@
     "editor.detectIndentation": false,
     "java.compile.nullAnalysis.mode": "disabled",
     "sonarlint.connectedMode.project": {
-        "connectionId": "jbwittner-sonar",
-        "projectKey": "jbwittner_bankwiz_server"
+        "connectionId": "jbwittner",
+        "projectKey": "fr.bankwiz.server:parent"
     }
 }
