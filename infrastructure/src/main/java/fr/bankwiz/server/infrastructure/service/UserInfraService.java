@@ -10,8 +10,6 @@ import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 @Service
 public class UserInfraService {
 
-    private static final UserTransformer USER_TRANSFORMER = new UserTransformer();
-
     private final UserApi userApi;
 
     public UserInfraService(UserApi userApi) {
@@ -20,11 +18,11 @@ public class UserInfraService {
 
     public UserDTO checkRegistration() {
         final User user = this.userApi.checkRegistration();
-        return USER_TRANSFORMER.transformToUserDTO(user);
+        return UserTransformer.toUserDTO(user);
     }
 
     public UserDTO getCurrentUser() {
         final User user = this.userApi.getCurrentUser();
-        return USER_TRANSFORMER.transformToUserDTO(user);
+        return UserTransformer.toUserDTO(user);
     }
 }
