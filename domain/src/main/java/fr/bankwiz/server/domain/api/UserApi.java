@@ -4,4 +4,6 @@ import fr.bankwiz.server.domain.model.User;
 
 public interface UserApi {
     User checkRegistration();
+
+    User getCurrentUser();
 }

@@ -8,6 +8,5 @@ import lombok.Getter;
 public class UserAuthentication {
 
     private String sub;
-    private String name;
     private String email;
 }

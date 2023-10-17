@@ -1,4 +1,4 @@
-package fr.bankwiz.server.infrastructure.controller;
+package fr.bankwiz.server.infrastructure.api.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +25,7 @@ public class UserController implements UserApi {
 
     @Override
     public ResponseEntity<UserDTO> getCurrentUserInfo() {
-        return UserApi.super.getCurrentUserInfo();
+        UserDTO userDTO = userInfraService.getCurrentUser();
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 }
