@@ -45,6 +45,14 @@
         <!-- Core -->
         <!-- DB -->
         <!-- DB -->
+        <!-- Test -->
+            <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+        <!-- Test -->
         <!-- Dev tools -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
