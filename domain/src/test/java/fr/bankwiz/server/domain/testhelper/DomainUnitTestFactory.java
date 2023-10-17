@@ -5,11 +5,11 @@ import java.util.UUID;
 import fr.bankwiz.server.domain.model.User;
 import fr.bankwiz.server.domain.model.UserAuthentication;
 
-public class UnitTestDomainFactory {
+public class DomainUnitTestFactory {
 
-    private PersonalDomainFaker domainFaker;
+    private DomainFaker domainFaker;
 
-    public UnitTestDomainFactory(PersonalDomainFaker domainFaker) {
+    public DomainUnitTestFactory(DomainFaker domainFaker) {
         this.domainFaker = domainFaker;
     }
 

@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.User;
 import fr.bankwiz.server.domain.service.UserDomainService;
-import fr.bankwiz.server.domain.testhelper.UnitTestDomainBase;
+import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 
-class GetCurrentUserTest extends UnitTestDomainBase {
+class GetCurrentUserTest extends DomainUnitTestBase {
 
     private UserDomainService userDomainService;
 

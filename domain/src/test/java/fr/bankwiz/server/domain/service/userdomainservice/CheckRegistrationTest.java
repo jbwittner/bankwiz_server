@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import fr.bankwiz.server.domain.model.User;
 import fr.bankwiz.server.domain.model.UserAuthentication;
 import fr.bankwiz.server.domain.service.UserDomainService;
-import fr.bankwiz.server.domain.testhelper.UnitTestDomainBase;
+import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 
-class CheckRegistrationTest extends UnitTestDomainBase {
+class CheckRegistrationTest extends DomainUnitTestBase {
 
     private UserDomainService userDomainService;
 

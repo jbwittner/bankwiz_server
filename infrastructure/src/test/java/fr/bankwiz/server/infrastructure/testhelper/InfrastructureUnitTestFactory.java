@@ -1,11 +1,10 @@
 package fr.bankwiz.server.infrastructure.testhelper;
 
-public class UnitTestInfrastructureFactory {
+public class InfrastructureUnitTestFactory {
 
     private InfrastructureFaker infrastructureFaker;
 
-    public UnitTestInfrastructureFactory(InfrastructureFaker infrastructureFaker) {
+    public InfrastructureUnitTestFactory(InfrastructureFaker infrastructureFaker) {
         this.infrastructureFaker = infrastructureFaker;
     }
-
 }
