@@ -1,0 +1,50 @@
+{
+	"name": "Devcontainer-bankwizz-server",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/base:jammy",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "17",
+            "jdkDistro": "ms",
+            "installMaven": "true",
+            "mavenVersion": "3.8.6"
+        },
+        "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+            "packages": "mysql-client"
+        },
+        "ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+            "plugins" : "common-aliases gh git git-flow git-prompt sdk zsh-autosuggestions zsh-syntax-highlighting",
+            "omzPlugins" : "https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-syntax-highlighting.git"
+        }
+    },
+    "remoteUser": "vscode",
+    "forwardPorts": [8000],
+    "containerEnv": { 
+        "USER_GITHUB_LOGIN": "${localEnv:USER_GITHUB_LOGIN}", 
+        "USER_GITHUB_KEY": "${localEnv:USER_GITHUB_KEY}",
+        "GH_TOKEN": "${localEnv:USER_GITHUB_KEY}"
+    }, 
+    "onCreateCommand" : "mkdir /home/vscode/.m2 && sudo chown -R vscode: /home/vscode/.m2 && cp maven/settings.xml /home/vscode/.m2/settings.xml",
+    "customizations": {
+        // Configure properties specific to VS Code.
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "zsh"
+            },
+            // Add the IDs of extensions you want installed when the container is created.
+            "extensions" : [
+				"vscjava.vscode-java-debug",
+				"vscjava.vscode-java-pack",
+				"vscjava.vscode-spring-boot-dashboard",
+				"vmware.vscode-spring-boot",
+				"vscjava.vscode-lombok",
+				"ms-azuretools.vscode-docker",
+				"sonarsource.sonarlint-vscode",
+				"rangav.vscode-thunder-client",
+				"cweijan.vscode-mysql-client2"
+			]
+        }
+      }
+}
