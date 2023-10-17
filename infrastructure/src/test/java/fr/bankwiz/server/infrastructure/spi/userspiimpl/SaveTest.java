@@ -19,7 +19,7 @@ class FindByAuthIdTest extends InfrastructureUnitTestBase {
     }
 
     @Test
-    void userExist(){
+    void save(){
 
         final User user = this.factory.getUser();
 
@@ -38,12 +38,4 @@ class FindByAuthIdTest extends InfrastructureUnitTestBase {
         );
     }
 
-    @Test
-    void userNotExist(){
-
-        final Optional<User> optionalUser = this.userSpiImpl.findByAuthId(this.faker.pokemon().name());
-
-        Assertions.assertTrue(optionalUser.isEmpty());
-
-    }
 }
