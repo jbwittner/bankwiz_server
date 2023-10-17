@@ -1,17 +1,18 @@
 package fr.bankwiz.server.infrastructure.configurations;
 
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
 
-import ddd.DomainService;
+import fr.bankwiz.server.domain.api.UserApi;
+import fr.bankwiz.server.domain.service.UserDomainService;
+import fr.bankwiz.server.domain.spi.AuthenticationSpi;
+import fr.bankwiz.server.domain.spi.UserSpi;
 
 @Configuration
-@ComponentScan(
-        basePackages = {"fr.bankwiz.server.domain"},
-        includeFilters = {
-            @ComponentScan.Filter(
-                    type = FilterType.ANNOTATION,
-                    classes = {DomainService.class})
-        })
-public class DomainConfiguration {}
+public class DomainConfiguration {
+
+    @Bean
+    UserApi userApi(AuthenticationSpi authenticationSpi, UserSpi userSpi) {
+        return new UserDomainService(authenticationSpi, userSpi);
+    }
+}
