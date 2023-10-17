@@ -19,7 +19,7 @@ class FindByAuthIdTest extends InfrastructureUnitTestBase {
     }
 
     @Test
-    void userExist(){
+    void userExist() {
 
         final User user = this.factory.getUser();
 
@@ -32,18 +32,17 @@ class FindByAuthIdTest extends InfrastructureUnitTestBase {
         final User userFind = optionalUser.get();
 
         Assertions.assertAll(
-            () -> Assertions.assertEquals(user.getAuthId(), userFind.getAuthId()),
-            () -> Assertions.assertEquals(user.getEmail(), userFind.getEmail()),
-            () -> Assertions.assertEquals(user.getUserUuid(), userFind.getUserUuid())
-        );
+                () -> Assertions.assertEquals(user.getAuthId(), userFind.getAuthId()),
+                () -> Assertions.assertEquals(user.getEmail(), userFind.getEmail()),
+                () -> Assertions.assertEquals(user.getUserUuid(), userFind.getUserUuid()));
     }
 
     @Test
-    void userNotExist(){
+    void userNotExist() {
 
-        final Optional<User> optionalUser = this.userSpiImpl.findByAuthId(this.faker.pokemon().name());
+        final Optional<User> optionalUser =
+                this.userSpiImpl.findByAuthId(this.faker.pokemon().name());
 
         Assertions.assertTrue(optionalUser.isEmpty());
-
     }
 }

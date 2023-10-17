@@ -9,7 +9,7 @@ import fr.bankwiz.server.domain.model.User;
 import fr.bankwiz.server.infrastructure.spi.UserSpiImpl;
 import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
 
-class FindByAuthIdTest extends InfrastructureUnitTestBase {
+class SaveTest extends InfrastructureUnitTestBase {
 
     private UserSpiImpl userSpiImpl;
 
@@ -19,7 +19,7 @@ class FindByAuthIdTest extends InfrastructureUnitTestBase {
     }
 
     @Test
-    void save(){
+    void save() {
 
         final User user = this.factory.getUser();
 
@@ -32,10 +32,8 @@ class FindByAuthIdTest extends InfrastructureUnitTestBase {
         final User userFind = optionalUser.get();
 
         Assertions.assertAll(
-            () -> Assertions.assertEquals(user.getAuthId(), userFind.getAuthId()),
-            () -> Assertions.assertEquals(user.getEmail(), userFind.getEmail()),
-            () -> Assertions.assertEquals(user.getUserUuid(), userFind.getUserUuid())
-        );
+                () -> Assertions.assertEquals(user.getAuthId(), userFind.getAuthId()),
+                () -> Assertions.assertEquals(user.getEmail(), userFind.getEmail()),
+                () -> Assertions.assertEquals(user.getUserUuid(), userFind.getUserUuid()));
     }
-
 }
