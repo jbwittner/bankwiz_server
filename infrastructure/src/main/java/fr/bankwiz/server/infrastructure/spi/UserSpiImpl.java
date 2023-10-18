@@ -1,7 +1,5 @@
 package fr.bankwiz.server.infrastructure.spi;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -14,8 +12,6 @@ import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 
 @Component
 public class UserSpiImpl implements UserSpi {
-
-    private Map<String, User> userMap = new HashMap<>();
 
     private UserEntityRepository userEntityRepository;
 
@@ -38,7 +34,8 @@ public class UserSpiImpl implements UserSpi {
 
     @Override
     public User save(User user) {
-        userMap.put(user.getAuthId(), user);
-        return user;
+        final UserEntity userEntityToSave = UserTransformer.toUserEntity(user);
+        final UserEntity userEntitySaved = this.userEntityRepository.save(userEntityToSave);
+        return UserTransformer.fromUserEntity(userEntitySaved);
     }
 }

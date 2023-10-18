@@ -22,4 +22,12 @@ public final class UserTransformer {
                 .userUuid(userEntity.getUserId())
                 .build();
     }
+
+    public static UserEntity toUserEntity(final User user) {
+        return UserEntity.builder()
+                .authId(user.getAuthId())
+                .email(user.getEmail())
+                .userId(user.getUserUuid())
+                .build();
+    }
 }

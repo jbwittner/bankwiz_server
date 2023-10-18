@@ -20,7 +20,7 @@
         }
     },
     "remoteUser": "vscode",
-    "forwardPorts": [8090],
+    "forwardPorts": [8080],
     "containerEnv": { 
         "USER_GITHUB_LOGIN": "${localEnv:USER_GITHUB_LOGIN}", 
         "USER_GITHUB_KEY": "${localEnv:USER_GITHUB_KEY}",
