@@ -2,7 +2,7 @@ package fr.bankwiz.server.infrastructure.testhelper;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import fr.bankwiz.server.domain.testhelper.mock.MockUserSpi;
+import fr.bankwiz.server.infrastructure.testhelper.mock.MockUserSpi;
 
 public abstract class InfrastructureUnitTestBase {
 
