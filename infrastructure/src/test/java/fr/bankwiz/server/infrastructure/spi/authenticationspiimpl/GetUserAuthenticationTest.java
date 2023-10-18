@@ -13,7 +13,7 @@ class GetUserAuthenticationTest extends InfrastructureUnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {
-        this.authenticationSpiImpl = new AuthenticationSpiImpl(null);
+        this.authenticationSpiImpl = new AuthenticationSpiImpl(null, null, null);
     }
 
     @Test

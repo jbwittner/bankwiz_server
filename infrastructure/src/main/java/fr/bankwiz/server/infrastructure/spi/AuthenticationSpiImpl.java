@@ -20,12 +20,14 @@ import lombok.Data;
 @Component
 public class AuthenticationSpiImpl implements AuthenticationSpi {
 
-    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
-    private String domain;
+    private final UserSpi userSpi;
+    private final WebClient webClient;
 
-    private UserSpi userSpi;
-
-    public AuthenticationSpiImpl(final UserSpi userSpi) {
+    public AuthenticationSpiImpl(
+            @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}") final String domain,
+            final WebClient.Builder webClientBuilder,
+            final UserSpi userSpi) {
+        this.webClient = webClientBuilder.baseUrl(domain).build();
         this.userSpi = userSpi;
     }
 
@@ -56,8 +58,7 @@ public class AuthenticationSpiImpl implements AuthenticationSpi {
 
     private IdData getIdData() {
         final String accessToken = this.getAuthentication().getToken().getTokenValue();
-        final WebClient webClient = WebClient.create(domain);
-        final WebClient.ResponseSpec responseSpec = webClient
+        final WebClient.ResponseSpec responseSpec = this.webClient
                 .get()
                 .uri("/userinfo")
                 .header("Authorization", "Bearer " + accessToken)
