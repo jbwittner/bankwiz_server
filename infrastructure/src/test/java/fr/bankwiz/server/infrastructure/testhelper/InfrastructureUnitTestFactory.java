@@ -26,7 +26,8 @@ public class InfrastructureUnitTestFactory {
     }
 
     public UserEntity getUserEntity() {
-        return UserEntity.builder().authId(this.getAuthId())
+        return UserEntity.builder()
+                .authId(this.getAuthId())
                 .email(this.infrastructureFaker.internet().emailAddress())
                 .userId(UUID.randomUUID())
                 .build();

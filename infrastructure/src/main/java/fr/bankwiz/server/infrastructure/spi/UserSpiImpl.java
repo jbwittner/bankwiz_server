@@ -19,22 +19,21 @@ public class UserSpiImpl implements UserSpi {
 
     private UserEntityRepository userEntityRepository;
 
-    public UserSpiImpl(final UserEntityRepository userEntityRepository){
+    public UserSpiImpl(final UserEntityRepository userEntityRepository) {
         this.userEntityRepository = userEntityRepository;
     }
 
     @Override
     public Optional<User> findByAuthId(String authId) {
         final Optional<UserEntity> optionalUserEntity = this.userEntityRepository.findByAuthId(authId);
-        
-        if(optionalUserEntity.isEmpty()){
-            return Optional.empty();          
+
+        if (optionalUserEntity.isEmpty()) {
+            return Optional.empty();
         }
 
         final UserEntity userEntity = optionalUserEntity.get();
         final User user = UserTransformer.fromUserEntity(userEntity);
         return Optional.of(user);
-        
     }
 
     @Override

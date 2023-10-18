@@ -12,11 +12,11 @@ import lombok.Getter;
 @Builder
 @Table(name = "USER_ACCOUNT")
 public class UserEntity {
-    
+
     @Id
     @Column(name = "USER_ACCOUNT_ID", nullable = false, updatable = false, insertable = false)
     private UUID userId;
-    
+
     @Column(name = "AUTH_ID", nullable = false, updatable = false)
     private String authId;
 

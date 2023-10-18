@@ -8,7 +8,8 @@ import org.mockito.Mockito;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.spi.database.repository.UserEntityRepository;
 
-public class UserEntityRepositoryMockFactory extends AbstractRepositoryMockFactory<UserEntity, UserEntityRepository, UUID> {
+public class UserEntityRepositoryMockFactory
+        extends AbstractRepositoryMockFactory<UserEntity, UserEntityRepository, UUID> {
     public UserEntityRepositoryMockFactory() {
         super(UserEntityRepository.class);
     }
@@ -17,6 +18,4 @@ public class UserEntityRepositoryMockFactory extends AbstractRepositoryMockFacto
         Mockito.when(repository.findByAuthId(authId)).thenReturn(optionalUserEntity);
         return this;
     }
-
-    
 }

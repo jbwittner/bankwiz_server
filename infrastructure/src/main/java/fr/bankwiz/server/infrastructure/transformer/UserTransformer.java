@@ -15,7 +15,11 @@ public final class UserTransformer {
         return userDTO;
     }
 
-    public static User fromUserEntity(final UserEntity userEntity){
-        return User.builder().authId(userEntity.getAuthId()).email(userEntity.getEmail()).userUuid(userEntity.getUserId()).build();
+    public static User fromUserEntity(final UserEntity userEntity) {
+        return User.builder()
+                .authId(userEntity.getAuthId())
+                .email(userEntity.getEmail())
+                .userUuid(userEntity.getUserId())
+                .build();
     }
 }
