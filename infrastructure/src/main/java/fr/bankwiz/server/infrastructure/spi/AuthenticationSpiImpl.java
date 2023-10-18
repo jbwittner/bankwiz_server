@@ -2,7 +2,6 @@ package fr.bankwiz.server.infrastructure.spi;
 
 import java.time.Duration;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -49,7 +48,7 @@ public class AuthenticationSpiImpl implements AuthenticationSpi {
         final JwtAuthenticationToken jwtAuthenticationToken = this.getAuthentication();
         final String subject = jwtAuthenticationToken.getToken().getSubject();
         final Optional<User> optional = userSpi.findByAuthId(subject);
-        if(optional.isEmpty()){
+        if (optional.isEmpty()) {
             throw new UserNotExistException(subject);
         }
         return optional.get();
@@ -72,6 +71,5 @@ public class AuthenticationSpiImpl implements AuthenticationSpi {
         private String sub;
         private String name;
         private String email;
-
     }
 }
