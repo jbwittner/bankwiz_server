@@ -2,6 +2,7 @@ package fr.bankwiz.server.infrastructure.transformer;
 
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.domain.model.User;
+import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 
 public final class UserTransformer {
 
@@ -12,5 +13,21 @@ public final class UserTransformer {
         userDTO.setId(user.getUserUuid());
         userDTO.setEmail(user.getEmail());
         return userDTO;
+    }
+
+    public static User fromUserEntity(final UserEntity userEntity) {
+        return User.builder()
+                .authId(userEntity.getAuthId())
+                .email(userEntity.getEmail())
+                .userUuid(userEntity.getUserId())
+                .build();
+    }
+
+    public static UserEntity toUserEntity(final User user) {
+        return UserEntity.builder()
+                .authId(user.getAuthId())
+                .email(user.getEmail())
+                .userId(user.getUserUuid())
+                .build();
     }
 }

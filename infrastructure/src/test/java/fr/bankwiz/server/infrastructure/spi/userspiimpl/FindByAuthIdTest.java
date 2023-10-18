@@ -7,34 +7,40 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.User;
 import fr.bankwiz.server.infrastructure.spi.UserSpiImpl;
+import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
+import fr.bankwiz.server.infrastructure.testhelper.mock.repository.UserEntityRepositoryMockFactory;
 
 class FindByAuthIdTest extends InfrastructureUnitTestBase {
 
     private UserSpiImpl userSpiImpl;
+    private UserEntityRepositoryMockFactory userEntityRepositoryMockFactory;
 
     @Override
     protected void initDataBeforeEach() {
-        this.userSpiImpl = new UserSpiImpl();
+        this.userEntityRepositoryMockFactory = new UserEntityRepositoryMockFactory();
+        this.userSpiImpl = new UserSpiImpl(userEntityRepositoryMockFactory.getRepository());
     }
 
     @Test
     void userExist() {
 
-        final User user = this.factory.getUser();
+        final UserEntity userEntity = this.factory.getUserEntity();
 
-        this.userSpiImpl.save(user);
+        final String authId = userEntity.getAuthId();
 
-        final Optional<User> optionalUser = this.userSpiImpl.findByAuthId(user.getAuthId());
+        this.userEntityRepositoryMockFactory.mockFindByAuthId(authId, Optional.of(userEntity));
+
+        final Optional<User> optionalUser = this.userSpiImpl.findByAuthId(authId);
 
         Assertions.assertTrue(optionalUser.isPresent());
 
         final User userFind = optionalUser.get();
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(user.getAuthId(), userFind.getAuthId()),
-                () -> Assertions.assertEquals(user.getEmail(), userFind.getEmail()),
-                () -> Assertions.assertEquals(user.getUserUuid(), userFind.getUserUuid()));
+                () -> Assertions.assertEquals(userEntity.getAuthId(), userFind.getAuthId()),
+                () -> Assertions.assertEquals(userEntity.getEmail(), userFind.getEmail()),
+                () -> Assertions.assertEquals(userEntity.getUserId(), userFind.getUserUuid()));
     }
 
     @Test

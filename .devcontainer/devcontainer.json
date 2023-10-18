@@ -20,13 +20,14 @@
         }
     },
     "remoteUser": "vscode",
-    "forwardPorts": [8090],
+    "forwardPorts": [8080],
     "containerEnv": { 
         "USER_GITHUB_LOGIN": "${localEnv:USER_GITHUB_LOGIN}", 
         "USER_GITHUB_KEY": "${localEnv:USER_GITHUB_KEY}",
         "GH_TOKEN": "${localEnv:USER_GITHUB_KEY}"
     }, 
     "onCreateCommand" : "mkdir /home/vscode/.m2 && sudo chown -R vscode: /home/vscode/.m2 && cp maven/settings.xml /home/vscode/.m2/settings.xml",
+    "mounts": [ "source=${localEnv:HOME}/.m2/repository,target=/home/vscode/.m2/repository,type=bind,consistency=cached" ],
     "customizations": {
         // Configure properties specific to VS Code.
         "vscode": {

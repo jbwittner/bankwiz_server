@@ -1,0 +1,40 @@
+package fr.bankwiz.server.infrastructure.spi.database.entity;
+
+import java.sql.Types;
+import java.util.UUID;
+
+import org.hibernate.annotations.JdbcTypeCode;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@Builder
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "USER_ACCOUNT")
+public class UserEntity {
+
+    @Id
+    @JdbcTypeCode(Types.VARCHAR)
+    @Column(
+            name = "USER_ACCOUNT_ID",
+            columnDefinition = "varchar(36)",
+            nullable = false,
+            updatable = false,
+            insertable = false)
+    private UUID userId;
+
+    @Column(name = "AUTH_ID", nullable = false, updatable = false)
+    private String authId;
+
+    @Column(name = "EMAIL", nullable = false)
+    private String email;
+}
