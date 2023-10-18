@@ -15,7 +15,7 @@ class SaveTest extends InfrastructureUnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {
-        this.userSpiImpl = new UserSpiImpl();
+        this.userSpiImpl = new UserSpiImpl(null);
     }
 
     @Test
