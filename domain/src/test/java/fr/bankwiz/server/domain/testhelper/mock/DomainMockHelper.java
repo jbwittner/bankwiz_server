@@ -2,11 +2,11 @@ package fr.bankwiz.server.domain.testhelper.mock;
 
 import org.mockito.Mockito;
 
-public abstract class MockHelper<T> {
+public abstract class DomainMockHelper<T> {
 
     protected final T mock;
 
-    protected MockHelper(Class<T> mockClass) {
+    protected DomainMockHelper(Class<T> mockClass) {
         this.mock = Mockito.mock(mockClass);
     }
 

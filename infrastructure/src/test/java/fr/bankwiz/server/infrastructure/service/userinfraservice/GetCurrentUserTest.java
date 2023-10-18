@@ -7,16 +7,16 @@ import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.domain.model.User;
 import fr.bankwiz.server.infrastructure.service.UserInfraService;
 import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
-import fr.bankwiz.server.infrastructure.testhelper.mock.MockUserApi;
+import fr.bankwiz.server.infrastructure.testhelper.mock.InfrastructureMockUserApi;
 
 class GetCurrentUserTest extends InfrastructureUnitTestBase {
 
     private UserInfraService userInfraService;
-    private MockUserApi mockUserApi;
+    private InfrastructureMockUserApi mockUserApi;
 
     @Override
     protected void initDataBeforeEach() {
-        this.mockUserApi = new MockUserApi();
+        this.mockUserApi = new InfrastructureMockUserApi();
         this.userInfraService = new UserInfraService(mockUserApi.getMock());
     }
 
