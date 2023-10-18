@@ -42,7 +42,17 @@
             <artifactId>openapi</artifactId>
             <version>${bankwiz.openapi.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
         <!-- Core -->
+        <!-- Authentication -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
+        <!-- Authentication -->
         <!-- DB -->
         <!-- DB -->
         <!-- Test -->

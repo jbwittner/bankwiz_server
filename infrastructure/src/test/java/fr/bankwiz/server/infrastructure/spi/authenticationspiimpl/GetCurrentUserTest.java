@@ -13,7 +13,7 @@ class GetCurrentUserTest extends InfrastructureUnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {
-        this.authenticationSpiImpl = new AuthenticationSpiImpl();
+        this.authenticationSpiImpl = new AuthenticationSpiImpl(null);
     }
 
     @Test

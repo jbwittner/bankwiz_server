@@ -30,6 +30,8 @@ public class UserDomainService implements UserApi {
                         .build());
         user.setEmail(userAuthentication.getEmail());
 
+        System.out.println(user);
+
         return this.userSpi.save(user);
     }
 
