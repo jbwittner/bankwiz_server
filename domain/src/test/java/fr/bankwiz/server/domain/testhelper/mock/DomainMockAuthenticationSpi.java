@@ -6,18 +6,18 @@ import fr.bankwiz.server.domain.model.User;
 import fr.bankwiz.server.domain.model.UserAuthentication;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 
-public class MockAuthenticationSpi extends MockHelper<AuthenticationSpi> {
+public class DomainMockAuthenticationSpi extends DomainMockHelper<AuthenticationSpi> {
 
-    public MockAuthenticationSpi() {
+    public DomainMockAuthenticationSpi() {
         super(AuthenticationSpi.class);
     }
 
-    public MockAuthenticationSpi mockGetUserAuthentication(final UserAuthentication userAuthentication) {
+    public DomainMockAuthenticationSpi mockGetUserAuthentication(final UserAuthentication userAuthentication) {
         Mockito.when(this.mock.getUserAuthentication()).thenReturn(userAuthentication);
         return this;
     }
 
-    public MockAuthenticationSpi mockGetCurrentUser(final User user) {
+    public DomainMockAuthenticationSpi mockGetCurrentUser(final User user) {
         Mockito.when(this.mock.getCurrentUser()).thenReturn(user);
         return this;
     }

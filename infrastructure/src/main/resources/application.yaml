@@ -1,0 +1,18 @@
+application:
+  server:
+    port: 8080
+
+server:
+  port : ${application.server.port}
+
+logging:
+  level:
+    root: INFO
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://bankwiz-dev.eu.auth0.com/
+          jwk-set-uri: https://bankwiz-dev.eu.auth0.com/.well-known/jwks.json

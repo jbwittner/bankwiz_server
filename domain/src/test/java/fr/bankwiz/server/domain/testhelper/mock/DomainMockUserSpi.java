@@ -8,18 +8,18 @@ import org.mockito.Mockito;
 import fr.bankwiz.server.domain.model.User;
 import fr.bankwiz.server.domain.spi.UserSpi;
 
-public class MockUserSpi extends MockHelper<UserSpi> {
+public class DomainMockUserSpi extends DomainMockHelper<UserSpi> {
 
-    public MockUserSpi() {
+    public DomainMockUserSpi() {
         super(UserSpi.class);
     }
 
-    public MockUserSpi mockFindByAuthId(final String authId, final Optional<User> optionalUser) {
+    public DomainMockUserSpi mockFindByAuthId(final String authId, final Optional<User> optionalUser) {
         Mockito.when(this.mock.findByAuthId(authId)).thenReturn(optionalUser);
         return this;
     }
 
-    public MockUserSpi mockSave() {
+    public DomainMockUserSpi mockSave() {
         Mockito.when(this.mock.save(ArgumentMatchers.any())).thenAnswer(invocation -> {
             return invocation.<User>getArgument(0);
         });
