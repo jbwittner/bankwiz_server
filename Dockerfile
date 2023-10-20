@@ -52,7 +52,7 @@ WORKDIR /app
 ENV JVM_OPTS="-Xms512m -Xmx1024m"
 
 # Set the Spring Boot profile environment variable
-ENV PROFILE="production"
+ENV PROFILES="production"
 
 # Copy the compiled JAR file from the previous stage
 COPY --from=build /app/infrastructure/target/infrastructure-*.jar bankwiz-server.jar
@@ -61,4 +61,4 @@ COPY --from=build /app/infrastructure/target/infrastructure-*.jar bankwiz-server
 EXPOSE 8080
 
 # Set the entrypoint to run the JVM with the specified JVM options and Spring Boot parameters
-ENTRYPOINT java $JVM_OPTS -Dspring.profiles.active=$PROFILE -jar bankwiz-server.jar
+ENTRYPOINT java $JVM_OPTS -Dspring.profiles.active=$PROFILES -jar bankwiz-server.jar

@@ -9,7 +9,8 @@
             "name": "Infrastructure",
             "request": "launch",
             "mainClass": "fr.bankwiz.server.infrastructure.Infrastructure",
-            "projectName": "infrastructure"
+            "projectName": "infrastructure",
+            "args": "--spring.profiles.active=development,local"
         }
     ]
 }

@@ -1,12 +1,13 @@
 application:
+  cors-allowed-origins: http://localhost:8080
   server:
     port: 8080
   db:
-    host: localhost
-    port: 8306
-    name: bankwiz_db
-    user: bankwiz_user
-    password: BankwizPass2023
+    host: dblocalhost
+    port: 3306
+    name: dbname
+    user: dbuser
+    password: dbpassword
 
 server:
   port : ${application.server.port}
@@ -16,6 +17,7 @@ logging:
     root: INFO
 
 spring:
+  devtools.add-properties: false
   jpa:
     show-sql: false
     database-platform : org.hibernate.dialect.MySQLDialect

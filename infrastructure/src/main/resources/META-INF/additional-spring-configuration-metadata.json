@@ -1,35 +1,37 @@
-{
-    "properties": [
-      {
-        "name": "application.server.port",
-        "type": "java.lang.String",
-        "description": "The port on which the application server listens"
-      },
-      {
-        "name": "application.db.host",
-        "type": "java.lang.String",
-        "description": "The host address of the database the application connects to"
-      },
-      {
-        "name": "application.db.port",
-        "type": "java.lang.String",
-        "description": "The port on which the database listens"
-      },
-      {
-        "name": "application.db.name",
-        "type": "java.lang.String",
-        "description": "The name of the database the application connects to"
-      },
-      {
-        "name": "application.db.user",
-        "type": "java.lang.String",
-        "description": "The username to connect to the database"
-      },
-      {
-        "name": "application.db.password",
-        "type": "java.lang.String",
-        "description": "The password to connect to the database"
-      }
-    ]
+{"properties": [
+  {
+    "name": "application.server.port",
+    "type": "java.lang.String",
+    "description": "The port on which the application server listens"
+  },
+  {
+    "name": "application.db.host",
+    "type": "java.lang.String",
+    "description": "The host address of the database the application connects to"
+  },
+  {
+    "name": "application.db.port",
+    "type": "java.lang.String",
+    "description": "The port on which the database listens"
+  },
+  {
+    "name": "application.db.name",
+    "type": "java.lang.String",
+    "description": "The name of the database the application connects to"
+  },
+  {
+    "name": "application.db.user",
+    "type": "java.lang.String",
+    "description": "The username to connect to the database"
+  },
+  {
+    "name": "application.db.password",
+    "type": "java.lang.String",
+    "description": "The password to connect to the database"
+  },
+  {
+    "name": "application.cors-allowed-origins",
+    "type": "java.lang.String",
+    "description": "A list of origins that are allowed to access resources on this server, used for Cross-Origin Resource Sharing (CORS) settings"
   }
-  
+]}
