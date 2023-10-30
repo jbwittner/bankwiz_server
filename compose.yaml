@@ -7,7 +7,7 @@ networks:
 services:
   mysql:
     image: mysql:8.0.33
-    container_name: bankwiz_mysql
+    container_name: bankwiz_mysql_server
     ports:
       - '8306:3306'
     volumes:
@@ -24,7 +24,7 @@ services:
     depends_on:
       - mysql
     image: phpmyadmin/phpmyadmin:5.2
-    container_name: bankwiz_phpmyadmin
+    container_name: bankwiz_phpmyadmin_server
     ports:
       - '8180:80'
     environment:
@@ -32,3 +32,10 @@ services:
       MYSQL_ROOT_PASSWORD: BankwizRootPass2023
     networks:
       - bridge
+  swaggerapi:
+    image: swaggerapi/swagger-ui:v5.9.1
+    container_name: swaggerapi_server
+    ports:
+      - '8280:8080'
+    environment:
+      SWAGGER_JSON_URL: https://raw.githubusercontent.com/jbwittner/bankwiz_openapi/0.3.2/openapi.yaml
