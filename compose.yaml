@@ -38,4 +38,4 @@ services:
     ports:
       - '8280:8080'
     environment:
-      SWAGGER_JSON_URL: https://raw.githubusercontent.com/jbwittner/bankwiz_openapi/0.3.2/openapi.yaml
+      SWAGGER_JSON_URL: https://raw.githubusercontent.com/jbwittner/bankwiz_openapi/main/openapi.yaml
