@@ -24,6 +24,13 @@ jobs:
           distribution: 'microsoft'
           java-version: '17'
           cache: 'maven'
+      - name: Cache local Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Dependency go-offline
         run: mvn dependency:go-offline
       - name: Dependency resolve-plugins
