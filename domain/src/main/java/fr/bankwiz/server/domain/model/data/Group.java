@@ -1,5 +1,7 @@
 package fr.bankwiz.server.domain.model.data;
 
+import java.util.UUID;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -9,5 +11,6 @@ import lombok.ToString;
 @ToString
 public class Group {
 
+    private UUID userUuid;
     private String groupName;
 }
