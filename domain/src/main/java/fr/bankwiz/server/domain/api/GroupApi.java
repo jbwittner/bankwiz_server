@@ -5,7 +5,4 @@ import fr.bankwiz.server.domain.model.request.GroupCreationRequest;
 
 public interface GroupApi {
     Group groupCreation(GroupCreationRequest groupCreationRequest);
-
-    
-    
 }
