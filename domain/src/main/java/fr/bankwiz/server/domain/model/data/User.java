@@ -1,4 +1,4 @@
-package fr.bankwiz.server.domain.model;
+package fr.bankwiz.server.domain.model.data;
 
 import java.util.UUID;
 

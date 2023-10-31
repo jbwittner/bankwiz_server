@@ -3,7 +3,7 @@ package fr.bankwiz.server.domain.service.userdomainservice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.User;
+import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.service.UserDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 

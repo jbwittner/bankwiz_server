@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.domain.api.UserApi;
-import fr.bankwiz.server.domain.model.User;
+import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 
 @Service

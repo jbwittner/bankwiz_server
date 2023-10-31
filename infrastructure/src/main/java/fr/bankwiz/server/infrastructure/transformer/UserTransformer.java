@@ -1,7 +1,7 @@
 package fr.bankwiz.server.infrastructure.transformer;
 
 import fr.bankwiz.openapi.model.UserDTO;
-import fr.bankwiz.server.domain.model.User;
+import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 
 public final class UserTransformer {

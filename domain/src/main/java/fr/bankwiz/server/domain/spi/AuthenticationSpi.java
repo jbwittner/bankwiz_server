@@ -1,7 +1,7 @@
 package fr.bankwiz.server.domain.spi;
 
-import fr.bankwiz.server.domain.model.User;
-import fr.bankwiz.server.domain.model.UserAuthentication;
+import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserAuthentication;
 
 public interface AuthenticationSpi {
 

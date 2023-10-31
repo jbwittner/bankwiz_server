@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import fr.bankwiz.server.domain.exception.UserNotExistException;
-import fr.bankwiz.server.domain.model.User;
-import fr.bankwiz.server.domain.model.UserAuthentication;
+import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserAuthentication;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.UserSpi;
 import lombok.Data;
