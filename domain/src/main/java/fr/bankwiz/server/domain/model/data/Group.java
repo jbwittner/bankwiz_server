@@ -4,13 +4,11 @@ import java.util.UUID;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.ToString;
 
 @Builder
 @Getter
-@ToString
 public class Group {
 
-    private UUID userUuid;
+    private UUID groupUuid;
     private String groupName;
 }

@@ -1,5 +1,7 @@
 package fr.bankwiz.server.domain.service;
 
+import java.util.UUID;
+
 import fr.bankwiz.server.domain.api.GroupApi;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
@@ -24,13 +26,16 @@ public class GroupDomainService implements GroupApi {
 
     @Override
     public Group groupCreation(GroupCreationRequest groupCreationRequest) {
-        final Group group =
-                Group.builder().groupName(groupCreationRequest.getGroupName()).build();
+        final Group group = Group.builder()
+                .groupUuid(UUID.randomUUID())
+                .groupName(groupCreationRequest.getGroupName())
+                .build();
         final Group groupSaved = this.groupSpi.save(group);
         final User admin = this.authenticationSpi.getCurrentUser();
         final GroupRight groupRight = GroupRight.builder()
                 .group(groupSaved)
                 .user(admin)
+                .groupRightId(UUID.randomUUID())
                 .groupRightEnum(GroupRightEnum.ADMIN)
                 .build();
         this.groupRightSpi.save(groupRight);
