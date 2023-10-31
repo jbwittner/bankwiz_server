@@ -15,11 +15,10 @@ public class GroupRight {
     private Group group;
     private User user;
     private GroupRightEnum groupRightEnum;
-    
+
     public enum GroupRightEnum {
         READ,
         WRITE,
         ADMIN
     }
-    
 }

@@ -2,25 +2,38 @@ package fr.bankwiz.server.domain.service;
 
 import fr.bankwiz.server.domain.api.GroupApi;
 import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupRight;
+import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.request.GroupCreationRequest;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
+import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.domain.spi.GroupSpi;
-import fr.bankwiz.server.domain.spi.UserSpi;
 
 public class GroupDomainService implements GroupApi {
 
     private final GroupSpi groupSpi;
+    private final GroupRightSpi groupRightSpi;
     private final AuthenticationSpi authenticationSpi;
 
-    public GroupDomainService(GroupSpi groupSpi, AuthenticationSpi authenticationSpi){
+    public GroupDomainService(GroupSpi groupSpi, GroupRightSpi groupRightSpi, AuthenticationSpi authenticationSpi) {
         this.groupSpi = groupSpi;
+        this.groupRightSpi = groupRightSpi;
         this.authenticationSpi = authenticationSpi;
     }
 
     @Override
     public Group groupCreation(GroupCreationRequest groupCreationRequest) {
-        final Group group = Group.builder().groupName(groupCreationRequest.getGroupName()).build();
-        return group;
+        final Group group =
+                Group.builder().groupName(groupCreationRequest.getGroupName()).build();
+        final Group groupSaved = this.groupSpi.save(group);
+        final User admin = this.authenticationSpi.getCurrentUser();
+        final GroupRight groupRight = GroupRight.builder()
+                .group(groupSaved)
+                .user(admin)
+                .groupRightEnum(GroupRightEnum.ADMIN)
+                .build();
+        this.groupRightSpi.save(groupRight);
+        return groupSaved;
     }
-    
 }
