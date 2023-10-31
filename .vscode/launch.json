@@ -6,11 +6,19 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Infrastructure",
+            "name": "Application local",
             "request": "launch",
             "mainClass": "fr.bankwiz.server.infrastructure.Infrastructure",
             "projectName": "infrastructure",
             "args": "--spring.profiles.active=development,local"
+        },
+        {
+            "type": "java",
+            "name": "Application devcontainer",
+            "request": "launch",
+            "mainClass": "fr.bankwiz.server.infrastructure.Infrastructure",
+            "projectName": "infrastructure",
+            "args": "--spring.profiles.active=development,devcontainer"
         }
     ]
 }
