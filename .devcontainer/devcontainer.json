@@ -3,7 +3,6 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/base:jammy",
     "features": {
-        "ghcr.io/devcontainers/features/docker-in-docker:1": {},
         "ghcr.io/devcontainers/features/github-cli:1": {},
         "ghcr.io/devcontainers/features/java:1": {
             "version": "17",
@@ -27,7 +26,8 @@
         "GH_TOKEN": "${localEnv:USER_GITHUB_KEY}"
     }, 
     "onCreateCommand" : "mkdir /home/vscode/.m2 && sudo chown -R vscode: /home/vscode/.m2 && cp maven/settings.xml /home/vscode/.m2/settings.xml",
-    "mounts": [ "source=${localEnv:HOME}/.m2/repository,target=/home/vscode/.m2/repository,type=bind,consistency=cached" ],
+    "mounts": ["source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind"],
+    "runArgs": ["--add-host=host.docker.internal:host-gateway"],
     "customizations": {
         // Configure properties specific to VS Code.
         "vscode": {
