@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import fr.bankwiz.server.domain.model.User;
+import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.spi.UserSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.spi.database.repository.UserEntityRepository;

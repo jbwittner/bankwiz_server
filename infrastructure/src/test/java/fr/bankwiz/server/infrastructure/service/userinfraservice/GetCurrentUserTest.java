@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.openapi.model.UserDTO;
-import fr.bankwiz.server.domain.model.User;
+import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.infrastructure.service.UserInfraService;
 import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
 import fr.bankwiz.server.infrastructure.testhelper.mock.InfrastructureMockUserApi;

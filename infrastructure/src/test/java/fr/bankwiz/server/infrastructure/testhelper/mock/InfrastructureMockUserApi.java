@@ -3,7 +3,7 @@ package fr.bankwiz.server.infrastructure.testhelper.mock;
 import org.mockito.Mockito;
 
 import fr.bankwiz.server.domain.api.UserApi;
-import fr.bankwiz.server.domain.model.User;
+import fr.bankwiz.server.domain.model.data.User;
 
 public class InfrastructureMockUserApi extends InfrastructureMockHelper<UserApi> {
 

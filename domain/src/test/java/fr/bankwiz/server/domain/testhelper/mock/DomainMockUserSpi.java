@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
-import fr.bankwiz.server.domain.model.User;
+import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.spi.UserSpi;
 
 public class DomainMockUserSpi extends DomainMockHelper<UserSpi> {

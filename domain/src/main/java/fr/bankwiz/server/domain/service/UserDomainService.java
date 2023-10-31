@@ -3,8 +3,8 @@ package fr.bankwiz.server.domain.service;
 import java.util.UUID;
 
 import fr.bankwiz.server.domain.api.UserApi;
-import fr.bankwiz.server.domain.model.User;
-import fr.bankwiz.server.domain.model.UserAuthentication;
+import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserAuthentication;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.UserSpi;
 
