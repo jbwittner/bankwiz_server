@@ -29,8 +29,6 @@ jobs:
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml', 'domain/pom.xml', 'infrastructure/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
       - name: Dependency go-offline
         run: mvn dependency:go-offline
       - name: Dependency resolve-plugins
@@ -50,6 +48,11 @@ jobs:
           distribution: 'microsoft'
           java-version: '17'
           cache: 'maven'
+      - name: Cache local Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml', 'domain/pom.xml', 'infrastructure/pom.xml') }}
       - name: Spotless Check
         run: >-
           mvn -B spotless:check
@@ -68,6 +71,11 @@ jobs:
           distribution: 'microsoft'
           java-version: '17'
           cache: 'maven'
+      - name: Cache local Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml', 'domain/pom.xml', 'infrastructure/pom.xml') }}
       - name: Build java part
         run: mvn -B compile
   tests_sonar:
@@ -85,6 +93,11 @@ jobs:
           distribution: 'microsoft'
           java-version: '17'
           cache: 'maven'
+      - name: Cache local Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml', 'domain/pom.xml', 'infrastructure/pom.xml') }}
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
@@ -108,6 +121,11 @@ jobs:
           distribution: 'microsoft'
           java-version: '17'
           cache: 'maven'
+      - name: Cache local Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml', 'domain/pom.xml', 'infrastructure/pom.xml') }}
       - name: Package application
         run: mvn -B package -DskipTests
   build_docker:
