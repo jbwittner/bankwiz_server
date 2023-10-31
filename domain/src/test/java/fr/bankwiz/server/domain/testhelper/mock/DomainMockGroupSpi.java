@@ -18,5 +18,4 @@ public class DomainMockGroupSpi extends DomainMockHelper<GroupSpi> {
         });
         return this;
     }
-
 }
