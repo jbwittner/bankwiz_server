@@ -36,12 +36,15 @@ class GroupCreationTest extends DomainUnitTestBase {
         final Group group = this.groupDomainService.groupCreation(groupCreationRequest);
 
         Assertions.assertEquals(groupCreationRequest.getGroupName(), group.getGroupName());
+        Assertions.assertNotNull(group.getGroupUuid());
 
         final var groupeRightsSaved = this.mockGroupRightSpi.getGroupRightsSaved();
 
         Assertions.assertEquals(1, groupeRightsSaved.size());
 
         final GroupRight groupRight = groupeRightsSaved.get(0);
+
+        Assertions.assertNotNull(groupRight.getGroupRightUuid());
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(group, groupRight.getGroup()),

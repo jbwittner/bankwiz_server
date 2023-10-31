@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public class GroupRight {
 
-    private UUID groupRightId;
+    private UUID groupRightUuid;
     private Group group;
     private User user;
     private GroupRightEnum groupRightEnum;
