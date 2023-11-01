@@ -1,5 +1,6 @@
 package fr.bankwiz.server.infrastructure.transformer.grouprighttransformer;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.openapi.model.GroupAuthorizationEnum;
