@@ -26,8 +26,6 @@ class SaveTest extends InfrastructureUnitTestBase {
 
         final User user = this.factory.getUser();
 
-        this.userSpiImpl.save(user);
-
         final User userSaved = this.userSpiImpl.save(user);
 
         Assertions.assertAll(

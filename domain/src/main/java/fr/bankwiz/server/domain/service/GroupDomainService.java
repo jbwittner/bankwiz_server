@@ -7,7 +7,7 @@ import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
-import fr.bankwiz.server.domain.model.request.GroupCreationRequest;
+import fr.bankwiz.server.domain.model.input.GroupCreationInput;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.domain.spi.GroupSpi;
@@ -25,10 +25,10 @@ public class GroupDomainService implements GroupApi {
     }
 
     @Override
-    public Group groupCreation(GroupCreationRequest groupCreationRequest) {
+    public Group groupCreation(GroupCreationInput groupCreationInput) {
         final Group group = Group.builder()
                 .groupUuid(UUID.randomUUID())
-                .groupName(groupCreationRequest.getGroupName())
+                .groupName(groupCreationInput.getGroupName())
                 .build();
         final Group groupSaved = this.groupSpi.save(group);
         final User admin = this.authenticationSpi.getCurrentUser();
