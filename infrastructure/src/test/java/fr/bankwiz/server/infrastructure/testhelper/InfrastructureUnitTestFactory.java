@@ -7,6 +7,8 @@ import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
+import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
+import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity.GroupRightEntityEnum;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 
 public class InfrastructureUnitTestFactory {
@@ -57,6 +59,15 @@ public class InfrastructureUnitTestFactory {
                 .group(this.getGroup())
                 .user(this.getUser())
                 .groupRightEnum(groupRightEnum)
+                .build();
+    }
+
+    public GroupRightEntity getGroupRightEntity(final GroupRightEntityEnum groupRightEntityEnum) {
+        return GroupRightEntity.builder()
+                .groupRightId(UUID.randomUUID())
+                .groupEntity(this.getGroupEntity())
+                .userEntity(this.getUserEntity())
+                .groupRightEntityEnum(groupRightEntityEnum)
                 .build();
     }
 }
