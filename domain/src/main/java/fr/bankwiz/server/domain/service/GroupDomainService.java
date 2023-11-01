@@ -35,7 +35,7 @@ public class GroupDomainService implements GroupApi {
         final GroupRight groupRight = GroupRight.builder()
                 .group(groupSaved)
                 .user(admin)
-                .groupRightUuid(UUID.randomUUID())
+                .groupRightId(UUID.randomUUID())
                 .groupRightEnum(GroupRightEnum.ADMIN)
                 .build();
         this.groupRightSpi.save(groupRight);

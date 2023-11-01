@@ -55,7 +55,7 @@ public class InfrastructureUnitTestFactory {
 
     public GroupRight getGroupRight(final GroupRightEnum groupRightEnum) {
         return GroupRight.builder()
-                .groupRightUuid(UUID.randomUUID())
+                .groupRightId(UUID.randomUUID())
                 .group(this.getGroup())
                 .user(this.getUser())
                 .groupRightEnum(groupRightEnum)

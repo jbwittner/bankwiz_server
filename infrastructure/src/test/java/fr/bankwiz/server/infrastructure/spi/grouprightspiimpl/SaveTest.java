@@ -33,6 +33,6 @@ class SaveTest extends InfrastructureUnitTestBase {
                 () -> Assertions.assertEquals(groupRight.getUser(), groupRightSaved.getUser()),
                 () -> Assertions.assertEquals(groupRight.getGroup(), groupRightSaved.getGroup()),
                 () -> Assertions.assertEquals(groupRight.getGroupRightEnum(), groupRightSaved.getGroupRightEnum()),
-                () -> Assertions.assertEquals(groupRight.getGroupRightUuid(), groupRightSaved.getGroupRightUuid()));
+                () -> Assertions.assertEquals(groupRight.getGroupRightId(), groupRightSaved.getGroupRightId()));
     }
 }
