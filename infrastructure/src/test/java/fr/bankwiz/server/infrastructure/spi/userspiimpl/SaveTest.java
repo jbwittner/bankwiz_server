@@ -31,6 +31,6 @@ class SaveTest extends InfrastructureUnitTestBase {
         Assertions.assertAll(
                 () -> Assertions.assertEquals(user.getAuthId(), userSaved.getAuthId()),
                 () -> Assertions.assertEquals(user.getEmail(), userSaved.getEmail()),
-                () -> Assertions.assertEquals(user.getUserUuid(), userSaved.getUserUuid()));
+                () -> Assertions.assertEquals(user.getUserId(), userSaved.getUserId()));
     }
 }

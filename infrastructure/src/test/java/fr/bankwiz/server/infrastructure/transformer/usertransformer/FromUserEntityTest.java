@@ -20,6 +20,6 @@ class FromUserEntityTest extends InfrastructureUnitTestBase {
         Assertions.assertAll(
                 () -> Assertions.assertEquals(userEntity.getEmail(), user.getEmail()),
                 () -> Assertions.assertEquals(userEntity.getAuthId(), user.getAuthId()),
-                () -> Assertions.assertEquals(userEntity.getUserId(), user.getUserUuid()));
+                () -> Assertions.assertEquals(userEntity.getUserId(), user.getUserId()));
     }
 }

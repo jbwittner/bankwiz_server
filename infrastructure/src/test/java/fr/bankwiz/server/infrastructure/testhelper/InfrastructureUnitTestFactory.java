@@ -27,7 +27,7 @@ public class InfrastructureUnitTestFactory {
         return User.builder()
                 .authId(this.getAuthId())
                 .email(this.infrastructureFaker.internet().emailAddress())
-                .userUuid(UUID.randomUUID())
+                .userId(UUID.randomUUID())
                 .build();
     }
 
