@@ -13,8 +13,7 @@ public class GroupSpiImpl implements GroupSpi {
 
     private GroupEntityRepository groupEntityRepository;
 
-
-    public GroupSpiImpl(GroupEntityRepository groupEntityRepository){
+    public GroupSpiImpl(GroupEntityRepository groupEntityRepository) {
         this.groupEntityRepository = groupEntityRepository;
     }
 
@@ -24,5 +23,4 @@ public class GroupSpiImpl implements GroupSpi {
         final GroupEntity groupEntitySaved = this.groupEntityRepository.save(groupEntity);
         return GroupTransformer.fromGroupEntity(groupEntitySaved);
     }
-    
 }

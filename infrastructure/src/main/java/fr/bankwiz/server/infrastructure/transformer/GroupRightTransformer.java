@@ -1,0 +1,43 @@
+package fr.bankwiz.server.infrastructure.transformer;
+
+import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupRight;
+import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
+import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
+import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity.GroupRightEntityEnum;
+import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
+
+public final class GroupRightTransformer {
+
+    private GroupRightTransformer() {}
+
+    public static GroupRight fromGroupRightEntity(final GroupRightEntity groupRightEntity) {
+
+        final User user = UserTransformer.fromUserEntity(groupRightEntity.getUserEntity());
+        final Group group = GroupTransformer.fromGroupEntity(groupRightEntity.getGroupEntity());
+
+        return GroupRight.builder()
+                .groupRightUuid(groupRightEntity.getGroupRightId())
+                .groupRightEnum(GroupRightEnum.valueOf(
+                        groupRightEntity.getGroupRightEntityEnum().name()))
+                .user(user)
+                .group(group)
+                .build();
+    }
+
+    public static GroupRightEntity toGroupRightEntity(final GroupRight groupRight) {
+
+        final GroupEntity groupEntity = GroupTransformer.toGroupEntity(groupRight.getGroup());
+        final UserEntity userEntity = UserTransformer.toUserEntity(groupRight.getUser());
+
+        return GroupRightEntity.builder()
+                .groupEntity(groupEntity)
+                .groupRightId(groupRight.getGroupRightUuid())
+                .groupRightEntityEnum(GroupRightEntityEnum.valueOf(
+                        groupRight.getGroupRightEnum().name()))
+                .userEntity(userEntity)
+                .build();
+    }
+}

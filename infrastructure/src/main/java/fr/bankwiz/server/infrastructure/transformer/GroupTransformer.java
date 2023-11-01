@@ -28,5 +28,4 @@ public final class GroupTransformer {
                 .groupName(group.getGroupName())
                 .build();
     }
-    
 }

@@ -34,5 +34,4 @@ public class GroupEntity {
 
     @Column(name = "GROUP_NAME", nullable = false)
     private String groupName;
-    
 }
