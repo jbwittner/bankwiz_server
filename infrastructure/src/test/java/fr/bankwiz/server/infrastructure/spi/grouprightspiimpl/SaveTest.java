@@ -25,7 +25,7 @@ class SaveTest extends InfrastructureUnitTestBase {
 
         this.groupRightEntityRepositoryMockFactory.mockSave();
 
-        final GroupRight groupRight = this.factory.getGroupEntity(GroupRightEnum.ADMIN);
+        final GroupRight groupRight = this.factory.getGroupRight(GroupRightEnum.ADMIN);
 
         final GroupRight groupRightSaved = this.groupRightSpiImpl.save(groupRight);
 
