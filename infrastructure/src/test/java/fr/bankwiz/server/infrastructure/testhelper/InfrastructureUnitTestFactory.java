@@ -2,6 +2,7 @@ package fr.bankwiz.server.infrastructure.testhelper;
 
 import java.util.UUID;
 
+import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 
@@ -22,6 +23,13 @@ public class InfrastructureUnitTestFactory {
                 .authId(this.getAuthId())
                 .email(this.infrastructureFaker.internet().emailAddress())
                 .userUuid(UUID.randomUUID())
+                .build();
+    }
+
+    public Group getGroup() {
+        return Group.builder()
+                .groupName(this.infrastructureFaker.space().star())
+                .groupUuid(UUID.randomUUID())
                 .build();
     }
 
