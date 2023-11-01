@@ -42,7 +42,7 @@ public class InfrastructureUnitTestFactory {
     public Group getGroup() {
         return Group.builder()
                 .groupName(this.infrastructureFaker.space().star())
-                .groupUuid(UUID.randomUUID())
+                .groupId(UUID.randomUUID())
                 .build();
     }
 

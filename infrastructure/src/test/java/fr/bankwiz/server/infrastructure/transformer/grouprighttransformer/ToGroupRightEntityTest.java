@@ -41,7 +41,7 @@ class ToGroupRightEntityTest extends InfrastructureUnitTestBase {
 
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(group.getGroupName(), groupEntity.getGroupName()),
-                            () -> Assertions.assertEquals(group.getGroupUuid(), groupEntity.getGroupId()));
+                            () -> Assertions.assertEquals(group.getGroupId(), groupEntity.getGroupId()));
                 });
     }
 }

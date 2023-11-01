@@ -11,6 +11,6 @@ import lombok.Getter;
 @EqualsAndHashCode
 public class Group {
 
-    private UUID groupUuid;
+    private UUID groupId;
     private String groupName;
 }
