@@ -1,11 +1,11 @@
-package fr.bankwiz.server.domain.model.request;
+package fr.bankwiz.server.domain.model.input;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Builder
 @Getter
-public class GroupCreationRequest {
+public class GroupCreationInput {
 
     private String groupName;
 }

@@ -8,7 +8,7 @@ public final class GroupTransformer {
 
     private GroupTransformer() {}
 
-    public static GroupIndexDTO toGroupDTO(final Group group) {
+    public static GroupIndexDTO toGroupIndexDTO(final Group group) {
         final GroupIndexDTO groupIndexDTO = new GroupIndexDTO();
         groupIndexDTO.setGroupId(group.getGroupUuid());
         groupIndexDTO.setGroupName(group.getGroupName());
