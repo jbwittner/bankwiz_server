@@ -11,7 +11,7 @@ import lombok.Getter;
 @EqualsAndHashCode
 public class GroupRight {
 
-    private UUID groupRightUuid;
+    private UUID groupRightId;
     private Group group;
     private User user;
     private GroupRightEnum groupRightEnum;

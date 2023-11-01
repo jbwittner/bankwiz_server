@@ -30,6 +30,6 @@ class SaveTest extends InfrastructureUnitTestBase {
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(group.getGroupName(), groupSaved.getGroupName()),
-                () -> Assertions.assertEquals(group.getGroupUuid(), groupSaved.getGroupUuid()));
+                () -> Assertions.assertEquals(group.getGroupId(), groupSaved.getGroupId()));
     }
 }

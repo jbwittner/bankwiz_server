@@ -28,7 +28,7 @@ public class DomainUnitTestFactory {
         return User.builder()
                 .authId(this.getAuthId())
                 .email(this.domainFaker.internet().emailAddress())
-                .userUuid(UUID.randomUUID())
+                .userId(UUID.randomUUID())
                 .build();
     }
 }

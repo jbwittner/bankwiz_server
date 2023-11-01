@@ -10,21 +10,21 @@ public final class GroupTransformer {
 
     public static GroupIndexDTO toGroupIndexDTO(final Group group) {
         final GroupIndexDTO groupIndexDTO = new GroupIndexDTO();
-        groupIndexDTO.setGroupId(group.getGroupUuid());
+        groupIndexDTO.setGroupId(group.getGroupId());
         groupIndexDTO.setGroupName(group.getGroupName());
         return groupIndexDTO;
     }
 
     public static Group fromGroupEntity(final GroupEntity groupEntity) {
         return Group.builder()
-                .groupUuid(groupEntity.getGroupId())
+                .groupId(groupEntity.getGroupId())
                 .groupName(groupEntity.getGroupName())
                 .build();
     }
 
     public static GroupEntity toGroupEntity(final Group group) {
         return GroupEntity.builder()
-                .groupId(group.getGroupUuid())
+                .groupId(group.getGroupId())
                 .groupName(group.getGroupName())
                 .build();
     }

@@ -19,6 +19,6 @@ class ToGroupIndexDTOTest extends InfrastructureUnitTestBase {
         final GroupIndexDTO groupIndexDTO = GroupTransformer.toGroupIndexDTO(group);
         Assertions.assertAll(
                 () -> Assertions.assertEquals(group.getGroupName(), groupIndexDTO.getGroupName()),
-                () -> Assertions.assertEquals(group.getGroupUuid(), groupIndexDTO.getGroupId()));
+                () -> Assertions.assertEquals(group.getGroupId(), groupIndexDTO.getGroupId()));
     }
 }

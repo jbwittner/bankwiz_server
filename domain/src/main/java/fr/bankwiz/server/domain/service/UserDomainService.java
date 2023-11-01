@@ -26,7 +26,7 @@ public class UserDomainService implements UserApi {
                 .findByAuthId(userAuthentication.getSub())
                 .orElse(User.builder()
                         .authId(userAuthentication.getSub())
-                        .userUuid(UUID.randomUUID())
+                        .userId(UUID.randomUUID())
                         .build());
         user.setEmail(userAuthentication.getEmail());
 

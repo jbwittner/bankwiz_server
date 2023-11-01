@@ -27,7 +27,7 @@ public class GroupDomainService implements GroupApi {
     @Override
     public Group groupCreation(GroupCreationInput groupCreationInput) {
         final Group group = Group.builder()
-                .groupUuid(UUID.randomUUID())
+                .groupId(UUID.randomUUID())
                 .groupName(groupCreationInput.getGroupName())
                 .build();
         final Group groupSaved = this.groupSpi.save(group);
@@ -35,7 +35,7 @@ public class GroupDomainService implements GroupApi {
         final GroupRight groupRight = GroupRight.builder()
                 .group(groupSaved)
                 .user(admin)
-                .groupRightUuid(UUID.randomUUID())
+                .groupRightId(UUID.randomUUID())
                 .groupRightEnum(GroupRightEnum.ADMIN)
                 .build();
         this.groupRightSpi.save(groupRight);

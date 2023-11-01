@@ -11,7 +11,7 @@ import lombok.Getter;
 @EqualsAndHashCode
 public class User {
 
-    private UUID userUuid;
+    private UUID userId;
     private String authId;
     private String email;
 

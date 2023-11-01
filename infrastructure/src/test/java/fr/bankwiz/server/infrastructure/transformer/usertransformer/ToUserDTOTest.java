@@ -19,6 +19,6 @@ class ToUserDTOTest extends InfrastructureUnitTestBase {
         final UserDTO userDTO = UserTransformer.toUserDTO(user);
         Assertions.assertAll(
                 () -> Assertions.assertEquals(user.getEmail(), userDTO.getEmail()),
-                () -> Assertions.assertEquals(user.getUserUuid(), userDTO.getId()));
+                () -> Assertions.assertEquals(user.getUserId(), userDTO.getId()));
     }
 }
