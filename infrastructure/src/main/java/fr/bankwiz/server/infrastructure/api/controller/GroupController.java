@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import fr.bankwiz.openapi.api.GroupApi;
 import fr.bankwiz.openapi.model.GroupCreationRequest;
 import fr.bankwiz.openapi.model.GroupIndexDTO;
+import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.input.GroupCreationInput;
 import fr.bankwiz.server.infrastructure.service.GroupInfraService;
+import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
 
 @Controller
 public class GroupController implements GroupApi {
@@ -24,7 +26,8 @@ public class GroupController implements GroupApi {
         final GroupCreationInput groupCreationInput = GroupCreationInput.builder()
                 .groupName(groupCreationRequest.getGroupName())
                 .build();
-        GroupIndexDTO groupIndexDTO = this.groupInfraService.createGroup(groupCreationInput);
+        final Group group = this.groupInfraService.createGroup(groupCreationInput);
+        final GroupIndexDTO groupIndexDTO = GroupTransformer.toGroupIndexDTO(group);
         return new ResponseEntity<>(groupIndexDTO, HttpStatus.OK);
     }
 }

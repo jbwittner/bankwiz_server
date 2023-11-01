@@ -17,9 +17,8 @@ public class GroupInfraService {
         this.groupApi = groupApi;
     }
 
-    public GroupIndexDTO createGroup(GroupCreationInput groupCreationInput) {
+    public Group createGroup(GroupCreationInput groupCreationInput) {
 
-        final Group group = this.groupApi.groupCreation(groupCreationInput);
-        return GroupTransformer.toGroupIndexDTO(group);
+        return this.groupApi.groupCreation(groupCreationInput);
     }
 }
