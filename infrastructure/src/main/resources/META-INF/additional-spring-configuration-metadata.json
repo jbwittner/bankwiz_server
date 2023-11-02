@@ -33,5 +33,9 @@
     "name": "application.cors-allowed-origins",
     "type": "java.lang.String",
     "description": "A list of origins that are allowed to access resources on this server, used for Cross-Origin Resource Sharing (CORS) settings"
+  },
+  {
+    "name": "logging.level.fr.bankwiz.server.infrastructure.aop",
+    "description": "Sets the logging level for the fr.bankwiz.server.infrastructure.aop package. Common levels include DEBUG, INFO, WARN, ERROR."
   }
 ]}
