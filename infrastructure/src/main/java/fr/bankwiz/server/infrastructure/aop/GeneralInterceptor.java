@@ -16,7 +16,6 @@ public class GeneralInterceptor {
 
         final Signature signature = joinPoint.getSignature();
 
-
         String method = signature.getDeclaringTypeName();
         method += "." + signature.getName();
 
