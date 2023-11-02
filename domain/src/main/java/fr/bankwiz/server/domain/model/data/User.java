@@ -5,10 +5,12 @@ import java.util.UUID;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 @Builder
 @Getter
 @EqualsAndHashCode
+@ToString
 public class User {
 
     private UUID userId;
