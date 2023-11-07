@@ -1,5 +1,6 @@
 package fr.bankwiz.server.domain.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import fr.bankwiz.server.domain.api.GroupApi;
@@ -40,5 +41,12 @@ public class GroupDomainService implements GroupApi {
                 .build();
         this.groupRightSpi.save(groupRight);
         return groupSaved;
+    }
+
+    @Override
+    public List<Group> getUserGroups() {
+        final User user = this.authenticationSpi.getCurrentUser();
+        final List<GroupRight> groupRights = this.groupRightSpi.findByUser(user);
+        return groupRights.stream().map(GroupRight::getGroup).toList();
     }
 }
