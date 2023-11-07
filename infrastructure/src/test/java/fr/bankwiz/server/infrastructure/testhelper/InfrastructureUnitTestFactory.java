@@ -62,12 +62,20 @@ public class InfrastructureUnitTestFactory {
                 .build();
     }
 
-    public GroupRightEntity getGroupRightEntity(final GroupRightEntityEnum groupRightEntityEnum) {
+    public GroupRightEntity getGroupRightEntity(final GroupEntity groupEntity, final UserEntity userEntity, final GroupRightEntityEnum groupRightEntityEnum) {
         return GroupRightEntity.builder()
                 .groupRightId(UUID.randomUUID())
-                .groupEntity(this.getGroupEntity())
-                .userEntity(this.getUserEntity())
+                .groupEntity(groupEntity)
+                .userEntity(userEntity)
                 .groupRightEntityEnum(groupRightEntityEnum)
                 .build();
+    }
+
+    public GroupRightEntity getGroupRightEntity(final UserEntity userEntity, final GroupRightEntityEnum groupRightEntityEnum) {
+        return this.getGroupRightEntity(this.getGroupEntity(), userEntity, groupRightEntityEnum);
+    }
+
+    public GroupRightEntity getGroupRightEntity(final GroupRightEntityEnum groupRightEntityEnum) {
+        return this.getGroupRightEntity(this.getGroupEntity(), this.getUserEntity(), groupRightEntityEnum);
     }
 }
