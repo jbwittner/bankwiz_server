@@ -31,6 +31,7 @@ class GetUserGroupsTest extends DomainUnitTestBase {
         final List<GroupRight> groupRights = new ArrayList<>();
         final GroupRight groupRight1 = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
         final GroupRight groupRight2 = this.factory.getGroupRight(user, GroupRightEnum.READ);
+
         groupRights.add(groupRight1);
         groupRights.add(groupRight2);
 
