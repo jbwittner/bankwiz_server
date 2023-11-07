@@ -30,4 +30,5 @@ public class DomainMockGroupRightSpi extends DomainMockHelper<GroupRightSpi> {
         });
         return this;
     }
+
 }
