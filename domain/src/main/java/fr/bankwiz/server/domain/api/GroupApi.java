@@ -7,5 +7,6 @@ import fr.bankwiz.server.domain.model.input.GroupCreationInput;
 
 public interface GroupApi {
     Group groupCreation(GroupCreationInput groupCreationInput);
+
     List<Group> getUserGroups();
 }

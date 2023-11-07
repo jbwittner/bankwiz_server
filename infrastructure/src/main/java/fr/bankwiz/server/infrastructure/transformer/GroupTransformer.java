@@ -34,5 +34,4 @@ public final class GroupTransformer {
     public static List<GroupIndexDTO> toGroupIndexDTO(final List<Group> groups) {
         return groups.stream().map(GroupTransformer::toGroupIndexDTO).toList();
     }
-
 }

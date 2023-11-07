@@ -43,7 +43,9 @@ public final class GroupRightTransformer {
                 .build();
     }
 
-    public static List<GroupRight> fromGroupRightEntity(final List<GroupRightEntity> groupRightEntities){
-        return groupRightEntities.stream().map(GroupRightTransformer::fromGroupRightEntity).toList();
+    public static List<GroupRight> fromGroupRightEntity(final List<GroupRightEntity> groupRightEntities) {
+        return groupRightEntities.stream()
+                .map(GroupRightTransformer::fromGroupRightEntity)
+                .toList();
     }
 }
