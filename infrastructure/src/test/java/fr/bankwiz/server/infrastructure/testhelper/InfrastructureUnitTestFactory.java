@@ -62,7 +62,10 @@ public class InfrastructureUnitTestFactory {
                 .build();
     }
 
-    public GroupRightEntity getGroupRightEntity(final GroupEntity groupEntity, final UserEntity userEntity, final GroupRightEntityEnum groupRightEntityEnum) {
+    public GroupRightEntity getGroupRightEntity(
+            final GroupEntity groupEntity,
+            final UserEntity userEntity,
+            final GroupRightEntityEnum groupRightEntityEnum) {
         return GroupRightEntity.builder()
                 .groupRightId(UUID.randomUUID())
                 .groupEntity(groupEntity)
@@ -71,7 +74,8 @@ public class InfrastructureUnitTestFactory {
                 .build();
     }
 
-    public GroupRightEntity getGroupRightEntity(final UserEntity userEntity, final GroupRightEntityEnum groupRightEntityEnum) {
+    public GroupRightEntity getGroupRightEntity(
+            final UserEntity userEntity, final GroupRightEntityEnum groupRightEntityEnum) {
         return this.getGroupRightEntity(this.getGroupEntity(), userEntity, groupRightEntityEnum);
     }
 

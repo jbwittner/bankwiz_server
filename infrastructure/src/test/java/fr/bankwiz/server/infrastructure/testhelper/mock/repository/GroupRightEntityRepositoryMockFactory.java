@@ -15,8 +15,9 @@ public class GroupRightEntityRepositoryMockFactory
         super(GroupRightEntityRepository.class);
     }
 
-    public GroupRightEntityRepositoryMockFactory mockFindByUserEntity(final UserEntity userEntity, final List<GroupRightEntity> groupRightEntities) {
-        Mockito.when(this.repository.findByUserEntity(userEntity)).thenReturn(groupRightEntities);
+    public GroupRightEntityRepositoryMockFactory mockFindByUserEntity(final List<GroupRightEntity> groupRightEntities) {
+        Mockito.when(this.repository.findByUserEntity(Mockito.any(UserEntity.class)))
+                .thenReturn(groupRightEntities);
         return this;
     }
 }
