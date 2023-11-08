@@ -1,5 +1,7 @@
 package fr.bankwiz.server.infrastructure.transformer;
 
+import java.util.List;
+
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -39,5 +41,11 @@ public final class GroupRightTransformer {
                         groupRight.getGroupRightEnum().name()))
                 .userEntity(userEntity)
                 .build();
+    }
+
+    public static List<GroupRight> fromGroupRightEntity(final List<GroupRightEntity> groupRightEntities) {
+        return groupRightEntities.stream()
+                .map(GroupRightTransformer::fromGroupRightEntity)
+                .toList();
     }
 }

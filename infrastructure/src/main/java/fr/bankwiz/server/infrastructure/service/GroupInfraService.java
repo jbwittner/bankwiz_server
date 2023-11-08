@@ -1,5 +1,7 @@
 package fr.bankwiz.server.infrastructure.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,5 +21,10 @@ public class GroupInfraService {
     @Transactional
     public Group createGroup(GroupCreationInput groupCreationInput) {
         return this.groupApi.groupCreation(groupCreationInput);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Group> getUserGroups() {
+        return this.groupApi.getUserGroups();
     }
 }

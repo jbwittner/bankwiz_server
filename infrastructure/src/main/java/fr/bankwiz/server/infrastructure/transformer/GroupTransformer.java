@@ -1,5 +1,7 @@
 package fr.bankwiz.server.infrastructure.transformer;
 
+import java.util.List;
+
 import fr.bankwiz.openapi.model.GroupIndexDTO;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
@@ -27,5 +29,9 @@ public final class GroupTransformer {
                 .groupId(group.getGroupId())
                 .groupName(group.getGroupName())
                 .build();
+    }
+
+    public static List<GroupIndexDTO> toGroupIndexDTO(final List<Group> groups) {
+        return groups.stream().map(GroupTransformer::toGroupIndexDTO).toList();
     }
 }

@@ -164,6 +164,16 @@
                         </sortPom>
                         <!-- has its own section below -->
                     </pom>
+                    <yaml>
+                        <includes>
+                            <!-- You have to set the target manually -->
+                            <include>src/**/*.yaml</include>
+                        </includes>
+                        <jackson></jackson>
+                        <!-- has its own section below -->
+                        <prettier></prettier>
+                        <!-- has its own section below -->
+                    </yaml>
                 </configuration>
             </plugin>
         </plugins>

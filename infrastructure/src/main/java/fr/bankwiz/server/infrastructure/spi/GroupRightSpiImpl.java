@@ -1,12 +1,17 @@
 package fr.bankwiz.server.infrastructure.spi;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import fr.bankwiz.server.domain.model.data.GroupRight;
+import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
+import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.spi.database.repository.GroupRightEntityRepository;
 import fr.bankwiz.server.infrastructure.transformer.GroupRightTransformer;
+import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 
 @Component
 public class GroupRightSpiImpl implements GroupRightSpi {
@@ -22,5 +27,12 @@ public class GroupRightSpiImpl implements GroupRightSpi {
         final GroupRightEntity groupRightEntity = GroupRightTransformer.toGroupRightEntity(groupRight);
         final GroupRightEntity groupRightEntitySaved = this.groupRightEntityRepository.save(groupRightEntity);
         return GroupRightTransformer.fromGroupRightEntity(groupRightEntitySaved);
+    }
+
+    @Override
+    public List<GroupRight> findByUser(User user) {
+        final UserEntity userEntity = UserTransformer.toUserEntity(user);
+        final List<GroupRightEntity> groupRightEntities = this.groupRightEntityRepository.findByUserEntity(userEntity);
+        return GroupRightTransformer.fromGroupRightEntity(groupRightEntities);
     }
 }

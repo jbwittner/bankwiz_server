@@ -5,8 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.infrastructure.spi.UserSpiImpl;
+import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
 import fr.bankwiz.server.infrastructure.testhelper.mock.repository.UserEntityRepositoryMockFactory;
+import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 
 class SaveTest extends InfrastructureUnitTestBase {
 
@@ -28,7 +30,10 @@ class SaveTest extends InfrastructureUnitTestBase {
 
         final User userSaved = this.userSpiImpl.save(user);
 
+        final var argumentCaptor = this.userEntityRepositoryMockFactory.verifySaveCalled(UserEntity.class);
+
         Assertions.assertAll(
+                () -> Assertions.assertEquals(UserTransformer.toUserEntity(user), argumentCaptor.getValue()),
                 () -> Assertions.assertEquals(user.getAuthId(), userSaved.getAuthId()),
                 () -> Assertions.assertEquals(user.getEmail(), userSaved.getEmail()),
                 () -> Assertions.assertEquals(user.getUserId(), userSaved.getUserId()));

@@ -1,5 +1,7 @@
 package fr.bankwiz.server.infrastructure.api.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,13 @@ public class GroupController implements GroupApi {
                 .build();
         final Group group = this.groupInfraService.createGroup(groupCreationInput);
         final GroupIndexDTO groupIndexDTO = GroupTransformer.toGroupIndexDTO(group);
-        return new ResponseEntity<>(groupIndexDTO, HttpStatus.OK);
+        return new ResponseEntity<>(groupIndexDTO, HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<List<GroupIndexDTO>> getUserGroups() {
+        final List<Group> groups = this.groupInfraService.getUserGroups();
+        final List<GroupIndexDTO> groupIndexDTOs = GroupTransformer.toGroupIndexDTO(groups);
+        return new ResponseEntity<>(groupIndexDTOs, HttpStatus.OK);
     }
 }
