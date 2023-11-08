@@ -1,7 +1,8 @@
+---
 application:
   db:
-    host: localhost
+    host: "localhost"
     port: 8306
-    name: bankwiz_db
-    user: bankwiz_user
-    password: BankwizPass2023
+    name: "bankwiz_db"
+    user: "bankwiz_user"
+    password: "BankwizPass2023"
