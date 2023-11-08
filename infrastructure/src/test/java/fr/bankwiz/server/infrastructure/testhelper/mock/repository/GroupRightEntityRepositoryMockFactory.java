@@ -3,6 +3,8 @@ package fr.bankwiz.server.infrastructure.testhelper.mock.repository;
 import java.util.List;
 import java.util.UUID;
 
+import org.junit.jupiter.api.Assertions;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
@@ -18,6 +20,13 @@ public class GroupRightEntityRepositoryMockFactory
     public GroupRightEntityRepositoryMockFactory mockFindByUserEntity(final List<GroupRightEntity> groupRightEntities) {
         Mockito.when(this.repository.findByUserEntity(Mockito.any(UserEntity.class)))
                 .thenReturn(groupRightEntities);
+        return this;
+    }
+
+    public GroupRightEntityRepositoryMockFactory verifyFindByUserEntity(final UserEntity userEntityToCheck) {
+        ArgumentCaptor<UserEntity> argument = ArgumentCaptor.forClass(UserEntity.class);
+        Mockito.verify(this.repository).findByUserEntity(argument.capture());
+        Assertions.assertEquals(userEntityToCheck, argument.getValue());
         return this;
     }
 }

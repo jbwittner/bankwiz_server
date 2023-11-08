@@ -44,6 +44,8 @@ class FindByUserTest extends InfrastructureUnitTestBase {
 
         final List<GroupRight> groupRights = this.groupRightSpiImpl.findByUser(user);
 
+        this.groupRightEntityRepositoryMockFactory.verifyFindByUserEntity(userEntity);
+
         Assertions.assertEquals(groupRightEntities.size(), groupRights.size());
 
         Assertions.assertEquals(

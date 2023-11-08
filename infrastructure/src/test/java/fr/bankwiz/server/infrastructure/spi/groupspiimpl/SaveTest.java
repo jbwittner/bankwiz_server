@@ -5,8 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.infrastructure.spi.GroupSpiImpl;
+import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
 import fr.bankwiz.server.infrastructure.testhelper.mock.repository.GroupEntityRepositoryMockFactory;
+import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
 
 class SaveTest extends InfrastructureUnitTestBase {
 
@@ -28,7 +30,10 @@ class SaveTest extends InfrastructureUnitTestBase {
 
         final Group groupSaved = this.groupSpiImpl.save(group);
 
+        final var argumentCaptor = this.groupEntityRepositoryMockFactory.verifySaveCalled(GroupEntity.class);
+
         Assertions.assertAll(
+                () -> Assertions.assertEquals(GroupTransformer.toGroupEntity(group), argumentCaptor.getValue()),
                 () -> Assertions.assertEquals(group.getGroupName(), groupSaved.getGroupName()),
                 () -> Assertions.assertEquals(group.getGroupId(), groupSaved.getGroupId()));
     }
