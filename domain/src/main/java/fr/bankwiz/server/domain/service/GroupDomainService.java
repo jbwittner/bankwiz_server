@@ -15,17 +15,20 @@ import fr.bankwiz.server.domain.model.input.GroupCreationInput;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.domain.spi.GroupSpi;
+import fr.bankwiz.server.domain.tools.CheckRightTools;
 
 public class GroupDomainService implements GroupApi {
 
     private final GroupSpi groupSpi;
     private final GroupRightSpi groupRightSpi;
     private final AuthenticationSpi authenticationSpi;
+    private final CheckRightTools checkRightTools;
 
-    public GroupDomainService(GroupSpi groupSpi, GroupRightSpi groupRightSpi, AuthenticationSpi authenticationSpi) {
+    public GroupDomainService(GroupSpi groupSpi, GroupRightSpi groupRightSpi, AuthenticationSpi authenticationSpi, CheckRightTools checkRightTools) {
         this.groupSpi = groupSpi;
         this.groupRightSpi = groupRightSpi;
         this.authenticationSpi = authenticationSpi;
+        this.checkRightTools = checkRightTools;
     }
 
     @Override
@@ -57,6 +60,7 @@ public class GroupDomainService implements GroupApi {
     public GroupDetails getGroupDetails(UUID groupId) {
         final Optional<Group> optionalGroup = this.groupSpi.findById(groupId);
         final Group group = optionalGroup.orElseThrow(() -> new GroupNotExistException(groupId));
+        this.checkRightTools.checkCanRead(this.authenticationSpi.getCurrentUser(), group);
         final List<GroupRight> groupRights = this.groupRightSpi.findByGroup(group);
         return GroupDetails.builder().group(group).groupRights(groupRights).build();
     }

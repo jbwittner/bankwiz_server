@@ -31,7 +31,7 @@ public class GroupInfraService {
     }
 
     @Transactional(readOnly = true)
-    public GroupDetails getGroupDetails(final UUID id){
+    public GroupDetails getGroupDetails(final UUID id) {
         return this.groupApi.getGroupDetails(id);
     }
 }
