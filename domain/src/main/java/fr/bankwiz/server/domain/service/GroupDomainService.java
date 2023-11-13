@@ -1,10 +1,13 @@
 package fr.bankwiz.server.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import fr.bankwiz.server.domain.api.GroupApi;
+import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDetails;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -48,5 +51,13 @@ public class GroupDomainService implements GroupApi {
         final User user = this.authenticationSpi.getCurrentUser();
         final List<GroupRight> groupRights = this.groupRightSpi.findByUser(user);
         return groupRights.stream().map(GroupRight::getGroup).toList();
+    }
+
+    @Override
+    public GroupDetails getGroupDetails(UUID groupId) {
+        final Optional<Group> optionalGroup = this.groupSpi.findById(groupId);
+        final Group group = optionalGroup.orElseThrow(() -> new GroupNotExistException(groupId));
+        final List<GroupRight> groupRights = this.groupRightSpi.findByGroup(group);
+        return GroupDetails.builder().group(group).groupRights(groupRights).build();
     }
 }
