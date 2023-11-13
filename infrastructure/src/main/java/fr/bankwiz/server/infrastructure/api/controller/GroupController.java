@@ -12,8 +12,10 @@ import fr.bankwiz.openapi.model.GroupCreationRequest;
 import fr.bankwiz.openapi.model.GroupDetailsDTO;
 import fr.bankwiz.openapi.model.GroupIndexDTO;
 import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDetails;
 import fr.bankwiz.server.domain.model.input.GroupCreationInput;
 import fr.bankwiz.server.infrastructure.service.GroupInfraService;
+import fr.bankwiz.server.infrastructure.transformer.GroupDetailsTransformer;
 import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
 
 @Controller
@@ -44,7 +46,8 @@ public class GroupController implements GroupApi {
 
     @Override
     public ResponseEntity<GroupDetailsDTO> getGroupDetails(UUID id) {
-        // TODO Auto-generated method stub
-        return GroupApi.super.getGroupDetails(id);
+        final GroupDetails groupDetails = this.groupInfraService.getGroupDetails(id);
+        final GroupDetailsDTO groupDetailsDTO = GroupDetailsTransformer.toGroupDetailsDTO(groupDetails);
+        return new ResponseEntity<>(groupDetailsDTO, HttpStatus.OK);
     }
 }
