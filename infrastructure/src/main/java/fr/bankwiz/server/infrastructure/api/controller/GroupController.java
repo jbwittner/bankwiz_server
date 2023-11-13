@@ -1,6 +1,7 @@
 package fr.bankwiz.server.infrastructure.api.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import fr.bankwiz.openapi.api.GroupApi;
 import fr.bankwiz.openapi.model.GroupCreationRequest;
+import fr.bankwiz.openapi.model.GroupDetailsDTO;
 import fr.bankwiz.openapi.model.GroupIndexDTO;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.input.GroupCreationInput;
@@ -38,5 +40,11 @@ public class GroupController implements GroupApi {
         final List<Group> groups = this.groupInfraService.getUserGroups();
         final List<GroupIndexDTO> groupIndexDTOs = GroupTransformer.toGroupIndexDTO(groups);
         return new ResponseEntity<>(groupIndexDTOs, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<GroupDetailsDTO> getGroupDetails(UUID id) {
+        // TODO Auto-generated method stub
+        return GroupApi.super.getGroupDetails(id);
     }
 }
