@@ -7,5 +7,4 @@ public class GroupNotExistException extends FunctionalException {
     public GroupNotExistException(final UUID id) {
         super("No group with id : " + id);
     }
-
 }

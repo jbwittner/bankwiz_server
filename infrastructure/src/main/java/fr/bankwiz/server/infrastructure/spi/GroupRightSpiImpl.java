@@ -42,7 +42,8 @@ public class GroupRightSpiImpl implements GroupRightSpi {
     @Override
     public List<GroupRight> findByGroup(Group group) {
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
-        final List<GroupRightEntity> groupRightEntities = this.groupRightEntityRepository.findByGroupEntity(groupEntity);
+        final List<GroupRightEntity> groupRightEntities =
+                this.groupRightEntityRepository.findByGroupEntity(groupEntity);
         return GroupRightTransformer.fromGroupRightEntity(groupRightEntities);
     }
 }

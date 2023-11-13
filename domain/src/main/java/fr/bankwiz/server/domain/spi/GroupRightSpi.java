@@ -8,6 +8,8 @@ import fr.bankwiz.server.domain.model.data.User;
 
 public interface GroupRightSpi {
     GroupRight save(GroupRight groupRight);
+
     List<GroupRight> findByUser(User user);
+
     List<GroupRight> findByGroup(Group group);
 }

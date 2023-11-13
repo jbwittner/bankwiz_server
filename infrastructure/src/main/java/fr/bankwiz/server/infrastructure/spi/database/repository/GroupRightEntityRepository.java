@@ -11,5 +11,6 @@ import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 
 public interface GroupRightEntityRepository extends JpaRepository<GroupRightEntity, UUID> {
     List<GroupRightEntity> findByUserEntity(UserEntity userEntity);
+
     List<GroupRightEntity> findByGroupEntity(GroupEntity groupEntity);
 }

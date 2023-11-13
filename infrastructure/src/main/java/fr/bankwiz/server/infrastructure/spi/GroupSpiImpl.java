@@ -30,9 +30,9 @@ public class GroupSpiImpl implements GroupSpi {
     @Override
     public Optional<Group> findById(UUID id) {
         final Optional<GroupEntity> optionalGroupEntity = this.groupEntityRepository.findById(id);
-        if(optionalGroupEntity.isEmpty()){
+        if (optionalGroupEntity.isEmpty()) {
             return Optional.empty();
-        }else {
+        } else {
             final Group group = GroupTransformer.fromGroupEntity(optionalGroupEntity.get());
             return Optional.of(group);
         }
