@@ -24,7 +24,11 @@ public class GroupDomainService implements GroupApi {
     private final AuthenticationSpi authenticationSpi;
     private final CheckRightTools checkRightTools;
 
-    public GroupDomainService(GroupSpi groupSpi, GroupRightSpi groupRightSpi, AuthenticationSpi authenticationSpi, CheckRightTools checkRightTools) {
+    public GroupDomainService(
+            GroupSpi groupSpi,
+            GroupRightSpi groupRightSpi,
+            AuthenticationSpi authenticationSpi,
+            CheckRightTools checkRightTools) {
         this.groupSpi = groupSpi;
         this.groupRightSpi = groupRightSpi;
         this.authenticationSpi = authenticationSpi;

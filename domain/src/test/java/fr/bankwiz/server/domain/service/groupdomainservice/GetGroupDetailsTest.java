@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import fr.bankwiz.server.domain.exception.UserNoReadRightException;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupDetails;
 import fr.bankwiz.server.domain.model.data.GroupRight;
@@ -15,6 +16,7 @@ import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
+import fr.bankwiz.server.domain.tools.CheckRightTools;
 
 class GetGroupDetailsTest extends DomainUnitTestBase {
 
@@ -22,19 +24,26 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {
+        final CheckRightTools checkRightTools = new CheckRightTools(this.mockGroupRightSpi.getMock());
         this.groupDomainService = new GroupDomainService(
-                this.mockGroupSpi.getMock(), this.mockGroupRightSpi.getMock(), this.mockAuthenticationSpi.getMock());
+                this.mockGroupSpi.getMock(),
+                this.mockGroupRightSpi.getMock(),
+                this.mockAuthenticationSpi.getMock(),
+                checkRightTools);
     }
 
     @Test
     void getGroupOk() {
         final User user = this.factory.getUser();
+
+        this.mockAuthenticationSpi.mockGetCurrentUser(user);
+
         final Group group = this.factory.getGroup();
 
         final UUID groupUuid = group.getGroupId();
 
         final List<GroupRight> groupRights = new ArrayList<>();
-        final GroupRight groupRight1 = this.factory.getGroupRight(group, user, GroupRightEnum.ADMIN);
+        final GroupRight groupRight1 = this.factory.getGroupRight(group, user, GroupRightEnum.READ);
         final GroupRight groupRight2 = this.factory.getGroupRight(group, this.factory.getUser(), GroupRightEnum.READ);
 
         groupRights.add(groupRight1);
@@ -54,5 +63,25 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
                         groupRight1, groupDetails.getGroupRights().get(0)),
                 () -> Assertions.assertEquals(
                         groupRight2, groupDetails.getGroupRights().get(1)));
+    }
+
+    @Test
+    void noReadException() {
+        final User user = this.factory.getUser();
+
+        this.mockAuthenticationSpi.mockGetCurrentUser(user);
+
+        final Group group = this.factory.getGroup();
+
+        final UUID groupUuid = group.getGroupId();
+
+        final List<GroupRight> groupRights = new ArrayList<>();
+
+        this.mockGroupSpi.mockFindById(groupUuid, Optional.of(group));
+        this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
+
+        Assertions.assertThrows(UserNoReadRightException.class, () -> {
+            this.groupDomainService.getGroupDetails(groupUuid);
+        });
     }
 }
