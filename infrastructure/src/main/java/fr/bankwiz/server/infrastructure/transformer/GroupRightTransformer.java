@@ -55,7 +55,8 @@ public final class GroupRightTransformer {
     public static UserGroupRightDTO toGroupDetailsDTO(final GroupRight groupRight) {
         final UserDTO userDTO = UserTransformer.toUserDTO(groupRight.getUser());
         final UserGroupRightDTO userGroupRightDTO = new UserGroupRightDTO(groupRight.getGroupRightId(), userDTO);
-        final UserGroupRightEnum userGroupRightEnum = UserGroupRightEnum.fromValue(groupRight.getGroupRightEnum().name());
+        final UserGroupRightEnum userGroupRightEnum =
+                UserGroupRightEnum.fromValue(groupRight.getGroupRightEnum().name());
         userGroupRightDTO.setRight(userGroupRightEnum);
         return userGroupRightDTO;
     }

@@ -27,7 +27,11 @@ public class DomainConfiguration {
     }
 
     @Bean
-    GroupApi groupApi(GroupSpi groupSpi, GroupRightSpi groupRightSpi, AuthenticationSpi authenticationSpi, CheckRightTools checkRightTools) {
+    GroupApi groupApi(
+            GroupSpi groupSpi,
+            GroupRightSpi groupRightSpi,
+            AuthenticationSpi authenticationSpi,
+            CheckRightTools checkRightTools) {
         return new GroupDomainService(groupSpi, groupRightSpi, authenticationSpi, checkRightTools);
     }
 }
