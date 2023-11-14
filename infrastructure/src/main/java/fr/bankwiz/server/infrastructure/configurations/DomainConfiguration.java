@@ -11,6 +11,7 @@ import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.domain.spi.GroupSpi;
 import fr.bankwiz.server.domain.spi.UserSpi;
+import fr.bankwiz.server.domain.tools.CheckRightTools;
 
 @Configuration
 public class DomainConfiguration {
@@ -21,7 +22,12 @@ public class DomainConfiguration {
     }
 
     @Bean
-    GroupApi groupApi(GroupSpi groupSpi, GroupRightSpi groupRightSpi, AuthenticationSpi authenticationSpi) {
-        return new GroupDomainService(groupSpi, groupRightSpi, authenticationSpi);
+    CheckRightTools checkRightTools(GroupRightSpi groupRightSpi) {
+        return new CheckRightTools(groupRightSpi);
+    }
+
+    @Bean
+    GroupApi groupApi(GroupSpi groupSpi, GroupRightSpi groupRightSpi, AuthenticationSpi authenticationSpi, CheckRightTools checkRightTools) {
+        return new GroupDomainService(groupSpi, groupRightSpi, authenticationSpi, checkRightTools);
     }
 }

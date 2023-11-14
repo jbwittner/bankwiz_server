@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.openapi.model.UserGroupRightDTO;
+import fr.bankwiz.openapi.model.UserGroupRightEnum;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -53,7 +54,10 @@ public final class GroupRightTransformer {
 
     public static UserGroupRightDTO toGroupDetailsDTO(final GroupRight groupRight) {
         final UserDTO userDTO = UserTransformer.toUserDTO(groupRight.getUser());
-        return new UserGroupRightDTO(groupRight.getGroupRightId(), userDTO);
+        final UserGroupRightDTO userGroupRightDTO = new UserGroupRightDTO(groupRight.getGroupRightId(), userDTO);
+        final UserGroupRightEnum userGroupRightEnum = UserGroupRightEnum.fromValue(groupRight.getGroupRightEnum().name());
+        userGroupRightDTO.setRight(userGroupRightEnum);
+        return userGroupRightDTO;
     }
 
     public static List<UserGroupRightDTO> toGroupDetailsDTO(final List<GroupRight> groupRights) {
