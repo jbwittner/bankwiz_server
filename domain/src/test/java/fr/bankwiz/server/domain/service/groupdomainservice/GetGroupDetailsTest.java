@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserNoReadRightException;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupDetails;
@@ -63,6 +64,13 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
                         groupRight1, groupDetails.getGroupRights().get(0)),
                 () -> Assertions.assertEquals(
                         groupRight2, groupDetails.getGroupRights().get(1)));
+    }
+
+    @Test
+    void groupNotExist() {
+        final UUID uuid = UUID.randomUUID();
+        this.mockGroupSpi.mockFindById(uuid, Optional.empty());
+        Assertions.assertThrows(GroupNotExistException.class, () -> this.groupDomainService.getGroupDetails(uuid));
     }
 
     @Test

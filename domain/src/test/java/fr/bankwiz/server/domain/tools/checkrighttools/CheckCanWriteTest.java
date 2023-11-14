@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -15,7 +16,7 @@ import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
 
-class IsAdminTest extends DomainUnitTestBase {
+class CheckCanWriteTest extends DomainUnitTestBase {
 
     private CheckRightTools checkRightTools;
 
@@ -33,29 +34,27 @@ class IsAdminTest extends DomainUnitTestBase {
 
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
 
-        final Boolean result = this.checkRightTools.isAdmin(user, group);
-        Assertions.assertFalse(result);
+        Assertions.assertThrows(UserNoWriteRightException.class, () -> this.checkRightTools.checkCanWrite(user, group));
     }
 
     @Test
-    void isAdmin() {
+    void canNotWrite() {
         final User user = this.factory.getUser();
         final Group group = this.factory.getGroup();
 
         final List<GroupRight> groupRights = new ArrayList<>();
-        groupRights.add(this.factory.getGroupRight(group, user, GroupRightEnum.ADMIN));
+        groupRights.add(this.factory.getGroupRight(group, user, GroupRightEnum.READ));
 
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
 
-        final Boolean result = this.checkRightTools.isAdmin(user, group);
-        Assertions.assertTrue(result);
+        Assertions.assertThrows(UserNoWriteRightException.class, () -> this.checkRightTools.checkCanWrite(user, group));
     }
 
     @ParameterizedTest
     @EnumSource(
             value = GroupRightEnum.class,
-            names = {"READ", "WRITE"})
-    void isNotAdmin(final GroupRightEnum right) {
+            names = {"ADMIN", "WRITE"})
+    void canWrite(final GroupRightEnum right) {
         final User user = this.factory.getUser();
         final Group group = this.factory.getGroup();
 
@@ -64,7 +63,6 @@ class IsAdminTest extends DomainUnitTestBase {
 
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
 
-        final Boolean result = this.checkRightTools.isAdmin(user, group);
-        Assertions.assertFalse(result);
+        Assertions.assertDoesNotThrow(() -> this.checkRightTools.checkCanWrite(user, group));
     }
 }

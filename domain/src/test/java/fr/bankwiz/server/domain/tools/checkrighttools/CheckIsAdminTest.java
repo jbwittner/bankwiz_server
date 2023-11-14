@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import fr.bankwiz.server.domain.exception.UserNotAdminException;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -15,7 +16,7 @@ import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
 
-class IsAdminTest extends DomainUnitTestBase {
+class CheckIsAdminTest extends DomainUnitTestBase {
 
     private CheckRightTools checkRightTools;
 
@@ -33,8 +34,7 @@ class IsAdminTest extends DomainUnitTestBase {
 
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
 
-        final Boolean result = this.checkRightTools.isAdmin(user, group);
-        Assertions.assertFalse(result);
+        Assertions.assertThrows(UserNotAdminException.class, () -> this.checkRightTools.checkIsAdmin(user, group));
     }
 
     @Test
@@ -47,8 +47,7 @@ class IsAdminTest extends DomainUnitTestBase {
 
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
 
-        final Boolean result = this.checkRightTools.isAdmin(user, group);
-        Assertions.assertTrue(result);
+        Assertions.assertDoesNotThrow(() -> this.checkRightTools.checkIsAdmin(user, group));
     }
 
     @ParameterizedTest
@@ -64,7 +63,6 @@ class IsAdminTest extends DomainUnitTestBase {
 
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
 
-        final Boolean result = this.checkRightTools.isAdmin(user, group);
-        Assertions.assertFalse(result);
+        Assertions.assertThrows(UserNotAdminException.class, () -> this.checkRightTools.checkIsAdmin(user, group));
     }
 }
