@@ -36,3 +36,11 @@ sonar:
 .PHONY: docker-build
 docker-build:
 	docker build --secret id=USER_GITHUB_LOGIN --secret id=USER_GITHUB_KEY -t bankwiz_server .
+
+.PHONY: http-coverage-domain
+http-coverage-domain:
+	python3 -m http.server 8001 -d domain/target/site/jacoco
+
+.PHONY: http-coverage-infrastructure
+http-coverage-infrastructure:
+	python3 -m http.server 8002 -d infrastructure/target/site/jacoco
