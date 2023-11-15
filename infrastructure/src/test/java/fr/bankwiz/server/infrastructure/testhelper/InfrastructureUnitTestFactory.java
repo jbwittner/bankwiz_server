@@ -79,6 +79,11 @@ public class InfrastructureUnitTestFactory {
         return this.getGroupRightEntity(this.getGroupEntity(), userEntity, groupRightEntityEnum);
     }
 
+    public GroupRightEntity getGroupRightEntity(
+            final GroupEntity groupEntity, final GroupRightEntityEnum groupRightEntityEnum) {
+        return this.getGroupRightEntity(groupEntity, this.getUserEntity(), groupRightEntityEnum);
+    }
+
     public GroupRightEntity getGroupRightEntity(final GroupRightEntityEnum groupRightEntityEnum) {
         return this.getGroupRightEntity(this.getGroupEntity(), this.getUserEntity(), groupRightEntityEnum);
     }

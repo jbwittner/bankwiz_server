@@ -10,6 +10,7 @@ import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.input.GroupCreationInput;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
+import fr.bankwiz.server.domain.tools.CheckRightTools;
 
 class GroupCreationTest extends DomainUnitTestBase {
 
@@ -17,8 +18,12 @@ class GroupCreationTest extends DomainUnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {
+        final CheckRightTools checkRightTools = new CheckRightTools(this.mockGroupRightSpi.getMock());
         this.groupDomainService = new GroupDomainService(
-                this.mockGroupSpi.getMock(), this.mockGroupRightSpi.getMock(), this.mockAuthenticationSpi.getMock());
+                this.mockGroupSpi.getMock(),
+                this.mockGroupRightSpi.getMock(),
+                this.mockAuthenticationSpi.getMock(),
+                checkRightTools);
     }
 
     @Test
