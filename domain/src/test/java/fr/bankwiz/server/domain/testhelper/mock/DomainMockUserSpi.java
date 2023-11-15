@@ -1,6 +1,7 @@
 package fr.bankwiz.server.domain.testhelper.mock;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
@@ -16,6 +17,11 @@ public class DomainMockUserSpi extends DomainMockHelper<UserSpi> {
 
     public DomainMockUserSpi mockFindByAuthId(final String authId, final Optional<User> optionalUser) {
         Mockito.when(this.mock.findByAuthId(authId)).thenReturn(optionalUser);
+        return this;
+    }
+
+    public DomainMockUserSpi mockFindById(final UUID id, final Optional<User> optionalUser) {
+        Mockito.when(this.mock.findById(id)).thenReturn(optionalUser);
         return this;
     }
 
