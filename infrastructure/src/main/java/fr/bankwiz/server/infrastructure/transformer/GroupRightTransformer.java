@@ -52,7 +52,7 @@ public final class GroupRightTransformer {
                 .toList();
     }
 
-    public static UserGroupRightDTO toGroupDetailsDTO(final GroupRight groupRight) {
+    public static UserGroupRightDTO toGroupRightDTO(final GroupRight groupRight) {
         final UserDTO userDTO = UserTransformer.toUserDTO(groupRight.getUser());
         final UserGroupRightEnum userGroupRightEnum =
                 UserGroupRightEnum.fromValue(groupRight.getGroupRightEnum().name());
@@ -60,9 +60,7 @@ public final class GroupRightTransformer {
         return new UserGroupRightDTO(groupRight.getGroupRightId(), userDTO, userGroupRightEnum);
     }
 
-    public static List<UserGroupRightDTO> toGroupDetailsDTO(final List<GroupRight> groupRights) {
-        return groupRights.stream()
-                .map(GroupRightTransformer::toGroupDetailsDTO)
-                .toList();
+    public static List<UserGroupRightDTO> toGroupRightDTO(final List<GroupRight> groupRights) {
+        return groupRights.stream().map(GroupRightTransformer::toGroupRightDTO).toList();
     }
 }
