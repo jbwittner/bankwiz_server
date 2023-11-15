@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupDetails;
+import fr.bankwiz.server.domain.model.data.GroupRight;
+import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
 import fr.bankwiz.server.domain.model.input.GroupCreationInput;
 
 public interface GroupApi {
@@ -13,4 +15,6 @@ public interface GroupApi {
     List<Group> getUserGroups();
 
     GroupDetails getGroupDetails(UUID groupId);
+
+    GroupRight addUserToGroup(UUID groupId, AddUserGroupInput addUserGroupInput);
 }

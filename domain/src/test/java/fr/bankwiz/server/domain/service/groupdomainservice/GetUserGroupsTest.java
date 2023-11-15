@@ -24,6 +24,7 @@ class GetUserGroupsTest extends DomainUnitTestBase {
         this.groupDomainService = new GroupDomainService(
                 this.mockGroupSpi.getMock(),
                 this.mockGroupRightSpi.getMock(),
+                this.mockUserSpi.getMock(),
                 this.mockAuthenticationSpi.getMock(),
                 checkRightTools);
     }

@@ -30,8 +30,9 @@ public class DomainConfiguration {
     GroupApi groupApi(
             GroupSpi groupSpi,
             GroupRightSpi groupRightSpi,
+            UserSpi userSpi,
             AuthenticationSpi authenticationSpi,
             CheckRightTools checkRightTools) {
-        return new GroupDomainService(groupSpi, groupRightSpi, authenticationSpi, checkRightTools);
+        return new GroupDomainService(groupSpi, groupRightSpi, userSpi, authenticationSpi, checkRightTools);
     }
 }

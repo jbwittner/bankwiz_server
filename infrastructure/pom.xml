@@ -11,7 +11,7 @@
     <name>Bankwiz Server - Infrastructure</name>
     <description>Infrastructure layer of Bankwiz application</description>
     <properties>
-        <bankwiz.openapi.version>0.5.0</bankwiz.openapi.version>
+        <bankwiz.openapi.version>0.6.2</bankwiz.openapi.version>
         <sonar.projectKey>jbwittner_bankwiz_server_infrastructure</sonar.projectKey>
     </properties>
     <!-- Core -->
