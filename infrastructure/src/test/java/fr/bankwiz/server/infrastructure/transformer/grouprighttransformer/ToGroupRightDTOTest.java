@@ -15,7 +15,7 @@ import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
 import fr.bankwiz.server.infrastructure.transformer.GroupRightTransformer;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 
-class ToGroupDetailsDTOTest extends InfrastructureUnitTestBase {
+class ToGroupRightDTOTest extends InfrastructureUnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {}
