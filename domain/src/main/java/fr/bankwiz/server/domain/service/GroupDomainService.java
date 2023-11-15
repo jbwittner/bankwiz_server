@@ -78,7 +78,9 @@ public class GroupDomainService implements GroupApi {
     @Override
     public GroupRight addUserToGroup(UUID groupId, AddUserGroupInput addUserGroupInput) {
         final Group group = this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
-        final User user = this.userSpi.findById(addUserGroupInput.getUserId()).orElseThrow(() -> new UserNotExistException(addUserGroupInput.getUserId()));
+        final User user = this.userSpi
+                .findById(addUserGroupInput.getUserId())
+                .orElseThrow(() -> new UserNotExistException(addUserGroupInput.getUserId()));
 
         this.checkRightTools.isAdmin(this.authenticationSpi.getCurrentUser(), group);
         final GroupRight groupRight = GroupRight.builder()

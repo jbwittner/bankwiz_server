@@ -10,5 +10,5 @@ import lombok.Getter;
 @Getter
 public class AddUserGroupInput {
     private UUID userId;
-   private GroupRightEnum right;
+    private GroupRightEnum right;
 }
