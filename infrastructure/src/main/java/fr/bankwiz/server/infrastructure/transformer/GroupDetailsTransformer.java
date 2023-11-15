@@ -14,7 +14,7 @@ public class GroupDetailsTransformer {
     public static GroupDetailsDTO toGroupDetailsDTO(final GroupDetails groupDetails) {
         final Group group = groupDetails.getGroup();
         final List<UserGroupRightDTO> userGroupRightDTOs =
-                GroupRightTransformer.toGroupDetailsDTO(groupDetails.getGroupRights());
+                GroupRightTransformer.toGroupRightDTO(groupDetails.getGroupRights());
         return new GroupDetailsDTO(group.getGroupId(), group.getGroupName(), userGroupRightDTOs);
     }
 }

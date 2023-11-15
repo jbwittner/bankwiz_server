@@ -6,31 +6,37 @@ import java.util.UUID;
 
 import fr.bankwiz.server.domain.api.GroupApi;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
+import fr.bankwiz.server.domain.exception.UserNotExistException;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupDetails;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
 import fr.bankwiz.server.domain.model.input.GroupCreationInput;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.domain.spi.GroupSpi;
+import fr.bankwiz.server.domain.spi.UserSpi;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
 
 public class GroupDomainService implements GroupApi {
 
     private final GroupSpi groupSpi;
     private final GroupRightSpi groupRightSpi;
+    private final UserSpi userSpi;
     private final AuthenticationSpi authenticationSpi;
     private final CheckRightTools checkRightTools;
 
     public GroupDomainService(
             GroupSpi groupSpi,
             GroupRightSpi groupRightSpi,
+            UserSpi userSpi,
             AuthenticationSpi authenticationSpi,
             CheckRightTools checkRightTools) {
         this.groupSpi = groupSpi;
         this.groupRightSpi = groupRightSpi;
+        this.userSpi = userSpi;
         this.authenticationSpi = authenticationSpi;
         this.checkRightTools = checkRightTools;
     }
@@ -67,5 +73,22 @@ public class GroupDomainService implements GroupApi {
         this.checkRightTools.checkCanRead(this.authenticationSpi.getCurrentUser(), group);
         final List<GroupRight> groupRights = this.groupRightSpi.findByGroup(group);
         return GroupDetails.builder().group(group).groupRights(groupRights).build();
+    }
+
+    @Override
+    public GroupRight addUserToGroup(UUID groupId, AddUserGroupInput addUserGroupInput) {
+        final Group group = this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+        final User user = this.userSpi
+                .findById(addUserGroupInput.getUserId())
+                .orElseThrow(() -> new UserNotExistException(addUserGroupInput.getUserId()));
+
+        this.checkRightTools.isAdmin(this.authenticationSpi.getCurrentUser(), group);
+        final GroupRight groupRight = GroupRight.builder()
+                .group(group)
+                .user(user)
+                .groupRightId(UUID.randomUUID())
+                .groupRightEnum(addUserGroupInput.getRight())
+                .build();
+        return this.groupRightSpi.save(groupRight);
     }
 }

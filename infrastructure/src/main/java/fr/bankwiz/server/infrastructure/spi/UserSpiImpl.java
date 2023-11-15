@@ -1,6 +1,7 @@
 package fr.bankwiz.server.infrastructure.spi;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
@@ -37,5 +38,18 @@ public class UserSpiImpl implements UserSpi {
         final UserEntity userEntityToSave = UserTransformer.toUserEntity(user);
         final UserEntity userEntitySaved = this.userEntityRepository.save(userEntityToSave);
         return UserTransformer.fromUserEntity(userEntitySaved);
+    }
+
+    @Override
+    public Optional<User> findById(UUID id) {
+        final Optional<UserEntity> optionalUserEntity = this.userEntityRepository.findById(id);
+
+        if (optionalUserEntity.isEmpty()) {
+            return Optional.empty();
+        }
+
+        final UserEntity userEntity = optionalUserEntity.get();
+        final User user = UserTransformer.fromUserEntity(userEntity);
+        return Optional.of(user);
     }
 }

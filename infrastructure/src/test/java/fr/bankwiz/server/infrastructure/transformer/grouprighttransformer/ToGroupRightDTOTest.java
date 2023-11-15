@@ -15,7 +15,7 @@ import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
 import fr.bankwiz.server.infrastructure.transformer.GroupRightTransformer;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 
-class ToGroupDetailsDTOTest extends InfrastructureUnitTestBase {
+class ToGroupRightDTOTest extends InfrastructureUnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {}
@@ -35,7 +35,7 @@ class ToGroupDetailsDTOTest extends InfrastructureUnitTestBase {
     @Test
     void ok() {
         final GroupRight groupRight = this.factory.getGroupRight(GroupRightEnum.WRITE);
-        final UserGroupRightDTO userGroupDetailsDTO = GroupRightTransformer.toGroupDetailsDTO(groupRight);
+        final UserGroupRightDTO userGroupDetailsDTO = GroupRightTransformer.toGroupRightDTO(groupRight);
         this.checkData(groupRight, userGroupDetailsDTO);
     }
 
@@ -46,7 +46,7 @@ class ToGroupDetailsDTOTest extends InfrastructureUnitTestBase {
         groupRights.add(this.factory.getGroupRight(GroupRightEnum.ADMIN));
         groupRights.add(this.factory.getGroupRight(GroupRightEnum.READ));
 
-        final List<UserGroupRightDTO> userGroupDetailsDTOs = GroupRightTransformer.toGroupDetailsDTO(groupRights);
+        final List<UserGroupRightDTO> userGroupDetailsDTOs = GroupRightTransformer.toGroupRightDTO(groupRights);
 
         Assertions.assertEquals(groupRights.size(), userGroupDetailsDTOs.size());
 
