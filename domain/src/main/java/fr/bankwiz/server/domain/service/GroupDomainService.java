@@ -106,10 +106,8 @@ public class GroupDomainService implements GroupApi {
 
         this.checkRightTools.checkIsAdmin(this.authenticationSpi.getCurrentUser(), group);
 
-        final User userToRemove = this.userSpi
-                .findById(userId)
-                .orElseThrow(() -> new UserNotExistException(userId));
-        
+        final User userToRemove = this.userSpi.findById(userId).orElseThrow(() -> new UserNotExistException(userId));
+
         if (!this.checkRightTools.hasAnyRight(userToRemove, group)) {
             throw new UserNoAccessGroupException(userToRemove, group);
         }

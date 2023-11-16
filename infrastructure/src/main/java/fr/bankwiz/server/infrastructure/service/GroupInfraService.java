@@ -43,7 +43,7 @@ public class GroupInfraService {
     }
 
     @Transactional
-    public void deleteUserFromGroup(UUID groupId, UUID userId){
+    public void deleteUserFromGroup(UUID groupId, UUID userId) {
         this.groupApi.deleteUserFromGroup(groupId, userId);
     }
 }
