@@ -38,7 +38,7 @@ public class GroupInfraService {
     }
 
     @Transactional
-    public GroupRight addUserGroup(UUID id, AddUserGroupInput addUserGroupInput) {
-        return this.groupApi.addUserToGroup(id, addUserGroupInput);
+    public GroupRight addUserGroup(UUID groupId, AddUserGroupInput addUserGroupInput) {
+        return this.groupApi.addUserToGroup(groupId, addUserGroupInput);
     }
 }

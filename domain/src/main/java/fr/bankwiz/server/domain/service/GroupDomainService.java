@@ -98,4 +98,19 @@ public class GroupDomainService implements GroupApi {
                 .build();
         return this.groupRightSpi.save(groupRight);
     }
+
+    @Override
+    public void deleteUserFromGroup(UUID groupId, UUID userId) {
+        final Group group = this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+
+        this.checkRightTools.checkIsAdmin(this.authenticationSpi.getCurrentUser(), group);
+
+        final User userToRemove = this.userSpi
+                .findById(userId)
+                .orElseThrow(() -> new UserNotExistException(userId));
+        
+        if (!this.checkRightTools.hasAnyRight(userToRemove, group)) {
+            throw new UserAlreadyAccessGroupException(userToRemove, group);
+        }
+    }
 }
