@@ -21,7 +21,7 @@ import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
 
-public class DeleteUserFromGroupTest extends DomainUnitTestBase {
+class DeleteUserFromGroupTest extends DomainUnitTestBase {
 
     private GroupDomainService groupDomainService;
 
