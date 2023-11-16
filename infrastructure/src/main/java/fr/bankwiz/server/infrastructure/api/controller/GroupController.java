@@ -58,13 +58,19 @@ public class GroupController implements GroupApi {
     }
 
     @Override
-    public ResponseEntity<UserGroupRightDTO> addUserGroup(UUID id, AddUserGroupRequest addUserGroupRequest) {
+    public ResponseEntity<UserGroupRightDTO> addUserGroup(UUID groupId, AddUserGroupRequest addUserGroupRequest) {
         final AddUserGroupInput addUserGroupInput = AddUserGroupInput.builder()
                 .userId(addUserGroupRequest.getUserId())
                 .right(GroupRightEnum.valueOf(addUserGroupRequest.getRight().name()))
                 .build();
-        final GroupRight groupRight = this.groupInfraService.addUserGroup(id, addUserGroupInput);
+        final GroupRight groupRight = this.groupInfraService.addUserGroup(groupId, addUserGroupInput);
         final UserGroupRightDTO userGroupRightDTO = GroupRightTransformer.toGroupRightDTO(groupRight);
         return new ResponseEntity<>(userGroupRightDTO, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteUserFromGroup(UUID groupId, UUID userId) {
+        this.groupInfraService.deleteUserFromGroup(groupId, userId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

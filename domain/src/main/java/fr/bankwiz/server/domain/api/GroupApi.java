@@ -17,4 +17,6 @@ public interface GroupApi {
     GroupDetails getGroupDetails(UUID groupId);
 
     GroupRight addUserToGroup(UUID groupId, AddUserGroupInput addUserGroupInput);
+
+    void deleteUserFromGroup(UUID groupId, UUID userId);
 }

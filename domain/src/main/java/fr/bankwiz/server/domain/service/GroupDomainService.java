@@ -7,6 +7,7 @@ import java.util.UUID;
 import fr.bankwiz.server.domain.api.GroupApi;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserAlreadyAccessGroupException;
+import fr.bankwiz.server.domain.exception.UserNoAccessGroupException;
 import fr.bankwiz.server.domain.exception.UserNotExistException;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupDetails;
@@ -97,5 +98,20 @@ public class GroupDomainService implements GroupApi {
                 .groupRightEnum(addUserGroupInput.getRight())
                 .build();
         return this.groupRightSpi.save(groupRight);
+    }
+
+    @Override
+    public void deleteUserFromGroup(UUID groupId, UUID userId) {
+        final Group group = this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+
+        this.checkRightTools.checkIsAdmin(this.authenticationSpi.getCurrentUser(), group);
+
+        final User userToRemove = this.userSpi.findById(userId).orElseThrow(() -> new UserNotExistException(userId));
+
+        if (!this.checkRightTools.hasAnyRight(userToRemove, group)) {
+            throw new UserNoAccessGroupException(userToRemove, group);
+        }
+
+        this.groupRightSpi.deleteByGroupEntityAndUserEntity(group, userToRemove);
     }
 }

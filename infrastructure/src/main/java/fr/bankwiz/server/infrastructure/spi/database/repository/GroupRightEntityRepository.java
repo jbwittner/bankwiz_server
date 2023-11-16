@@ -13,4 +13,6 @@ public interface GroupRightEntityRepository extends JpaRepository<GroupRightEnti
     List<GroupRightEntity> findByUserEntity(UserEntity userEntity);
 
     List<GroupRightEntity> findByGroupEntity(GroupEntity groupEntity);
+
+    void deleteByGroupEntityAndUserEntity(GroupEntity groupEntity, UserEntity userEntity);
 }

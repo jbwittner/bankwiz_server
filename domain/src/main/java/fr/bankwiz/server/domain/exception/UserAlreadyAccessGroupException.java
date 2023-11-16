@@ -9,6 +9,6 @@ public class UserAlreadyAccessGroupException extends FunctionalException {
 
     public UserAlreadyAccessGroupException(final User user, final Group group) {
         super(MessageFormat.format(
-                "The user {0} have already access of the group {1}", user.getUserId(), group.getGroupId()));
+                "The user {0} already has access to group {1}", user.getUserId(), group.getGroupId()));
     }
 }

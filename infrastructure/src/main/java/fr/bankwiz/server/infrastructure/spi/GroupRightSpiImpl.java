@@ -46,4 +46,11 @@ public class GroupRightSpiImpl implements GroupRightSpi {
                 this.groupRightEntityRepository.findByGroupEntity(groupEntity);
         return GroupRightTransformer.fromGroupRightEntity(groupRightEntities);
     }
+
+    @Override
+    public void deleteByGroupEntityAndUserEntity(Group group, User user) {
+        final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
+        final UserEntity userEntity = UserTransformer.toUserEntity(user);
+        this.groupRightEntityRepository.deleteByGroupEntityAndUserEntity(groupEntity, userEntity);
+    }
 }
