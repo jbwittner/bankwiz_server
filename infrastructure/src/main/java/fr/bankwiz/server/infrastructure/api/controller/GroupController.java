@@ -70,6 +70,7 @@ public class GroupController implements GroupApi {
 
     @Override
     public ResponseEntity<Void> deleteUserFromGroup(UUID groupId, UUID userId) {
-        return GroupApi.super.deleteUserFromGroup(groupId, userId);
+        this.groupInfraService.deleteUserFromGroup(groupId, userId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

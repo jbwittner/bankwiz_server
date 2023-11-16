@@ -41,4 +41,9 @@ public class GroupInfraService {
     public GroupRight addUserGroup(UUID groupId, AddUserGroupInput addUserGroupInput) {
         return this.groupApi.addUserToGroup(groupId, addUserGroupInput);
     }
+
+    @Transactional
+    public void deleteUserFromGroup(UUID groupId, UUID userId){
+        this.groupApi.deleteUserFromGroup(groupId, userId);
+    }
 }
