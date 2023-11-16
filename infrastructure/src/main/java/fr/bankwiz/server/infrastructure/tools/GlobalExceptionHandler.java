@@ -37,8 +37,6 @@ public class GlobalExceptionHandler {
                     "HANDLING - UnknownException : {} / message : {} / in : {}",
                     ex.getClass().getSimpleName(),
                     ex.getMessage(),
-
-                    
                     stackTraceElementList[0]);
             throw ex;
         }
