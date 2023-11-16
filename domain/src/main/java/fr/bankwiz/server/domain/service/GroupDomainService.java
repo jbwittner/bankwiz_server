@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import fr.bankwiz.server.domain.api.GroupApi;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
+import fr.bankwiz.server.domain.exception.UserAlreadyAccessGroupException;
 import fr.bankwiz.server.domain.exception.UserNotExistException;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupDetails;
@@ -78,14 +79,20 @@ public class GroupDomainService implements GroupApi {
     @Override
     public GroupRight addUserToGroup(UUID groupId, AddUserGroupInput addUserGroupInput) {
         final Group group = this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
-        final User user = this.userSpi
+
+        this.checkRightTools.checkIsAdmin(this.authenticationSpi.getCurrentUser(), group);
+
+        final User userToAdd = this.userSpi
                 .findById(addUserGroupInput.getUserId())
                 .orElseThrow(() -> new UserNotExistException(addUserGroupInput.getUserId()));
 
-        this.checkRightTools.isAdmin(this.authenticationSpi.getCurrentUser(), group);
+        if (this.checkRightTools.hasAnyRight(userToAdd, group)) {
+            throw new UserAlreadyAccessGroupException(userToAdd, group);
+        }
+
         final GroupRight groupRight = GroupRight.builder()
                 .group(group)
-                .user(user)
+                .user(userToAdd)
                 .groupRightId(UUID.randomUUID())
                 .groupRightEnum(addUserGroupInput.getRight())
                 .build();
