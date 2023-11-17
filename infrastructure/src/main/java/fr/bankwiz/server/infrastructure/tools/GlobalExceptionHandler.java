@@ -115,7 +115,13 @@ public class GlobalExceptionHandler {
         Field[] fields = exception.getClass().getDeclaredFields();
 
         for (Field field : fields) {
+
+            if (field.getName().equals("this$0")) {
+                continue;
+            }
+
             try {
+                field.setAccessible(true);
                 fieldsMap.put(field.getName(), field.get(exception));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
