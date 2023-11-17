@@ -1,9 +1,6 @@
 package fr.bankwiz.server.infrastructure.tools;
 
-import java.lang.reflect.Field;
 import java.time.OffsetDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,13 +58,11 @@ public class GlobalExceptionHandler {
                 exception.getMessage(),
                 stackTraceElementList[0]);
 
-        final var mapAttributs = GlobalExceptionHandler.extractFields(exception);
-
         return new FunctionalExceptionDTO(
                 HttpStatus.BAD_REQUEST.value(),
                 details,
                 exception.getClass().getSimpleName(),
-                mapAttributs,
+                exception.getAttributes(),
                 exception.getMessage(),
                 offsetDateTime);
     }
@@ -108,25 +103,5 @@ public class GlobalExceptionHandler {
                 offsetDateTime,
                 field,
                 objectName);
-    }
-
-    public static Map<String, Object> extractFields(FunctionalException exception) {
-        Map<String, Object> fieldsMap = new HashMap<>();
-        Field[] fields = exception.getClass().getDeclaredFields();
-
-        for (Field field : fields) {
-
-            if (field.getName().equals("this$0")) {
-                continue;
-            }
-
-            try {
-                field.setAccessible(true);
-                fieldsMap.put(field.getName(), field.get(exception));
-            } catch (IllegalAccessException e) {
-                log.error("ERROR", e);
-            }
-        }
-        return fieldsMap;
     }
 }
