@@ -31,8 +31,8 @@ public class GlobalExceptionHandler {
 
         Object result;
 
-        if (ex instanceof FunctionalException) {
-            result = this.manageFunctionalException((FunctionalException) ex, request);
+        if (ex instanceof FunctionalException functionalException) {
+            result = this.manageFunctionalException(functionalException, request);
         } else if (ex instanceof MethodArgumentNotValidException) {
             result = this.manageMethodArgumentNotValidException(ex, request);
         } else {
@@ -124,7 +124,7 @@ public class GlobalExceptionHandler {
                 field.setAccessible(true);
                 fieldsMap.put(field.getName(), field.get(exception));
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                log.error("ERROR", e);
             }
         }
         return fieldsMap;
