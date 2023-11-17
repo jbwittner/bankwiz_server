@@ -46,7 +46,7 @@ class ExtractFieldsTest extends InfrastructureUnitTestBase {
     class TestFunctionalException extends FunctionalException {
 
         private String attributeOne;
-        private String attributeTwo;
+        private final String attributeTwo;
         private TestObject testObject;
 
         protected TestFunctionalException(String attributeOne, String attributeTwo) {
