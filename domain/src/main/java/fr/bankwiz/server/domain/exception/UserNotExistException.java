@@ -7,18 +7,15 @@ import lombok.ToString;
 @ToString
 public class UserNotExistException extends FunctionalException {
 
-    private final String authID;
-    private final UUID userAccountId;
+    private final String id;
 
     public UserNotExistException(final String authId) {
         super("No user with authId : " + authId);
-        this.authID = authId;
-        this.userAccountId = null;
+        this.id = authId;
     }
 
     public UserNotExistException(final UUID userAccountId) {
         super("No user with id : " + userAccountId);
-        this.authID = null;
-        this.userAccountId = userAccountId;
+        this.id = userAccountId.toString();
     }
 }
