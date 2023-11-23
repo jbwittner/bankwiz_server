@@ -117,6 +117,9 @@ public class GroupDomainService implements GroupApi {
 
     @Override
     public void deleteGroup(UUID groupId) {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteGroup'");
+        final Group group = this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+        this.checkRightTools.checkIsAdmin(this.authenticationSpi.getCurrentUser(), group);
+        this.groupRightSpi.deleteAllByGroup(group);
+        this.groupSpi.deleteById(groupId);
     }
 }
