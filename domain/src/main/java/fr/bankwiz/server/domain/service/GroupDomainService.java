@@ -112,6 +112,11 @@ public class GroupDomainService implements GroupApi {
             throw new UserNoAccessGroupException(userToRemove, group);
         }
 
-        this.groupRightSpi.deleteByGroupEntityAndUserEntity(group, userToRemove);
+        this.groupRightSpi.deleteByGroupAndUser(group, userToRemove);
+    }
+
+    @Override
+    public void deleteGroup(UUID groupId) {
+        throw new UnsupportedOperationException("Unimplemented method 'deleteGroup'");
     }
 }

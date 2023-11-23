@@ -54,7 +54,7 @@ class DeleteUserFromGroupTest extends DomainUnitTestBase {
         this.groupDomainService.deleteUserFromGroup(group.getGroupId(), userToRemove.getUserId());
 
         Mockito.verify(this.mockGroupRightSpi.getMock(), Mockito.times(1))
-                .deleteByGroupEntityAndUserEntity(group, userToRemove);
+                .deleteByGroupAndUser(group, userToRemove);
     }
 
     @Test
@@ -79,7 +79,7 @@ class DeleteUserFromGroupTest extends DomainUnitTestBase {
         });
 
         Mockito.verify(this.mockGroupRightSpi.getMock(), Mockito.never())
-                .deleteByGroupEntityAndUserEntity(group, userToRemove);
+                .deleteByGroupAndUser(group, userToRemove);
     }
 
     @Test

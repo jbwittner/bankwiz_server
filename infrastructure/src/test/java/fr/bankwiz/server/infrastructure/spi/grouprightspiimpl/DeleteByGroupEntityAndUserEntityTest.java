@@ -15,7 +15,7 @@ import fr.bankwiz.server.infrastructure.testhelper.mock.repository.GroupRightEnt
 import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 
-class DeleteByGroupEntityAndUserEntityTest extends InfrastructureUnitTestBase {
+class DeleteByGroupAndUserTest extends InfrastructureUnitTestBase {
 
     private GroupRightSpiImpl groupRightSpiImpl;
     private GroupRightEntityRepositoryMockFactory groupRightEntityRepositoryMockFactory;
@@ -37,7 +37,7 @@ class DeleteByGroupEntityAndUserEntityTest extends InfrastructureUnitTestBase {
         ArgumentCaptor<GroupEntity> argumentGroupEntity = ArgumentCaptor.forClass(GroupEntity.class);
         ArgumentCaptor<UserEntity> argumentUserEntity = ArgumentCaptor.forClass(UserEntity.class);
 
-        this.groupRightSpiImpl.deleteByGroupEntityAndUserEntity(group, user);
+        this.groupRightSpiImpl.deleteByGroupAndUser(group, user);
 
         Mockito.verify(this.groupRightEntityRepositoryMockFactory.getRepository())
                 .deleteByGroupEntityAndUserEntity(argumentGroupEntity.capture(), argumentUserEntity.capture());
