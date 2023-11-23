@@ -12,7 +12,7 @@ import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
 import fr.bankwiz.server.infrastructure.testhelper.mock.repository.GroupRightEntityRepositoryMockFactory;
 import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
 
-public class DeleteAllByGroupTest extends InfrastructureUnitTestBase {
+class DeleteAllByGroupTest extends InfrastructureUnitTestBase {
 
     private GroupRightSpiImpl groupRightSpiImpl;
     private GroupRightEntityRepositoryMockFactory groupRightEntityRepositoryMockFactory;
