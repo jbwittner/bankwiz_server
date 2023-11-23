@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
         var stackTraceElementList = exception.getStackTrace();
 
         log.error(
-                "HANDLING - UnknownException : {} / message : {} / in : {}",
+                "HANDLING - FunctionalException : {} / message : {} / in : {}",
                 exception.getClass().getSimpleName(),
                 exception.getMessage(),
                 stackTraceElementList[0]);

@@ -37,4 +37,9 @@ public class GroupSpiImpl implements GroupSpi {
             return Optional.of(group);
         }
     }
+
+    @Override
+    public void deleteById(UUID id) {
+        this.groupEntityRepository.deleteById(id);
+    }
 }

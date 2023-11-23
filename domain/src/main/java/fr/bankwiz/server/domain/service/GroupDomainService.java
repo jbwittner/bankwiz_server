@@ -112,6 +112,14 @@ public class GroupDomainService implements GroupApi {
             throw new UserNoAccessGroupException(userToRemove, group);
         }
 
-        this.groupRightSpi.deleteByGroupEntityAndUserEntity(group, userToRemove);
+        this.groupRightSpi.deleteByGroupAndUser(group, userToRemove);
+    }
+
+    @Override
+    public void deleteGroup(UUID groupId) {
+        final Group group = this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+        this.checkRightTools.checkIsAdmin(this.authenticationSpi.getCurrentUser(), group);
+        this.groupRightSpi.deleteAllByGroup(group);
+        this.groupSpi.deleteById(groupId);
     }
 }

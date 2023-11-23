@@ -46,4 +46,9 @@ public class GroupInfraService {
     public void deleteUserFromGroup(UUID groupId, UUID userId) {
         this.groupApi.deleteUserFromGroup(groupId, userId);
     }
+
+    @Transactional
+    public void deleteGroup(UUID groupId) {
+        this.groupApi.deleteGroup(groupId);
+    }
 }

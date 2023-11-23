@@ -13,5 +13,7 @@ public interface GroupRightSpi {
 
     List<GroupRight> findByGroup(Group group);
 
-    void deleteByGroupEntityAndUserEntity(Group group, User user);
+    void deleteByGroupAndUser(Group group, User user);
+
+    void deleteAllByGroup(Group group);
 }

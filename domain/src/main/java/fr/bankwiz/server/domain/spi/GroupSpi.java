@@ -9,4 +9,6 @@ public interface GroupSpi {
     Group save(Group group);
 
     Optional<Group> findById(UUID id);
+
+    void deleteById(UUID id);
 }
