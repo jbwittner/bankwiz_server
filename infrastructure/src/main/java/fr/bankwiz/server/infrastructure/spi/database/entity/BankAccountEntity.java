@@ -8,22 +8,24 @@ import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "BANK_ACCOUNT")
 public class BankAccountEntity extends GroupRelatedEntity {
 
     @Builder
-    public BankAccountEntity(UUID id, GroupEntity groupEntity, String name, Integer baseAmountDecimal) {
+    public BankAccountEntity(UUID id, GroupEntity groupEntity, String bankAccountName, Integer baseAmountDecimal) {
         super(id, groupEntity);
-        this.name = name;
+        this.bankAccountName = bankAccountName;
         this.baseAmountDecimal = baseAmountDecimal;
     }
 
-    @Column(name = "NAME", nullable = false, length = 60)
-    private String name;
+    @Column(name = "BANK_ACCOUNT_NAME", nullable = false, length = 60)
+    private String bankAccountName;
 
     @Column(name = "BASE_AMOUNT", nullable = false)
     private Integer baseAmountDecimal;

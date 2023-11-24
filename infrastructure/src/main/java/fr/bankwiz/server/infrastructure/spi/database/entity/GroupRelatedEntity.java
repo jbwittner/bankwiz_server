@@ -8,8 +8,10 @@ import org.hibernate.annotations.JdbcTypeCode;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
 public abstract class GroupRelatedEntity {
@@ -17,7 +19,7 @@ public abstract class GroupRelatedEntity {
     @Id
     @JdbcTypeCode(Types.VARCHAR)
     @Column(name = "ID", columnDefinition = "varchar(36)", nullable = false, updatable = false, insertable = false)
-    private UUID id;
+    protected UUID id;
 
     @ManyToOne
     @JoinColumn(
