@@ -8,6 +8,8 @@ import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import fr.bankwiz.server.domain.exception.GroupNotExistException;
+import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
@@ -60,5 +62,36 @@ class CreateBankAccountTest extends DomainUnitTestBase {
                 () -> Assertions.assertEquals(bankAccountName, bankAccount.getBankAccountName()),
                 () -> Assertions.assertEquals(group, bankAccount.getGroup()),
                 () -> Assertions.assertEquals(decimalBaseAmount, bankAccount.getDecimalBaseAmount()));
+    }
+
+    @Test
+    void userCantWrite() {
+        final User user = this.factory.getUser();
+        final Group group = this.factory.getGroup();
+        final List<GroupRight> groupRights = new ArrayList<>();
+        groupRights.add(this.factory.getGroupRight(user, GroupRightEnum.READ));
+
+        this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));
+        this.mockAuthenticationSpi.mockGetCurrentUser(user);
+        this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
+
+        final UUID groupId = group.getId();
+
+        final BankAccountCreationInput bankAccountCreationInput =
+                BankAccountCreationInput.builder().groupId(groupId).build();
+
+        Assertions.assertThrows(
+                UserNoWriteRightException.class,
+                () -> this.bankAccountService.createBankAccount(bankAccountCreationInput));
+    }
+
+    @Test
+    void groupNotExist() {
+        final BankAccountCreationInput bankAccountCreationInput =
+                BankAccountCreationInput.builder().groupId(UUID.randomUUID()).build();
+
+        Assertions.assertThrows(
+                GroupNotExistException.class,
+                () -> this.bankAccountService.createBankAccount(bankAccountCreationInput));
     }
 }

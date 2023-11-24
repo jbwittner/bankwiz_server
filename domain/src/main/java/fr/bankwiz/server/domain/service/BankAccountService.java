@@ -1,5 +1,7 @@
 package fr.bankwiz.server.domain.service;
 
+import java.util.UUID;
+
 import fr.bankwiz.server.domain.api.BankAccountApi;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.model.data.BankAccount;
@@ -41,6 +43,7 @@ public class BankAccountService implements BankAccountApi {
                 .bankAccountName(bankAccountCreationInput.getBankAccountName())
                 .decimalBaseAmount(bankAccountCreationInput.getDecimalBaseAmount())
                 .group(group)
+                .id(UUID.randomUUID())
                 .build();
 
         return this.bankAccountSpi.save(bankAccount);
