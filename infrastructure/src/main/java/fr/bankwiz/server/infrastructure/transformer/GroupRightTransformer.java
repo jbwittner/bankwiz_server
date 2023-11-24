@@ -24,7 +24,7 @@ public final class GroupRightTransformer {
         final Group group = GroupTransformer.fromGroupEntity(groupRightEntity.getGroupEntity());
 
         return GroupRight.builder()
-                .groupRightId(groupRightEntity.getId())
+                .id(groupRightEntity.getId())
                 .groupRightEnum(GroupRightEnum.valueOf(
                         groupRightEntity.getGroupRightEntityEnum().name()))
                 .user(user)
@@ -39,7 +39,7 @@ public final class GroupRightTransformer {
 
         return GroupRightEntity.builder()
                 .groupEntity(groupEntity)
-                .id(groupRight.getGroupRightId())
+                .id(groupRight.getId())
                 .groupRightEntityEnum(GroupRightEntityEnum.valueOf(
                         groupRight.getGroupRightEnum().name()))
                 .userEntity(userEntity)
@@ -57,7 +57,7 @@ public final class GroupRightTransformer {
         final UserGroupRightEnum userGroupRightEnum =
                 UserGroupRightEnum.fromValue(groupRight.getGroupRightEnum().name());
 
-        return new UserGroupRightDTO(groupRight.getGroupRightId(), userDTO, userGroupRightEnum);
+        return new UserGroupRightDTO(groupRight.getId(), userDTO, userGroupRightEnum);
     }
 
     public static List<UserGroupRightDTO> toGroupRightDTO(final List<GroupRight> groupRights) {

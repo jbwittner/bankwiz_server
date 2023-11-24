@@ -22,7 +22,7 @@ class ToGroupRightDTOTest extends InfrastructureUnitTestBase {
 
     void checkData(GroupRight groupRight, UserGroupRightDTO userGroupDetailsDTO) {
         Assertions.assertAll(
-                () -> Assertions.assertEquals(groupRight.getGroupRightId(), userGroupDetailsDTO.getId()),
+                () -> Assertions.assertEquals(groupRight.getId(), userGroupDetailsDTO.getId()),
                 () -> Assertions.assertEquals(
                         groupRight.getGroupRightEnum().name(),
                         userGroupDetailsDTO.getRight().name()),
@@ -52,7 +52,7 @@ class ToGroupRightDTOTest extends InfrastructureUnitTestBase {
 
         userGroupDetailsDTOs.stream().forEach(detailDTO -> {
             final Optional<GroupRight> optional = groupRights.stream()
-                    .filter(groupRight -> groupRight.getGroupRightId().equals(detailDTO.getId()))
+                    .filter(groupRight -> groupRight.getId().equals(detailDTO.getId()))
                     .findAny();
             if (optional.isEmpty()) {
                 Assertions.fail();

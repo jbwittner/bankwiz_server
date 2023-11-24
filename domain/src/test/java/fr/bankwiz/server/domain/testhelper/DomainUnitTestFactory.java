@@ -31,20 +31,20 @@ public class DomainUnitTestFactory {
         return User.builder()
                 .authId(this.getAuthId())
                 .email(this.domainFaker.internet().emailAddress())
-                .userId(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .build();
     }
 
     public Group getGroup() {
         return Group.builder()
-                .groupId(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .groupName(this.domainFaker.space().galaxy())
                 .build();
     }
 
     public GroupRight getGroupRight(final Group group, final User user, final GroupRightEnum groupRightEnum) {
         return GroupRight.builder()
-                .groupRightId(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .group(group)
                 .user(user)
                 .groupRightEnum(groupRightEnum)
@@ -53,7 +53,7 @@ public class DomainUnitTestFactory {
 
     public GroupRight getGroupRight(final User user, final GroupRightEnum groupRightEnum) {
         return GroupRight.builder()
-                .groupRightId(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .group(this.getGroup())
                 .user(user)
                 .groupRightEnum(groupRightEnum)

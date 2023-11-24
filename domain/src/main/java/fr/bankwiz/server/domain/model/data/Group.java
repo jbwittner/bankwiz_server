@@ -13,6 +13,6 @@ import lombok.ToString;
 @ToString
 public class Group {
 
-    private UUID groupId;
+    private UUID id;
     private String groupName;
 }

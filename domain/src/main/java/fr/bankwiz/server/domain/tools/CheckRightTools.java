@@ -18,13 +18,13 @@ public class CheckRightTools {
 
     public boolean hasRight(final User user, final Group group, final GroupRightEnum right) {
         return this.groupRightSpi.findByGroup(group).stream()
-                .filter(p -> p.getUser().getUserId().equals(user.getUserId()))
+                .filter(p -> p.getUser().getId().equals(user.getId()))
                 .anyMatch(p -> p.getGroupRightEnum().equals(right));
     }
 
     public boolean hasAnyRight(final User user, final Group group) {
         return this.groupRightSpi.findByGroup(group).stream()
-                .anyMatch(p -> p.getUser().getUserId().equals(user.getUserId()));
+                .anyMatch(p -> p.getUser().getId().equals(user.getId()));
     }
 
     public boolean isAdmin(final User user, final Group group) {

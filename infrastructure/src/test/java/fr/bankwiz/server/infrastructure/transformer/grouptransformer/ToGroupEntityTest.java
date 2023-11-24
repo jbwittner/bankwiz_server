@@ -19,6 +19,6 @@ class ToGroupEntityTest extends InfrastructureUnitTestBase {
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
         Assertions.assertAll(
                 () -> Assertions.assertEquals(group.getGroupName(), groupEntity.getGroupName()),
-                () -> Assertions.assertEquals(group.getGroupId(), groupEntity.getId()));
+                () -> Assertions.assertEquals(group.getId(), groupEntity.getId()));
     }
 }

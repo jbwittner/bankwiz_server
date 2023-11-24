@@ -41,7 +41,7 @@ class DeleteGroupTest extends DomainUnitTestBase {
         final User otherUser = this.factory.getUser();
         final Group group = this.factory.getGroup();
 
-        final UUID groupId = group.getGroupId();
+        final UUID groupId = group.getId();
 
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
@@ -64,7 +64,7 @@ class DeleteGroupTest extends DomainUnitTestBase {
         final User otherUser = this.factory.getUser();
         final Group group = this.factory.getGroup();
 
-        final UUID groupId = group.getGroupId();
+        final UUID groupId = group.getId();
 
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, notAdmin, GroupRightEnum.WRITE));

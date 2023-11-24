@@ -36,7 +36,7 @@ class ToGroupDetailsDTOTest extends InfrastructureUnitTestBase {
         final GroupDetailsDTO groupDetailsDTO = GroupDetailsTransformer.toGroupDetailsDTO(groupDetails);
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(groupDetails.getGroup().getGroupId(), groupDetailsDTO.getId()),
+                () -> Assertions.assertEquals(groupDetails.getGroup().getId(), groupDetailsDTO.getId()),
                 () -> Assertions.assertEquals(groupDetails.getGroup().getGroupName(), groupDetailsDTO.getGroupName()),
                 () -> Assertions.assertEquals(
                         groupDetails.getGroupRights().size(),
@@ -44,8 +44,7 @@ class ToGroupDetailsDTOTest extends InfrastructureUnitTestBase {
                 () -> {
                     groupDetailsDTO.getUsersRights().stream().forEach(userGroupRightDTO -> {
                         final Optional<GroupRight> optional = groupRights.stream()
-                                .filter(groupRight ->
-                                        groupRight.getGroupRightId().equals(userGroupRightDTO.getId()))
+                                .filter(groupRight -> groupRight.getId().equals(userGroupRightDTO.getId()))
                                 .findAny();
                         if (optional.isEmpty()) {
                             Assertions.fail();
@@ -53,7 +52,7 @@ class ToGroupDetailsDTOTest extends InfrastructureUnitTestBase {
 
                         final GroupRight groupRight = optional.get();
                         Assertions.assertAll(
-                                () -> Assertions.assertEquals(groupRight.getGroupRightId(), userGroupRightDTO.getId()),
+                                () -> Assertions.assertEquals(groupRight.getId(), userGroupRightDTO.getId()),
                                 () -> Assertions.assertEquals(
                                         groupRight.getGroupRightEnum().name(),
                                         userGroupRightDTO.getRight().name()),

@@ -39,13 +39,13 @@ class CreateBankAccountTest extends DomainUnitTestBase {
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(user, GroupRightEnum.WRITE));
 
-        this.mockGroupSpi.mockFindById(group.getGroupId(), Optional.of(group));
+        this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
         this.mockBankAccountSpi.mockSave();
 
         final String bankAccountName = this.faker.superhero().name();
-        final UUID groupId = group.getGroupId();
+        final UUID groupId = group.getId();
         final Integer decimalBaseAmount = this.faker.random().nextInt(Integer.MAX_VALUE);
 
         final BankAccountCreationInput bankAccountCreationInput = BankAccountCreationInput.builder()
