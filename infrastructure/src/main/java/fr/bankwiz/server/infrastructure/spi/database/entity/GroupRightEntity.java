@@ -30,12 +30,7 @@ public class GroupRightEntity {
 
     @Id
     @JdbcTypeCode(Types.VARCHAR)
-    @Column(
-            name = "GROUP_RIGHT_ID",
-            columnDefinition = "varchar(36)",
-            nullable = false,
-            updatable = false,
-            insertable = false)
+    @Column(name = "ID", columnDefinition = "varchar(36)", nullable = false, updatable = false, insertable = false)
     private UUID groupRightId;
 
     @ManyToOne
