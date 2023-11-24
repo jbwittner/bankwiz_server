@@ -5,11 +5,12 @@ import java.util.UUID;
 
 import org.hibernate.annotations.JdbcTypeCode;
 
-import fr.bankwiz.server.domain.model.data.Group;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-@Data
+@Getter
+@AllArgsConstructor
 @MappedSuperclass
 public abstract class GroupRelatedEntity {
 
@@ -23,5 +24,5 @@ public abstract class GroupRelatedEntity {
             name = "GROUP_ID",
             nullable = false,
             foreignKey = @jakarta.persistence.ForeignKey(name = "FK_GROUPRELATEDENTITY_GROUP"))
-    protected Group group;
+    protected GroupEntity groupEntity;
 }

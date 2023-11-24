@@ -7,13 +7,17 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-@Builder
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @ToString
-public class BankAccount {
-    private UUID id;
+public class BankAccount extends GroupRelated {
     private String bankAccountName;
-    private Group group;
     private Integer decimalBaseAmount;
+
+    @Builder
+    public BankAccount(String bankAccountName, Integer decimalBaseAmount, UUID id, Group group) {
+        super(id, group);
+        this.bankAccountName = bankAccountName;
+        this.decimalBaseAmount = decimalBaseAmount;
+    }
 }
