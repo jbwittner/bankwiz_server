@@ -1,5 +1,6 @@
 package fr.bankwiz.server.infrastructure.transformer;
 
+import fr.bankwiz.openapi.model.BankAccountIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
@@ -27,5 +28,9 @@ public class BankAccountTransformer {
                 .id(bankAccountEntity.getId())
                 .group(group)
                 .build();
+    }
+
+    public static BankAccountIndexDTO toBankAccountIndexDTO(final BankAccount bankAccount) {
+        return new BankAccountIndexDTO(bankAccount.getBankAccountName(), bankAccount.getId());
     }
 }
