@@ -18,7 +18,7 @@ import fr.bankwiz.server.domain.service.BankAccountService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
 
-public class CreateBankAccountTest extends DomainUnitTestBase {
+class CreateBankAccountTest extends DomainUnitTestBase {
 
     private BankAccountService bankAccountService;
 
