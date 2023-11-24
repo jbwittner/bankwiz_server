@@ -19,14 +19,14 @@ public final class GroupTransformer {
 
     public static Group fromGroupEntity(final GroupEntity groupEntity) {
         return Group.builder()
-                .groupId(groupEntity.getGroupId())
+                .groupId(groupEntity.getId())
                 .groupName(groupEntity.getGroupName())
                 .build();
     }
 
     public static GroupEntity toGroupEntity(final Group group) {
         return GroupEntity.builder()
-                .groupId(group.getGroupId())
+                .id(group.getGroupId())
                 .groupName(group.getGroupName())
                 .build();
     }

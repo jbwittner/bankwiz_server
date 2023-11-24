@@ -32,7 +32,7 @@ public class GroupEntity {
             nullable = false,
             updatable = false,
             insertable = false)
-    private UUID groupId;
+    private UUID id;
 
     @Column(name = "GROUP_NAME", nullable = false)
     private String groupName;

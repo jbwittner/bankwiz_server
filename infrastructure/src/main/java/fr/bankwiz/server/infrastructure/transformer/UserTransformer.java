@@ -19,7 +19,7 @@ public final class UserTransformer {
         return User.builder()
                 .authId(userEntity.getAuthId())
                 .email(userEntity.getEmail())
-                .userId(userEntity.getUserId())
+                .userId(userEntity.getId())
                 .build();
     }
 
@@ -27,7 +27,7 @@ public final class UserTransformer {
         return UserEntity.builder()
                 .authId(user.getAuthId())
                 .email(user.getEmail())
-                .userId(user.getUserId())
+                .id(user.getUserId())
                 .build();
     }
 }

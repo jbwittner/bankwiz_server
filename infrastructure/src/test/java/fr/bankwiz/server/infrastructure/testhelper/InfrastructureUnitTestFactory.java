@@ -35,7 +35,7 @@ public class InfrastructureUnitTestFactory {
         return UserEntity.builder()
                 .authId(this.getAuthId())
                 .email(this.infrastructureFaker.internet().emailAddress())
-                .userId(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .build();
     }
 
@@ -49,7 +49,7 @@ public class InfrastructureUnitTestFactory {
     public GroupEntity getGroupEntity() {
         return GroupEntity.builder()
                 .groupName(this.infrastructureFaker.space().star())
-                .groupId(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .build();
     }
 
@@ -67,7 +67,7 @@ public class InfrastructureUnitTestFactory {
             final UserEntity userEntity,
             final GroupRightEntityEnum groupRightEntityEnum) {
         return GroupRightEntity.builder()
-                .groupRightId(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .groupEntity(groupEntity)
                 .userEntity(userEntity)
                 .groupRightEntityEnum(groupRightEntityEnum)

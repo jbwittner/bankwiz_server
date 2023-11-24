@@ -28,7 +28,7 @@ class FindByIdTest extends InfrastructureUnitTestBase {
 
         final UserEntity userEntity = this.factory.getUserEntity();
 
-        final UUID userId = userEntity.getUserId();
+        final UUID userId = userEntity.getId();
 
         this.userEntityRepositoryMockFactory.mockFindById(userId, Optional.of(userEntity));
 
@@ -41,7 +41,7 @@ class FindByIdTest extends InfrastructureUnitTestBase {
         Assertions.assertAll(
                 () -> Assertions.assertEquals(userEntity.getAuthId(), userFind.getAuthId()),
                 () -> Assertions.assertEquals(userEntity.getEmail(), userFind.getEmail()),
-                () -> Assertions.assertEquals(userEntity.getUserId(), userFind.getUserId()));
+                () -> Assertions.assertEquals(userEntity.getId(), userFind.getUserId()));
     }
 
     @Test

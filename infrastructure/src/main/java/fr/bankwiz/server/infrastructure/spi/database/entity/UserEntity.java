@@ -27,7 +27,7 @@ public class UserEntity {
     @Id
     @JdbcTypeCode(Types.VARCHAR)
     @Column(name = "ID", columnDefinition = "varchar(36)", nullable = false, updatable = false, insertable = false)
-    private UUID userId;
+    private UUID id;
 
     @Column(name = "AUTH_ID", nullable = false, updatable = false)
     private String authId;
