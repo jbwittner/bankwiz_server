@@ -26,13 +26,8 @@ public class UserEntity {
 
     @Id
     @JdbcTypeCode(Types.VARCHAR)
-    @Column(
-            name = "USER_ACCOUNT_ID",
-            columnDefinition = "varchar(36)",
-            nullable = false,
-            updatable = false,
-            insertable = false)
-    private UUID userId;
+    @Column(name = "ID", columnDefinition = "varchar(36)", nullable = false, updatable = false, insertable = false)
+    private UUID id;
 
     @Column(name = "AUTH_ID", nullable = false, updatable = false)
     private String authId;

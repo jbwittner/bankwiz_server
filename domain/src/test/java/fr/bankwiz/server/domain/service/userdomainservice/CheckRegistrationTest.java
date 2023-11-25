@@ -47,7 +47,7 @@ class CheckRegistrationTest extends DomainUnitTestBase {
         Assertions.assertNotEquals(userAuthentication.getEmail(), user.getEmail());
 
         final String oldEmail = user.getEmail();
-        final UUID userId = user.getUserId();
+        final UUID userId = user.getId();
 
         this.mockUserSpi
                 .mockFindByAuthId(userAuthentication.getSub(), Optional.of(user))
@@ -60,6 +60,6 @@ class CheckRegistrationTest extends DomainUnitTestBase {
                 () -> Assertions.assertNotEquals(oldEmail, user.getEmail()),
                 () -> Assertions.assertEquals(userAuthentication.getEmail(), user.getEmail()),
                 () -> Assertions.assertEquals(user.getAuthId(), user.getAuthId()),
-                () -> Assertions.assertEquals(0, userId.compareTo(userResult.getUserId())));
+                () -> Assertions.assertEquals(0, userId.compareTo(userResult.getId())));
     }
 }

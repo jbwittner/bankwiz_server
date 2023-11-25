@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class User {
 
-    private UUID userId;
+    private UUID id;
     private String authId;
     private String email;
 

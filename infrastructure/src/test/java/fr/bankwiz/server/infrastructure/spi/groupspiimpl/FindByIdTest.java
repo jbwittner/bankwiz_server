@@ -29,9 +29,9 @@ class FindByIdTest extends InfrastructureUnitTestBase {
         final Group group = this.factory.getGroup();
 
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
-        this.groupEntityRepositoryMockFactory.mockFindById(group.getGroupId(), groupEntity);
+        this.groupEntityRepositoryMockFactory.mockFindById(group.getId(), groupEntity);
 
-        final Optional<Group> optionalGroup = this.groupSpiImpl.findById(group.getGroupId());
+        final Optional<Group> optionalGroup = this.groupSpiImpl.findById(group.getId());
 
         Assertions.assertTrue(optionalGroup.isPresent());
         Assertions.assertEquals(group, optionalGroup.get());

@@ -3,6 +3,7 @@ package fr.bankwiz.server.domain.testhelper;
 import org.junit.jupiter.api.BeforeEach;
 
 import fr.bankwiz.server.domain.testhelper.mock.DomainMockAuthenticationSpi;
+import fr.bankwiz.server.domain.testhelper.mock.DomainMockBankAccountSpi;
 import fr.bankwiz.server.domain.testhelper.mock.DomainMockGroupRightSpi;
 import fr.bankwiz.server.domain.testhelper.mock.DomainMockGroupSpi;
 import fr.bankwiz.server.domain.testhelper.mock.DomainMockUserSpi;
@@ -15,6 +16,7 @@ public abstract class DomainUnitTestBase {
     protected DomainMockUserSpi mockUserSpi;
     protected DomainMockGroupSpi mockGroupSpi;
     protected DomainMockGroupRightSpi mockGroupRightSpi;
+    protected DomainMockBankAccountSpi mockBankAccountSpi;
 
     @BeforeEach
     public void beforeEach() {
@@ -24,6 +26,7 @@ public abstract class DomainUnitTestBase {
         this.mockUserSpi = new DomainMockUserSpi();
         this.mockGroupSpi = new DomainMockGroupSpi();
         this.mockGroupRightSpi = new DomainMockGroupRightSpi();
+        this.mockBankAccountSpi = new DomainMockBankAccountSpi();
         this.initDataBeforeEach();
     }
 

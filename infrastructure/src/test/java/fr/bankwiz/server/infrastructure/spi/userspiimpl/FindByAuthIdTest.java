@@ -40,7 +40,7 @@ class FindByAuthIdTest extends InfrastructureUnitTestBase {
         Assertions.assertAll(
                 () -> Assertions.assertEquals(userEntity.getAuthId(), userFind.getAuthId()),
                 () -> Assertions.assertEquals(userEntity.getEmail(), userFind.getEmail()),
-                () -> Assertions.assertEquals(userEntity.getUserId(), userFind.getUserId()));
+                () -> Assertions.assertEquals(userEntity.getId(), userFind.getId()));
     }
 
     @Test

@@ -44,16 +44,16 @@ class AddUserToGroupTest extends DomainUnitTestBase {
         final User userToAdd = this.factory.getUser();
 
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
-        this.mockGroupSpi.mockFindById(group.getGroupId(), Optional.of(group));
+        this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights).mockSave();
-        this.mockUserSpi.mockFindById(userToAdd.getUserId(), Optional.of(userToAdd));
+        this.mockUserSpi.mockFindById(userToAdd.getId(), Optional.of(userToAdd));
 
         final AddUserGroupInput addUserGroupInput = AddUserGroupInput.builder()
-                .userId(userToAdd.getUserId())
+                .userId(userToAdd.getId())
                 .right(GroupRightEnum.READ)
                 .build();
 
-        final GroupRight groupRight = this.groupDomainService.addUserToGroup(group.getGroupId(), addUserGroupInput);
+        final GroupRight groupRight = this.groupDomainService.addUserToGroup(group.getId(), addUserGroupInput);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(group, groupRight.getGroup()),
@@ -72,16 +72,16 @@ class AddUserToGroupTest extends DomainUnitTestBase {
         groupRights.add(this.factory.getGroupRight(group, userToAdd, GroupRightEnum.READ));
 
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
-        this.mockGroupSpi.mockFindById(group.getGroupId(), Optional.of(group));
+        this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights).mockSave();
-        this.mockUserSpi.mockFindById(userToAdd.getUserId(), Optional.of(userToAdd));
+        this.mockUserSpi.mockFindById(userToAdd.getId(), Optional.of(userToAdd));
 
         final AddUserGroupInput addUserGroupInput = AddUserGroupInput.builder()
-                .userId(userToAdd.getUserId())
+                .userId(userToAdd.getId())
                 .right(GroupRightEnum.WRITE)
                 .build();
 
-        final UUID groupId = group.getGroupId();
+        final UUID groupId = group.getId();
 
         Assertions.assertThrows(UserAlreadyAccessGroupException.class, () -> {
             this.groupDomainService.addUserToGroup(groupId, addUserGroupInput);
@@ -96,10 +96,10 @@ class AddUserToGroupTest extends DomainUnitTestBase {
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.WRITE));
 
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
-        this.mockGroupSpi.mockFindById(group.getGroupId(), Optional.of(group));
+        this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
 
-        final UUID groupId = group.getGroupId();
+        final UUID groupId = group.getId();
 
         Assertions.assertThrows(UserNotAdminException.class, () -> {
             this.groupDomainService.addUserToGroup(groupId, null);

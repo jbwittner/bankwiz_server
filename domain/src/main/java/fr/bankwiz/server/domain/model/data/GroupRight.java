@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 public class GroupRight {
 
-    private UUID groupRightId;
+    private UUID id;
     private Group group;
     private User user;
     private GroupRightEnum groupRightEnum;

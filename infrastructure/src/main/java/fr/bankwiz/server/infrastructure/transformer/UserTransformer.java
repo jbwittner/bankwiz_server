@@ -10,7 +10,7 @@ public final class UserTransformer {
 
     public static UserDTO toUserDTO(final User user) {
         final UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.getUserId());
+        userDTO.setId(user.getId());
         userDTO.setEmail(user.getEmail());
         return userDTO;
     }
@@ -19,7 +19,7 @@ public final class UserTransformer {
         return User.builder()
                 .authId(userEntity.getAuthId())
                 .email(userEntity.getEmail())
-                .userId(userEntity.getUserId())
+                .id(userEntity.getId())
                 .build();
     }
 
@@ -27,7 +27,7 @@ public final class UserTransformer {
         return UserEntity.builder()
                 .authId(user.getAuthId())
                 .email(user.getEmail())
-                .userId(user.getUserId())
+                .id(user.getId())
                 .build();
     }
 }

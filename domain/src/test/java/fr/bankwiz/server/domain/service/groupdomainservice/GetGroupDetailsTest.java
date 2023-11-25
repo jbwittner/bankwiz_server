@@ -42,7 +42,7 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
 
         final Group group = this.factory.getGroup();
 
-        final UUID groupUuid = group.getGroupId();
+        final UUID groupUuid = group.getId();
 
         final List<GroupRight> groupRights = new ArrayList<>();
         final GroupRight groupRight1 = this.factory.getGroupRight(group, user, GroupRightEnum.READ);
@@ -82,7 +82,7 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
 
         final Group group = this.factory.getGroup();
 
-        final UUID groupUuid = group.getGroupId();
+        final UUID groupUuid = group.getId();
 
         final List<GroupRight> groupRights = new ArrayList<>();
 

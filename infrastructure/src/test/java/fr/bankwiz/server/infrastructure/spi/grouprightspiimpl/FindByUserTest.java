@@ -49,17 +49,17 @@ class FindByUserTest extends InfrastructureUnitTestBase {
         Assertions.assertEquals(groupRightEntities.size(), groupRights.size());
 
         Assertions.assertEquals(
-                groupRightEntity1.getGroupEntity().getGroupId(),
-                groupRights.get(0).getGroup().getGroupId());
+                groupRightEntity1.getGroupEntity().getId(),
+                groupRights.get(0).getGroup().getId());
         Assertions.assertEquals(
-                groupRightEntity2.getGroupEntity().getGroupId(),
-                groupRights.get(1).getGroup().getGroupId());
+                groupRightEntity2.getGroupEntity().getId(),
+                groupRights.get(1).getGroup().getId());
 
         Assertions.assertEquals(
-                groupRightEntity1.getUserEntity().getUserId(),
-                groupRights.get(0).getUser().getUserId());
+                groupRightEntity1.getUserEntity().getId(),
+                groupRights.get(0).getUser().getId());
         Assertions.assertEquals(
-                groupRightEntity2.getUserEntity().getUserId(),
-                groupRights.get(1).getUser().getUserId());
+                groupRightEntity2.getUserEntity().getId(),
+                groupRights.get(1).getUser().getId());
     }
 }

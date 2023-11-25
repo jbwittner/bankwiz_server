@@ -47,11 +47,11 @@ class DeleteUserFromGroupTest extends DomainUnitTestBase {
         groupRights.add(this.factory.getGroupRight(group, userToRemove, GroupRightEnum.READ));
 
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
-        this.mockGroupSpi.mockFindById(group.getGroupId(), Optional.of(group));
+        this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights).mockSave();
-        this.mockUserSpi.mockFindById(userToRemove.getUserId(), Optional.of(userToRemove));
+        this.mockUserSpi.mockFindById(userToRemove.getId(), Optional.of(userToRemove));
 
-        this.groupDomainService.deleteUserFromGroup(group.getGroupId(), userToRemove.getUserId());
+        this.groupDomainService.deleteUserFromGroup(group.getId(), userToRemove.getId());
 
         Mockito.verify(this.mockGroupRightSpi.getMock(), Mockito.times(1)).deleteByGroupAndUser(group, userToRemove);
     }
@@ -66,12 +66,12 @@ class DeleteUserFromGroupTest extends DomainUnitTestBase {
         final User userToRemove = this.factory.getUser();
 
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
-        this.mockGroupSpi.mockFindById(group.getGroupId(), Optional.of(group));
+        this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights).mockSave();
-        this.mockUserSpi.mockFindById(userToRemove.getUserId(), Optional.of(userToRemove));
+        this.mockUserSpi.mockFindById(userToRemove.getId(), Optional.of(userToRemove));
 
-        final UUID groupId = group.getGroupId();
-        final UUID userToRemoveId = userToRemove.getUserId();
+        final UUID groupId = group.getId();
+        final UUID userToRemoveId = userToRemove.getId();
 
         Assertions.assertThrows(UserNoAccessGroupException.class, () -> {
             this.groupDomainService.deleteUserFromGroup(groupId, userToRemoveId);
@@ -88,14 +88,14 @@ class DeleteUserFromGroupTest extends DomainUnitTestBase {
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
 
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
-        this.mockGroupSpi.mockFindById(group.getGroupId(), Optional.of(group));
+        this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights).mockSave();
 
         final UUID userToRemoveId = UUID.randomUUID();
 
         this.mockUserSpi.mockFindById(userToRemoveId, Optional.empty());
 
-        final UUID groupId = group.getGroupId();
+        final UUID groupId = group.getId();
 
         Assertions.assertThrows(UserNotExistException.class, () -> {
             this.groupDomainService.deleteUserFromGroup(groupId, userToRemoveId);
@@ -110,11 +110,11 @@ class DeleteUserFromGroupTest extends DomainUnitTestBase {
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.WRITE));
 
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
-        this.mockGroupSpi.mockFindById(group.getGroupId(), Optional.of(group));
+        this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights).mockSave();
 
         final UUID userToRemoveId = UUID.randomUUID();
-        final UUID groupId = group.getGroupId();
+        final UUID groupId = group.getId();
 
         Assertions.assertThrows(UserNotAdminException.class, () -> {
             this.groupDomainService.deleteUserFromGroup(groupId, userToRemoveId);

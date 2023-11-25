@@ -2,10 +2,12 @@ package fr.bankwiz.server.infrastructure.testhelper;
 
 import java.util.UUID;
 
+import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity.GroupRightEntityEnum;
@@ -27,7 +29,7 @@ public class InfrastructureUnitTestFactory {
         return User.builder()
                 .authId(this.getAuthId())
                 .email(this.infrastructureFaker.internet().emailAddress())
-                .userId(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .build();
     }
 
@@ -35,27 +37,27 @@ public class InfrastructureUnitTestFactory {
         return UserEntity.builder()
                 .authId(this.getAuthId())
                 .email(this.infrastructureFaker.internet().emailAddress())
-                .userId(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .build();
     }
 
     public Group getGroup() {
         return Group.builder()
                 .groupName(this.infrastructureFaker.space().star())
-                .groupId(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .build();
     }
 
     public GroupEntity getGroupEntity() {
         return GroupEntity.builder()
                 .groupName(this.infrastructureFaker.space().star())
-                .groupId(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .build();
     }
 
     public GroupRight getGroupRight(final GroupRightEnum groupRightEnum) {
         return GroupRight.builder()
-                .groupRightId(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .group(this.getGroup())
                 .user(this.getUser())
                 .groupRightEnum(groupRightEnum)
@@ -67,7 +69,7 @@ public class InfrastructureUnitTestFactory {
             final UserEntity userEntity,
             final GroupRightEntityEnum groupRightEntityEnum) {
         return GroupRightEntity.builder()
-                .groupRightId(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .groupEntity(groupEntity)
                 .userEntity(userEntity)
                 .groupRightEntityEnum(groupRightEntityEnum)
@@ -86,5 +88,23 @@ public class InfrastructureUnitTestFactory {
 
     public GroupRightEntity getGroupRightEntity(final GroupRightEntityEnum groupRightEntityEnum) {
         return this.getGroupRightEntity(this.getGroupEntity(), this.getUserEntity(), groupRightEntityEnum);
+    }
+
+    public BankAccount getBankAccount(Group group) {
+        return BankAccount.builder()
+                .bankAccountName(this.infrastructureFaker.superhero().name())
+                .decimalBaseAmount(this.infrastructureFaker.random().nextInt(Integer.MAX_VALUE))
+                .id(UUID.randomUUID())
+                .group(group)
+                .build();
+    }
+
+    public BankAccountEntity getBankAccountEntity(GroupEntity groupEntity) {
+        return BankAccountEntity.builder()
+                .bankAccountName(this.infrastructureFaker.superhero().name())
+                .baseAmountDecimal(this.infrastructureFaker.random().nextInt(Integer.MAX_VALUE))
+                .id(UUID.randomUUID())
+                .groupEntity(groupEntity)
+                .build();
     }
 }
