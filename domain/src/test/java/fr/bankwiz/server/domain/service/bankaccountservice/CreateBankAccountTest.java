@@ -18,7 +18,6 @@ import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
 import fr.bankwiz.server.domain.service.BankAccountService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
-import fr.bankwiz.server.domain.tools.CheckRightTools;
 
 class CreateBankAccountTest extends DomainUnitTestBase {
 
@@ -26,12 +25,7 @@ class CreateBankAccountTest extends DomainUnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {
-        final CheckRightTools checkRightTools = new CheckRightTools(this.mockGroupRightSpi.getMock());
-        this.bankAccountService = new BankAccountService(
-                this.mockBankAccountSpi.getMock(),
-                this.mockGroupSpi.getMock(),
-                this.mockAuthenticationSpi.getMock(),
-                checkRightTools);
+        this.bankAccountService = this.buildBankAccountService();
     }
 
     @Test

@@ -34,9 +34,11 @@ public class DomainConfiguration {
             GroupSpi groupSpi,
             GroupRightSpi groupRightSpi,
             UserSpi userSpi,
+            BankAccountSpi bankAccountSpi,
             AuthenticationSpi authenticationSpi,
             CheckRightTools checkRightTools) {
-        return new GroupDomainService(groupSpi, groupRightSpi, userSpi, authenticationSpi, checkRightTools);
+        return new GroupDomainService(
+                groupSpi, groupRightSpi, userSpi, bankAccountSpi, authenticationSpi, checkRightTools);
     }
 
     @Bean

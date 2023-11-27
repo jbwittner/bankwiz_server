@@ -4,21 +4,18 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.data.User;
-import fr.bankwiz.server.infrastructure.spi.UserSpiImpl;
+import fr.bankwiz.server.domain.spi.UserSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
-import fr.bankwiz.server.infrastructure.testhelper.mock.repository.UserEntityRepositoryMockFactory;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 
 class SaveTest extends InfrastructureUnitTestBase {
 
-    private UserSpiImpl userSpiImpl;
-    private UserEntityRepositoryMockFactory userEntityRepositoryMockFactory;
+    private UserSpi userSpi;
 
     @Override
     protected void initDataBeforeEach() {
-        this.userEntityRepositoryMockFactory = new UserEntityRepositoryMockFactory();
-        this.userSpiImpl = new UserSpiImpl(userEntityRepositoryMockFactory.getRepository());
+        this.userSpi = this.buildUserSpiImpl();
     }
 
     @Test
@@ -28,7 +25,7 @@ class SaveTest extends InfrastructureUnitTestBase {
 
         final User user = this.factory.getUser();
 
-        final User userSaved = this.userSpiImpl.save(user);
+        final User userSaved = this.userSpi.save(user);
 
         final var argumentCaptor = this.userEntityRepositoryMockFactory.verifySaveCalled(UserEntity.class);
 

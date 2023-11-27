@@ -17,8 +17,7 @@ class CheckRegistrationTest extends DomainUnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {
-        this.userDomainService =
-                new UserDomainService(this.mockAuthenticationSpi.getMock(), this.mockUserSpi.getMock());
+        this.userDomainService = this.buildUserDomainService();
     }
 
     @Test

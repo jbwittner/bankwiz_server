@@ -12,7 +12,6 @@ import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
-import fr.bankwiz.server.domain.tools.CheckRightTools;
 
 class GetUserGroupsTest extends DomainUnitTestBase {
 
@@ -20,13 +19,7 @@ class GetUserGroupsTest extends DomainUnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {
-        final CheckRightTools checkRightTools = new CheckRightTools(this.mockGroupRightSpi.getMock());
-        this.groupDomainService = new GroupDomainService(
-                this.mockGroupSpi.getMock(),
-                this.mockGroupRightSpi.getMock(),
-                this.mockUserSpi.getMock(),
-                this.mockAuthenticationSpi.getMock(),
-                checkRightTools);
+        this.groupDomainService = this.buildGroupDomainService();
     }
 
     @Test

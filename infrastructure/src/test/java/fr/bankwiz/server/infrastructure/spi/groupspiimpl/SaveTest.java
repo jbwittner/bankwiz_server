@@ -4,21 +4,18 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.infrastructure.spi.GroupSpiImpl;
+import fr.bankwiz.server.domain.spi.GroupSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
-import fr.bankwiz.server.infrastructure.testhelper.mock.repository.GroupEntityRepositoryMockFactory;
 import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
 
 class SaveTest extends InfrastructureUnitTestBase {
 
-    private GroupSpiImpl groupSpiImpl;
-    private GroupEntityRepositoryMockFactory groupEntityRepositoryMockFactory;
+    private GroupSpi groupSpi;
 
     @Override
     protected void initDataBeforeEach() {
-        this.groupEntityRepositoryMockFactory = new GroupEntityRepositoryMockFactory();
-        this.groupSpiImpl = new GroupSpiImpl(groupEntityRepositoryMockFactory.getRepository());
+        this.groupSpi = this.buildGroupSpiImpl();
     }
 
     @Test
@@ -28,7 +25,7 @@ class SaveTest extends InfrastructureUnitTestBase {
 
         final Group group = this.factory.getGroup();
 
-        final Group groupSaved = this.groupSpiImpl.save(group);
+        final Group groupSaved = this.groupSpi.save(group);
 
         final var argumentCaptor = this.groupEntityRepositoryMockFactory.verifySaveCalled(GroupEntity.class);
 
