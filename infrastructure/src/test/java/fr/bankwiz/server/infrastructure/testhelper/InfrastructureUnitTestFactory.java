@@ -16,10 +16,6 @@ public class InfrastructureUnitTestFactory extends DomainUnitTestFactory {
         super(faker);
     }
 
-    public String getAuthId() {
-        return "auth|" + this.faker.random().nextInt(Integer.MAX_VALUE);
-    }
-
     public UserEntity getUserEntity() {
         return UserEntity.builder()
                 .authId(this.getAuthId())
