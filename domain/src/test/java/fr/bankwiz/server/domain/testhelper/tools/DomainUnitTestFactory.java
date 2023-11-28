@@ -1,7 +1,8 @@
-package fr.bankwiz.server.domain.testhelper;
+package fr.bankwiz.server.domain.testhelper.tools;
 
 import java.util.UUID;
 
+import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -10,19 +11,19 @@ import fr.bankwiz.server.domain.model.data.UserAuthentication;
 
 public class DomainUnitTestFactory {
 
-    private DomainFaker domainFaker;
+    protected DomainFaker faker;
 
-    public DomainUnitTestFactory(DomainFaker domainFaker) {
-        this.domainFaker = domainFaker;
+    public DomainUnitTestFactory(DomainFaker faker) {
+        this.faker = faker;
     }
 
     public String getAuthId() {
-        return "auth|" + this.domainFaker.random().nextInt(Integer.MAX_VALUE);
+        return "auth|" + this.faker.random().nextInt(Integer.MAX_VALUE);
     }
 
     public UserAuthentication getUserAuthentication() {
         return UserAuthentication.builder()
-                .email(this.domainFaker.internet().emailAddress())
+                .email(this.faker.internet().emailAddress())
                 .sub(this.getAuthId())
                 .build();
     }
@@ -30,7 +31,7 @@ public class DomainUnitTestFactory {
     public User getUser() {
         return User.builder()
                 .authId(this.getAuthId())
-                .email(this.domainFaker.internet().emailAddress())
+                .email(this.faker.internet().emailAddress())
                 .id(UUID.randomUUID())
                 .build();
     }
@@ -38,7 +39,7 @@ public class DomainUnitTestFactory {
     public Group getGroup() {
         return Group.builder()
                 .id(UUID.randomUUID())
-                .groupName(this.domainFaker.space().galaxy())
+                .groupName(this.faker.space().galaxy())
                 .build();
     }
 
@@ -52,11 +53,19 @@ public class DomainUnitTestFactory {
     }
 
     public GroupRight getGroupRight(final User user, final GroupRightEnum groupRightEnum) {
-        return GroupRight.builder()
+        return this.getGroupRight(this.getGroup(), user, groupRightEnum);
+    }
+
+    public GroupRight getGroupRight(final GroupRightEnum groupRightEnum) {
+        return this.getGroupRight(this.getGroup(), this.getUser(), groupRightEnum);
+    }
+
+    public BankAccount getBankAccount(Group group) {
+        return BankAccount.builder()
+                .bankAccountName(this.faker.superhero().name())
+                .decimalBaseAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
                 .id(UUID.randomUUID())
-                .group(this.getGroup())
-                .user(user)
-                .groupRightEnum(groupRightEnum)
+                .group(group)
                 .build();
     }
 }

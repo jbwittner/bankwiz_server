@@ -2,14 +2,16 @@ package fr.bankwiz.server.infrastructure.testhelper;
 
 import org.junit.jupiter.api.BeforeEach;
 
+import fr.bankwiz.server.domain.testhelper.tools.DomainFaker;
+
 public abstract class InfrastructureUnitTestBase {
 
-    protected InfrastructureFaker faker;
+    protected DomainFaker faker;
     protected InfrastructureUnitTestFactory factory;
 
     @BeforeEach
     public void beforeEach() {
-        this.faker = new InfrastructureFaker();
+        this.faker = new DomainFaker();
         this.factory = new InfrastructureUnitTestFactory(faker);
         this.initDataBeforeEach();
     }
