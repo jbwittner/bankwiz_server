@@ -7,6 +7,8 @@ import fr.bankwiz.server.domain.testhelper.mock.DomainMockBankAccountSpi;
 import fr.bankwiz.server.domain.testhelper.mock.DomainMockGroupRightSpi;
 import fr.bankwiz.server.domain.testhelper.mock.DomainMockGroupSpi;
 import fr.bankwiz.server.domain.testhelper.mock.DomainMockUserSpi;
+import fr.bankwiz.server.domain.testhelper.tools.DomainFaker;
+import fr.bankwiz.server.domain.testhelper.tools.DomainUnitTestFactory;
 
 public abstract class DomainUnitTestBase {
 
