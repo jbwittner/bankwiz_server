@@ -13,6 +13,7 @@
     <properties>
         <bankwiz.openapi.version>0.10.0</bankwiz.openapi.version>
         <sonar.projectKey>jbwittner_bankwiz_server_infrastructure</sonar.projectKey>
+        <springboot.version>3.1.5</springboot.version>
     </properties>
     <!-- Core -->
     <dependencyManagement>
@@ -20,7 +21,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>3.1.5</version>
+                <version>${springboot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -101,6 +102,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${springboot.version}</version>
                 <configuration>
                     <!-- Exclude Lombok from packaged jar -->
                     <excludes>
