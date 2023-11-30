@@ -1,4 +1,4 @@
-package fr.bankwiz.server.infrastructure.transformer.bankaccounttransformer;
+package fr.bankwiz.server.infrastructure.unittest.transformer.bankaccounttransformer;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
-import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
 import fr.bankwiz.server.infrastructure.transformer.BankAccountTransformer;
 import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
 
 class ToBankAccountEntityTest extends InfrastructureUnitTestBase {
 

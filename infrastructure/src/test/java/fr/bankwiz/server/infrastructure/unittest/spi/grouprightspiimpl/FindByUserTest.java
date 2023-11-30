@@ -1,4 +1,4 @@
-package fr.bankwiz.server.infrastructure.spi.grouprightspiimpl;
+package fr.bankwiz.server.infrastructure.unittest.spi.grouprightspiimpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +12,9 @@ import fr.bankwiz.server.infrastructure.spi.GroupRightSpiImpl;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity.GroupRightEntityEnum;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
-import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
-import fr.bankwiz.server.infrastructure.testhelper.mock.repository.GroupRightEntityRepositoryMockFactory;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository.GroupRightEntityRepositoryMockFactory;
 
 class FindByUserTest extends InfrastructureUnitTestBase {
 

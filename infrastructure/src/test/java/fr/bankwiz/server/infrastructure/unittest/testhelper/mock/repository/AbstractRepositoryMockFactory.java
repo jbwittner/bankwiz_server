@@ -1,4 +1,4 @@
-package fr.bankwiz.server.infrastructure.testhelper.mock.repository;
+package fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository;
 
 import java.util.List;
 import java.util.Optional;

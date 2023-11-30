@@ -1,4 +1,4 @@
-package fr.bankwiz.server.infrastructure.spi.userspiimpl;
+package fr.bankwiz.server.infrastructure.unittest.spi.userspiimpl;
 
 import java.util.Optional;
 
@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.infrastructure.spi.UserSpiImpl;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
-import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
-import fr.bankwiz.server.infrastructure.testhelper.mock.repository.UserEntityRepositoryMockFactory;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository.UserEntityRepositoryMockFactory;
 
 class FindByAuthIdTest extends InfrastructureUnitTestBase {
 

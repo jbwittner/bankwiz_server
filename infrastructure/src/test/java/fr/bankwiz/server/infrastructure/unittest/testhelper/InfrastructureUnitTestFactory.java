@@ -1,4 +1,4 @@
-package fr.bankwiz.server.infrastructure.testhelper;
+package fr.bankwiz.server.infrastructure.unittest.testhelper;
 
 import java.util.UUID;
 

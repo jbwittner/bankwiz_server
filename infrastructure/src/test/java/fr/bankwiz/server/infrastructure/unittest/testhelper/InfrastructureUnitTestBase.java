@@ -1,4 +1,4 @@
-package fr.bankwiz.server.infrastructure.testhelper;
+package fr.bankwiz.server.infrastructure.unittest.testhelper;
 
 import org.junit.jupiter.api.BeforeEach;
 

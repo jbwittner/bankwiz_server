@@ -1,4 +1,4 @@
-package fr.bankwiz.server.infrastructure.spi.bankaccountspiimpl;
+package fr.bankwiz.server.infrastructure.unittest.spi.bankaccountspiimpl;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -7,9 +7,9 @@ import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.infrastructure.spi.BankAccountSpiImpl;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
-import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
-import fr.bankwiz.server.infrastructure.testhelper.mock.repository.BankAccountRepositoryMockFactory;
 import fr.bankwiz.server.infrastructure.transformer.BankAccountTransformer;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository.BankAccountRepositoryMockFactory;
 
 class SaveTest extends InfrastructureUnitTestBase {
 

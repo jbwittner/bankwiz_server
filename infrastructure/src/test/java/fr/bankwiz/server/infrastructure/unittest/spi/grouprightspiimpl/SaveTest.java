@@ -1,4 +1,4 @@
-package fr.bankwiz.server.infrastructure.spi.grouprightspiimpl;
+package fr.bankwiz.server.infrastructure.unittest.spi.grouprightspiimpl;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -7,9 +7,9 @@ import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.infrastructure.spi.GroupRightSpiImpl;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
-import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
-import fr.bankwiz.server.infrastructure.testhelper.mock.repository.GroupRightEntityRepositoryMockFactory;
 import fr.bankwiz.server.infrastructure.transformer.GroupRightTransformer;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository.GroupRightEntityRepositoryMockFactory;
 
 class SaveTest extends InfrastructureUnitTestBase {
 

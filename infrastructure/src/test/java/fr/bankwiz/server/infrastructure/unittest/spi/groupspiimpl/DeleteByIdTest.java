@@ -1,12 +1,12 @@
-package fr.bankwiz.server.infrastructure.spi.groupspiimpl;
+package fr.bankwiz.server.infrastructure.unittest.spi.groupspiimpl;
 
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.infrastructure.spi.GroupSpiImpl;
-import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
-import fr.bankwiz.server.infrastructure.testhelper.mock.repository.GroupEntityRepositoryMockFactory;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository.GroupEntityRepositoryMockFactory;
 
 class DeleteByIdTest extends InfrastructureUnitTestBase {
 

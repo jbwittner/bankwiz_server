@@ -1,12 +1,12 @@
-package fr.bankwiz.server.infrastructure.transformer.usertransformer;
+package fr.bankwiz.server.infrastructure.unittest.transformer.usertransformer;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.domain.model.data.User;
-import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
 
 class ToUserDTOTest extends InfrastructureUnitTestBase {
 

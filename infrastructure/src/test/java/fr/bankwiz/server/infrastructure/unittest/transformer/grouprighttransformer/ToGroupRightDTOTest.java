@@ -1,4 +1,4 @@
-package fr.bankwiz.server.infrastructure.transformer.grouprighttransformer;
+package fr.bankwiz.server.infrastructure.unittest.transformer.grouprighttransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +11,9 @@ import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.openapi.model.UserGroupRightDTO;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
-import fr.bankwiz.server.infrastructure.testhelper.InfrastructureUnitTestBase;
 import fr.bankwiz.server.infrastructure.transformer.GroupRightTransformer;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
 
 class ToGroupRightDTOTest extends InfrastructureUnitTestBase {
 
