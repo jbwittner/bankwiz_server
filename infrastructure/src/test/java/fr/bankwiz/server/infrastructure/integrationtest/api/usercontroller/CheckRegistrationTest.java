@@ -10,7 +10,7 @@ class CheckRegistrationTest extends InfrastructureIntegrationTestBase {
     @Test
     void ok() {
         var users = this.userEntityRepository.findAll();
-        users.stream().forEach(user -> System.out.println(user));
+        users.stream().forEach(user -> System.out.println("user: " + user));
         Assertions.assertTrue(true);
     }
 }
