@@ -2,8 +2,10 @@ package fr.bankwiz.server.infrastructure.integrationtest.api.usercontroller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.web.reactive.server.WebTestClient;
 
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
+import io.restassured.RestAssured;
 
 class CheckRegistrationTest extends InfrastructureIntegrationTestBase {
     
