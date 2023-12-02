@@ -46,7 +46,7 @@ public abstract class InfrastructureIntegrationTestBase {
 
     @MockBean
 	// mock the JwtDecoder so that the jwks is not resolved since no AuthZ Server Setup
-	JwtDecoder jwtDecoder;
+	protected JwtDecoder jwtDecoder;
 
 	// Override the CsrfTokenRepository. Must explicitly wire CsrfTokenRepository Bean into DSL for this to work
 	@MockBean
