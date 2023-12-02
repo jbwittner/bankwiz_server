@@ -47,20 +47,6 @@ class CheckRegistrationTest extends InfrastructureIntegrationTestBase {
     
     @Test
     void ok() throws Exception {
-        /*
-        String authorization = encode(username, password);
-        var test = given().header("authorization", "Basic " + authorization)
-        .contentType(ContentType.URLENC)
-        .formParam("response_type", "code")
-        .queryParam("client_id", clientId)
-        .queryParam("redirect_uri", redirectUri)
-        .queryParam("scope", scope)
-        .post("/oauth2/authorize")
-        .then()
-        .statusCode(200)
-        .extract()
-        .response();
-        */
         Jwt jwt = Jwt.withTokenValue("token")
         .header("alg", "none")
         .claim("scope", "message:read")
@@ -69,7 +55,6 @@ class CheckRegistrationTest extends InfrastructureIntegrationTestBase {
         Mockito.when(this.jwtDecoder.decode(anyString())).thenReturn(jwt);
         Mockito.when(this.authenticationSpi.getUserAuthentication()).thenReturn(UserAuthentication.builder().email("email@toto.com").sub("clientId").build());
         
-        //this.webTestClient.mutateWith(SecurityMockServerConfigurers.mockJwt()).get().uri("/user/checkregistration").exchange().expectStatus().is2xxSuccessful();
         MvcResult mvcResult = this.mvc.perform(get("/user/checkregistration").header("Authorization", "Bearer " + jwt.getTokenValue())).andDo(print())
         .andExpect(status().isOk())
         .andReturn();
