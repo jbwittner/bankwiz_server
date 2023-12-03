@@ -53,16 +53,14 @@ class CheckRegistrationTest extends InfrastructureIntegrationTestBase {
         .build();
 
         Mockito.when(this.jwtDecoder.decode(anyString())).thenReturn(jwt);
+
+        final String email = "";
+
         Mockito.when(this.authenticationSpi.getUserAuthentication()).thenReturn(UserAuthentication.builder().email("email@toto.com").sub("clientId").build());
+
+        given().auth().oauth2(jwt.getTokenValue()).get("/user/checkregistration").then().statusCode(200);
         
-        MvcResult mvcResult = this.mvc.perform(get("/user/checkregistration").header("Authorization", "Bearer " + jwt.getTokenValue())).andDo(print())
-        .andExpect(status().isOk())
-        .andReturn();
-
-        assertNotNull(mvcResult.getResponse().getContentAsString());
-
-        var users = this.userEntityRepository.findAll();
-        users.stream().forEach(user -> System.out.println("user: " + user));
         Assertions.assertTrue(true);
     }
+
 }

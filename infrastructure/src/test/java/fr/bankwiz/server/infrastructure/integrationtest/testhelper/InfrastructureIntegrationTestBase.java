@@ -9,26 +9,20 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.context.ApplicationContext;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.client.MockMvcWebTestClient;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.testcontainers.containers.MySQLContainer;
 
 import fr.bankwiz.server.domain.model.data.User;
-import fr.bankwiz.server.infrastructure.spi.database.repository.UserEntityRepository;
+import fr.bankwiz.server.domain.testhelper.tools.DomainFaker;
+import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import io.restassured.RestAssured;
 
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles(value = "test")
@@ -36,21 +30,21 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 public abstract class InfrastructureIntegrationTestBase {
 
     @Autowired
-	WebApplicationContext wac;
+	private WebApplicationContext wac;
+
+    @Autowired
+    protected InfrastructureIntegrationTestFactory factory;
 
     static MySQLContainer<?> mySQLContainer;
-
-    protected MockMvc mvc;
 
     @LocalServerPort
     private Integer port;
 
-    @Autowired
-    protected UserEntityRepository userEntityRepository;
-
     @MockBean
 	// mock the JwtDecoder so that the jwks is not resolved since no AuthZ Server Setup
 	protected JwtDecoder jwtDecoder;
+
+    protected DomainFaker faker;
 
     static {
         mySQLContainer = new MySQLContainer<>("mysql:8.0.33");
@@ -76,21 +70,28 @@ public abstract class InfrastructureIntegrationTestBase {
 
     @BeforeEach
     void setUp() {
+        this.faker = new DomainFaker();
+        this.factory.setFaker(faker);
         RestAssured.baseURI = "http://localhost:" + port;
-        mvc = MockMvcBuilders
-				.webAppContextSetup(this.wac)
-				.apply(springSecurity()) 
-				.build();
     }
 
-    protected Jwt mockJwt(User user){
+    protected Jwt mockAuthentification(User user){
         Jwt jwt = Jwt.withTokenValue("token")
         .header("alg", "none")
         .claim("scope", "message:read")
+        .subject(user.getAuthId())
         .build();
-
         Mockito.when(this.jwtDecoder.decode(anyString())).thenReturn(jwt);
-        
+        return jwt;
+    }
+
+    protected Jwt mockAuthentification(UserEntity userEntity){
+        Jwt jwt = Jwt.withTokenValue("token")
+        .header("alg", "none")
+        .claim("scope", "message:read")
+        .subject(userEntity.getAuthId())
+        .build();
+        Mockito.when(this.jwtDecoder.decode(anyString())).thenReturn(jwt);
         return jwt;
     }
     

@@ -13,6 +13,12 @@ public class DomainUnitTestFactory {
 
     protected DomainFaker faker;
 
+    public void setFaker(DomainFaker faker) {
+        this.faker = faker;
+    }
+
+    public DomainUnitTestFactory() {}
+
     public DomainUnitTestFactory(DomainFaker faker) {
         this.faker = faker;
     }
