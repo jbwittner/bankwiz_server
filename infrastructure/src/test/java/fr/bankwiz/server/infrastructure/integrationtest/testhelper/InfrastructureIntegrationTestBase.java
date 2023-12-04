@@ -30,7 +30,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 public abstract class InfrastructureIntegrationTestBase {
 
     @Autowired
-	private WebApplicationContext wac;
+    private WebApplicationContext wac;
 
     @Autowired
     protected InfrastructureIntegrationTestFactory factory;
@@ -41,8 +41,8 @@ public abstract class InfrastructureIntegrationTestBase {
     private Integer port;
 
     @MockBean
-	// mock the JwtDecoder so that the jwks is not resolved since no AuthZ Server Setup
-	protected JwtDecoder jwtDecoder;
+    // mock the JwtDecoder so that the jwks is not resolved since no AuthZ Server Setup
+    protected JwtDecoder jwtDecoder;
 
     protected DomainFaker faker;
 
@@ -75,25 +75,23 @@ public abstract class InfrastructureIntegrationTestBase {
         RestAssured.baseURI = "http://localhost:" + port;
     }
 
-    protected Jwt mockAuthentification(User user){
+    protected Jwt mockAuthentification(User user) {
         Jwt jwt = Jwt.withTokenValue("token")
-        .header("alg", "none")
-        .claim("scope", "message:read")
-        .subject(user.getAuthId())
-        .build();
+                .header("alg", "none")
+                .claim("scope", "message:read")
+                .subject(user.getAuthId())
+                .build();
         Mockito.when(this.jwtDecoder.decode(anyString())).thenReturn(jwt);
         return jwt;
     }
 
-    protected Jwt mockAuthentification(UserEntity userEntity){
+    protected Jwt mockAuthentification(UserEntity userEntity) {
         Jwt jwt = Jwt.withTokenValue("token")
-        .header("alg", "none")
-        .claim("scope", "message:read")
-        .subject(userEntity.getAuthId())
-        .build();
+                .header("alg", "none")
+                .claim("scope", "message:read")
+                .subject(userEntity.getAuthId())
+                .build();
         Mockito.when(this.jwtDecoder.decode(anyString())).thenReturn(jwt);
         return jwt;
     }
-    
-    
 }

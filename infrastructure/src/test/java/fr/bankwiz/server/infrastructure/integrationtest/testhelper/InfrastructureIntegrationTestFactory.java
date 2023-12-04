@@ -9,7 +9,6 @@ import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.spi.database.repository.UserEntityRepository;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 
-
 @Component
 public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory {
 
@@ -24,5 +23,4 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
         this.userEntityRepository.save(userEntity);
         return user;
     }
-    
 }
