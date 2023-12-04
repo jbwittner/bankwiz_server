@@ -67,7 +67,7 @@ public abstract class InfrastructureIntegrationTestBase {
     @BeforeEach
     void setUp() {
         this.faker = new DomainFaker();
-        this.factory.setFaker(faker);
+        this.factory.setFaker(this.faker);
         RestAssured.baseURI = "http://localhost:" + port;
     }
 
