@@ -8,9 +8,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.jwt.Jwt;
 
+import fr.bankwiz.openapi.model.AddUserGroupRequest;
 import fr.bankwiz.openapi.model.GroupCreationRequest;
 import fr.bankwiz.openapi.model.GroupDetailsDTO;
 import fr.bankwiz.openapi.model.GroupIndexDTO;
+import fr.bankwiz.openapi.model.UserGroupRightDTO;
+import fr.bankwiz.openapi.model.UserGroupRightEnum;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -22,6 +25,7 @@ import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity.Gro
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.spi.database.repository.GroupEntityRepository;
 import fr.bankwiz.server.infrastructure.spi.database.repository.GroupRightEntityRepository;
+import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 import io.restassured.common.mapper.TypeRef;
 
@@ -133,5 +137,57 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
                 .as(GroupDetailsDTO.class);
 
         Assertions.assertEquals(group.getId(), response.getId());
+    }
+
+    @Test
+    void addUserGroup() {
+        final User user = this.factory.getUser();
+        final Jwt jwt = this.mockAuthentification(user);
+
+        final GroupRight groupRight = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
+
+        final Group group = groupRight.getGroup();
+        final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
+
+        final User anotherUser = this.factory.getUser();
+
+        final AddUserGroupRequest addUserGroupRequest =
+                new AddUserGroupRequest(anotherUser.getId(), UserGroupRightEnum.READ);
+
+        final String path = "/group/" + group.getId() + "/user";
+
+        final UserGroupRightDTO response = given().auth()
+                .oauth2(jwt.getTokenValue())
+                .header("Content-type", "application/json")
+                .body(addUserGroupRequest)
+                .post(path)
+                .as(UserGroupRightDTO.class);
+
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(addUserGroupRequest.getRight(), response.getRight()),
+                () -> Assertions.assertEquals(
+                        anotherUser.getId(), response.getUser().getId()));
+
+        final List<GroupRightEntity> groupRightEntities =
+                this.groupRightEntityRepository.findByGroupEntity(groupEntity);
+
+        Assertions.assertEquals(2, groupRightEntities.size());
+
+        final Optional<GroupRightEntity> optional = groupRightEntities.stream()
+                .filter(gre -> gre.getUserEntity().getId().equals(anotherUser.getId()))
+                .findAny();
+
+        Assertions.assertTrue(optional.isPresent());
+
+        final GroupRightEntity groupRightEntity = optional.get();
+
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(
+                        groupEntity.getId(), groupRightEntity.getGroupEntity().getId()),
+                () -> Assertions.assertEquals(
+                        anotherUser.getId(), groupRightEntity.getUserEntity().getId()),
+                () -> Assertions.assertEquals(
+                        addUserGroupRequest.getRight().name(),
+                        groupRightEntity.getGroupRightEntityEnum().name()));
     }
 }
