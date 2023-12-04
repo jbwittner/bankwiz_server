@@ -30,7 +30,13 @@ class GetAdminStatusTest extends InfrastructureIntegrationTestBase {
 
         Mockito.when(this.jwtDecoder.decode(jwt.getTokenValue())).thenReturn(jwt);
 
-        given().log().all().auth().oauth2(jwt.getTokenValue()).get("/status/admin").then().statusCode(403);
+        given().log()
+                .all()
+                .auth()
+                .oauth2(jwt.getTokenValue())
+                .get("/status/admin")
+                .then()
+                .statusCode(403);
     }
 
     @Test
@@ -45,6 +51,12 @@ class GetAdminStatusTest extends InfrastructureIntegrationTestBase {
 
         Mockito.when(this.jwtDecoder.decode(jwt.getTokenValue())).thenReturn(jwt);
 
-        given().log().all().auth().oauth2(jwt.getTokenValue()).get("/status/admin").then().statusCode(200);
+        given().log()
+                .all()
+                .auth()
+                .oauth2(jwt.getTokenValue())
+                .get("/status/admin")
+                .then()
+                .statusCode(200);
     }
 }

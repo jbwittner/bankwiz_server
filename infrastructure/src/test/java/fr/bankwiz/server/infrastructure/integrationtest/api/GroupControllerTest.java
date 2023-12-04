@@ -50,11 +50,14 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
         final GroupCreationRequest groupCreationRequest =
                 new GroupCreationRequest(this.faker.space().constellation());
 
-        final GroupIndexDTO response = given().log().all().auth()
+        final GroupIndexDTO response = given().log()
+                .all()
+                .auth()
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
                 .body(groupCreationRequest)
-                .post("/group").then()
+                .post("/group")
+                .then()
                 .assertThat()
                 .statusCode(201)
                 .extract()
@@ -96,10 +99,13 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
         final GroupRight groupRight2 = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
         final GroupRight groupRight3 = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
 
-        final List<GroupIndexDTO> response = given().log().all().auth()
+        final List<GroupIndexDTO> response = given().log()
+                .all()
+                .auth()
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
-                .get("/group/groups").then()
+                .get("/group/groups")
+                .then()
                 .assertThat()
                 .statusCode(200)
                 .extract()
@@ -136,10 +142,13 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
         final Group group = groupRight.getGroup();
 
-        final GroupDetailsDTO response = given().log().all().auth()
+        final GroupDetailsDTO response = given().log()
+                .all()
+                .auth()
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
-                .get("/group/" + group.getId()).then()
+                .get("/group/" + group.getId())
+                .then()
                 .assertThat()
                 .statusCode(200)
                 .extract()
@@ -165,11 +174,14 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
         final String path = "/group/" + group.getId() + "/user";
 
-        final UserGroupRightDTO response = given().log().all().auth()
+        final UserGroupRightDTO response = given().log()
+                .all()
+                .auth()
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
                 .body(addUserGroupRequest)
-                .post(path).then()
+                .post(path)
+                .then()
                 .assertThat()
                 .statusCode(200)
                 .extract()
@@ -215,10 +227,13 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
         final String path = "/group/" + group.getId() + "/user/" + anotherUser.getId();
 
-        given().log().all().auth()
+        given().log()
+                .all()
+                .auth()
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
-                .delete(path).then()
+                .delete(path)
+                .then()
                 .assertThat()
                 .statusCode(200);
 
