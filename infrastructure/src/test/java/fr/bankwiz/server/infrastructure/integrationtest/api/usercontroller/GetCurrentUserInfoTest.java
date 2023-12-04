@@ -29,7 +29,7 @@ class GetCurrentUserInfoTest extends InfrastructureIntegrationTestBase {
         final Jwt jwt = this.mockAuthentification(user);
 
         final UserDTO response =
-                given().auth().oauth2(jwt.getTokenValue()).get("/user").as(UserDTO.class);
+                given().log().all().auth().oauth2(jwt.getTokenValue()).get("/user").as(UserDTO.class);
 
         Assertions.assertEquals(user.getEmail(), response.getEmail());
 
