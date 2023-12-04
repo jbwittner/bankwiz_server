@@ -11,9 +11,6 @@ import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
 
 import static io.restassured.RestAssured.given;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 class CheckRegistrationTest extends InfrastructureIntegrationTestBase {
 
@@ -27,16 +24,13 @@ class CheckRegistrationTest extends InfrastructureIntegrationTestBase {
                 .claim("scope", "message:read")
                 .build();
 
-        Mockito.when(this.jwtDecoder.decode(anyString())).thenReturn(jwt);
+        Mockito.when(this.jwtDecoder.decode(jwt.getTokenValue())).thenReturn(jwt);
 
         final String email = this.faker.internet().emailAddress();
         final String sub = this.factory.getAuthId();
 
         Mockito.when(this.authenticationSpi.getUserAuthentication())
-                .thenReturn(UserAuthentication.builder()
-                        .email(email)
-                        .sub(sub)
-                        .build());
+                .thenReturn(UserAuthentication.builder().email(email).sub(sub).build());
 
         given().auth()
                 .oauth2(jwt.getTokenValue())
