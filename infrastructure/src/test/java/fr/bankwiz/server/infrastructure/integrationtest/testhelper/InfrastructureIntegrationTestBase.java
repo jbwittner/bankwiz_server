@@ -65,7 +65,7 @@ public abstract class InfrastructureIntegrationTestBase {
     protected Jwt mockAuthentification(User user) {
         List<String> permissions = new ArrayList<>();
 
-        final Jwt jwt = Jwt.withTokenValue(this.faker.superhero().descriptor())
+        final Jwt jwt = Jwt.withTokenValue(this.faker.superhero().descriptor().replaceAll("\\s", ""))
                 .header("alg", "none")
                 .claim("scope", "openid profile email")
                 .claim("permissions", permissions)
@@ -79,7 +79,7 @@ public abstract class InfrastructureIntegrationTestBase {
     protected Jwt mockAuthentification(UserEntity userEntity) {
         List<String> permissions = new ArrayList<>();
 
-        final Jwt jwt = Jwt.withTokenValue(this.faker.superhero().descriptor())
+        final Jwt jwt = Jwt.withTokenValue(this.faker.superhero().descriptor().replaceAll("\\s", ""))
                 .header("alg", "none")
                 .claim("scope", "openid profile email")
                 .claim("permissions", permissions)

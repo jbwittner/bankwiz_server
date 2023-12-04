@@ -54,7 +54,10 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
                 .body(groupCreationRequest)
-                .post("/group")
+                .post("/group").then()
+                .assertThat()
+                .statusCode(201)
+                .extract()
                 .as(GroupIndexDTO.class);
 
         Assertions.assertEquals(groupCreationRequest.getGroupName(), response.getGroupName());
@@ -96,7 +99,10 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
         final List<GroupIndexDTO> response = given().log().all().auth()
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
-                .get("/group/groups")
+                .get("/group/groups").then()
+                .assertThat()
+                .statusCode(200)
+                .extract()
                 .as(new TypeRef<List<GroupIndexDTO>>() {});
 
         Assertions.assertAll(() -> Assertions.assertEquals(3, response.size()), () -> {
@@ -133,7 +139,10 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
         final GroupDetailsDTO response = given().log().all().auth()
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
-                .get("/group/" + group.getId())
+                .get("/group/" + group.getId()).then()
+                .assertThat()
+                .statusCode(200)
+                .extract()
                 .as(GroupDetailsDTO.class);
 
         Assertions.assertEquals(group.getId(), response.getId());
@@ -160,7 +169,10 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
                 .body(addUserGroupRequest)
-                .post(path)
+                .post(path).then()
+                .assertThat()
+                .statusCode(200)
+                .extract()
                 .as(UserGroupRightDTO.class);
 
         Assertions.assertAll(
@@ -206,7 +218,9 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
         given().log().all().auth()
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
-                .delete(path);
+                .delete(path).then()
+                .assertThat()
+                .statusCode(200);
 
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
 

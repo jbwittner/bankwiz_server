@@ -47,6 +47,10 @@ class CheckregistrationTest extends InfrastructureIntegrationTestBase {
         UserDTO response = given().log().all().auth()
                 .oauth2(jwt.getTokenValue())
                 .get("/user/checkregistration")
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .extract()
                 .as(UserDTO.class);
 
         Assertions.assertEquals(email, response.getEmail());
