@@ -1,4 +1,4 @@
-package fr.bankwiz.server.infrastructure.integrationtest.api.groupcontroller;
+package fr.bankwiz.server.infrastructure.integrationtest.api;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 import fr.bankwiz.openapi.model.GroupCreationRequest;
+import fr.bankwiz.openapi.model.GroupDetailsDTO;
 import fr.bankwiz.openapi.model.GroupIndexDTO;
+import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupRight;
+import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
@@ -19,10 +23,11 @@ import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.spi.database.repository.GroupEntityRepository;
 import fr.bankwiz.server.infrastructure.spi.database.repository.GroupRightEntityRepository;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
+import io.restassured.common.mapper.TypeRef;
 
 import static io.restassured.RestAssured.given;
 
-class CreateGroupTest extends InfrastructureIntegrationTestBase {
+class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
     @Autowired
     private GroupEntityRepository groupEntityRepository;
@@ -34,7 +39,7 @@ class CreateGroupTest extends InfrastructureIntegrationTestBase {
     protected void initDataBeforeEach() {}
 
     @Test
-    void ok() throws Exception {
+    void createGroup() throws Exception {
         final User user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
@@ -73,5 +78,60 @@ class CreateGroupTest extends InfrastructureIntegrationTestBase {
                 () -> Assertions.assertEquals(
                         GroupRightEntityEnum.ADMIN.name(),
                         groupRightEntities.get(0).getGroupRightEntityEnum().name()));
+    }
+
+    @Test
+    void getUserGroups() {
+        final User user = this.factory.getUser();
+        final Jwt jwt = this.mockAuthentification(user);
+
+        final GroupRight groupRight1 = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
+        final GroupRight groupRight2 = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
+        final GroupRight groupRight3 = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
+
+        final List<GroupIndexDTO> response = given().auth()
+                .oauth2(jwt.getTokenValue())
+                .header("Content-type", "application/json")
+                .get("/group/groups")
+                .as(new TypeRef<List<GroupIndexDTO>>() {});
+
+        Assertions.assertAll(() -> Assertions.assertEquals(3, response.size()), () -> {
+            response.stream()
+                    .filter(groupIndexDTO -> groupIndexDTO
+                            .getGroupId()
+                            .equals(groupRight1.getGroup().getId()))
+                    .findAny()
+                    .orElseThrow();
+            response.stream()
+                    .filter(groupIndexDTO -> groupIndexDTO
+                            .getGroupId()
+                            .equals(groupRight2.getGroup().getId()))
+                    .findAny()
+                    .orElseThrow();
+            response.stream()
+                    .filter(groupIndexDTO -> groupIndexDTO
+                            .getGroupId()
+                            .equals(groupRight3.getGroup().getId()))
+                    .findAny()
+                    .orElseThrow();
+        });
+    }
+
+    @Test
+    void getGroupDetails() {
+        final User user = this.factory.getUser();
+        final Jwt jwt = this.mockAuthentification(user);
+
+        final GroupRight groupRight = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
+
+        final Group group = groupRight.getGroup();
+
+        final GroupDetailsDTO response = given().auth()
+                .oauth2(jwt.getTokenValue())
+                .header("Content-type", "application/json")
+                .get("/group/" + group.getId())
+                .as(GroupDetailsDTO.class);
+
+        Assertions.assertEquals(group.getId(), response.getId());
     }
 }
