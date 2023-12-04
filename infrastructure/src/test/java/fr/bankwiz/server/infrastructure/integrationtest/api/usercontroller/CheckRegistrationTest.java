@@ -12,6 +12,7 @@ import fr.bankwiz.server.infrastructure.integrationtest.testhelper.Infrastructur
 
 import static io.restassured.RestAssured.given;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 class CheckRegistrationTest extends InfrastructureIntegrationTestBase {
@@ -25,7 +26,7 @@ class CheckRegistrationTest extends InfrastructureIntegrationTestBase {
                 .header("alg", "none")
                 .claim("scope", "message:read")
                 .build();
-                
+
         Mockito.when(this.jwtDecoder.decode(anyString())).thenReturn(jwt);
 
         final String email = this.faker.internet().emailAddress();

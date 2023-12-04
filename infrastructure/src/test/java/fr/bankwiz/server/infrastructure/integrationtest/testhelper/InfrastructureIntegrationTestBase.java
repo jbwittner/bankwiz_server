@@ -30,12 +30,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 public abstract class InfrastructureIntegrationTestBase {
 
     @Autowired
-    private WebApplicationContext wac;
-
-    @Autowired
     protected InfrastructureIntegrationTestFactory factory;
-
-    static MySQLContainer<?> mySQLContainer;
 
     @LocalServerPort
     private Integer port;
@@ -45,10 +40,18 @@ public abstract class InfrastructureIntegrationTestBase {
     protected JwtDecoder jwtDecoder;
 
     protected DomainFaker faker;
+    static MySQLContainer<?> mySQLContainer;
 
     static {
         mySQLContainer = new MySQLContainer<>("mysql:8.0.33");
         mySQLContainer.withInitScript("database.sql");
+    }
+
+    @DynamicPropertySource
+    static void configureProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", mySQLContainer::getUsername);
+        registry.add("spring.datasource.password", mySQLContainer::getPassword);
     }
 
     @BeforeAll
@@ -61,13 +64,6 @@ public abstract class InfrastructureIntegrationTestBase {
         mySQLContainer.stop();
     }
 
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", mySQLContainer::getUsername);
-        registry.add("spring.datasource.password", mySQLContainer::getPassword);
-    }
-
     @BeforeEach
     void setUp() {
         this.faker = new DomainFaker();
@@ -76,9 +72,11 @@ public abstract class InfrastructureIntegrationTestBase {
     }
 
     protected Jwt mockAuthentification(User user) {
-        Jwt jwt = Jwt.withTokenValue("token")
+        String[] permissions = {"admin:configuration"};
+        Jwt jwt = Jwt.withTokenValue(null)
                 .header("alg", "none")
-                .claim("scope", "message:read")
+                .claim("scope", "openid profile email")
+                .claim("permissions", permissions)
                 .subject(user.getAuthId())
                 .build();
         Mockito.when(this.jwtDecoder.decode(anyString())).thenReturn(jwt);
@@ -86,9 +84,9 @@ public abstract class InfrastructureIntegrationTestBase {
     }
 
     protected Jwt mockAuthentification(UserEntity userEntity) {
-        Jwt jwt = Jwt.withTokenValue("token")
+        Jwt jwt = Jwt.withTokenValue(null)
                 .header("alg", "none")
-                .claim("scope", "message:read")
+                .claim("scope", "openid profile email")
                 .subject(userEntity.getAuthId())
                 .build();
         Mockito.when(this.jwtDecoder.decode(anyString())).thenReturn(jwt);
