@@ -1,27 +1,40 @@
 package fr.bankwiz.server.infrastructure.integrationtest.api.usercontroller;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.jwt.Jwt;
 
+import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
+import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
+import fr.bankwiz.server.infrastructure.spi.database.repository.UserEntityRepository;
 
 import static io.restassured.RestAssured.given;
-import static org.mockito.ArgumentMatchers.anyString;
 
 class GetCurrentUserInfoTest extends InfrastructureIntegrationTestBase {
 
+    @Autowired
+    private UserEntityRepository userEntityRepository;
+
     @Test
     void ok() throws Exception {
-        User user = this.factory.getUser();
-        Jwt jwt = this.mockAuthentification(user);
+        final User user = this.factory.getUser();
+        final Jwt jwt = this.mockAuthentification(user);
 
-        Mockito.when(this.jwtDecoder.decode(anyString())).thenReturn(jwt);
+        final UserDTO response =
+                given().auth().oauth2(jwt.getTokenValue()).get("/user").as(UserDTO.class);
 
-        given().auth().oauth2(jwt.getTokenValue()).get("/user").then().statusCode(200);
+        Assertions.assertEquals(user.getEmail(), response.getEmail());
 
-        Assertions.assertTrue(true);
+        final Optional<UserEntity> optional = this.userEntityRepository.findById(response.getId());
+
+        Assertions.assertAll(
+                () -> Assertions.assertTrue(optional.isPresent()),
+                () -> Assertions.assertEquals(user.getEmail(), optional.get().getEmail()),
+                () -> Assertions.assertEquals(user.getAuthId(), optional.get().getAuthId()));
     }
 }

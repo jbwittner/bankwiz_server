@@ -1,7 +1,5 @@
 package fr.bankwiz.server.infrastructure.integrationtest.api.statuscontroller;
 
-import static io.restassured.RestAssured.given;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,29 +9,25 @@ import org.springframework.security.oauth2.jwt.Jwt;
 
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
 
+import static io.restassured.RestAssured.given;
+
 class GetAdminStatusTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void withoutAuthentification() {
-        given()
-                .get("/status/admin")
-                .then()
-                .statusCode(401);
+        given().get("/status/admin").then().statusCode(401);
     }
 
     @Test
     void withAuthentification() {
         final Jwt jwt = Jwt.withTokenValue("token")
                 .header("alg", "none")
-                .claim("scope", "message:read")
+                .claim("permissions", new ArrayList<>())
                 .build();
 
         Mockito.when(this.jwtDecoder.decode(jwt.getTokenValue())).thenReturn(jwt);
 
-        given().auth().oauth2(jwt.getTokenValue())
-                .get("/status/admin")
-                .then()
-                .statusCode(403);
+        given().auth().oauth2(jwt.getTokenValue()).get("/status/admin").then().statusCode(403);
     }
 
     @Test
@@ -48,10 +42,6 @@ class GetAdminStatusTest extends InfrastructureIntegrationTestBase {
 
         Mockito.when(this.jwtDecoder.decode(jwt.getTokenValue())).thenReturn(jwt);
 
-        given().auth().oauth2(jwt.getTokenValue())
-                .get("/status/admin")
-                .then()
-                .statusCode(200);
+        given().auth().oauth2(jwt.getTokenValue()).get("/status/admin").then().statusCode(200);
     }
-
 }

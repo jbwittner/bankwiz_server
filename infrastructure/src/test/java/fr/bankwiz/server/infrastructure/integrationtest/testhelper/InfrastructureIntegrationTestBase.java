@@ -1,5 +1,8 @@
 package fr.bankwiz.server.infrastructure.integrationtest.testhelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,8 +23,6 @@ import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.testhelper.tools.DomainFaker;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import io.restassured.RestAssured;
-
-import static org.mockito.ArgumentMatchers.anyString;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles(value = "test")
@@ -71,24 +72,30 @@ public abstract class InfrastructureIntegrationTestBase {
     }
 
     protected Jwt mockAuthentification(User user) {
-        String[] permissions = {"admin:configuration"};
-        Jwt jwt = Jwt.withTokenValue(null)
+        List<String> permissions = new ArrayList<>();
+
+        final Jwt jwt = Jwt.withTokenValue(this.faker.superhero().descriptor())
                 .header("alg", "none")
                 .claim("scope", "openid profile email")
                 .claim("permissions", permissions)
                 .subject(user.getAuthId())
                 .build();
-        Mockito.when(this.jwtDecoder.decode(anyString())).thenReturn(jwt);
+
+        Mockito.when(this.jwtDecoder.decode(jwt.getTokenValue())).thenReturn(jwt);
         return jwt;
     }
 
     protected Jwt mockAuthentification(UserEntity userEntity) {
-        Jwt jwt = Jwt.withTokenValue(null)
+        List<String> permissions = new ArrayList<>();
+
+        final Jwt jwt = Jwt.withTokenValue(this.faker.superhero().descriptor())
                 .header("alg", "none")
                 .claim("scope", "openid profile email")
+                .claim("permissions", permissions)
                 .subject(userEntity.getAuthId())
                 .build();
-        Mockito.when(this.jwtDecoder.decode(anyString())).thenReturn(jwt);
+
+        Mockito.when(this.jwtDecoder.decode(jwt.getTokenValue())).thenReturn(jwt);
         return jwt;
     }
 }

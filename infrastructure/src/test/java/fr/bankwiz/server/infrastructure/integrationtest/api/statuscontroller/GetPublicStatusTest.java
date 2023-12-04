@@ -1,7 +1,5 @@
 package fr.bankwiz.server.infrastructure.integrationtest.api.statuscontroller;
 
-import static io.restassured.RestAssured.given;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,14 +9,13 @@ import org.springframework.security.oauth2.jwt.Jwt;
 
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
 
+import static io.restassured.RestAssured.given;
+
 class GetPublicStatusTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void withoutAuthentification() {
-        given()
-                .get("/status/public")
-                .then()
-                .statusCode(200);
+        given().get("/status/public").then().statusCode(200);
     }
 
     @Test
@@ -30,10 +27,7 @@ class GetPublicStatusTest extends InfrastructureIntegrationTestBase {
 
         Mockito.when(this.jwtDecoder.decode(jwt.getTokenValue())).thenReturn(jwt);
 
-        given().auth().oauth2(jwt.getTokenValue())
-                .get("/status/public")
-                .then()
-                .statusCode(200);
+        given().auth().oauth2(jwt.getTokenValue()).get("/status/public").then().statusCode(200);
     }
 
     @Test
@@ -48,10 +42,6 @@ class GetPublicStatusTest extends InfrastructureIntegrationTestBase {
 
         Mockito.when(this.jwtDecoder.decode(jwt.getTokenValue())).thenReturn(jwt);
 
-        given().auth().oauth2(jwt.getTokenValue())
-                .get("/status/public")
-                .then()
-                .statusCode(200);
+        given().auth().oauth2(jwt.getTokenValue()).get("/status/public").then().statusCode(200);
     }
-
 }
