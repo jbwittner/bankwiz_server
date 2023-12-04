@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -26,7 +25,6 @@ import io.restassured.RestAssured;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles(value = "test")
-@AutoConfigureWebTestClient
 public abstract class InfrastructureIntegrationTestBase {
 
     @Autowired
@@ -46,6 +44,8 @@ public abstract class InfrastructureIntegrationTestBase {
         mySQLContainer = new MySQLContainer<>("mysql:8.0.33");
         mySQLContainer.withInitScript("database.sql");
     }
+
+    protected abstract void initDataBeforeEach();
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
@@ -69,6 +69,7 @@ public abstract class InfrastructureIntegrationTestBase {
         this.faker = new DomainFaker();
         this.factory.setFaker(this.faker);
         RestAssured.baseURI = "http://localhost:" + port;
+        this.initDataBeforeEach();
     }
 
     protected Jwt mockAuthentification(User user) {

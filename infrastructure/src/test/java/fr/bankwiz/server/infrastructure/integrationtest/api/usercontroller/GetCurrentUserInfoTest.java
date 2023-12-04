@@ -20,6 +20,9 @@ class GetCurrentUserInfoTest extends InfrastructureIntegrationTestBase {
     @Autowired
     private UserEntityRepository userEntityRepository;
 
+    @Override
+    protected void initDataBeforeEach() {}
+
     @Test
     void ok() throws Exception {
         final User user = this.factory.getUser();

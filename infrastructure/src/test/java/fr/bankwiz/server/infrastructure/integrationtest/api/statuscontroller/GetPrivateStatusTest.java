@@ -13,6 +13,9 @@ import static io.restassured.RestAssured.given;
 
 class GetPrivateStatusTest extends InfrastructureIntegrationTestBase {
 
+    @Override
+    protected void initDataBeforeEach() {}
+
     @Test
     void withoutAuthentification() {
         given().get("/status/private").then().statusCode(401);

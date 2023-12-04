@@ -13,6 +13,9 @@ import static io.restassured.RestAssured.given;
 
 class GetPublicStatusTest extends InfrastructureIntegrationTestBase {
 
+    @Override
+    protected void initDataBeforeEach() {}
+
     @Test
     void withoutAuthentification() {
         given().get("/status/public").then().statusCode(200);

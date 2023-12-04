@@ -26,6 +26,9 @@ class CheckRegistrationTest extends InfrastructureIntegrationTestBase {
     @MockBean
     private AuthenticationSpi authenticationSpi;
 
+    @Override
+    protected void initDataBeforeEach() {}
+
     @Test
     void ok() throws Exception {
         final Jwt jwt = Jwt.withTokenValue("token")

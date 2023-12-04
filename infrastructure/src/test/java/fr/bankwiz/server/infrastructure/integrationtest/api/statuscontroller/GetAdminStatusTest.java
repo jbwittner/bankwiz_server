@@ -13,6 +13,9 @@ import static io.restassured.RestAssured.given;
 
 class GetAdminStatusTest extends InfrastructureIntegrationTestBase {
 
+    @Override
+    protected void initDataBeforeEach() {}
+
     @Test
     void withoutAuthentification() {
         given().get("/status/admin").then().statusCode(401);
