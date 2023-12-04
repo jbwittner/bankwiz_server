@@ -190,4 +190,29 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
                         addUserGroupRequest.getRight().name(),
                         groupRightEntity.getGroupRightEntityEnum().name()));
     }
+
+    @Test
+    void deleteUserFromGroup() {
+        final User user = this.factory.getUser();
+        final Jwt jwt = this.mockAuthentification(user);
+        final User anotherUser = this.factory.getUser();
+
+        final Group group = this.factory.getGroup();
+        this.factory.getGroupRight(group, user, GroupRightEnum.ADMIN);
+        this.factory.getGroupRight(group, anotherUser, GroupRightEnum.WRITE);
+
+        final String path = "/group/" + group.getId() + "/user/" + anotherUser.getId();
+
+        given().auth()
+                .oauth2(jwt.getTokenValue())
+                .header("Content-type", "application/json")
+                .delete(path);
+
+        final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
+
+        final List<GroupRightEntity> groupRightEntities =
+                this.groupRightEntityRepository.findByGroupEntity(groupEntity);
+
+        Assertions.assertEquals(1, groupRightEntities.size());
+    }
 }
