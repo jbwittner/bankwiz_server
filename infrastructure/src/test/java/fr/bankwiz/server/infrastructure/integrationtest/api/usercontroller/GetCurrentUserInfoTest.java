@@ -28,9 +28,7 @@ class GetCurrentUserInfoTest extends InfrastructureIntegrationTestBase {
         final User user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
-        final UserDTO response = given().log()
-                .all()
-                .auth()
+        final UserDTO response = given().auth()
                 .oauth2(jwt.getTokenValue())
                 .get("/user")
                 .then()

@@ -3,11 +3,11 @@ package fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository;
 import java.util.UUID;
 
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
-import fr.bankwiz.server.infrastructure.spi.database.repository.BankAccountRepository;
+import fr.bankwiz.server.infrastructure.spi.database.repository.BankAccountEntityRepository;
 
 public class BankAccountRepositoryMockFactory
-        extends AbstractRepositoryMockFactory<BankAccountEntity, BankAccountRepository, UUID> {
+        extends AbstractRepositoryMockFactory<BankAccountEntity, BankAccountEntityRepository, UUID> {
     public BankAccountRepositoryMockFactory() {
-        super(BankAccountRepository.class);
+        super(BankAccountEntityRepository.class);
     }
 }

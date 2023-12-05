@@ -18,7 +18,7 @@ class GetPublicStatusTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void withoutAuthentification() {
-        given().log().all().get("/status/public").then().statusCode(200);
+        given().get("/status/public").then().statusCode(200);
     }
 
     @Test
@@ -30,13 +30,7 @@ class GetPublicStatusTest extends InfrastructureIntegrationTestBase {
 
         Mockito.when(this.jwtDecoder.decode(jwt.getTokenValue())).thenReturn(jwt);
 
-        given().log()
-                .all()
-                .auth()
-                .oauth2(jwt.getTokenValue())
-                .get("/status/public")
-                .then()
-                .statusCode(200);
+        given().auth().oauth2(jwt.getTokenValue()).get("/status/public").then().statusCode(200);
     }
 
     @Test
@@ -51,12 +45,6 @@ class GetPublicStatusTest extends InfrastructureIntegrationTestBase {
 
         Mockito.when(this.jwtDecoder.decode(jwt.getTokenValue())).thenReturn(jwt);
 
-        given().log()
-                .all()
-                .auth()
-                .oauth2(jwt.getTokenValue())
-                .get("/status/public")
-                .then()
-                .statusCode(200);
+        given().auth().oauth2(jwt.getTokenValue()).get("/status/public").then().statusCode(200);
     }
 }

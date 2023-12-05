@@ -50,9 +50,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
         final GroupCreationRequest groupCreationRequest =
                 new GroupCreationRequest(this.faker.space().constellation());
 
-        final GroupIndexDTO response = given().log()
-                .all()
-                .auth()
+        final GroupIndexDTO response = given().auth()
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
                 .body(groupCreationRequest)
@@ -99,9 +97,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
         final GroupRight groupRight2 = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
         final GroupRight groupRight3 = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
 
-        final List<GroupIndexDTO> response = given().log()
-                .all()
-                .auth()
+        final List<GroupIndexDTO> response = given().auth()
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
                 .get("/group/groups")
@@ -142,9 +138,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
         final Group group = groupRight.getGroup();
 
-        final GroupDetailsDTO response = given().log()
-                .all()
-                .auth()
+        final GroupDetailsDTO response = given().auth()
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
                 .get("/group/" + group.getId())
@@ -174,9 +168,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
         final String path = "/group/" + group.getId() + "/user";
 
-        final UserGroupRightDTO response = given().log()
-                .all()
-                .auth()
+        final UserGroupRightDTO response = given().auth()
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
                 .body(addUserGroupRequest)
@@ -227,9 +219,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
         final String path = "/group/" + group.getId() + "/user/" + anotherUser.getId();
 
-        given().log()
-                .all()
-                .auth()
+        given().auth()
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
                 .delete(path)
