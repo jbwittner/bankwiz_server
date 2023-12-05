@@ -1,0 +1,41 @@
+package fr.bankwiz.server.infrastructure.unittest.spi.userspiimpl;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.infrastructure.spi.UserSpiImpl;
+import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
+import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository.UserEntityRepositoryMockFactory;
+
+class SaveTest extends InfrastructureUnitTestBase {
+
+    private UserSpiImpl userSpiImpl;
+    private UserEntityRepositoryMockFactory userEntityRepositoryMockFactory;
+
+    @Override
+    protected void initDataBeforeEach() {
+        this.userEntityRepositoryMockFactory = new UserEntityRepositoryMockFactory();
+        this.userSpiImpl = new UserSpiImpl(userEntityRepositoryMockFactory.getRepository());
+    }
+
+    @Test
+    void save() {
+
+        this.userEntityRepositoryMockFactory.mockSave();
+
+        final User user = this.factory.getUser();
+
+        final User userSaved = this.userSpiImpl.save(user);
+
+        final var argumentCaptor = this.userEntityRepositoryMockFactory.verifySaveCalled(UserEntity.class);
+
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(UserTransformer.toUserEntity(user), argumentCaptor.getValue()),
+                () -> Assertions.assertEquals(user.getAuthId(), userSaved.getAuthId()),
+                () -> Assertions.assertEquals(user.getEmail(), userSaved.getEmail()),
+                () -> Assertions.assertEquals(user.getId(), userSaved.getId()));
+    }
+}
