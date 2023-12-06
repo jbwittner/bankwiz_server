@@ -32,6 +32,7 @@ class DeleteUserFromGroupTest extends DomainUnitTestBase {
                 this.mockGroupSpi.getMock(),
                 this.mockGroupRightSpi.getMock(),
                 this.mockUserSpi.getMock(),
+                this.mockBankAccountSpi.getMock(),
                 this.mockAuthenticationSpi.getMock(),
                 checkRightTools);
     }

@@ -7,20 +7,17 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.data.User;
-import fr.bankwiz.server.infrastructure.spi.UserSpiImpl;
+import fr.bankwiz.server.domain.spi.UserSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
-import fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository.UserEntityRepositoryMockFactory;
 
 class FindByIdTest extends InfrastructureUnitTestBase {
 
-    private UserSpiImpl userSpiImpl;
-    private UserEntityRepositoryMockFactory userEntityRepositoryMockFactory;
+    private UserSpi userSpi;
 
     @Override
     protected void initDataBeforeEach() {
-        this.userEntityRepositoryMockFactory = new UserEntityRepositoryMockFactory();
-        this.userSpiImpl = new UserSpiImpl(userEntityRepositoryMockFactory.getRepository());
+        this.userSpi = this.buildUserSpiImpl();
     }
 
     @Test
@@ -32,7 +29,7 @@ class FindByIdTest extends InfrastructureUnitTestBase {
 
         this.userEntityRepositoryMockFactory.mockFindById(userId, Optional.of(userEntity));
 
-        final Optional<User> optionalUser = this.userSpiImpl.findById(userId);
+        final Optional<User> optionalUser = this.userSpi.findById(userId);
 
         Assertions.assertTrue(optionalUser.isPresent());
 
@@ -47,7 +44,7 @@ class FindByIdTest extends InfrastructureUnitTestBase {
     @Test
     void userNotExist() {
 
-        final Optional<User> optionalUser = this.userSpiImpl.findById(UUID.randomUUID());
+        final Optional<User> optionalUser = this.userSpi.findById(UUID.randomUUID());
 
         Assertions.assertTrue(optionalUser.isEmpty());
     }

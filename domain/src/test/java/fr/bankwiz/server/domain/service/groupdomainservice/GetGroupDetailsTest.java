@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserNoReadRightException;
 import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupDetails;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.other.GroupDetails;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -30,6 +30,7 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
                 this.mockGroupSpi.getMock(),
                 this.mockGroupRightSpi.getMock(),
                 this.mockUserSpi.getMock(),
+                this.mockBankAccountSpi.getMock(),
                 this.mockAuthenticationSpi.getMock(),
                 checkRightTools);
     }

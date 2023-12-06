@@ -5,7 +5,7 @@ import java.util.List;
 import fr.bankwiz.openapi.model.GroupDetailsDTO;
 import fr.bankwiz.openapi.model.UserGroupRightDTO;
 import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupDetails;
+import fr.bankwiz.server.domain.model.other.GroupDetails;
 
 public class GroupDetailsTransformer {
 

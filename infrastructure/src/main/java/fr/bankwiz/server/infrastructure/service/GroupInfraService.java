@@ -8,10 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.bankwiz.server.domain.api.GroupApi;
 import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupDetails;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
 import fr.bankwiz.server.domain.model.input.GroupCreationInput;
+import fr.bankwiz.server.domain.model.other.GroupDetails;
 
 @Service
 public class GroupInfraService {

@@ -5,18 +5,20 @@ import java.util.Optional;
 import java.util.UUID;
 
 import fr.bankwiz.server.domain.api.GroupApi;
+import fr.bankwiz.server.domain.exception.GroupDeletionWithBankAccountsException;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserAlreadyAccessGroupException;
 import fr.bankwiz.server.domain.exception.UserNoAccessGroupException;
 import fr.bankwiz.server.domain.exception.UserNotExistException;
 import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupDetails;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
 import fr.bankwiz.server.domain.model.input.GroupCreationInput;
+import fr.bankwiz.server.domain.model.other.GroupDetails;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
+import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.domain.spi.GroupSpi;
 import fr.bankwiz.server.domain.spi.UserSpi;
@@ -27,6 +29,7 @@ public class GroupDomainService implements GroupApi {
     private final GroupSpi groupSpi;
     private final GroupRightSpi groupRightSpi;
     private final UserSpi userSpi;
+    private final BankAccountSpi bankAccountSpi;
     private final AuthenticationSpi authenticationSpi;
     private final CheckRightTools checkRightTools;
 
@@ -34,11 +37,13 @@ public class GroupDomainService implements GroupApi {
             GroupSpi groupSpi,
             GroupRightSpi groupRightSpi,
             UserSpi userSpi,
+            BankAccountSpi bankAccountSpi,
             AuthenticationSpi authenticationSpi,
             CheckRightTools checkRightTools) {
         this.groupSpi = groupSpi;
         this.groupRightSpi = groupRightSpi;
         this.userSpi = userSpi;
+        this.bankAccountSpi = bankAccountSpi;
         this.authenticationSpi = authenticationSpi;
         this.checkRightTools = checkRightTools;
     }
@@ -119,6 +124,11 @@ public class GroupDomainService implements GroupApi {
     public void deleteGroup(UUID groupId) {
         final Group group = this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
         this.checkRightTools.checkIsAdmin(this.authenticationSpi.getCurrentUser(), group);
+
+        if (this.bankAccountSpi.existsByGroup(group)) {
+            throw new GroupDeletionWithBankAccountsException(groupId);
+        }
+
         this.groupRightSpi.deleteAllByGroup(group);
         this.groupSpi.deleteById(groupId);
     }
