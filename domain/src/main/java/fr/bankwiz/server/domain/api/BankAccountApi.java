@@ -8,5 +8,6 @@ import fr.bankwiz.server.domain.model.other.GroupBankAccount;
 
 public interface BankAccountApi {
     BankAccount createBankAccount(BankAccountCreationInput bankAccountCreationInput);
+
     List<GroupBankAccount> getAllBankAccount();
 }

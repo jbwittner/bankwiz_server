@@ -37,6 +37,8 @@ public class BankAccountTransformer {
     }
 
     public static List<BankAccountIndexDTO> toBankAccountIndexDTO(final List<BankAccount> bankAccounts) {
-        return bankAccounts.stream().map(BankAccountTransformer::toBankAccountIndexDTO).toList();
+        return bankAccounts.stream()
+                .map(BankAccountTransformer::toBankAccountIndexDTO)
+                .toList();
     }
 }

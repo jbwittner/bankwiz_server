@@ -13,12 +13,15 @@ public class GroupBankAccountTransformer {
 
     public static GroupBankAcccountIndexDTO toGroupBankAcccountIndexDTO(final GroupBankAccount groupBankAccount) {
         final GroupIndexDTO groupIndexDTO = GroupTransformer.toGroupIndexDTO(groupBankAccount.getGroup());
-        final List<BankAccountIndexDTO> bankAccountIndexList = BankAccountTransformer.toBankAccountIndexDTO(groupBankAccount.getBankAccounts());
+        final List<BankAccountIndexDTO> bankAccountIndexList =
+                BankAccountTransformer.toBankAccountIndexDTO(groupBankAccount.getBankAccounts());
         return new GroupBankAcccountIndexDTO(groupIndexDTO, bankAccountIndexList);
     }
 
-    public static List<GroupBankAcccountIndexDTO> toGroupBankAcccountIndexDTO(final List<GroupBankAccount> groupBankAccounts) {
-        return groupBankAccounts.stream().map(GroupBankAccountTransformer::toGroupBankAcccountIndexDTO).toList();
+    public static List<GroupBankAcccountIndexDTO> toGroupBankAcccountIndexDTO(
+            final List<GroupBankAccount> groupBankAccounts) {
+        return groupBankAccounts.stream()
+                .map(GroupBankAccountTransformer::toGroupBankAcccountIndexDTO)
+                .toList();
     }
-    
 }

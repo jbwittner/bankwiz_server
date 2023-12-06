@@ -42,7 +42,8 @@ public class BankAccountController implements BankaccountApi {
     @Override
     public ResponseEntity<List<GroupBankAcccountIndexDTO>> getAllBankAccount() {
         final List<GroupBankAccount> groupBankAccounts = this.bankAccountInfraService.getAllBankAccount();
-        final List<GroupBankAcccountIndexDTO> groupBankAcccountIndexDTOs = GroupBankAccountTransformer.toGroupBankAcccountIndexDTO(groupBankAccounts);
+        final List<GroupBankAcccountIndexDTO> groupBankAcccountIndexDTOs =
+                GroupBankAccountTransformer.toGroupBankAcccountIndexDTO(groupBankAccounts);
         return new ResponseEntity<>(groupBankAcccountIndexDTOs, HttpStatus.OK);
     }
 }
