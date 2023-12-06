@@ -1,5 +1,6 @@
 package fr.bankwiz.server.domain.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import fr.bankwiz.server.domain.api.BankAccountApi;
@@ -8,6 +9,7 @@ import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
+import fr.bankwiz.server.domain.model.other.GroupBankAccount;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.domain.spi.GroupSpi;
@@ -47,5 +49,10 @@ public class BankAccountService implements BankAccountApi {
                 .build();
 
         return this.bankAccountSpi.save(bankAccount);
+    }
+
+    @Override
+    public List<GroupBankAccount> getAllBankAccount() {
+        throw new UnsupportedOperationException("Unimplemented method 'getAllBankAccount'");
     }
 }
