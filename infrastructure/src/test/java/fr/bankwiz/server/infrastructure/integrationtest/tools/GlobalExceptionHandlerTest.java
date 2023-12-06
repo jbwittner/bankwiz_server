@@ -28,7 +28,7 @@ class GlobalExceptionHandlerTest extends InfrastructureIntegrationTestBase {
     protected void initDataBeforeEach() {}
 
     @Test
-    void exception() {
+    void functionalException() {
         final User user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
@@ -62,12 +62,12 @@ class GlobalExceptionHandlerTest extends InfrastructureIntegrationTestBase {
         final Map<String, Object> map = (Map<String, Object>) response.getAttributes();
 
         Assertions.assertEquals(attribute_1, map.get("attribute_1"));
-        
+
         Assertions.assertEquals(attribute_2, map.get("attribute_2"));
 
         String atribute_3_string = String.format(
                 "{id=%s, authId=%s, email=%s}", attribute_3.getId(), attribute_3.getAuthId(), attribute_3.getEmail());
-                
+
         Assertions.assertEquals(atribute_3_string, map.get("attribute_3").toString());
 
         Assertions.assertEquals(attribute_4, map.get("attribute_4"));
