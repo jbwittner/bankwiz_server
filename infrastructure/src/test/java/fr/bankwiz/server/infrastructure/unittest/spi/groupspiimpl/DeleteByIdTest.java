@@ -4,25 +4,22 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.infrastructure.spi.GroupSpiImpl;
+import fr.bankwiz.server.domain.spi.GroupSpi;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
-import fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository.GroupEntityRepositoryMockFactory;
 
 class DeleteByIdTest extends InfrastructureUnitTestBase {
 
-    private GroupSpiImpl groupSpiImpl;
-    private GroupEntityRepositoryMockFactory groupEntityRepositoryMockFactory;
+    private GroupSpi groupSpi;
 
     @Override
     protected void initDataBeforeEach() {
-        this.groupEntityRepositoryMockFactory = new GroupEntityRepositoryMockFactory();
-        this.groupSpiImpl = new GroupSpiImpl(groupEntityRepositoryMockFactory.getRepository());
+        this.groupSpi = this.buildGroupSpiImpl();
     }
 
     @Test
     void ok() {
         final UUID id = UUID.randomUUID();
-        this.groupSpiImpl.deleteById(id);
+        this.groupSpi.deleteById(id);
         this.groupEntityRepositoryMockFactory.verifyDeleteByIdCalled(id, 1);
     }
 }

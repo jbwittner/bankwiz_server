@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import fr.bankwiz.server.domain.exception.GroupDeletionWithBankAccountsException;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserNotAdminException;
 import fr.bankwiz.server.domain.model.data.Group;
@@ -30,6 +31,7 @@ class DeleteGroupTest extends DomainUnitTestBase {
                 this.mockGroupSpi.getMock(),
                 this.mockGroupRightSpi.getMock(),
                 this.mockUserSpi.getMock(),
+                this.mockBankAccountSpi.getMock(),
                 this.mockAuthenticationSpi.getMock(),
                 checkRightTools);
     }
@@ -55,6 +57,29 @@ class DeleteGroupTest extends DomainUnitTestBase {
 
         Mockito.verify(this.mockGroupSpi.getMock(), Mockito.times(1)).deleteById(groupId);
         Mockito.verify(this.mockGroupRightSpi.getMock(), Mockito.times(1)).deleteAllByGroup(group);
+    }
+
+    @Test
+    void groupHaveBankAccounts() {
+        final User admin = this.factory.getUser();
+
+        final User otherUser = this.factory.getUser();
+        final Group group = this.factory.getGroup();
+
+        final UUID groupId = group.getId();
+
+        final List<GroupRight> groupRights = new ArrayList<>();
+        groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
+        groupRights.add(this.factory.getGroupRight(group, otherUser, GroupRightEnum.READ));
+
+        this.mockAuthenticationSpi.mockGetCurrentUser(admin);
+        this.mockGroupSpi.mockFindById(groupId, Optional.of(group));
+        this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
+        this.mockBankAccountSpi.mockExistsByGroup(group, true);
+
+        Assertions.assertThrows(GroupDeletionWithBankAccountsException.class, () -> {
+            this.groupDomainService.deleteGroup(groupId);
+        });
     }
 
     @Test

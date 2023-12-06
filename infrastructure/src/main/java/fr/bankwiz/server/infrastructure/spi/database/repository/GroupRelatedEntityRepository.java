@@ -12,4 +12,6 @@ import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRelatedEntity;
 @NoRepositoryBean
 public interface GroupRelatedEntityRepository<T extends GroupRelatedEntity> extends JpaRepository<T, UUID> {
     List<T> findByGroupEntity(GroupEntity groupEntity);
+
+    boolean existsByGroupEntity(GroupEntity groupEntity);
 }

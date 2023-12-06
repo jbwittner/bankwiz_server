@@ -8,23 +8,20 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.User;
-import fr.bankwiz.server.infrastructure.spi.GroupRightSpiImpl;
+import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity.GroupRightEntityEnum;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
-import fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository.GroupRightEntityRepositoryMockFactory;
 
 class FindByUserTest extends InfrastructureUnitTestBase {
 
-    private GroupRightSpiImpl groupRightSpiImpl;
-    private GroupRightEntityRepositoryMockFactory groupRightEntityRepositoryMockFactory;
+    private GroupRightSpi groupRightSpi;
 
     @Override
     protected void initDataBeforeEach() {
-        this.groupRightEntityRepositoryMockFactory = new GroupRightEntityRepositoryMockFactory();
-        this.groupRightSpiImpl = new GroupRightSpiImpl(groupRightEntityRepositoryMockFactory.getRepository());
+        this.groupRightSpi = this.buildGroupRightSpiImpl();
     }
 
     @Test
@@ -42,7 +39,7 @@ class FindByUserTest extends InfrastructureUnitTestBase {
 
         this.groupRightEntityRepositoryMockFactory.mockFindByUserEntity(groupRightEntities);
 
-        final List<GroupRight> groupRights = this.groupRightSpiImpl.findByUser(user);
+        final List<GroupRight> groupRights = this.groupRightSpi.findByUser(user);
 
         this.groupRightEntityRepositoryMockFactory.verifyFindByUserEntity(userEntity);
 
