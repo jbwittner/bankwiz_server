@@ -234,4 +234,27 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
         Assertions.assertEquals(1, groupRightEntities.size());
     }
+
+    @Test
+    void deleteGroup() {
+        final User user = this.factory.getUser();
+        final Jwt jwt = this.mockAuthentification(user);
+
+        final Group group = this.factory.getGroup();
+        this.factory.getGroupRight(group, user, GroupRightEnum.ADMIN);
+
+        final String path = "/group/" + group.getId();
+
+        given().auth()
+                .oauth2(jwt.getTokenValue())
+                .header("Content-type", "application/json")
+                .delete(path)
+                .then()
+                .assertThat()
+                .statusCode(200);
+
+        final boolean result = this.groupEntityRepository.existsById(group.getId());
+
+        Assertions.assertFalse(result);
+    }
 }
