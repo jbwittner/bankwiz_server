@@ -11,7 +11,7 @@ import lombok.ToString;
 @Builder
 @Getter
 @ToString
-public class GroupBankAccountIndex {
+public class GroupBankAccount {
     private List<BankAccount> bankAccounts;
     private Group group;
 }
