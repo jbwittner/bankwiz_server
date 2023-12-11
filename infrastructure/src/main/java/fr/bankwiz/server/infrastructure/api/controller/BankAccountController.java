@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import fr.bankwiz.openapi.api.BankaccountApi;
 import fr.bankwiz.openapi.model.BankAccountCreationRequest;
 import fr.bankwiz.openapi.model.BankAccountIndexDTO;
-import fr.bankwiz.openapi.model.GroupBankAcccountIndexDTO;
+import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
 import fr.bankwiz.server.domain.model.other.GroupBankAccount;
@@ -40,10 +40,10 @@ public class BankAccountController implements BankaccountApi {
     }
 
     @Override
-    public ResponseEntity<List<GroupBankAcccountIndexDTO>> getAllBankAccount() {
+    public ResponseEntity<List<GroupBankAccountIndexDTO>> getAllBankAccount() {
         final List<GroupBankAccount> groupBankAccounts = this.bankAccountInfraService.getAllBankAccount();
-        final List<GroupBankAcccountIndexDTO> groupBankAcccountIndexDTOs =
-                GroupBankAccountTransformer.toGroupBankAcccountIndexDTO(groupBankAccounts);
-        return new ResponseEntity<>(groupBankAcccountIndexDTOs, HttpStatus.OK);
+        final List<GroupBankAccountIndexDTO> groupBankAccountIndexDTOs =
+                GroupBankAccountTransformer.toGroupBankAccountIndexDTO(groupBankAccounts);
+        return new ResponseEntity<>(groupBankAccountIndexDTOs, HttpStatus.OK);
     }
 }
