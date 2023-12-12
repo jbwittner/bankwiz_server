@@ -32,6 +32,12 @@ public class BankAccountTransformer {
                 .build();
     }
 
+    public static List<BankAccount> fromBankAccountEntity(final List<BankAccountEntity> bankAccountEntities) {
+        return bankAccountEntities.stream()
+                .map(BankAccountTransformer::fromBankAccountEntity)
+                .toList();
+    }
+
     public static BankAccountIndexDTO toBankAccountIndexDTO(final BankAccount bankAccount) {
         return new BankAccountIndexDTO(bankAccount.getBankAccountName(), bankAccount.getId());
     }

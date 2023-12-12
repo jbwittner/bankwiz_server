@@ -7,11 +7,13 @@ import fr.bankwiz.server.domain.api.BankAccountApi;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
 import fr.bankwiz.server.domain.model.other.GroupBankAccount;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
+import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.domain.spi.GroupSpi;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
 
@@ -19,16 +21,19 @@ public class BankAccountService implements BankAccountApi {
 
     private final BankAccountSpi bankAccountSpi;
     private final GroupSpi groupSpi;
+    private final GroupRightSpi groupRightSpi;
     private final AuthenticationSpi authenticationSpi;
     private final CheckRightTools checkRightTools;
 
     public BankAccountService(
             final BankAccountSpi bankAccountSpi,
             final GroupSpi groupSpi,
+            final GroupRightSpi groupRightSpi,
             final AuthenticationSpi authenticationSpi,
             final CheckRightTools checkRightTools) {
         this.bankAccountSpi = bankAccountSpi;
         this.groupSpi = groupSpi;
+        this.groupRightSpi = groupRightSpi;
         this.authenticationSpi = authenticationSpi;
         this.checkRightTools = checkRightTools;
     }
@@ -53,6 +58,19 @@ public class BankAccountService implements BankAccountApi {
 
     @Override
     public List<GroupBankAccount> getAllBankAccount() {
-        throw new UnsupportedOperationException("Unimplemented method 'getAllBankAccount'");
+
+        final User user = this.authenticationSpi.getCurrentUser();
+        final List<GroupRight> groupRights = this.groupRightSpi.findByUser(user);
+
+        return groupRights.stream()
+                .map(GroupRight::getGroup)
+                .map(group -> {
+                    final List<BankAccount> bankAccounts = this.bankAccountSpi.findByGroup(group);
+                    return GroupBankAccount.builder()
+                            .bankAccounts(bankAccounts)
+                            .group(group)
+                            .build();
+                })
+                .toList();
     }
 }

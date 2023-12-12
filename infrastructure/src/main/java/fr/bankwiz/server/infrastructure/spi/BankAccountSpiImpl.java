@@ -1,5 +1,7 @@
 package fr.bankwiz.server.infrastructure.spi;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import fr.bankwiz.server.domain.model.data.BankAccount;
@@ -31,5 +33,12 @@ public class BankAccountSpiImpl implements BankAccountSpi {
     public boolean existsByGroup(Group group) {
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
         return this.bankAccountEntityRepository.existsByGroupEntity(groupEntity);
+    }
+
+    @Override
+    public List<BankAccount> findByGroup(Group group) {
+        final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
+        List<BankAccountEntity> bankAccountEntities = this.bankAccountEntityRepository.findByGroupEntity(groupEntity);
+        return BankAccountTransformer.fromBankAccountEntity(bankAccountEntities);
     }
 }
