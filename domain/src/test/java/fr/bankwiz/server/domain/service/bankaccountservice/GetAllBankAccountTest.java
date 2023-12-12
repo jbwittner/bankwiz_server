@@ -30,14 +30,17 @@ class GetAllBankAccountTest extends DomainUnitTestBase {
     @Test
     void ok() {
         final User user = this.factory.getUser();
-        
+
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
         List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(user, GroupRightEnum.READ));
         groupRights.add(this.factory.getGroupRight(user, GroupRightEnum.READ));
         groupRights.add(this.factory.getGroupRight(user, GroupRightEnum.READ));
+        
         this.mockGroupRightSpi.mockFindByUser(user, groupRights);
+
+
     }
     
 }
