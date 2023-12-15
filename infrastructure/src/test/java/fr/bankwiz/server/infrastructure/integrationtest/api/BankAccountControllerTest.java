@@ -1,5 +1,8 @@
 package fr.bankwiz.server.infrastructure.integrationtest.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +10,8 @@ import org.springframework.security.oauth2.jwt.Jwt;
 
 import fr.bankwiz.openapi.model.BankAccountCreationRequest;
 import fr.bankwiz.openapi.model.BankAccountIndexDTO;
+import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
+import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -15,6 +20,7 @@ import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.spi.database.repository.BankAccountEntityRepository;
 import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
+import io.restassured.common.mapper.TypeRef;
 
 import static io.restassured.RestAssured.given;
 
@@ -68,5 +74,82 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
                         bankAccountCreationRequest.getBankAccountName(), bankAccountEntity.getBankAccountName()),
                 () -> Assertions.assertEquals(
                         bankAccountCreationRequest.getDecimalBaseAmount(), bankAccountEntity.getBaseAmountDecimal()));
+    }
+
+    @Test
+    void getAllBankAccount() {
+        final User user = this.factory.getUser();
+        final Jwt jwt = this.mockAuthentification(user);
+
+        final List<Group> groups = new ArrayList<>();
+        final Group group1 = this.factory.getGroup();
+        groups.add(group1);
+        this.factory.getGroupRight(group1, user, GroupRightEnum.READ);
+
+        final Group group2 = this.factory.getGroup();
+        groups.add(group2);
+        this.factory.getGroupRight(group2, user, GroupRightEnum.READ);
+
+        final List<BankAccount> bankAccountsGroup1 = new ArrayList<>();
+        final List<BankAccount> bankAccountsGroup2 = new ArrayList<>();
+
+        bankAccountsGroup1.add(this.factory.getBankAccount(group1));
+        bankAccountsGroup1.add(this.factory.getBankAccount(group1));
+
+        bankAccountsGroup2.add(this.factory.getBankAccount(group2));
+        bankAccountsGroup2.add(this.factory.getBankAccount(group2));
+        bankAccountsGroup2.add(this.factory.getBankAccount(group2));
+
+        final var response = given().auth()
+                .oauth2(jwt.getTokenValue())
+                .header("Content-type", "application/json")
+                .get("/bankaccount/bankaccounts")
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .extract()
+                .as(new TypeRef<List<GroupBankAccountIndexDTO>>() {});
+
+        Assertions.assertEquals(2, response.size());
+
+        final GroupBankAccountIndexDTO groupBankAccountIndexDTO1 = response.stream()
+                .filter(groupBankAccountIndexDTO ->
+                        groupBankAccountIndexDTO.getGroupeIndex().getGroupId().equals(group1.getId()))
+                .findFirst()
+                .orElseThrow();
+        Assertions.assertEquals(
+                bankAccountsGroup1.size(),
+                groupBankAccountIndexDTO1.getBankAccountIndexList().size());
+        groupBankAccountIndexDTO1.getBankAccountIndexList().forEach(bankAccountIndexDTO -> {
+            final BankAccount bankAccount = bankAccountsGroup1.stream()
+                    .filter(bankAccountToFind ->
+                            bankAccountToFind.getId().equals(bankAccountIndexDTO.getBankAccountId()))
+                    .findFirst()
+                    .orElseThrow();
+            Assertions.assertAll(
+                    () -> Assertions.assertEquals(
+                            bankAccount.getBankAccountName(), bankAccountIndexDTO.getBankAccountName()),
+                    () -> Assertions.assertEquals(bankAccount.getId(), bankAccountIndexDTO.getBankAccountId()));
+        });
+
+        final GroupBankAccountIndexDTO groupBankAccountIndexDTO2 = response.stream()
+                .filter(groupBankAccountIndexDTO ->
+                        groupBankAccountIndexDTO.getGroupeIndex().getGroupId().equals(group2.getId()))
+                .findFirst()
+                .orElseThrow();
+        Assertions.assertEquals(
+                bankAccountsGroup2.size(),
+                groupBankAccountIndexDTO2.getBankAccountIndexList().size());
+        groupBankAccountIndexDTO2.getBankAccountIndexList().forEach(bankAccountIndexDTO -> {
+            final BankAccount bankAccount = bankAccountsGroup2.stream()
+                    .filter(bankAccountToFind ->
+                            bankAccountToFind.getId().equals(bankAccountIndexDTO.getBankAccountId()))
+                    .findFirst()
+                    .orElseThrow();
+            Assertions.assertAll(
+                    () -> Assertions.assertEquals(
+                            bankAccount.getBankAccountName(), bankAccountIndexDTO.getBankAccountName()),
+                    () -> Assertions.assertEquals(bankAccount.getId(), bankAccountIndexDTO.getBankAccountId()));
+        });
     }
 }

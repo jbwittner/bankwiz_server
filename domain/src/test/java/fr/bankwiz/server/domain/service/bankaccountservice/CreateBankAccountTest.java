@@ -30,6 +30,7 @@ class CreateBankAccountTest extends DomainUnitTestBase {
         this.bankAccountService = new BankAccountService(
                 this.mockBankAccountSpi.getMock(),
                 this.mockGroupSpi.getMock(),
+                this.mockGroupRightSpi.getMock(),
                 this.mockAuthenticationSpi.getMock(),
                 checkRightTools);
     }

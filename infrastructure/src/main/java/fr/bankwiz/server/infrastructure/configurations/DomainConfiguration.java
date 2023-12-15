@@ -45,8 +45,9 @@ public class DomainConfiguration {
     BankAccountApi bankAccountApi(
             BankAccountSpi bankAccountSpi,
             GroupSpi groupSpi,
+            GroupRightSpi groupRightSpi,
             AuthenticationSpi authenticationSpi,
             CheckRightTools checkRightTools) {
-        return new BankAccountService(bankAccountSpi, groupSpi, authenticationSpi, checkRightTools);
+        return new BankAccountService(bankAccountSpi, groupSpi, groupRightSpi, authenticationSpi, checkRightTools);
     }
 }

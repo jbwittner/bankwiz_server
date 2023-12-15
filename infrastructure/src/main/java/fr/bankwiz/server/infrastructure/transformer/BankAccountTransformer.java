@@ -1,5 +1,7 @@
 package fr.bankwiz.server.infrastructure.transformer;
 
+import java.util.List;
+
 import fr.bankwiz.openapi.model.BankAccountIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
@@ -30,7 +32,19 @@ public class BankAccountTransformer {
                 .build();
     }
 
+    public static List<BankAccount> fromBankAccountEntity(final List<BankAccountEntity> bankAccountEntities) {
+        return bankAccountEntities.stream()
+                .map(BankAccountTransformer::fromBankAccountEntity)
+                .toList();
+    }
+
     public static BankAccountIndexDTO toBankAccountIndexDTO(final BankAccount bankAccount) {
         return new BankAccountIndexDTO(bankAccount.getBankAccountName(), bankAccount.getId());
+    }
+
+    public static List<BankAccountIndexDTO> toBankAccountIndexDTO(final List<BankAccount> bankAccounts) {
+        return bankAccounts.stream()
+                .map(BankAccountTransformer::toBankAccountIndexDTO)
+                .toList();
     }
 }

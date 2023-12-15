@@ -3,17 +3,21 @@ package fr.bankwiz.server.infrastructure.integrationtest.testhelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.testhelper.tools.DomainUnitTestFactory;
+import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
+import fr.bankwiz.server.infrastructure.spi.database.repository.BankAccountEntityRepository;
 import fr.bankwiz.server.infrastructure.spi.database.repository.GroupEntityRepository;
 import fr.bankwiz.server.infrastructure.spi.database.repository.GroupRightEntityRepository;
 import fr.bankwiz.server.infrastructure.spi.database.repository.UserEntityRepository;
+import fr.bankwiz.server.infrastructure.transformer.BankAccountTransformer;
 import fr.bankwiz.server.infrastructure.transformer.GroupRightTransformer;
 import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
@@ -29,6 +33,9 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
 
     @Autowired
     private GroupRightEntityRepository groupRightEntityRepository;
+
+    @Autowired
+    private BankAccountEntityRepository bankAccountEntityRepository;
 
     public InfrastructureIntegrationTestFactory() {}
 
@@ -64,5 +71,13 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
         this.groupEntityRepository.save(groupEntity);
         this.groupRightEntityRepository.save(groupRightEntity);
         return groupRight;
+    }
+
+    @Override
+    public BankAccount getBankAccount(final Group group) {
+        final BankAccount bankAccount = super.getBankAccount(group);
+        final BankAccountEntity bankAccountEntity = BankAccountTransformer.toBankAccountEntity(bankAccount);
+        this.bankAccountEntityRepository.save(bankAccountEntity);
+        return bankAccount;
     }
 }

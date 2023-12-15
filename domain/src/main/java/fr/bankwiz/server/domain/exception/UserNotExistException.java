@@ -2,9 +2,6 @@ package fr.bankwiz.server.domain.exception;
 
 import java.util.UUID;
 
-import lombok.ToString;
-
-@ToString
 public class UserNotExistException extends FunctionalException {
 
     public UserNotExistException(final String authId) {

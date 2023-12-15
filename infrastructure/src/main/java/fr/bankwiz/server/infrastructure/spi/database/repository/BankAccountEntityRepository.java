@@ -1,5 +1,10 @@
 package fr.bankwiz.server.infrastructure.spi.database.repository;
 
-import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
+import java.util.List;
 
-public interface BankAccountEntityRepository extends GroupRelatedEntityRepository<BankAccountEntity> {}
+import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
+import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
+
+public interface BankAccountEntityRepository extends GroupRelatedEntityRepository<BankAccountEntity> {
+    List<BankAccountEntity> findByGroupEntity(GroupEntity groupEntity);
+}
