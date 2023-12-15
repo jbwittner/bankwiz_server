@@ -74,4 +74,9 @@ public class DomainUnitTestFactory {
                 .group(group)
                 .build();
     }
+
+    public BankAccount getBankAccount() {
+        final Group group = this.getGroup();
+        return this.getBankAccount(group);
+    }
 }

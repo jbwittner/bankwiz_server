@@ -1,6 +1,8 @@
 package fr.bankwiz.server.domain.testhelper.mock;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
@@ -29,6 +31,11 @@ public class DomainMockBankAccountSpi extends DomainMockHelper<BankAccountSpi> {
 
     public DomainMockBankAccountSpi mockFindByGroup(final Group group, final List<BankAccount> bankAccounts) {
         Mockito.when(this.mock.findByGroup(group)).thenReturn(bankAccounts);
+        return this;
+    }
+
+    public DomainMockBankAccountSpi mockFindById(final UUID id, final Optional<BankAccount> optionalBankAccount) {
+        Mockito.when(this.mock.findById(id)).thenReturn(optionalBankAccount);
         return this;
     }
 }

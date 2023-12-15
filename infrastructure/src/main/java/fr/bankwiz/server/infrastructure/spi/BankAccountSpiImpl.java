@@ -1,6 +1,8 @@
 package fr.bankwiz.server.infrastructure.spi;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
@@ -40,5 +42,23 @@ public class BankAccountSpiImpl implements BankAccountSpi {
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
         List<BankAccountEntity> bankAccountEntities = this.bankAccountEntityRepository.findByGroupEntity(groupEntity);
         return BankAccountTransformer.fromBankAccountEntity(bankAccountEntities);
+    }
+
+    @Override
+    public Optional<BankAccount> findById(UUID id) {
+        final Optional<BankAccountEntity> optionalBankAccountEntity = this.bankAccountEntityRepository.findById(id);
+
+        if (optionalBankAccountEntity.isEmpty()) {
+            return Optional.empty();
+        } else {
+            final BankAccount bankAccount =
+                    BankAccountTransformer.fromBankAccountEntity(optionalBankAccountEntity.get());
+            return Optional.of(bankAccount);
+        }
+    }
+
+    @Override
+    public void deleteById(UUID id) {
+        this.bankAccountEntityRepository.deleteById(id);
     }
 }
