@@ -1,5 +1,8 @@
 package fr.bankwiz.server.infrastructure.unittest.transformer.bankaccounttransformer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +19,7 @@ class FromBankAccountEntityTest extends InfrastructureUnitTestBase {
     protected void initDataBeforeEach() {}
 
     @Test
-    void ok() {
+    void single() {
         final GroupEntity groupEntity = this.factory.getGroupEntity();
         final BankAccountEntity bankAccountEntity = this.factory.getBankAccountEntity(groupEntity);
         final BankAccount bankAccount = BankAccountTransformer.fromBankAccountEntity(bankAccountEntity);
@@ -28,5 +31,32 @@ class FromBankAccountEntityTest extends InfrastructureUnitTestBase {
                 () -> Assertions.assertEquals(bankAccountEntity.getId(), bankAccount.getId()),
                 () -> Assertions.assertEquals(
                         bankAccountEntity.getGroupEntity(), GroupTransformer.toGroupEntity(bankAccount.getGroup())));
+    }
+
+    @Test
+    void list() {
+        final GroupEntity groupEntity = this.factory.getGroupEntity();
+        final List<BankAccountEntity> bankAccountEntities = new ArrayList<>();
+        bankAccountEntities.add(this.factory.getBankAccountEntity(groupEntity));
+        bankAccountEntities.add(this.factory.getBankAccountEntity(groupEntity));
+        bankAccountEntities.add(this.factory.getBankAccountEntity(groupEntity));
+
+        final var bankAccounts = BankAccountTransformer.fromBankAccountEntity(bankAccountEntities);
+
+        Assertions.assertEquals(bankAccountEntities.size(), bankAccountEntities.size());
+
+        bankAccounts.forEach(bankAccount -> {
+            final BankAccountEntity result = bankAccountEntities.stream()
+                    .filter(bankAccountEntity -> bankAccountEntity.getId().equals(bankAccount.getId()))
+                    .findFirst()
+                    .orElseThrow();
+
+            Assertions.assertAll(
+                    () -> Assertions.assertEquals(result.getBaseAmountDecimal(), bankAccount.getDecimalBaseAmount()),
+                    () -> Assertions.assertEquals(result.getBankAccountName(), bankAccount.getBankAccountName()),
+                    () -> Assertions.assertEquals(result.getId(), bankAccount.getId()),
+                    () -> Assertions.assertEquals(
+                            result.getGroupEntity(), GroupTransformer.toGroupEntity(bankAccount.getGroup())));
+        });
     }
 }

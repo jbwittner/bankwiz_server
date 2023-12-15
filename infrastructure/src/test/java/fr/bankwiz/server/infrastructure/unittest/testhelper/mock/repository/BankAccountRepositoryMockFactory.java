@@ -1,5 +1,6 @@
 package fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.mockito.Mockito;
@@ -16,6 +17,12 @@ public class BankAccountRepositoryMockFactory
 
     public BankAccountRepositoryMockFactory mockExistByGroupEntity(GroupEntity groupEntity, boolean exist) {
         Mockito.when(repository.existsByGroupEntity(groupEntity)).thenReturn(exist);
+        return this;
+    }
+
+    public BankAccountRepositoryMockFactory mockFindByGroupEntity(
+            GroupEntity groupEntity, List<BankAccountEntity> bankAccountEntities) {
+        Mockito.when(repository.findByGroupEntity(groupEntity)).thenReturn(bankAccountEntities);
         return this;
     }
 }
