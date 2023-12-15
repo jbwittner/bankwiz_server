@@ -63,7 +63,7 @@ jobs:
           cache: 'maven'
       - name: Build java part
         run: mvn -B compile
-  tests_sonar:
+  tests_sonar_domain:
     runs-on: ubuntu-22.04
     needs:
       - build-application
@@ -85,11 +85,34 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
       - name: Test and Analyse
-        run: mvn clean verify sonar:sonar
+        run: mvn clean verify sonar:sonar -pl domain
+  tests_sonar_infra:
+    runs-on: ubuntu-22.04
+    needs:
+      - tests_sonar_domain
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Setup-Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'microsoft'
+          java-version: '17'
+          cache: 'maven'
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Test and Analyse
+        run: mvn clean verify sonar:sonar -pl infrastructure -am
   package_application:
     runs-on: ubuntu-22.04
     needs:
-      - tests_sonar
+      - tests_sonar_infra
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v3
