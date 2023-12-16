@@ -80,4 +80,10 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
         this.bankAccountEntityRepository.save(bankAccountEntity);
         return bankAccount;
     }
+
+    @Override
+    public BankAccount getBankAccount() {
+        final Group group = this.getGroup();
+        return this.getBankAccount(group);
+    }
 }
