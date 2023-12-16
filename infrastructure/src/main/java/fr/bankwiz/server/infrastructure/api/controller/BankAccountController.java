@@ -1,6 +1,7 @@
 package fr.bankwiz.server.infrastructure.api.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,5 +46,11 @@ public class BankAccountController implements BankaccountApi {
         final List<GroupBankAccountIndexDTO> groupBankAccountIndexDTOs =
                 GroupBankAccountTransformer.toGroupBankAccountIndexDTO(groupBankAccounts);
         return new ResponseEntity<>(groupBankAccountIndexDTOs, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteBankAccount(UUID id) {
+        this.bankAccountInfraService.deleteBankAccount(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
