@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import fr.bankwiz.server.domain.api.BankAccountApi;
+import fr.bankwiz.server.domain.exception.BankAccountNotExistException;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
@@ -72,5 +73,19 @@ public class BankAccountService implements BankAccountApi {
                             .build();
                 })
                 .toList();
+    }
+
+    @Override
+    public void deleteBankAccount(UUID bankAccountId) {
+        final User user = this.authenticationSpi.getCurrentUser();
+
+        final BankAccount bankAccount = this.bankAccountSpi
+                .findById(bankAccountId)
+                .orElseThrow(() -> new BankAccountNotExistException(bankAccountId));
+
+        final Group group = bankAccount.getGroup();
+        this.checkRightTools.checkIsAdmin(user, group);
+
+        this.bankAccountSpi.deleteById(bankAccountId);
     }
 }

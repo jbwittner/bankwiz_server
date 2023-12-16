@@ -2,6 +2,7 @@ package fr.bankwiz.server.infrastructure.integrationtest.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -151,5 +152,30 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
                             bankAccount.getBankAccountName(), bankAccountIndexDTO.getBankAccountName()),
                     () -> Assertions.assertEquals(bankAccount.getId(), bankAccountIndexDTO.getBankAccountId()));
         });
+    }
+
+    @Test
+    void deleteBankAccount() {
+        final User user = this.factory.getUser();
+        final Jwt jwt = this.mockAuthentification(user);
+
+        final BankAccount bankAccount = this.factory.getBankAccount();
+        final UUID id = bankAccount.getId();
+
+        this.factory.getGroupRight(bankAccount.getGroup(), user, GroupRightEnum.ADMIN);
+
+        final String uri = "/bankaccount/" + id.toString();
+
+        given().auth()
+                .oauth2(jwt.getTokenValue())
+                .header("Content-type", "application/json")
+                .delete(uri)
+                .then()
+                .assertThat()
+                .statusCode(200);
+
+        final Boolean bankAccountExist = this.bankAccountEntityRepository.existsById(id);
+
+        Assertions.assertFalse(bankAccountExist);
     }
 }

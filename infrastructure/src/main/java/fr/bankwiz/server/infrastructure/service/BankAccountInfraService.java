@@ -1,6 +1,7 @@
 package fr.bankwiz.server.infrastructure.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,5 +28,10 @@ public class BankAccountInfraService {
     @Transactional(readOnly = true)
     public List<GroupBankAccount> getAllBankAccount() {
         return this.bankAccountApi.getAllBankAccount();
+    }
+
+    @Transactional
+    public void deleteBankAccount(UUID uuid) {
+        this.bankAccountApi.deleteBankAccount(uuid);
     }
 }
