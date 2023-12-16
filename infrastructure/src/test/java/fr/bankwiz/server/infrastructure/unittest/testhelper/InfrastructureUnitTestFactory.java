@@ -65,4 +65,9 @@ public class InfrastructureUnitTestFactory extends DomainUnitTestFactory {
                 .groupEntity(groupEntity)
                 .build();
     }
+
+    public BankAccountEntity getBankAccountEntity() {
+        final GroupEntity groupEntity = this.getGroupEntity();
+        return this.getBankAccountEntity(groupEntity);
+    }
 }
