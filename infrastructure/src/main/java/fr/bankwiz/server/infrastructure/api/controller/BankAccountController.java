@@ -10,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import fr.bankwiz.openapi.api.BankaccountApi;
 import fr.bankwiz.openapi.model.BankAccountCreationRequest;
 import fr.bankwiz.openapi.model.BankAccountIndexDTO;
+import fr.bankwiz.openapi.model.BankAccountUpdateRequest;
 import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
+import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
 import fr.bankwiz.server.domain.model.other.GroupBankAccount;
 import fr.bankwiz.server.infrastructure.service.BankAccountInfraService;
 import fr.bankwiz.server.infrastructure.transformer.BankAccountTransformer;
@@ -52,5 +54,18 @@ public class BankAccountController implements BankaccountApi {
     public ResponseEntity<Void> deleteBankAccount(UUID id) {
         this.bankAccountInfraService.deleteBankAccount(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<BankAccountIndexDTO> updateBankAccount(
+            UUID id, BankAccountUpdateRequest bankAccountUpdateRequest) {
+        BankAccountUpdateInput bankAccountUpdateInput = BankAccountUpdateInput.builder()
+                .bankAccountName(bankAccountUpdateRequest.getBankAccountName())
+                .decimalBaseAmount(bankAccountUpdateRequest.getDecimalBaseAmount())
+                .groupId(bankAccountUpdateRequest.getGroupId())
+                .build();
+        BankAccount bankAccount = this.bankAccountInfraService.updateBankAccount(id, bankAccountUpdateInput);
+        BankAccountIndexDTO bankAccountIndexDTO = BankAccountTransformer.toBankAccountIndexDTO(bankAccount);
+        return new ResponseEntity<>(bankAccountIndexDTO, HttpStatus.OK);
     }
 }

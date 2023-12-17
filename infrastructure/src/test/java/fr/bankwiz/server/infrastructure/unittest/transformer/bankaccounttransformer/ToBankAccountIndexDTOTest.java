@@ -53,7 +53,9 @@ class ToBankAccountIndexDTOTest extends InfrastructureUnitTestBase {
             Assertions.assertAll(
                     () -> Assertions.assertEquals(
                             bankAccount.getBankAccountName(), bankAccountIndexDTO.getBankAccountName()),
-                    () -> Assertions.assertEquals(bankAccount.getId(), bankAccountIndexDTO.getBankAccountId()));
+                    () -> Assertions.assertEquals(bankAccount.getId(), bankAccountIndexDTO.getBankAccountId()),
+                    () -> Assertions.assertEquals(
+                            bankAccount.getDecimalBaseAmount(), bankAccountIndexDTO.getDecimalBaseAmount()));
         });
     }
 }

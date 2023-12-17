@@ -39,7 +39,8 @@ public class BankAccountTransformer {
     }
 
     public static BankAccountIndexDTO toBankAccountIndexDTO(final BankAccount bankAccount) {
-        return new BankAccountIndexDTO(bankAccount.getBankAccountName(), bankAccount.getId());
+        return new BankAccountIndexDTO(
+                bankAccount.getBankAccountName(), bankAccount.getId(), bankAccount.getDecimalBaseAmount());
     }
 
     public static List<BankAccountIndexDTO> toBankAccountIndexDTO(final List<BankAccount> bankAccounts) {

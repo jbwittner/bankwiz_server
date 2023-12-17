@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 
 import fr.bankwiz.openapi.model.BankAccountCreationRequest;
 import fr.bankwiz.openapi.model.BankAccountIndexDTO;
+import fr.bankwiz.openapi.model.BankAccountUpdateRequest;
 import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
@@ -177,5 +178,53 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
         final Boolean bankAccountExist = this.bankAccountEntityRepository.existsById(id);
 
         Assertions.assertFalse(bankAccountExist);
+    }
+
+    @Test
+    void updateBankAccount() {
+        final User user = this.factory.getUser();
+        final Jwt jwt = this.mockAuthentification(user);
+
+        final BankAccount bankAccountBefore = this.factory.getBankAccount();
+        this.factory.getGroupRight(bankAccountBefore.getGroup(), user, GroupRightEnum.ADMIN);
+
+        final BankAccountUpdateRequest bankAccountCreationRequest = new BankAccountUpdateRequest();
+        bankAccountCreationRequest.bankAccountName(this.faker.witcher().character());
+        bankAccountCreationRequest.decimalBaseAmount(this.faker.random().nextInt(Integer.MAX_VALUE));
+
+        final String uri = "/bankaccount/" + bankAccountBefore.getId().toString();
+
+        final var result = given().auth()
+                .oauth2(jwt.getTokenValue())
+                .header("Content-type", "application/json")
+                .body(bankAccountCreationRequest)
+                .put(uri)
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .extract()
+                .as(BankAccountIndexDTO.class);
+
+        Assertions.assertAll(
+                () -> Assertions.assertNotEquals(bankAccountBefore.getBankAccountName(), result.getBankAccountName()),
+                () -> Assertions.assertNotEquals(
+                        bankAccountBefore.getDecimalBaseAmount(), result.getDecimalBaseAmount()),
+                () -> Assertions.assertEquals(
+                        bankAccountCreationRequest.getBankAccountName(), result.getBankAccountName()),
+                () -> Assertions.assertEquals(
+                        bankAccountCreationRequest.getDecimalBaseAmount(), result.getDecimalBaseAmount()));
+
+        final BankAccountEntity entity = this.bankAccountEntityRepository
+                .findById(bankAccountBefore.getId())
+                .orElseThrow();
+
+        Assertions.assertAll(
+                () -> Assertions.assertNotEquals(bankAccountBefore.getBankAccountName(), entity.getBankAccountName()),
+                () -> Assertions.assertNotEquals(
+                        bankAccountBefore.getDecimalBaseAmount(), entity.getBaseAmountDecimal()),
+                () -> Assertions.assertEquals(
+                        bankAccountCreationRequest.getBankAccountName(), entity.getBankAccountName()),
+                () -> Assertions.assertEquals(
+                        bankAccountCreationRequest.getDecimalBaseAmount(), entity.getBaseAmountDecimal()));
     }
 }
