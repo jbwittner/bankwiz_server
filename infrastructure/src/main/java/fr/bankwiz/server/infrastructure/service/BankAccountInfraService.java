@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.bankwiz.server.domain.api.BankAccountApi;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
+import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
 import fr.bankwiz.server.domain.model.other.GroupBankAccount;
 
 @Service
@@ -33,5 +34,10 @@ public class BankAccountInfraService {
     @Transactional
     public void deleteBankAccount(UUID uuid) {
         this.bankAccountApi.deleteBankAccount(uuid);
+    }
+
+    @Transactional
+    public BankAccount updateBankAccount(UUID uuid, BankAccountUpdateInput bankAccountUpdateInput) {
+        return this.bankAccountApi.updateBankAccount(uuid, bankAccountUpdateInput);
     }
 }

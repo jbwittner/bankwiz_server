@@ -1,7 +1,5 @@
 package fr.bankwiz.server.infrastructure.unittest.transformer.bankaccounttransformer;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -56,7 +54,8 @@ class ToBankAccountIndexDTOTest extends InfrastructureUnitTestBase {
                     () -> Assertions.assertEquals(
                             bankAccount.getBankAccountName(), bankAccountIndexDTO.getBankAccountName()),
                     () -> Assertions.assertEquals(bankAccount.getId(), bankAccountIndexDTO.getBankAccountId()),
-                    () -> Assertions.assertEquals(bankAccount.getDecimalBaseAmount(), bankAccountIndexDTO.getDecimalBaseAmount()));
+                    () -> Assertions.assertEquals(
+                            bankAccount.getDecimalBaseAmount(), bankAccountIndexDTO.getDecimalBaseAmount()));
         });
     }
 }

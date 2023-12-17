@@ -11,6 +11,7 @@ import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
+import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
 import fr.bankwiz.server.domain.model.other.GroupBankAccount;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
@@ -87,5 +88,35 @@ public class BankAccountService implements BankAccountApi {
         this.checkRightTools.checkIsAdmin(user, group);
 
         this.bankAccountSpi.deleteById(bankAccountId);
+    }
+
+    @Override
+    public BankAccount updateBankAccount(UUID bankAccountId, BankAccountUpdateInput bankAccountUpdateInput) {
+        final User user = this.authenticationSpi.getCurrentUser();
+
+        final BankAccount bankAccount = this.bankAccountSpi
+                .findById(bankAccountId)
+                .orElseThrow(() -> new BankAccountNotExistException(bankAccountId));
+
+        final Group group = bankAccount.getGroup();
+        this.checkRightTools.checkIsAdmin(user, group);
+
+        if (bankAccountUpdateInput.getBankAccountName() != null) {
+            bankAccount.setBankAccountName(bankAccountUpdateInput.getBankAccountName());
+        }
+
+        if (bankAccountUpdateInput.getDecimalBaseAmount() != null) {
+            bankAccount.setDecimalBaseAmount(bankAccountUpdateInput.getDecimalBaseAmount());
+        }
+
+        if (bankAccountUpdateInput.getGroupId() != null) {
+            final UUID otherGroupId = bankAccountUpdateInput.getGroupId();
+            final Group otherGroup =
+                    this.groupSpi.findById(otherGroupId).orElseThrow(() -> new GroupNotExistException(otherGroupId));
+            this.checkRightTools.canWrite(user, otherGroup);
+            bankAccount.setGroup(otherGroup);
+        }
+
+        return this.bankAccountSpi.save(bankAccount);
     }
 }
