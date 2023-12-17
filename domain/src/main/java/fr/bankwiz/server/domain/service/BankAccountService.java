@@ -113,7 +113,7 @@ public class BankAccountService implements BankAccountApi {
             final UUID otherGroupId = bankAccountUpdateInput.getGroupId();
             final Group otherGroup =
                     this.groupSpi.findById(otherGroupId).orElseThrow(() -> new GroupNotExistException(otherGroupId));
-            this.checkRightTools.canWrite(user, otherGroup);
+            this.checkRightTools.checkCanWrite(user, otherGroup);
             bankAccount.setGroup(otherGroup);
         }
 
