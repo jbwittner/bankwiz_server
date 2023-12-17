@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
-import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
 import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
 import fr.bankwiz.server.domain.service.BankAccountService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -41,7 +41,9 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
         final UUID bankAccountId = bankAccount.getId();
 
-        this.mockBankAccountSpi.mockFindById(bankAccountId, Optional.of(bankAccount)).mockSave();
+        this.mockBankAccountSpi
+                .mockFindById(bankAccountId, Optional.of(bankAccount))
+                .mockSave();
 
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(bankAccount.getGroup(), user, GroupRightEnum.ADMIN));
@@ -50,20 +52,19 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
         final String bankAccountNameBefore = bankAccount.getBankAccountName();
 
-        BankAccountUpdateInput bankAccountUpdateInput = BankAccountUpdateInput.builder().bankAccountName(this.faker.starTrek().character())
-        .build();
+        BankAccountUpdateInput bankAccountUpdateInput = BankAccountUpdateInput.builder()
+                .bankAccountName(this.faker.starTrek().character())
+                .build();
 
-        final BankAccount bankAccountUpdated = this.bankAccountService.updateBankAccount(bankAccountId, bankAccountUpdateInput);
+        final BankAccount bankAccountUpdated =
+                this.bankAccountService.updateBankAccount(bankAccountId, bankAccountUpdateInput);
 
         Assertions.assertAll(
-        () -> Assertions.assertNotEquals(bankAccountNameBefore, bankAccountUpdated.getBankAccountName()),
-        () -> Assertions.assertEquals(bankAccountUpdateInput.getBankAccountName(), bankAccountUpdated.getBankAccountName()),
-        () -> Assertions.assertEquals(bankAccount.getGroup(), bankAccountUpdated.getGroup()),
-        () -> Assertions.assertEquals(bankAccount.getDecimalBaseAmount(), bankAccountUpdated.getDecimalBaseAmount())
-
-        );
-
-
+                () -> Assertions.assertNotEquals(bankAccountNameBefore, bankAccountUpdated.getBankAccountName()),
+                () -> Assertions.assertEquals(
+                        bankAccountUpdateInput.getBankAccountName(), bankAccountUpdated.getBankAccountName()),
+                () -> Assertions.assertEquals(bankAccount.getGroup(), bankAccountUpdated.getGroup()),
+                () -> Assertions.assertEquals(
+                        bankAccount.getDecimalBaseAmount(), bankAccountUpdated.getDecimalBaseAmount()));
     }
-    
 }
