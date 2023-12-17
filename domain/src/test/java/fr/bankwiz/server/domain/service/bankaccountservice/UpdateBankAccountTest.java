@@ -129,9 +129,12 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
         this.mockGroupSpi.mockFindById(newGroup.getId(), Optional.of(newGroup));
 
-        groupRights.add(this.factory.getGroupRight(newGroup, user, GroupRightEnum.ADMIN));
+        final List<GroupRight> newGroupRights = new ArrayList<>();
+        newGroupRights.add(this.factory.getGroupRight(newGroup, user, GroupRightEnum.ADMIN));
 
-        this.mockGroupRightSpi.mockFindByGroup(bankAccount.getGroup(), groupRights);
+        this.mockGroupRightSpi
+                .mockFindByGroup(bankAccount.getGroup(), groupRights)
+                .mockFindByGroup(newGroup, newGroupRights);
 
         final Group groupBefore = bankAccount.getGroup();
 
