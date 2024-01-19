@@ -25,8 +25,8 @@ public class DomainConfiguration {
     }
 
     @Bean
-    CheckRightTools checkRightTools(GroupRightSpi groupRightSpi) {
-        return new CheckRightTools(groupRightSpi);
+    CheckRightTools checkRightTools(GroupRightSpi groupRightSpi, AuthenticationSpi authenticationSpi) {
+        return new CheckRightTools(groupRightSpi, authenticationSpi);
     }
 
     @Bean

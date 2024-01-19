@@ -22,7 +22,8 @@ class CheckIsAdminTest extends DomainUnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {
-        this.checkRightTools = new CheckRightTools(this.mockGroupRightSpi.getMock());
+        this.checkRightTools =
+                new CheckRightTools(this.mockGroupRightSpi.getMock(), this.mockAuthenticationSpi.getMock());
     }
 
     @Test

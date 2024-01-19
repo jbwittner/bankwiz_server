@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import fr.bankwiz.server.domain.exception.UserNoReadRightException;
+import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -16,7 +16,7 @@ import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
 
-class CheckCanReadTest extends DomainUnitTestBase {
+class CheckCurrentUserCanWriteTest extends DomainUnitTestBase {
 
     private CheckRightTools checkRightTools;
 
@@ -34,13 +34,32 @@ class CheckCanReadTest extends DomainUnitTestBase {
         final List<GroupRight> groupRights = new ArrayList<>();
 
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
+        this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        Assertions.assertThrows(UserNoReadRightException.class, () -> this.checkRightTools.checkCanRead(user, group));
+        Assertions.assertThrows(
+                UserNoWriteRightException.class, () -> this.checkRightTools.checkCurrentUserCanWrite(group));
+    }
+
+    @Test
+    void canNotWrite() {
+        final User user = this.factory.getUser();
+        final Group group = this.factory.getGroup();
+
+        final List<GroupRight> groupRights = new ArrayList<>();
+        groupRights.add(this.factory.getGroupRight(group, user, GroupRightEnum.READ));
+
+        this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
+        this.mockAuthenticationSpi.mockGetCurrentUser(user);
+
+        Assertions.assertThrows(
+                UserNoWriteRightException.class, () -> this.checkRightTools.checkCurrentUserCanWrite(group));
     }
 
     @ParameterizedTest
-    @EnumSource(value = GroupRightEnum.class)
-    void canRead(final GroupRightEnum right) {
+    @EnumSource(
+            value = GroupRightEnum.class,
+            names = {"ADMIN", "WRITE"})
+    void canWrite(final GroupRightEnum right) {
         final User user = this.factory.getUser();
         final Group group = this.factory.getGroup();
 
@@ -48,7 +67,8 @@ class CheckCanReadTest extends DomainUnitTestBase {
         groupRights.add(this.factory.getGroupRight(group, user, right));
 
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
+        this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        Assertions.assertDoesNotThrow(() -> this.checkRightTools.checkCanRead(user, group));
+        Assertions.assertDoesNotThrow(() -> this.checkRightTools.checkCurrentUserCanWrite(group));
     }
 }
