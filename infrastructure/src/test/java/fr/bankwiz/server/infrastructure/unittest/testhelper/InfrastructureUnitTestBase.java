@@ -6,10 +6,12 @@ import fr.bankwiz.server.domain.testhelper.tools.DomainFaker;
 import fr.bankwiz.server.infrastructure.spi.BankAccountSpiImpl;
 import fr.bankwiz.server.infrastructure.spi.GroupRightSpiImpl;
 import fr.bankwiz.server.infrastructure.spi.GroupSpiImpl;
+import fr.bankwiz.server.infrastructure.spi.TransactionSpiImpl;
 import fr.bankwiz.server.infrastructure.spi.UserSpiImpl;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository.BankAccountRepositoryMockFactory;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository.GroupEntityRepositoryMockFactory;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository.GroupRightEntityRepositoryMockFactory;
+import fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository.TransactionRepositoryMockFactory;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.mock.repository.UserEntityRepositoryMockFactory;
 
 public abstract class InfrastructureUnitTestBase {
@@ -20,6 +22,7 @@ public abstract class InfrastructureUnitTestBase {
     protected GroupEntityRepositoryMockFactory groupEntityRepositoryMockFactory;
     protected UserEntityRepositoryMockFactory userEntityRepositoryMockFactory;
     protected BankAccountRepositoryMockFactory bankAccountRepositoryMockFactory;
+    protected TransactionRepositoryMockFactory transactionRepositoryMockFactory;
 
     @BeforeEach
     public void beforeEach() {
@@ -29,6 +32,7 @@ public abstract class InfrastructureUnitTestBase {
         this.groupEntityRepositoryMockFactory = new GroupEntityRepositoryMockFactory();
         this.userEntityRepositoryMockFactory = new UserEntityRepositoryMockFactory();
         this.bankAccountRepositoryMockFactory = new BankAccountRepositoryMockFactory();
+        this.transactionRepositoryMockFactory = new TransactionRepositoryMockFactory();
         this.initDataBeforeEach();
     }
 
@@ -46,6 +50,10 @@ public abstract class InfrastructureUnitTestBase {
 
     protected BankAccountSpiImpl buildBankAccountSpiImpl() {
         return new BankAccountSpiImpl(bankAccountRepositoryMockFactory.getRepository());
+    }
+
+    protected TransactionSpiImpl buildTransactionSpiImpl() {
+        return new TransactionSpiImpl(transactionRepositoryMockFactory.getRepository());
     }
 
     /** Method used to prepare the data of tests */
