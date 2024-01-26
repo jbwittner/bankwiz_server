@@ -8,11 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import fr.bankwiz.openapi.api.TransactionsApi;
+import fr.bankwiz.openapi.model.BankAccountTransactionsDTO;
 import fr.bankwiz.openapi.model.CreateTransactionRequest;
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.model.input.TransactionCreationInput;
+import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
 import fr.bankwiz.server.infrastructure.service.TransactionInfraService;
+import fr.bankwiz.server.infrastructure.transformer.BankAccountTransactionsTransformer;
 import fr.bankwiz.server.infrastructure.transformer.TransactionTransformer;
 
 @Controller
@@ -37,9 +40,9 @@ public class TransactionController implements TransactionsApi {
     }
 
     @Override
-    public ResponseEntity<List<TransactionDTO>> getAllTransactionOfBankAccount(UUID bankaccountId) {
-        final var transactions = this.transactionInfraService.getAllTransactionOfBankAccount(bankaccountId);
-        final var transactionDTOs = TransactionTransformer.toTransactionDTO(transactions);
-        return new ResponseEntity<>(transactionDTOs, HttpStatus.OK);
+    public ResponseEntity<BankAccountTransactionsDTO> getAllTransactionOfBankAccount(UUID bankaccountId) {
+        final BankAccountTransactions bankAccountTransactions  = this.transactionInfraService.getAllTransactionOfBankAccount(bankaccountId);
+        final BankAccountTransactionsDTO bankAccountTransactionsDTO  = BankAccountTransactionsTransformer.toBankAccountTransactionDTO(bankAccountTransactions);
+        return new ResponseEntity<>(bankAccountTransactionsDTO, HttpStatus.OK);
     }
 }

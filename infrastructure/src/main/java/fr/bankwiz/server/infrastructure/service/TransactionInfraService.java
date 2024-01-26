@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.bankwiz.server.domain.api.TransactionApi;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.model.input.TransactionCreationInput;
+import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
 
 @Service
 public class TransactionInfraService implements TransactionApi {
@@ -25,7 +26,7 @@ public class TransactionInfraService implements TransactionApi {
     }
 
     @Transactional(readOnly = true)
-    public List<Transaction> getAllTransactionOfBankAccount(UUID bankaccountId) {
+    public BankAccountTransactions  getAllTransactionOfBankAccount(UUID bankaccountId) {
         return this.transactionApi.getAllTransactionOfBankAccount(bankaccountId);
     }
 }
