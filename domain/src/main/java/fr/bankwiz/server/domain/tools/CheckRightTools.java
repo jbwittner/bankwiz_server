@@ -6,14 +6,17 @@ import fr.bankwiz.server.domain.exception.UserNotAdminException;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 
 public class CheckRightTools {
 
     private final GroupRightSpi groupRightSpi;
+    private final AuthenticationSpi authenticationSpi;
 
-    public CheckRightTools(GroupRightSpi groupRightSpi) {
+    public CheckRightTools(GroupRightSpi groupRightSpi, AuthenticationSpi authenticationSpi) {
         this.groupRightSpi = groupRightSpi;
+        this.authenticationSpi = authenticationSpi;
     }
 
     public boolean hasRight(final User user, final Group group, final GroupRightEnum right) {
@@ -55,5 +58,10 @@ public class CheckRightTools {
         if (!this.isAdmin(user, group)) {
             throw new UserNotAdminException(user, group);
         }
+    }
+
+    public void checkCurrentUserCanWrite(final Group group) {
+        final User user = this.authenticationSpi.getCurrentUser();
+        this.checkCanWrite(user, group);
     }
 }

@@ -25,7 +25,8 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {
-        final CheckRightTools checkRightTools = new CheckRightTools(this.mockGroupRightSpi.getMock());
+        final CheckRightTools checkRightTools =
+                new CheckRightTools(this.mockGroupRightSpi.getMock(), this.mockAuthenticationSpi.getMock());
         this.groupDomainService = new GroupDomainService(
                 this.mockGroupSpi.getMock(),
                 this.mockGroupRightSpi.getMock(),

@@ -15,6 +15,7 @@ public class DomainMockBankAccountSpi extends DomainMockHelper<BankAccountSpi> {
 
     public DomainMockBankAccountSpi() {
         super(BankAccountSpi.class);
+        Mockito.when(this.mock.getById(ArgumentMatchers.any())).thenCallRealMethod();
     }
 
     public DomainMockBankAccountSpi mockSave() {
