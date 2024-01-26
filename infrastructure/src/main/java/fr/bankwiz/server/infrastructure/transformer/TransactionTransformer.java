@@ -1,5 +1,7 @@
 package fr.bankwiz.server.infrastructure.transformer;
 
+import java.util.List;
+
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Transaction;
@@ -36,5 +38,17 @@ public final class TransactionTransformer {
                 .bankAccountEntity(bankAccountEntity)
                 .comment(transaction.getComment())
                 .build();
+    }
+
+    public static List<Transaction> fromTransactionEntity(final List<TransactionEntity> transactionEntities) {
+        return transactionEntities.stream()
+                .map(TransactionTransformer::fromTransactionEntity)
+                .toList();
+    }
+
+    public static List<TransactionDTO> toTransactionDTO(final List<Transaction> transactions) {
+        return transactions.stream()
+                .map(TransactionTransformer::toTransactionDTO)
+                .toList();
     }
 }

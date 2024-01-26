@@ -1,5 +1,8 @@
 package fr.bankwiz.server.infrastructure.service;
 
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,5 +22,10 @@ public class TransactionInfraService implements TransactionApi {
     @Transactional
     public Transaction createTransaction(TransactionCreationInput transactionCreationInput) {
         return this.transactionApi.createTransaction(transactionCreationInput);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Transaction> getAllTransactionOfBankAccount(UUID bankaccountId) {
+        return this.transactionApi.getAllTransactionOfBankAccount(bankaccountId);
     }
 }

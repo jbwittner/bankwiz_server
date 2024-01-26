@@ -1,5 +1,6 @@
 package fr.bankwiz.server.domain.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import fr.bankwiz.server.domain.api.TransactionApi;
@@ -38,5 +39,12 @@ public class TransactionDomainService implements TransactionApi {
                 .build();
 
         return this.transactionSpi.save(transaction);
+    }
+
+    @Override
+    public List<Transaction> getAllTransactionOfBankAccount(UUID bankaccountId) {
+        final BankAccount bankAccount = this.bankAccountSpi.getById(bankaccountId);
+        this.checkRightTools.checkCurrentUserCanRead(bankAccount.getGroup());
+        return this.transactionSpi.findByBankAccount(bankAccount);
     }
 }
