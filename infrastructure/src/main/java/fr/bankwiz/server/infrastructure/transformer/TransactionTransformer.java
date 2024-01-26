@@ -21,9 +21,9 @@ public final class TransactionTransformer {
     }
 
     public static TransactionIndexDTO toTransactionIndexDTO(final Transaction transaction) {
-        final TransactionIndexDTO transactionIndexDTO = new TransactionIndexDTO(
-                transaction.getId(), transaction.getDecimalAmount());
-                transactionIndexDTO.setComment(transaction.getComment());
+        final TransactionIndexDTO transactionIndexDTO =
+                new TransactionIndexDTO(transaction.getId(), transaction.getDecimalAmount());
+        transactionIndexDTO.setComment(transaction.getComment());
         return transactionIndexDTO;
     }
 

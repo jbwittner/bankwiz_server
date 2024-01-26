@@ -8,9 +8,12 @@ public class BankAccountTransactionsTransformer {
 
     private BankAccountTransactionsTransformer() {}
 
-    public static BankAccountTransactionsDTO toBankAccountTransactionDTO(BankAccountTransactions bankAccountTransactions){
-        final BankAccountIndexDTO bankAccountIndexDTO = BankAccountTransformer.toBankAccountIndexDTO(bankAccountTransactions.getBankAccount());
-        final var transactionDTOs = TransactionTransformer.toTransactionIndexDTO(bankAccountTransactions.getTransactions());
+    public static BankAccountTransactionsDTO toBankAccountTransactionDTO(
+            BankAccountTransactions bankAccountTransactions) {
+        final BankAccountIndexDTO bankAccountIndexDTO =
+                BankAccountTransformer.toBankAccountIndexDTO(bankAccountTransactions.getBankAccount());
+        final var transactionDTOs =
+                TransactionTransformer.toTransactionIndexDTO(bankAccountTransactions.getTransactions());
         return new BankAccountTransactionsDTO(bankAccountIndexDTO, transactionDTOs);
     }
 }

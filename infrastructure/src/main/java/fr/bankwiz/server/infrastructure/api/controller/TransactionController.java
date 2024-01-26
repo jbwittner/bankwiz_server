@@ -1,6 +1,5 @@
 package fr.bankwiz.server.infrastructure.api.controller;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
@@ -41,8 +40,10 @@ public class TransactionController implements TransactionsApi {
 
     @Override
     public ResponseEntity<BankAccountTransactionsDTO> getAllTransactionOfBankAccount(UUID bankaccountId) {
-        final BankAccountTransactions bankAccountTransactions  = this.transactionInfraService.getAllTransactionOfBankAccount(bankaccountId);
-        final BankAccountTransactionsDTO bankAccountTransactionsDTO  = BankAccountTransactionsTransformer.toBankAccountTransactionDTO(bankAccountTransactions);
+        final BankAccountTransactions bankAccountTransactions =
+                this.transactionInfraService.getAllTransactionOfBankAccount(bankaccountId);
+        final BankAccountTransactionsDTO bankAccountTransactionsDTO =
+                BankAccountTransactionsTransformer.toBankAccountTransactionDTO(bankAccountTransactions);
         return new ResponseEntity<>(bankAccountTransactionsDTO, HttpStatus.OK);
     }
 }
