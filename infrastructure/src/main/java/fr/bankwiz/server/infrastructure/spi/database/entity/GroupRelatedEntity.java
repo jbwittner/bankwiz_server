@@ -7,6 +7,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
+@EqualsAndHashCode
 public abstract class GroupRelatedEntity {
 
     @Id

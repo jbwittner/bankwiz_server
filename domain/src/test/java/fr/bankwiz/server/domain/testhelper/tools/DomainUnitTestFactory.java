@@ -5,8 +5,8 @@ import java.util.UUID;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.data.UserAuthentication;
 
@@ -83,6 +83,11 @@ public class DomainUnitTestFactory {
 
     public Transaction getTransaction() {
         final BankAccount bankAccount = this.getBankAccount();
-        return Transaction.builder().bankAccount(bankAccount).id(UUID.randomUUID()).comment(this.faker.yoda().quote()).decimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE)).build();
+        return Transaction.builder()
+                .bankAccount(bankAccount)
+                .id(UUID.randomUUID())
+                .comment(this.faker.yoda().quote())
+                .decimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
+                .build();
     }
 }

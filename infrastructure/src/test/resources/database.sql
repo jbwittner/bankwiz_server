@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mysql
--- Généré le : ven. 01 déc. 2023 à 13:44
+-- Généré le : ven. 26 jan. 2024 à 15:38
 -- Version du serveur : 8.0.33
 -- Version de PHP : 8.2.8
 
@@ -52,6 +52,20 @@ CREATE TABLE `GROUP_RIGHT` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `TRANSACTION`
+--
+
+DROP TABLE IF EXISTS `TRANSACTION`;
+CREATE TABLE `TRANSACTION` (
+  `DECIMAL_AMOUNT` int NOT NULL,
+  `BANK_ACCOUNT_ID` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ID` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `COMMENT` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `USER_ACCOUNT`
 --
 
@@ -94,6 +108,13 @@ ALTER TABLE `GROUP_RIGHT`
   ADD KEY `FK_GROUP_RIGHT_USER` (`USER_ID`);
 
 --
+-- Index pour la table `TRANSACTION`
+--
+ALTER TABLE `TRANSACTION`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `FK_TRANSACTION_BANKACCOUNT` (`BANK_ACCOUNT_ID`);
+
+--
 -- Index pour la table `USER_ACCOUNT`
 --
 ALTER TABLE `USER_ACCOUNT`
@@ -121,6 +142,12 @@ ALTER TABLE `BANK_ACCOUNT`
 ALTER TABLE `GROUP_RIGHT`
   ADD CONSTRAINT `FK_GROUP_RIGHT_GROUP` FOREIGN KEY (`GROUP_ID`) REFERENCES `USER_GROUP` (`GROUP_ID`),
   ADD CONSTRAINT `FK_GROUP_RIGHT_USER` FOREIGN KEY (`USER_ID`) REFERENCES `USER_ACCOUNT` (`ID`);
+
+--
+-- Contraintes pour la table `TRANSACTION`
+--
+ALTER TABLE `TRANSACTION`
+  ADD CONSTRAINT `FK_TRANSACTION_BANKACCOUNT` FOREIGN KEY (`BANK_ACCOUNT_ID`) REFERENCES `BANK_ACCOUNT` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

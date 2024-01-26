@@ -30,8 +30,11 @@ class SaveTest extends InfrastructureUnitTestBase {
         final var argumentCaptor = this.transactionRepositoryMockFactory.verifySaveCalled(TransactionEntity.class);
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(TransactionTransformer.toTransactionEntity(transaction), argumentCaptor.getValue()),
-                () -> Assertions.assertEquals(transaction.getBankAccount().getId(), transactionSaved.getBankAccount().getId()),
+                () -> Assertions.assertEquals(
+                        TransactionTransformer.toTransactionEntity(transaction), argumentCaptor.getValue()),
+                () -> Assertions.assertEquals(
+                        transaction.getBankAccount().getId(),
+                        transactionSaved.getBankAccount().getId()),
                 () -> Assertions.assertEquals(transaction.getDecimalAmount(), transactionSaved.getDecimalAmount()),
                 () -> Assertions.assertEquals(transaction.getComment(), transactionSaved.getComment()),
                 () -> Assertions.assertEquals(transaction.getId(), transactionSaved.getId()));
