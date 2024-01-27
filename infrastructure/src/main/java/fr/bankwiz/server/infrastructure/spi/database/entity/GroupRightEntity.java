@@ -37,14 +37,14 @@ public class GroupRightEntity {
     @JoinColumn(
             name = "GROUP_ID",
             nullable = false,
-            foreignKey = @jakarta.persistence.ForeignKey(name = "FK_GROUP_RIGHT_GROUP"))
+            foreignKey = @jakarta.persistence.ForeignKey(name = "FK_GROUPRIGHT_GROUP"))
     private GroupEntity groupEntity;
 
     @ManyToOne
     @JoinColumn(
             name = "USER_ID",
             nullable = false,
-            foreignKey = @jakarta.persistence.ForeignKey(name = "FK_GROUP_RIGHT_USER"))
+            foreignKey = @jakarta.persistence.ForeignKey(name = "FK_GROUPRIGHT_USER"))
     private UserEntity userEntity;
 
     @Enumerated(EnumType.STRING)

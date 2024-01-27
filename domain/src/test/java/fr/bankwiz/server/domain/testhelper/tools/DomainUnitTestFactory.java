@@ -81,13 +81,17 @@ public class DomainUnitTestFactory {
         return this.getBankAccount(group);
     }
 
-    public Transaction getTransaction() {
-        final BankAccount bankAccount = this.getBankAccount();
+    public Transaction getTransaction(BankAccount bankAccount) {
         return Transaction.builder()
                 .bankAccount(bankAccount)
                 .id(UUID.randomUUID())
                 .comment(this.faker.yoda().quote())
                 .decimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
                 .build();
+    }
+
+    public Transaction getTransaction() {
+        final BankAccount bankAccount = this.getBankAccount();
+        return this.getTransaction(bankAccount);
     }
 }

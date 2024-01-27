@@ -1,6 +1,9 @@
 package fr.bankwiz.server.infrastructure.transformer;
 
+import java.util.List;
+
 import fr.bankwiz.openapi.model.TransactionDTO;
+import fr.bankwiz.openapi.model.TransactionIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
@@ -15,6 +18,13 @@ public final class TransactionTransformer {
                 transaction.getId(), transaction.getBankAccount().getId(), transaction.getDecimalAmount());
         transactionDTO.setComment(transaction.getComment());
         return transactionDTO;
+    }
+
+    public static TransactionIndexDTO toTransactionIndexDTO(final Transaction transaction) {
+        final TransactionIndexDTO transactionIndexDTO =
+                new TransactionIndexDTO(transaction.getId(), transaction.getDecimalAmount());
+        transactionIndexDTO.setComment(transaction.getComment());
+        return transactionIndexDTO;
     }
 
     public static Transaction fromTransactionEntity(final TransactionEntity transactionEntity) {
@@ -36,5 +46,23 @@ public final class TransactionTransformer {
                 .bankAccountEntity(bankAccountEntity)
                 .comment(transaction.getComment())
                 .build();
+    }
+
+    public static List<Transaction> fromTransactionEntity(final List<TransactionEntity> transactionEntities) {
+        return transactionEntities.stream()
+                .map(TransactionTransformer::fromTransactionEntity)
+                .toList();
+    }
+
+    public static List<TransactionDTO> toTransactionDTO(final List<Transaction> transactions) {
+        return transactions.stream()
+                .map(TransactionTransformer::toTransactionDTO)
+                .toList();
+    }
+
+    public static List<TransactionIndexDTO> toTransactionIndexDTO(final List<Transaction> transactions) {
+        return transactions.stream()
+                .map(TransactionTransformer::toTransactionIndexDTO)
+                .toList();
     }
 }

@@ -6,6 +6,7 @@ import fr.bankwiz.server.domain.api.TransactionApi;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.model.input.TransactionCreationInput;
+import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.domain.spi.TransactionSpi;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -38,5 +39,16 @@ public class TransactionDomainService implements TransactionApi {
                 .build();
 
         return this.transactionSpi.save(transaction);
+    }
+
+    @Override
+    public BankAccountTransactions getAllTransactionOfBankAccount(UUID bankaccountId) {
+        final BankAccount bankAccount = this.bankAccountSpi.getById(bankaccountId);
+        this.checkRightTools.checkCurrentUserCanRead(bankAccount.getGroup());
+        final var transactions = this.transactionSpi.findByBankAccount(bankAccount);
+        return BankAccountTransactions.builder()
+                .bankAccount(bankAccount)
+                .transactions(transactions)
+                .build();
     }
 }

@@ -8,6 +8,7 @@ import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity.GroupRightEntityEnum;
+import fr.bankwiz.server.infrastructure.spi.database.entity.TransactionEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 
 public class InfrastructureUnitTestFactory extends DomainUnitTestFactory {
@@ -69,5 +70,19 @@ public class InfrastructureUnitTestFactory extends DomainUnitTestFactory {
     public BankAccountEntity getBankAccountEntity() {
         final GroupEntity groupEntity = this.getGroupEntity();
         return this.getBankAccountEntity(groupEntity);
+    }
+
+    public TransactionEntity getTransactionEntity() {
+        final BankAccountEntity bankAccountEntity = this.getBankAccountEntity();
+        return this.getTransactionEntity(bankAccountEntity);
+    }
+
+    public TransactionEntity getTransactionEntity(BankAccountEntity bankAccountEntity) {
+        return TransactionEntity.builder()
+                .bankAccountEntity(bankAccountEntity)
+                .comment(this.faker.yoda().quote())
+                .decimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
+                .id(UUID.randomUUID())
+                .build();
     }
 }

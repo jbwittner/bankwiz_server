@@ -64,4 +64,9 @@ public class CheckRightTools {
         final User user = this.authenticationSpi.getCurrentUser();
         this.checkCanWrite(user, group);
     }
+
+    public void checkCurrentUserCanRead(final Group group) {
+        final User user = this.authenticationSpi.getCurrentUser();
+        this.checkCanRead(user, group);
+    }
 }
