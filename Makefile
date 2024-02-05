@@ -34,12 +34,12 @@ generate-openapi:
 	  --additional-properties=dateLibrary=java8 \
 	  --additional-properties=hideGenerationTimestamp=true
 
-.PHONY: install-java
-install-java:
+.PHONY: install-openapi
+install-openapi:
 	mvn clean install -f $(GENERATED_DIR_JAVA)/pom.xml
 
 .PHONY: all
-all: clean-openapi generate-openapi install-java
+all: clean-openapi generate-openapi install-openapi
 
 .PHONY: spotless-apply
 spotless-apply:
