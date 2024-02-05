@@ -7,4 +7,3 @@ runs:
       with:
         distribution: 'zulu'
         java-version: '17'
-        cache: 'maven'
