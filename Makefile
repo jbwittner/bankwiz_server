@@ -1,4 +1,4 @@
-DOCKER_IMAGE = "openapitools/openapi-generator-cli:v7.0.1"
+DOCKER_IMAGE = "openapitools/openapi-generator-cli:v7.2.0"
 GENERATED_DIR_JAVA = "openapi"
 OPENAPI_SPEC = "openapi.yaml"
 CURRENT_GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
