@@ -67,7 +67,7 @@ public class UserDTO {
    * Get email
    * @return email
   */
-  @NotNull @jakarta.validation.constraints.Email
+  @NotNull @jakarta.validation.constraints.Email 
   @Schema(name = "email", example = "johndoe@example.com", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("email")
   public String getEmail() {

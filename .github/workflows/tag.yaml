@@ -21,6 +21,10 @@ jobs:
           distribution: 'microsoft'
           java-version: '17'
           cache: 'maven'
+      - name: Install openapi dependancy
+        run: mvn clean install -f openapi/pom.xml
+      - name: Package application
+        run: mvn -B package -DskipTests
       - name: Package application
         run: mvn -B package -DskipTests
   build_docker_and_push:

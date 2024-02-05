@@ -28,6 +28,8 @@ jobs:
         run: mvn dependency:go-offline
       - name: Dependency resolve-plugins
         run: mvn dependency:resolve-plugins
+      - name: Install openapi dependancy
+        run: mvn clean install -f openapi/pom.xml
   check-google-format:
     runs-on: ubuntu-22.04
     needs:
