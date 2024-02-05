@@ -1,0 +1,580 @@
+openapi: 3.0.0
+info:
+  title: BankWiz API
+  version: 0.1.0
+  description: An API for accessing banking functionalities provided by BankWiz
+servers:
+  - url: http://localhost:8080
+    description: Local developpement (server)
+tags:
+  - name: UserService
+    description: API endpoints for managing user information
+  - name: GroupService
+    description: API endpoints for managing group information
+  - name: BankAccountService
+    description: API endpoints for managing bank account
+  - name: TransactionService
+    description: API endpoints for managing transactions
+security:
+  - oauth2:
+    - openid
+    - profile
+    - email
+paths:
+#################################### UserService START ############################# 
+  /user:
+    get:
+      tags:
+        - UserService
+      summary: Get the current user information
+      operationId: getCurrentUserInfo
+      responses:
+        '200':
+          description: Successfully retrieved user information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '400':
+          description: Invalid request. Please check the provided data.
+  /user/checkregistration:
+    get:
+      tags:
+        - UserService
+      summary: Checks if the user is registered, and registers her if not.
+      operationId: checkRegistration
+      responses:
+        '200':
+          description: Successfully retrieved user information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '400':
+          description: Invalid request. Please check the provided data.
+#################################### UserService END ############################### 
+#################################### GroupService START ############################ 
+  /group:
+    post:
+      tags:
+        - GroupService
+      summary: Create a group
+      operationId: createGroup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupCreationRequest'
+      responses:
+        '201':
+          description: Group created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupIndexDTO'
+        '400':
+          description: Invalid request. Please check the provided data.
+  /group/{id}:
+    get:
+      tags:
+        - GroupService
+      summary: Get a group details
+      operationId: getGroupDetails
+      parameters:
+        - name: id
+          in: path
+          description: Group ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Get group
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupDetailsDTO'
+        '400':
+          description: Invalid request. Please check the provided data.
+    delete:
+      tags:
+        - GroupService
+      summary: Delete a group
+      operationId: deleteGroup
+      parameters:
+        - name: id
+          in: path
+          description: Group ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Group deleted
+        '400':
+          description: Invalid request. Please check the provided data.
+  /group/{groupId}/user:
+    post:
+      tags:
+        - GroupService
+      summary: Add user to group
+      operationId: addUserGroup
+      parameters:
+        - name: groupId
+          in: path
+          description: Group ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddUserGroupRequest'
+      responses:
+        '200':
+          description: User added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupRightDTO'
+        '400':
+          description: Invalid request. Please check the provided data.
+  /group/{groupId}/user/{userId}:
+    delete:
+      tags:
+        - GroupService
+      summary: Delete user from a group
+      operationId: deleteUserFromGroup
+      parameters:
+        - name: groupId
+          in: path
+          description: Group ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: userId
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: User deleted
+        '400':
+          description: Invalid request. Please check the provided data.
+  /group/groups:
+    get:
+      tags:
+        - GroupService
+      summary: Get all groups of user
+      operationId: getUserGroups
+      responses:
+        '200':
+          description: Get all groups of user
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: '#/components/schemas/GroupIndexDTO'
+        '400':
+          description: Invalid request. Please check the provided data.
+#################################### GroupService END ############################## 
+#################################### BankAccountService START ####################### 
+  /bankaccount:
+    post:
+      tags:
+        - BankAccountService
+      summary: Create a bank account
+      operationId: createBankAccount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankAccountCreationRequest'
+      responses:
+        '201':
+          description: Bank account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccountIndexDTO'
+        '400':
+          description: Invalid request. Please check the provided data.
+  /bankaccount/{id}:
+    delete:
+      tags:
+        - BankAccountService
+      summary: Delete a bank account
+      operationId: deleteBankAccount
+      parameters:
+        - name: id
+          in: path
+          description: Bank account ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Bank account deleted
+        '400':
+          description: Invalid request. Please check the provided data.
+    put:
+      tags:
+        - BankAccountService
+      summary: Update a bank account
+      operationId: updateBankAccount
+      parameters:
+        - name: id
+          in: path
+          description: Bank account ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankAccountUpdateRequest'
+      responses:
+        '200':
+          description: Bank account updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccountIndexDTO'
+        '400':
+          description: Invalid request. Please check the provided data.
+  /bankaccount/bankaccounts:
+    get:
+      tags:
+        - BankAccountService
+      summary: Get all bank account
+      operationId: getAllBankAccount
+      responses:
+        '200':
+          description: Bank account created successfully
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: '#/components/schemas/GroupBankAccountIndexDTO'
+        '400':
+          description: Invalid request. Please check the provided data.
+#################################### BankAccountService END ######################### 
+#################################### TransactionService START ####################### 
+  /transactions:
+    put:
+      tags:
+        - TransactionService
+      summary: Create a new transaction
+      operationId: createTransaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTransactionRequest'
+      responses:
+        '200':
+          description: Bank account created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionDTO'
+        '400':
+          description: Invalid request. Please check the provided data.
+  /transactions/bankaccount/{bankaccountId}:
+    get:
+      tags:
+        - TransactionService
+      summary: Get all transaction of bank account
+      operationId: getAllTransactionOfBankAccount
+      parameters:
+        - name: bankaccountId
+          in: path
+          description: Bank account ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Bank account created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccountTransactionsDTO'
+        '400':
+          description: Invalid request. Please check the provided data.
+#################################### TransactionService END ######################### 
+components:
+  securitySchemes:
+    oauth2:   # <--- Arbitrary name for the security scheme. Used to refer to it from elsewhere.
+      type: oauth2
+      description: For more information, see https://api.slack.com/docs/oauth
+      flows: 
+        implicit:
+          authorizationUrl: https://bankwiz-dev.eu.auth0.com/authorize?audience=Bankwiz_server
+          scopes:
+            openid: openid
+            profile: profile
+            email: email
+  schemas:
+#################################### Request START ################################## 
+    GroupCreationRequest:
+      type: object
+      properties:
+        groupName:
+          type: string
+      required:
+        - groupName
+    BankAccountCreationRequest:
+      type: object
+      properties:
+        bankAccountName:
+          type: string
+        groupId:
+          type: string
+          format: uuid
+        decimalBaseAmount:
+          type: integer
+          format: int32
+      required:
+        - bankAccountName
+        - groupId
+        - decimalBaseAmount
+    BankAccountUpdateRequest:
+      type: object
+      properties:
+        bankAccountName:
+          type: string
+        groupId:
+          type: string
+          format: uuid
+        decimalBaseAmount:
+          type: integer
+          format: int32
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+          example: johndoe@example.com
+      required:
+        - id
+        - email
+    AddUserGroupRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        right:
+          $ref: '#/components/schemas/UserGroupRightEnum'
+      required:
+        - userId
+        - right
+    CreateTransactionRequest:
+      type: object
+      properties:
+        BankAccountId:
+          type: string
+          format: uuid
+        DecimalAmount:
+          type: integer
+          format: int32
+        Comment:
+          type: string
+          maxLength: 255
+      required:
+        - BankAccountId
+        - DecimalAmount
+#################################### Request END #################################### 
+#################################### DTO START ###################################### 
+    FunctionalExceptionDTO:
+      type: object
+      properties:
+        status:
+          type: integer
+        details:
+          type: string
+        exception:
+          type: string
+        attributes:
+          type: object
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+      required:
+        - status
+        - details
+        - exception
+        - attributes
+        - message
+        - timestamp
+    MethodArgumentNotValidExceptionDTO:
+      type: object
+      properties:
+        status:
+          type: integer
+        details:
+          type: string
+        exception:
+          type: string
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        field:
+          type: string
+        objectName:
+          type: string
+      required:
+        - status
+        - details
+        - exception
+        - message
+        - timestamp
+        - field
+        - objectName
+    GroupIndexDTO:
+      type: object
+      properties:
+        groupId:
+          type: string
+          format: uuid
+        groupName:
+          type: string
+      required:
+        - groupId
+        - groupName
+    UserGroupRightEnum:
+      type: string
+      enum:
+        - READ
+        - WRITE
+        - ADMIN
+    UserGroupRightDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        user:
+          $ref: '#/components/schemas/UserDTO'
+        right:
+          $ref: '#/components/schemas/UserGroupRightEnum'
+      required:
+        - id
+        - user
+        - right
+    GroupDetailsDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        groupName:
+          type: string
+        usersRights:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroupRightDTO'
+      required:
+        - id
+        - groupName
+        - usersRights
+    BankAccountIndexDTO:
+      type: object
+      properties:
+        bankAccountName:
+          type: string
+        bankAccountId:
+          type: string
+          format: uuid
+        decimalBaseAmount:
+          type: integer
+          format: int32
+      required:
+        - bankAccountName
+        - bankAccountId
+        - decimalBaseAmount
+    GroupBankAccountIndexDTO:
+      type: object
+      properties:
+        groupeIndex:
+          $ref: '#/components/schemas/GroupIndexDTO'
+        bankAccountIndexList:
+          type: "array"
+          items:
+            $ref: '#/components/schemas/BankAccountIndexDTO'
+      required:
+        - groupeIndex
+        - bankAccountIndexList
+    TransactionDTO:
+      type: object
+      properties:
+        TransactionId:
+          type: string
+          format: uuid
+        BankAccountId:
+          type: string
+          format: uuid
+        DecimalAmount:
+          type: integer
+          format: int32
+        Comment:
+          type: string
+      required:
+        - TransactionId
+        - BankAccountId
+        - DecimalAmount
+    BankAccountTransactionsDTO:
+      type: object
+      properties:
+        BankAccountIndex:
+          $ref: '#/components/schemas/BankAccountIndexDTO'
+        Transactions:
+          type: "array"
+          items:
+            $ref: '#/components/schemas/TransactionIndexDTO'
+      required:
+        - BankAccountIndex
+        - Transactions
+    TransactionIndexDTO:
+      type: object
+      properties:
+        TransactionId:
+          type: string
+          format: uuid
+        DecimalAmount:
+          type: integer
+          format: int32
+        Comment:
+          type: string
+      required:
+        - TransactionId
+        - DecimalAmount
+#################################### DTO END ######################################## 

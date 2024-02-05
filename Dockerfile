@@ -1,33 +1,20 @@
-# Stage 1: Resolve dependencies
-FROM maven:3.8.7-eclipse-temurin-17-alpine AS dependencies
-
-# Set build arguments for environment variables
-ARG USER_GITHUB_LOGIN
-ARG USER_GITHUB_KEY
-
-# Set environment variables for the build
-ENV USER_GITHUB_LOGIN=$USER_GITHUB_LOGIN
-ENV USER_GITHUB_KEY=$USER_GITHUB_KEY
+# Stage 1: Build OpenApi
+FROM maven:3.8.7-eclipse-temurin-17-alpine AS openapi
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the pom.xml file to download dependencies
-COPY pom.xml pom.xml
-COPY infrastructure/pom.xml infrastructure/pom.xml
-COPY domain/pom.xml domain/pom.xml
+# Copy the openapi folder
+COPY openapi openapi
 
-# Copy the settings.xml file from the "maven" directory in the project
-COPY maven/settings.xml /root/.m2/settings.xml
-
-# Run the Maven command to get all dependencies
-RUN --mount=type=secret,id=USER_GITHUB_LOGIN,dst=/etc/secrets/USER_GITHUB_LOGIN --mount=type=secret,id=USER_GITHUB_KEY,dst=/etc/secrets/USER_GITHUB_KEY USER_GITHUB_KEY="$(cat /etc/secrets/USER_GITHUB_KEY)" && USER_GITHUB_LOGIN="$(cat /etc/secrets/USER_GITHUB_LOGIN)" && mvn dependency:go-offline --settings /root/.m2/settings.xml
+# Run the Maven command to compile the project
+RUN mvn clean install -f openapi/pom.xml
 
 # Stage 2: Build the project
 FROM maven:3.8.7-eclipse-temurin-17-alpine AS build
 
 # Copy the dependencies from the previous stage
-COPY --from=dependencies  /root/.m2/repository /root/.m2/repository
+COPY --from=openapi  /root/.m2/repository /root/.m2/repository
 
 # Set the working directory in the container
 WORKDIR /app
