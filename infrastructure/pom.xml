@@ -151,25 +151,4 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
-        <profile>
-            <id>github-bankwiz</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>central</id>
-                    <url>https://repo1.maven.org/maven2</url>
-                </repository>
-                <repository>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                    <id>github</id>
-                    <url>https://maven.pkg.github.com/jbwittner/*</url>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
 </project>

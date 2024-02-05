@@ -55,7 +55,7 @@ sonar:
 
 .PHONY: docker-build
 docker-build:
-	docker build --secret id=USER_GITHUB_LOGIN --secret id=USER_GITHUB_KEY -t bankwiz_server .
+	docker build -t bankwiz_server .
 
 .PHONY: http-coverage-domain
 http-coverage-domain:

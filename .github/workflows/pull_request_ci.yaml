@@ -24,10 +24,6 @@ jobs:
           distribution: 'microsoft'
           java-version: '17'
           cache: 'maven'
-      - name: Dependency go-offline
-        run: mvn dependency:go-offline
-      - name: Dependency resolve-plugins
-        run: mvn dependency:resolve-plugins
       - name: Install openapi dependancy
         run: mvn clean install -f openapi/pom.xml
   check-google-format:
