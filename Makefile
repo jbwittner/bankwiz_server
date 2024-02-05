@@ -1,3 +1,6 @@
+DOCKER_IMAGE = "openapitools/openapi-generator-cli:v7.0.1"
+GENERATED_DIR_JAVA = "openapi"
+OPENAPI_SPEC = "openapi.yaml"
 CURRENT_GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 DOCKER_BUILDKIT=1
 
@@ -9,17 +12,34 @@ ifndef USER_GITHUB_KEY
 $(error USER_GITHUB_KEY is not set)
 endif
 
-.PHONY: compile
-compile:
-	mvn clean compile
+.PHONY: clean-openapi
+clean-openapi:
+	rm -rf $(GENERATED_DIR_JAVA)
 
-.PHONY: package
-package:
-	mvn clean package
+.PHONY: generate-openapi
+generate-openapi:
+	docker run --rm \
+	  -v $$PWD:/local \
+	  --user $$(id -u):$$(id -g) \
+	  $(DOCKER_IMAGE) generate \
+	  -i /local/$(OPENAPI_SPEC) \
+	  -g spring \
+	  -o /local/$(GENERATED_DIR_JAVA) \
+	  --api-package=fr.bankwiz.openapi.api \
+	  --additional-properties=useSpringBoot3=true \
+	  --additional-properties=groupId=fr.bankwiz \
+	  --additional-properties=artifactId=openapi \
+	  --model-package=fr.bankwiz.openapi.model \
+	  --additional-properties=interfaceOnly=true \
+	  --additional-properties=dateLibrary=java8 \
+	  --additional-properties=hideGenerationTimestamp=true
 
-.PHONY: package-withouttest
-package-withouttest:
-	mvn package -DskipTests
+.PHONY: install-java
+install-java:
+	mvn clean install -f $(GENERATED_DIR_JAVA)/pom.xml
+
+.PHONY: all
+all: clean-openapi generate-openapi install-java
 
 .PHONY: spotless-apply
 spotless-apply:
