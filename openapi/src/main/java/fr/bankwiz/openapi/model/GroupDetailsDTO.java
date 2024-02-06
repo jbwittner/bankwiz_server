@@ -26,7 +26,7 @@ import jakarta.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class GroupDetailsDTO {
 
-  private UUID id;
+  private UUID groupId;
 
   private String groupName;
 
@@ -40,30 +40,30 @@ public class GroupDetailsDTO {
   /**
    * Constructor with only required parameters
    */
-  public GroupDetailsDTO(UUID id, String groupName, List<@Valid UserGroupRightDTO> usersRights) {
-    this.id = id;
+  public GroupDetailsDTO(UUID groupId, String groupName, List<@Valid UserGroupRightDTO> usersRights) {
+    this.groupId = groupId;
     this.groupName = groupName;
     this.usersRights = usersRights;
   }
 
-  public GroupDetailsDTO id(UUID id) {
-    this.id = id;
+  public GroupDetailsDTO groupId(UUID groupId) {
+    this.groupId = groupId;
     return this;
   }
 
   /**
-   * Get id
-   * @return id
+   * Get groupId
+   * @return groupId
   */
   @NotNull @Valid 
-  @Schema(name = "id", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("id")
-  public UUID getId() {
-    return id;
+  @Schema(name = "groupId", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("groupId")
+  public UUID getGroupId() {
+    return groupId;
   }
 
-  public void setId(UUID id) {
-    this.id = id;
+  public void setGroupId(UUID groupId) {
+    this.groupId = groupId;
   }
 
   public GroupDetailsDTO groupName(String groupName) {
@@ -123,21 +123,21 @@ public class GroupDetailsDTO {
       return false;
     }
     GroupDetailsDTO groupDetailsDTO = (GroupDetailsDTO) o;
-    return Objects.equals(this.id, groupDetailsDTO.id) &&
+    return Objects.equals(this.groupId, groupDetailsDTO.groupId) &&
         Objects.equals(this.groupName, groupDetailsDTO.groupName) &&
         Objects.equals(this.usersRights, groupDetailsDTO.usersRights);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, groupName, usersRights);
+    return Objects.hash(groupId, groupName, usersRights);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class GroupDetailsDTO {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    groupId: ").append(toIndentedString(groupId)).append("\n");
     sb.append("    groupName: ").append(toIndentedString(groupName)).append("\n");
     sb.append("    usersRights: ").append(toIndentedString(usersRights)).append("\n");
     sb.append("}");

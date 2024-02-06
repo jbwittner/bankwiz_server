@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import fr.bankwiz.openapi.api.TransactionsApi;
+import fr.bankwiz.openapi.api.TransactionApi;
 import fr.bankwiz.openapi.model.BankAccountTransactionsDTO;
 import fr.bankwiz.openapi.model.CreateTransactionRequest;
 import fr.bankwiz.openapi.model.TransactionDTO;
@@ -18,7 +18,7 @@ import fr.bankwiz.server.infrastructure.transformer.BankAccountTransactionsTrans
 import fr.bankwiz.server.infrastructure.transformer.TransactionTransformer;
 
 @Controller
-public class TransactionController implements TransactionsApi {
+public class TransactionController implements TransactionApi {
 
     private TransactionInfraService transactionInfraService;
 

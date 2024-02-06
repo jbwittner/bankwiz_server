@@ -38,14 +38,14 @@ import jakarta.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 @Validated
 @Tag(name = "TransactionService", description = "API endpoints for managing transactions")
-public interface TransactionsApi {
+public interface TransactionApi {
 
     default Optional<NativeWebRequest> getRequest() {
         return Optional.empty();
     }
 
     /**
-     * PUT /transactions : Create a new transaction
+     * PUT /transaction : Create a new transaction
      *
      * @param createTransactionRequest  (required)
      * @return Bank account created successfully (status code 200)
@@ -67,7 +67,7 @@ public interface TransactionsApi {
     )
     @RequestMapping(
         method = RequestMethod.PUT,
-        value = "/transactions",
+        value = "/transaction",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
@@ -78,7 +78,7 @@ public interface TransactionsApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"DecimalAmount\" : 0, \"Comment\" : \"Comment\", \"BankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"TransactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }";
+                    String exampleString = "{ \"decimalAmount\" : 0, \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"comment\" : \"comment\", \"transactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -90,7 +90,7 @@ public interface TransactionsApi {
 
 
     /**
-     * GET /transactions/bankaccount/{bankaccountId} : Get all transaction of bank account
+     * GET /transaction/bankaccount/{bankaccountId} : Get all transaction of bank account
      *
      * @param bankaccountId Bank account ID (required)
      * @return Bank account created successfully (status code 200)
@@ -112,7 +112,7 @@ public interface TransactionsApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/transactions/bankaccount/{bankaccountId}",
+        value = "/transaction/bankaccount/{bankaccountId}",
         produces = { "application/json" }
     )
     
@@ -122,7 +122,7 @@ public interface TransactionsApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"Transactions\" : [ { \"DecimalAmount\" : 0, \"Comment\" : \"Comment\", \"TransactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }, { \"DecimalAmount\" : 0, \"Comment\" : \"Comment\", \"TransactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" } ], \"BankAccountIndex\" : { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"decimalBaseAmount\" : 0 } }";
+                    String exampleString = "{ \"bankAccountIndex\" : { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"decimalBaseAmount\" : 0 }, \"transactions\" : [ { \"decimalAmount\" : 0, \"comment\" : \"comment\", \"transactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }, { \"decimalAmount\" : 0, \"comment\" : \"comment\", \"transactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" } ] }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

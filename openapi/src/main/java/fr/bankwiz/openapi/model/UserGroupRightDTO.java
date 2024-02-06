@@ -25,7 +25,7 @@ import jakarta.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class UserGroupRightDTO {
 
-  private UUID id;
+  private UUID groupRightId;
 
   private UserDTO user;
 
@@ -38,30 +38,30 @@ public class UserGroupRightDTO {
   /**
    * Constructor with only required parameters
    */
-  public UserGroupRightDTO(UUID id, UserDTO user, UserGroupRightEnum right) {
-    this.id = id;
+  public UserGroupRightDTO(UUID groupRightId, UserDTO user, UserGroupRightEnum right) {
+    this.groupRightId = groupRightId;
     this.user = user;
     this.right = right;
   }
 
-  public UserGroupRightDTO id(UUID id) {
-    this.id = id;
+  public UserGroupRightDTO groupRightId(UUID groupRightId) {
+    this.groupRightId = groupRightId;
     return this;
   }
 
   /**
-   * Get id
-   * @return id
+   * Get groupRightId
+   * @return groupRightId
   */
   @NotNull @Valid 
-  @Schema(name = "id", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("id")
-  public UUID getId() {
-    return id;
+  @Schema(name = "groupRightId", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("groupRightId")
+  public UUID getGroupRightId() {
+    return groupRightId;
   }
 
-  public void setId(UUID id) {
-    this.id = id;
+  public void setGroupRightId(UUID groupRightId) {
+    this.groupRightId = groupRightId;
   }
 
   public UserGroupRightDTO user(UserDTO user) {
@@ -113,21 +113,21 @@ public class UserGroupRightDTO {
       return false;
     }
     UserGroupRightDTO userGroupRightDTO = (UserGroupRightDTO) o;
-    return Objects.equals(this.id, userGroupRightDTO.id) &&
+    return Objects.equals(this.groupRightId, userGroupRightDTO.groupRightId) &&
         Objects.equals(this.user, userGroupRightDTO.user) &&
         Objects.equals(this.right, userGroupRightDTO.right);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, user, right);
+    return Objects.hash(groupRightId, user, right);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class UserGroupRightDTO {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    groupRightId: ").append(toIndentedString(groupRightId)).append("\n");
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("    right: ").append(toIndentedString(right)).append("\n");
     sb.append("}");

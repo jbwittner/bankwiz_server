@@ -53,8 +53,8 @@ public class BankAccountTransactionsDTO {
    * @return bankAccountIndex
   */
   @NotNull @Valid 
-  @Schema(name = "BankAccountIndex", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("BankAccountIndex")
+  @Schema(name = "bankAccountIndex", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("bankAccountIndex")
   public BankAccountIndexDTO getBankAccountIndex() {
     return bankAccountIndex;
   }
@@ -81,8 +81,8 @@ public class BankAccountTransactionsDTO {
    * @return transactions
   */
   @NotNull @Valid 
-  @Schema(name = "Transactions", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("Transactions")
+  @Schema(name = "transactions", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("transactions")
   public List<@Valid TransactionIndexDTO> getTransactions() {
     return transactions;
   }

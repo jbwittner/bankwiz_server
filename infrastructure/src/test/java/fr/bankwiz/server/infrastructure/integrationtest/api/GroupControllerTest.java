@@ -148,7 +148,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
                 .extract()
                 .as(GroupDetailsDTO.class);
 
-        Assertions.assertEquals(group.getId(), response.getId());
+        Assertions.assertEquals(group.getId(), response.getGroupId());
     }
 
     @Test
