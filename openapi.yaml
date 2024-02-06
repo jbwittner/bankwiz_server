@@ -277,7 +277,7 @@ paths:
           description: Invalid request. Please check the provided data.
 #################################### BankAccountService END ######################### 
 #################################### TransactionService START ####################### 
-  /transactions:
+  /transaction:
     put:
       tags:
         - TransactionService
@@ -298,7 +298,7 @@ paths:
                 $ref: '#/components/schemas/TransactionDTO'
         '400':
           description: Invalid request. Please check the provided data.
-  /transactions/bankaccount/{bankaccountId}:
+  /transaction/bankaccount/{bankaccountId}:
     get:
       tags:
         - TransactionService
@@ -479,7 +479,7 @@ components:
     UserGroupRightDTO:
       type: object
       properties:
-        id:
+        groupRightId:
           type: string
           format: uuid
         user:
@@ -487,13 +487,13 @@ components:
         right:
           $ref: '#/components/schemas/UserGroupRightEnum'
       required:
-        - id
+        - groupRightId
         - user
         - right
     GroupDetailsDTO:
       type: object
       properties:
-        id:
+        groupId:
           type: string
           format: uuid
         groupName:
@@ -503,7 +503,7 @@ components:
           items:
             $ref: '#/components/schemas/UserGroupRightDTO'
       required:
-        - id
+        - groupId
         - groupName
         - usersRights
     BankAccountIndexDTO:
@@ -536,45 +536,45 @@ components:
     TransactionDTO:
       type: object
       properties:
-        TransactionId:
+        transactionId:
           type: string
           format: uuid
-        BankAccountId:
+        bankAccountId:
           type: string
           format: uuid
-        DecimalAmount:
+        decimalAmount:
           type: integer
           format: int32
-        Comment:
+        comment:
           type: string
       required:
-        - TransactionId
-        - BankAccountId
-        - DecimalAmount
+        - transactionId
+        - bankAccountId
+        - decimalAmount
     BankAccountTransactionsDTO:
       type: object
       properties:
-        BankAccountIndex:
+        bankAccountIndex:
           $ref: '#/components/schemas/BankAccountIndexDTO'
-        Transactions:
+        transactions:
           type: "array"
           items:
             $ref: '#/components/schemas/TransactionIndexDTO'
       required:
-        - BankAccountIndex
-        - Transactions
+        - bankAccountIndex
+        - transactions
     TransactionIndexDTO:
       type: object
       properties:
-        TransactionId:
+        transactionId:
           type: string
           format: uuid
-        DecimalAmount:
+        decimalAmount:
           type: integer
           format: int32
-        Comment:
+        comment:
           type: string
       required:
-        - TransactionId
-        - DecimalAmount
+        - transactionId
+        - decimalAmount
 #################################### DTO END ######################################## 
