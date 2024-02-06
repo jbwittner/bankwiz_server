@@ -50,8 +50,8 @@ public class TransactionIndexDTO {
    * @return transactionId
   */
   @NotNull @Valid 
-  @Schema(name = "TransactionId", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("TransactionId")
+  @Schema(name = "transactionId", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("transactionId")
   public UUID getTransactionId() {
     return transactionId;
   }
@@ -70,8 +70,8 @@ public class TransactionIndexDTO {
    * @return decimalAmount
   */
   @NotNull 
-  @Schema(name = "DecimalAmount", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("DecimalAmount")
+  @Schema(name = "decimalAmount", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("decimalAmount")
   public Integer getDecimalAmount() {
     return decimalAmount;
   }
@@ -90,8 +90,8 @@ public class TransactionIndexDTO {
    * @return comment
   */
   
-  @Schema(name = "Comment", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("Comment")
+  @Schema(name = "comment", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("comment")
   public String getComment() {
     return comment;
   }
