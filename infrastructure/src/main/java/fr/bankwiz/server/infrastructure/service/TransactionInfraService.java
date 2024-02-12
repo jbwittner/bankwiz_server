@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.bankwiz.server.domain.api.TransactionApi;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.model.input.TransactionCreationInput;
+import fr.bankwiz.server.domain.model.input.UpdateTransactionInput;
 import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
 
 @Service
@@ -27,5 +28,17 @@ public class TransactionInfraService implements TransactionApi {
     @Transactional(readOnly = true)
     public BankAccountTransactions getAllTransactionOfBankAccount(UUID bankaccountId) {
         return this.transactionApi.getAllTransactionOfBankAccount(bankaccountId);
+    }
+
+    @Override
+    public Transaction updateTransaction(UUID bankaccountId, UpdateTransactionInput updateTransactionInput) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateTransaction'");
+    }
+
+    @Override
+    public void deleteTransaction(UUID bankaccountId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteTransaction'");
     }
 }

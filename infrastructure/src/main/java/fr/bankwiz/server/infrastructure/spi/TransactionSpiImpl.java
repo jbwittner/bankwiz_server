@@ -1,6 +1,8 @@
 package fr.bankwiz.server.infrastructure.spi;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
@@ -34,5 +36,17 @@ public class TransactionSpiImpl implements TransactionSpi {
         final BankAccountEntity bankAccountEntity = BankAccountTransformer.toBankAccountEntity(bankAccount);
         final var transactionEntities = this.transactionEntityRepository.findByBankAccountEntity(bankAccountEntity);
         return TransactionTransformer.fromTransactionEntity(transactionEntities);
+    }
+
+    @Override
+    public Optional<Transaction> findById(UUID uuid) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    }
+
+    @Override
+    public void deleteById(UUID uuid) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
     }
 }
