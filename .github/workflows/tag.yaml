@@ -38,6 +38,10 @@ jobs:
           distribution: 'microsoft'
           java-version: '17'
           cache: 'maven'
+          cache-dependency-path: |
+            'openapi.yaml'
+            'domain/pom.xml'
+            'infrastructure/pom.xml'
       - name: Install openapi dependancy
         run: mvn clean install -f openapi/pom.xml
       - name: Package application
@@ -90,5 +94,9 @@ jobs:
           distribution: 'microsoft'
           java-version: '17'
           cache: 'maven'
+          cache-dependency-path: |
+            'openapi.yaml'
+            'domain/pom.xml'
+            'infrastructure/pom.xml'
       - name: Publish application
         run: mvn -B deploy -DskipTests

@@ -36,7 +36,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
     protected void initDataBeforeEach() {}
 
     @Test
-    void createGroup() throws Exception {
+    void createTransaction() throws Exception {
         final User user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
@@ -52,7 +52,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
                 .body(createTransactionRequest)
-                .put("/transaction")
+                .post("/transaction")
                 .then()
                 .assertThat()
                 .statusCode(201)
