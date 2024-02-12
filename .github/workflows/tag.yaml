@@ -15,12 +15,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Setup-Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'microsoft'
-          java-version: '17'
-          cache: 'maven'
+      - name: Setup action
+        uses: ./.github/actions/setup-env
       - name: Install openapi dependancy
         run: mvn clean install -f openapi/pom.xml
   package_application:
@@ -32,16 +28,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Setup-Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'microsoft'
-          java-version: '17'
-          cache: 'maven'
-          cache-dependency-path: |
-            'openapi.yaml'
-            'domain/pom.xml'
-            'infrastructure/pom.xml'
+      - name: Setup action
+        uses: ./.github/actions/setup-env
       - name: Install openapi dependancy
         run: mvn clean install -f openapi/pom.xml
       - name: Package application
@@ -88,15 +76,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Setup-Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'microsoft'
-          java-version: '17'
-          cache: 'maven'
-          cache-dependency-path: |
-            'openapi.yaml'
-            'domain/pom.xml'
-            'infrastructure/pom.xml'
+      - name: Setup action
+        uses: ./.github/actions/setup-env
       - name: Publish application
         run: mvn -B deploy -DskipTests
