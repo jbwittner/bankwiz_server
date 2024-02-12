@@ -30,15 +30,13 @@ public class TransactionInfraService implements TransactionApi {
         return this.transactionApi.getAllTransactionOfBankAccount(bankaccountId);
     }
 
-    @Override
+    @Transactional
     public Transaction updateTransaction(UUID bankaccountId, UpdateTransactionInput updateTransactionInput) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateTransaction'");
+        return this.transactionApi.updateTransaction(bankaccountId, updateTransactionInput);
     }
 
-    @Override
+    @Transactional
     public void deleteTransaction(UUID bankaccountId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteTransaction'");
+        this.transactionApi.deleteTransaction(bankaccountId);
     }
 }

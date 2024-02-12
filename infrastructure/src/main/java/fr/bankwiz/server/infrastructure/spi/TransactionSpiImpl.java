@@ -40,13 +40,17 @@ public class TransactionSpiImpl implements TransactionSpi {
 
     @Override
     public Optional<Transaction> findById(UUID uuid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        final Optional<TransactionEntity> optional = this.transactionEntityRepository.findById(uuid);
+        if (optional.isPresent()) {
+            final Transaction transaction = TransactionTransformer.fromTransactionEntity(optional.get());
+            return Optional.of(transaction);
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
     public void deleteById(UUID uuid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        this.transactionEntityRepository.deleteById(uuid);
     }
 }
