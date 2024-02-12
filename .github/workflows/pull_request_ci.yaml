@@ -21,7 +21,9 @@ jobs:
       - name: Setup action
         uses: ./.github/actions/setup-env
       - name: Install openapi dependancy
-        run: mvn clean install -f openapi/pom.xml
+        run: mvn -B clean install -f openapi/pom.xml
+      - name: Dependency go-offline
+        run: mvn -B dependency:go-offline
   check-google-format:
     runs-on: ubuntu-22.04
     needs:
