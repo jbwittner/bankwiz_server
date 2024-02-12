@@ -135,4 +135,3 @@ docker run -p 8080:8080 bankwiz_server
 ```bash
 docker run -p 8080:8080 -e JVM_OPTS="-Xms256m -Xmx512m" -e PROFILE="development" bankwiz_server
 ```
-
