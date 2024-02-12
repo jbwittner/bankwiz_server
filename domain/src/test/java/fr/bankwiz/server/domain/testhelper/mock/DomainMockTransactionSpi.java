@@ -22,6 +22,11 @@ public class DomainMockTransactionSpi extends DomainMockHelper<TransactionSpi> {
         return this;
     }
 
+    public DomainMockTransactionSpi verifyDeleteById(UUID id) {
+        Mockito.verify(this.mock, Mockito.times(1)).deleteById(id);
+        return this;
+    }
+
     public DomainMockTransactionSpi mockSave() {
         Mockito.when(this.mock.save(ArgumentMatchers.any())).thenAnswer(invocation -> {
             return invocation.<Transaction>getArgument(0);

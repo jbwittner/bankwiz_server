@@ -9,11 +9,10 @@ import org.junit.jupiter.api.Test;
 import fr.bankwiz.server.domain.exception.TransactionNotExistException;
 import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
 import fr.bankwiz.server.domain.model.data.Transaction;
-import fr.bankwiz.server.domain.model.input.UpdateTransactionInput;
 import fr.bankwiz.server.domain.service.TransactionDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 
-class UpdateTransactionTest extends DomainUnitTestBase {
+class DeleteTransactionTest extends DomainUnitTestBase {
 
     private TransactionDomainService transactionDomainService;
 
@@ -26,82 +25,17 @@ class UpdateTransactionTest extends DomainUnitTestBase {
     }
 
     @Test
-    void updateAll() {
+    void ok() {
         final Transaction transaction = this.factory.getTransaction();
         final UUID transactionId = transaction.getId();
-        this.mockTransactionSpi
-                .mockFindById(transactionId, Optional.of(transaction))
-                .mockSave();
+        this.mockTransactionSpi.mockFindById(transactionId, Optional.of(transaction));
 
         this.mockCheckRightTool.mockCheckCurrentUserCanWrite(
                 transaction.getBankAccount().getGroup(), true);
 
-        final UpdateTransactionInput updateTransactionInput = UpdateTransactionInput.builder()
-                .comment(this.faker.rickAndMorty().quote())
-                .decimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
-                .build();
+        this.transactionDomainService.deleteTransaction(transactionId);
 
-        final Transaction transactionUpdated =
-                this.transactionDomainService.updateTransaction(transactionId, updateTransactionInput);
-
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(transaction.getId(), transactionUpdated.getId()),
-                () -> Assertions.assertNotEquals(transaction.getComment(), transactionUpdated.getComment()),
-                () -> Assertions.assertNotEquals(transaction.getDecimalAmount(), transactionUpdated.getDecimalAmount()),
-                () -> Assertions.assertEquals(updateTransactionInput.getComment(), transactionUpdated.getComment()),
-                () -> Assertions.assertEquals(
-                        updateTransactionInput.getDecimalAmount(), transactionUpdated.getDecimalAmount()));
-    }
-
-    @Test
-    void updateDecimalAmount() {
-        final Transaction transaction = this.factory.getTransaction();
-        final UUID transactionId = transaction.getId();
-        this.mockTransactionSpi
-                .mockFindById(transactionId, Optional.of(transaction))
-                .mockSave();
-
-        this.mockCheckRightTool.mockCheckCurrentUserCanWrite(
-                transaction.getBankAccount().getGroup(), true);
-
-        final UpdateTransactionInput updateTransactionInput = UpdateTransactionInput.builder()
-                .decimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
-                .build();
-
-        final Transaction transactionUpdated =
-                this.transactionDomainService.updateTransaction(transactionId, updateTransactionInput);
-
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(transaction.getId(), transactionUpdated.getId()),
-                () -> Assertions.assertEquals(transaction.getComment(), transactionUpdated.getComment()),
-                () -> Assertions.assertNotEquals(transaction.getDecimalAmount(), transactionUpdated.getDecimalAmount()),
-                () -> Assertions.assertEquals(
-                        updateTransactionInput.getDecimalAmount(), transactionUpdated.getDecimalAmount()));
-    }
-
-    @Test
-    void updateComment() {
-        final Transaction transaction = this.factory.getTransaction();
-        final UUID transactionId = transaction.getId();
-        this.mockTransactionSpi
-                .mockFindById(transactionId, Optional.of(transaction))
-                .mockSave();
-
-        this.mockCheckRightTool.mockCheckCurrentUserCanWrite(
-                transaction.getBankAccount().getGroup(), true);
-
-        final UpdateTransactionInput updateTransactionInput = UpdateTransactionInput.builder()
-                .comment(this.faker.rickAndMorty().quote())
-                .build();
-
-        final Transaction transactionUpdated =
-                this.transactionDomainService.updateTransaction(transactionId, updateTransactionInput);
-
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(transaction.getId(), transactionUpdated.getId()),
-                () -> Assertions.assertNotEquals(transaction.getComment(), transactionUpdated.getComment()),
-                () -> Assertions.assertEquals(transaction.getDecimalAmount(), transactionUpdated.getDecimalAmount()),
-                () -> Assertions.assertEquals(updateTransactionInput.getComment(), transactionUpdated.getComment()));
+        this.mockTransactionSpi.verifyDeleteById(transactionId);
     }
 
     @Test
@@ -114,8 +48,7 @@ class UpdateTransactionTest extends DomainUnitTestBase {
                 transaction.getBankAccount().getGroup(), false);
 
         Assertions.assertThrows(
-                UserNoWriteRightException.class,
-                () -> this.transactionDomainService.updateTransaction(transactionId, null));
+                UserNoWriteRightException.class, () -> this.transactionDomainService.deleteTransaction(transactionId));
     }
 
     @Test
@@ -125,6 +58,6 @@ class UpdateTransactionTest extends DomainUnitTestBase {
 
         Assertions.assertThrows(
                 TransactionNotExistException.class,
-                () -> this.transactionDomainService.updateTransaction(transactionId, null));
+                () -> this.transactionDomainService.deleteTransaction(transactionId));
     }
 }
