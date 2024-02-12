@@ -17,6 +17,11 @@ public class DomainMockTransactionSpi extends DomainMockHelper<TransactionSpi> {
         super(TransactionSpi.class);
     }
 
+    public DomainMockTransactionSpi verifySave(Transaction transaction) {
+        Mockito.verify(this.mock, Mockito.times(1)).save(transaction);
+        return this;
+    }
+
     public DomainMockTransactionSpi mockSave() {
         Mockito.when(this.mock.save(ArgumentMatchers.any())).thenAnswer(invocation -> {
             return invocation.<Transaction>getArgument(0);

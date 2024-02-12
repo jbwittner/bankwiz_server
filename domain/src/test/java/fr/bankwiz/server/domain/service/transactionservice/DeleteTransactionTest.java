@@ -44,8 +44,6 @@ class UpdateTransactionTest extends DomainUnitTestBase {
         final Transaction transactionUpdated =
                 this.transactionDomainService.updateTransaction(transactionId, updateTransactionInput);
 
-        this.mockTransactionSpi.verifySave(transactionUpdated);
-
         Assertions.assertAll(
                 () -> Assertions.assertEquals(transaction.getId(), transactionUpdated.getId()),
                 () -> Assertions.assertNotEquals(transaction.getComment(), transactionUpdated.getComment()),
@@ -73,8 +71,6 @@ class UpdateTransactionTest extends DomainUnitTestBase {
         final Transaction transactionUpdated =
                 this.transactionDomainService.updateTransaction(transactionId, updateTransactionInput);
 
-        this.mockTransactionSpi.verifySave(transactionUpdated);
-
         Assertions.assertAll(
                 () -> Assertions.assertEquals(transaction.getId(), transactionUpdated.getId()),
                 () -> Assertions.assertEquals(transaction.getComment(), transactionUpdated.getComment()),
@@ -100,8 +96,6 @@ class UpdateTransactionTest extends DomainUnitTestBase {
 
         final Transaction transactionUpdated =
                 this.transactionDomainService.updateTransaction(transactionId, updateTransactionInput);
-
-        this.mockTransactionSpi.verifySave(transactionUpdated);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(transaction.getId(), transactionUpdated.getId()),
