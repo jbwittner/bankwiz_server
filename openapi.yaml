@@ -290,7 +290,7 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateTransactionRequest'
       responses:
-        '200':
+        '201':
           description: Bank account created successfully
           content:
             application/json:
