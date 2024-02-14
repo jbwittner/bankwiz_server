@@ -20,6 +20,7 @@ src/main/java/fr/bankwiz/openapi/model/GroupIndexDTO.java
 src/main/java/fr/bankwiz/openapi/model/MethodArgumentNotValidExceptionDTO.java
 src/main/java/fr/bankwiz/openapi/model/TransactionDTO.java
 src/main/java/fr/bankwiz/openapi/model/TransactionIndexDTO.java
+src/main/java/fr/bankwiz/openapi/model/UpdateTransactionRequest.java
 src/main/java/fr/bankwiz/openapi/model/UserDTO.java
 src/main/java/fr/bankwiz/openapi/model/UserGroupRightDTO.java
 src/main/java/fr/bankwiz/openapi/model/UserGroupRightEnum.java

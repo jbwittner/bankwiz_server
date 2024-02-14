@@ -3,9 +3,11 @@ package fr.bankwiz.server.domain.service;
 import java.util.UUID;
 
 import fr.bankwiz.server.domain.api.TransactionApi;
+import fr.bankwiz.server.domain.exception.TransactionNotExistException;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.model.input.TransactionCreationInput;
+import fr.bankwiz.server.domain.model.input.UpdateTransactionInput;
 import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.domain.spi.TransactionSpi;
@@ -50,5 +52,46 @@ public class TransactionDomainService implements TransactionApi {
                 .bankAccount(bankAccount)
                 .transactions(transactions)
                 .build();
+    }
+
+    @Override
+    public Transaction updateTransaction(UUID bankaccountId, UpdateTransactionInput updateTransactionInput) {
+
+        final Transaction transaction = this.transactionSpi
+                .findById(bankaccountId)
+                .orElseThrow(() -> new TransactionNotExistException(bankaccountId));
+
+        this.checkRightTools.checkCurrentUserCanWrite(
+                transaction.getBankAccount().getGroup());
+
+        var transactionBuilder = Transaction.builder();
+
+        if (updateTransactionInput.getComment() != null) {
+            transactionBuilder.comment(updateTransactionInput.getComment());
+        } else {
+            transactionBuilder.comment(transaction.getComment());
+        }
+
+        if (updateTransactionInput.getDecimalAmount() != null) {
+            transactionBuilder.decimalAmount(updateTransactionInput.getDecimalAmount());
+        } else {
+            transactionBuilder.decimalAmount(transaction.getDecimalAmount());
+        }
+
+        transactionBuilder.id(transaction.getId()).bankAccount(transaction.getBankAccount());
+
+        final Transaction transactionUpdated = transactionBuilder.build();
+
+        return this.transactionSpi.save(transactionUpdated);
+    }
+
+    @Override
+    public void deleteTransaction(UUID bankaccountId) {
+        final Transaction transaction = this.transactionSpi
+                .findById(bankaccountId)
+                .orElseThrow(() -> new TransactionNotExistException(bankaccountId));
+        this.checkRightTools.checkCurrentUserCanWrite(
+                transaction.getBankAccount().getGroup());
+        this.transactionSpi.deleteById(bankaccountId);
     }
 }

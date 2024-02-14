@@ -1,6 +1,8 @@
 package fr.bankwiz.server.domain.testhelper.mock;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
@@ -15,6 +17,16 @@ public class DomainMockTransactionSpi extends DomainMockHelper<TransactionSpi> {
         super(TransactionSpi.class);
     }
 
+    public DomainMockTransactionSpi verifySave(Transaction transaction) {
+        Mockito.verify(this.mock, Mockito.times(1)).save(transaction);
+        return this;
+    }
+
+    public DomainMockTransactionSpi verifyDeleteById(UUID id) {
+        Mockito.verify(this.mock, Mockito.times(1)).deleteById(id);
+        return this;
+    }
+
     public DomainMockTransactionSpi mockSave() {
         Mockito.when(this.mock.save(ArgumentMatchers.any())).thenAnswer(invocation -> {
             return invocation.<Transaction>getArgument(0);
@@ -24,6 +36,11 @@ public class DomainMockTransactionSpi extends DomainMockHelper<TransactionSpi> {
 
     public DomainMockTransactionSpi mockFindByBankAccount(BankAccount bankAccount, List<Transaction> transactions) {
         Mockito.when(this.mock.findByBankAccount(bankAccount)).thenReturn(transactions);
+        return this;
+    }
+
+    public DomainMockTransactionSpi mockFindById(UUID id, Optional<Transaction> optionalTransaction) {
+        Mockito.when(this.mock.findById(id)).thenReturn(optionalTransaction);
         return this;
     }
 }

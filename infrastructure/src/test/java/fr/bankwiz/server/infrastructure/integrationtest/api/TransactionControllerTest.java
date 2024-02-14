@@ -3,6 +3,7 @@ package fr.bankwiz.server.infrastructure.integrationtest.api;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import fr.bankwiz.openapi.model.BankAccountTransactionsDTO;
 import fr.bankwiz.openapi.model.CreateTransactionRequest;
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.openapi.model.TransactionIndexDTO;
+import fr.bankwiz.openapi.model.UpdateTransactionRequest;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -36,7 +38,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
     protected void initDataBeforeEach() {}
 
     @Test
-    void createGroup() throws Exception {
+    void createTransaction() throws Exception {
         final User user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
@@ -52,7 +54,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
                 .body(createTransactionRequest)
-                .put("/transaction")
+                .post("/transaction")
                 .then()
                 .assertThat()
                 .statusCode(201)
@@ -119,5 +121,74 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
                     TransactionTransformer.toTransactionIndexDTO(transactionFinded);
             Assertions.assertEquals(transactionIndexDTO, transactionIndexDTOFinded);
         });
+    }
+
+    @Test
+    void updateTransaction() {
+        final User user = this.factory.getUser();
+        final Jwt jwt = this.mockAuthentification(user);
+
+        final Group group = this.factory.getGroup();
+        this.factory.getGroupRight(group, user, GroupRightEnum.WRITE);
+        final BankAccount bankAccount = this.factory.getBankAccount(group);
+
+        final Transaction transaction = this.factory.getTransaction(bankAccount);
+        final UUID transactionId = transaction.getId();
+
+        final UpdateTransactionRequest updateTransactionRequest = new UpdateTransactionRequest();
+        updateTransactionRequest.setComment(this.faker.rickAndMorty().character());
+        updateTransactionRequest.setDecimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE));
+
+        final TransactionDTO response = given().auth()
+                .oauth2(jwt.getTokenValue())
+                .header("Content-type", "application/json")
+                .body(updateTransactionRequest)
+                .put("/transaction/" + transactionId)
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .extract()
+                .as(TransactionDTO.class);
+
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(transactionId, response.getTransactionId()),
+                () -> Assertions.assertNotEquals(transaction.getComment(), response.getComment()),
+                () -> Assertions.assertNotEquals(transaction.getDecimalAmount(), response.getDecimalAmount()),
+                () -> Assertions.assertEquals(updateTransactionRequest.getComment(), response.getComment()),
+                () -> Assertions.assertEquals(
+                        updateTransactionRequest.getDecimalAmount(), response.getDecimalAmount()));
+
+        final TransactionEntity transactionEntity =
+                this.transactionEntityRepository.findById(transactionId).orElseThrow();
+
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(updateTransactionRequest.getComment(), transactionEntity.getComment()),
+                () -> Assertions.assertEquals(
+                        updateTransactionRequest.getDecimalAmount(), transactionEntity.getDecimalAmount()));
+    }
+
+    @Test
+    void deleteTransaction() {
+        final User user = this.factory.getUser();
+        final Jwt jwt = this.mockAuthentification(user);
+
+        final Group group = this.factory.getGroup();
+        this.factory.getGroupRight(group, user, GroupRightEnum.WRITE);
+        final BankAccount bankAccount = this.factory.getBankAccount(group);
+
+        final Transaction transaction = this.factory.getTransaction(bankAccount);
+        final UUID transactionId = transaction.getId();
+
+        given().auth()
+                .oauth2(jwt.getTokenValue())
+                .header("Content-type", "application/json")
+                .delete("/transaction/" + transactionId)
+                .then()
+                .assertThat()
+                .statusCode(200);
+
+        final Optional<TransactionEntity> optional = this.transactionEntityRepository.findById(transactionId);
+
+        Assertions.assertTrue(optional.isEmpty());
     }
 }

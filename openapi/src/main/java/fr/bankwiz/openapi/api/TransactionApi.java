@@ -9,6 +9,7 @@ import fr.bankwiz.openapi.model.BankAccountTransactionsDTO;
 import fr.bankwiz.openapi.model.CreateTransactionRequest;
 import fr.bankwiz.openapi.model.TransactionDTO;
 import java.util.UUID;
+import fr.bankwiz.openapi.model.UpdateTransactionRequest;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -45,7 +46,7 @@ public interface TransactionApi {
     }
 
     /**
-     * PUT /transaction : Create a new transaction
+     * POST /transaction : Create a new transaction
      *
      * @param createTransactionRequest  (required)
      * @return Bank account created successfully (status code 200)
@@ -66,7 +67,7 @@ public interface TransactionApi {
         }
     )
     @RequestMapping(
-        method = RequestMethod.PUT,
+        method = RequestMethod.POST,
         value = "/transaction",
         produces = { "application/json" },
         consumes = { "application/json" }
@@ -84,6 +85,38 @@ public interface TransactionApi {
                 }
             }
         });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * DELETE /transaction/{transactionId} : Delete transaction
+     *
+     * @param transactionId Transaction ID (required)
+     * @return Transaction deleted successfully (status code 200)
+     *         or Invalid request. Please check the provided data. (status code 400)
+     */
+    @Operation(
+        operationId = "deleteTransaction",
+        summary = "Delete transaction",
+        tags = { "TransactionService" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Transaction deleted successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
+        },
+        security = {
+            @SecurityRequirement(name = "oauth2", scopes={ "openid", "profile", "email" })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.DELETE,
+        value = "/transaction/{transactionId}"
+    )
+    
+    default ResponseEntity<Void> deleteTransaction(
+        @Parameter(name = "transactionId", description = "Transaction ID", required = true, in = ParameterIn.PATH) @PathVariable("transactionId") UUID transactionId
+    ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
@@ -123,6 +156,53 @@ public interface TransactionApi {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     String exampleString = "{ \"bankAccountIndex\" : { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"decimalBaseAmount\" : 0 }, \"transactions\" : [ { \"decimalAmount\" : 0, \"comment\" : \"comment\", \"transactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }, { \"decimalAmount\" : 0, \"comment\" : \"comment\", \"transactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" } ] }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * PUT /transaction/{transactionId} : Update transaction
+     *
+     * @param transactionId Transaction ID (required)
+     * @param updateTransactionRequest  (required)
+     * @return Bank account updated successfully (status code 200)
+     *         or Invalid request. Please check the provided data. (status code 400)
+     */
+    @Operation(
+        operationId = "updateTransaction",
+        summary = "Update transaction",
+        tags = { "TransactionService" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Bank account updated successfully", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = TransactionDTO.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
+        },
+        security = {
+            @SecurityRequirement(name = "oauth2", scopes={ "openid", "profile", "email" })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.PUT,
+        value = "/transaction/{transactionId}",
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+    
+    default ResponseEntity<TransactionDTO> updateTransaction(
+        @Parameter(name = "transactionId", description = "Transaction ID", required = true, in = ParameterIn.PATH) @PathVariable("transactionId") UUID transactionId,
+        @Parameter(name = "UpdateTransactionRequest", description = "", required = true) @Valid @RequestBody UpdateTransactionRequest updateTransactionRequest
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"decimalAmount\" : 0, \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"comment\" : \"comment\", \"transactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

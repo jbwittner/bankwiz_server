@@ -85,7 +85,7 @@ public class DomainUnitTestFactory {
         return Transaction.builder()
                 .bankAccount(bankAccount)
                 .id(UUID.randomUUID())
-                .comment(this.faker.yoda().quote())
+                .comment(this.faker.superhero().name())
                 .decimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
                 .build();
     }

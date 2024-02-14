@@ -12,15 +12,11 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Setup-Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'microsoft'
-          java-version: '17'
-          cache: 'maven'
+      - name: Setup action
+        uses: ./.github/actions/setup-env
       - name: Install openapi dependancy
         run: mvn clean install -f openapi/pom.xml
   package_application:
@@ -28,17 +24,13 @@ jobs:
     needs:
       - resolve-dependencies
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Setup-Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-          cache: 'maven'
+      - name: Setup action
+        uses: ./.github/actions/setup-env
       - name: Cache SonarCloud packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
@@ -53,7 +45,7 @@ jobs:
       packages: write
     steps:
       - name: Checkout Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Set up Docker Buildx
@@ -84,14 +76,10 @@ jobs:
       packages: write
     steps:
       - name: Checkout Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Setup-Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'microsoft'
-          java-version: '17'
-          cache: 'maven'
+      - name: Setup action
+        uses: ./.github/actions/setup-env
       - name: Publish application
         run: mvn -B deploy -DskipTests

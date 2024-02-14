@@ -278,7 +278,7 @@ paths:
 #################################### BankAccountService END ######################### 
 #################################### TransactionService START ####################### 
   /transaction:
-    put:
+    post:
       tags:
         - TransactionService
       summary: Create a new transaction
@@ -290,12 +290,59 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateTransactionRequest'
       responses:
-        '200':
+        '201':
           description: Bank account created successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TransactionDTO'
+        '400':
+          description: Invalid request. Please check the provided data.
+  /transaction/{transactionId}:
+    put:
+      tags:
+        - TransactionService
+      summary: Update transaction
+      operationId: updateTransaction
+      parameters:
+        - name: transactionId
+          in: path
+          description: Transaction ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTransactionRequest'
+      responses:
+        '200':
+          description: Bank account updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionDTO'
+        '400':
+          description: Invalid request. Please check the provided data.
+    delete:
+      tags:
+        - TransactionService
+      summary: Delete transaction
+      operationId: deleteTransaction
+      parameters:
+        - name: transactionId
+          in: path
+          description: Transaction ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Transaction deleted successfully
         '400':
           description: Invalid request. Please check the provided data.
   /transaction/bankaccount/{bankaccountId}:
@@ -408,6 +455,15 @@ components:
       required:
         - BankAccountId
         - DecimalAmount
+    UpdateTransactionRequest:
+      type: object
+      properties:
+        DecimalAmount:
+          type: integer
+          format: int32
+        Comment:
+          type: string
+          maxLength: 255
 #################################### Request END #################################### 
 #################################### DTO START ###################################### 
     FunctionalExceptionDTO:

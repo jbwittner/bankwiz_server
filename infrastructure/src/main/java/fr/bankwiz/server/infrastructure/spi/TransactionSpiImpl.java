@@ -1,6 +1,8 @@
 package fr.bankwiz.server.infrastructure.spi;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
@@ -34,5 +36,21 @@ public class TransactionSpiImpl implements TransactionSpi {
         final BankAccountEntity bankAccountEntity = BankAccountTransformer.toBankAccountEntity(bankAccount);
         final var transactionEntities = this.transactionEntityRepository.findByBankAccountEntity(bankAccountEntity);
         return TransactionTransformer.fromTransactionEntity(transactionEntities);
+    }
+
+    @Override
+    public Optional<Transaction> findById(UUID uuid) {
+        final Optional<TransactionEntity> optional = this.transactionEntityRepository.findById(uuid);
+        if (optional.isPresent()) {
+            final Transaction transaction = TransactionTransformer.fromTransactionEntity(optional.get());
+            return Optional.of(transaction);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public void deleteById(UUID uuid) {
+        this.transactionEntityRepository.deleteById(uuid);
     }
 }
