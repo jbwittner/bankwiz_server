@@ -37,7 +37,7 @@ class UpdateTransactionTest extends DomainUnitTestBase {
                 transaction.getBankAccount().getGroup(), true);
 
         final UpdateTransactionInput updateTransactionInput = UpdateTransactionInput.builder()
-                .comment(this.faker.rickAndMorty().quote())
+                .comment(this.faker.superhero().name())
                 .decimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
                 .build();
 
