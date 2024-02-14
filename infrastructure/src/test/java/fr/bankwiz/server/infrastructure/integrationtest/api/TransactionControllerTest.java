@@ -3,6 +3,7 @@ package fr.bankwiz.server.infrastructure.integrationtest.api;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -132,6 +133,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
         final BankAccount bankAccount = this.factory.getBankAccount(group);
 
         final Transaction transaction = this.factory.getTransaction(bankAccount);
+        final UUID transactionId = transaction.getId();
 
         final UpdateTransactionRequest updateTransactionRequest = new UpdateTransactionRequest();
         updateTransactionRequest.setComment(this.faker.rickAndMorty().character());
@@ -141,7 +143,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
                 .oauth2(jwt.getTokenValue())
                 .header("Content-type", "application/json")
                 .body(updateTransactionRequest)
-                .put("/transaction/" + transaction.getId())
+                .put("/transaction/" + transactionId)
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -149,15 +151,44 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
                 .as(TransactionDTO.class);
 
         Assertions.assertAll(
-            () -> Assertions.assertEquals(transaction.getId(), response.getTransactionId()),
-            () -> Assertions.assertNotEquals(transaction.getComment(), response.getComment()),
-            () -> Assertions.assertNotEquals(transaction.getDecimalAmount(), response.getDecimalAmount()),
-            () -> Assertions.assertEquals(updateTransactionRequest.getComment(), response.getComment()),
-            () -> Assertions.assertEquals(updateTransactionRequest.getDecimalAmount(), response.getDecimalAmount())
-        );
+                () -> Assertions.assertEquals(transactionId, response.getTransactionId()),
+                () -> Assertions.assertNotEquals(transaction.getComment(), response.getComment()),
+                () -> Assertions.assertNotEquals(transaction.getDecimalAmount(), response.getDecimalAmount()),
+                () -> Assertions.assertEquals(updateTransactionRequest.getComment(), response.getComment()),
+                () -> Assertions.assertEquals(
+                        updateTransactionRequest.getDecimalAmount(), response.getDecimalAmount()));
 
-        Assertions.fail();
-        //Ajouter vérification enregistrement dans la bdd
+        final TransactionEntity transactionEntity =
+                this.transactionEntityRepository.findById(transactionId).orElseThrow();
 
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(updateTransactionRequest.getComment(), transactionEntity.getComment()),
+                () -> Assertions.assertEquals(
+                        updateTransactionRequest.getDecimalAmount(), transactionEntity.getDecimalAmount()));
+    }
+
+    @Test
+    void deleteTransaction() {
+        final User user = this.factory.getUser();
+        final Jwt jwt = this.mockAuthentification(user);
+
+        final Group group = this.factory.getGroup();
+        this.factory.getGroupRight(group, user, GroupRightEnum.WRITE);
+        final BankAccount bankAccount = this.factory.getBankAccount(group);
+
+        final Transaction transaction = this.factory.getTransaction(bankAccount);
+        final UUID transactionId = transaction.getId();
+
+        given().auth()
+                .oauth2(jwt.getTokenValue())
+                .header("Content-type", "application/json")
+                .delete("/transaction/" + transactionId)
+                .then()
+                .assertThat()
+                .statusCode(200);
+
+        final Optional<TransactionEntity> optional = this.transactionEntityRepository.findById(transactionId);
+
+        Assertions.assertTrue(optional.isEmpty());
     }
 }
