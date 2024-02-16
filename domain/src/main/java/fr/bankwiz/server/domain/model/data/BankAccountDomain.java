@@ -12,7 +12,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString
 @Setter
-public class BankAccountDomain extends GroupRelated {
+public class BankAccountDomain extends GroupRelatedDomain {
     private String bankAccountName;
     private Integer decimalBaseAmount;
     private CurrencyEnumDomain currency;
