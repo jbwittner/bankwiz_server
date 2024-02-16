@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import fr.bankwiz.openapi.model.CurrencyEnum;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -28,7 +30,7 @@ public class BankAccountCreationRequest {
 
   private Integer decimalBaseAmount;
 
-  private String currencyIsoCode3;
+  private CurrencyEnum currency;
 
   public BankAccountCreationRequest() {
     super();
@@ -37,11 +39,11 @@ public class BankAccountCreationRequest {
   /**
    * Constructor with only required parameters
    */
-  public BankAccountCreationRequest(String bankAccountName, UUID groupId, Integer decimalBaseAmount, String currencyIsoCode3) {
+  public BankAccountCreationRequest(String bankAccountName, UUID groupId, Integer decimalBaseAmount, CurrencyEnum currency) {
     this.bankAccountName = bankAccountName;
     this.groupId = groupId;
     this.decimalBaseAmount = decimalBaseAmount;
-    this.currencyIsoCode3 = currencyIsoCode3;
+    this.currency = currency;
   }
 
   public BankAccountCreationRequest bankAccountName(String bankAccountName) {
@@ -104,24 +106,24 @@ public class BankAccountCreationRequest {
     this.decimalBaseAmount = decimalBaseAmount;
   }
 
-  public BankAccountCreationRequest currencyIsoCode3(String currencyIsoCode3) {
-    this.currencyIsoCode3 = currencyIsoCode3;
+  public BankAccountCreationRequest currency(CurrencyEnum currency) {
+    this.currency = currency;
     return this;
   }
 
   /**
-   * Get currencyIsoCode3
-   * @return currencyIsoCode3
+   * Get currency
+   * @return currency
   */
-  @NotNull 
-  @Schema(name = "currencyIsoCode3", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("currencyIsoCode3")
-  public String getCurrencyIsoCode3() {
-    return currencyIsoCode3;
+  @NotNull @Valid 
+  @Schema(name = "currency", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("currency")
+  public CurrencyEnum getCurrency() {
+    return currency;
   }
 
-  public void setCurrencyIsoCode3(String currencyIsoCode3) {
-    this.currencyIsoCode3 = currencyIsoCode3;
+  public void setCurrency(CurrencyEnum currency) {
+    this.currency = currency;
   }
 
   @Override
@@ -136,12 +138,12 @@ public class BankAccountCreationRequest {
     return Objects.equals(this.bankAccountName, bankAccountCreationRequest.bankAccountName) &&
         Objects.equals(this.groupId, bankAccountCreationRequest.groupId) &&
         Objects.equals(this.decimalBaseAmount, bankAccountCreationRequest.decimalBaseAmount) &&
-        Objects.equals(this.currencyIsoCode3, bankAccountCreationRequest.currencyIsoCode3);
+        Objects.equals(this.currency, bankAccountCreationRequest.currency);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bankAccountName, groupId, decimalBaseAmount, currencyIsoCode3);
+    return Objects.hash(bankAccountName, groupId, decimalBaseAmount, currency);
   }
 
   @Override
@@ -151,7 +153,7 @@ public class BankAccountCreationRequest {
     sb.append("    bankAccountName: ").append(toIndentedString(bankAccountName)).append("\n");
     sb.append("    groupId: ").append(toIndentedString(groupId)).append("\n");
     sb.append("    decimalBaseAmount: ").append(toIndentedString(decimalBaseAmount)).append("\n");
-    sb.append("    currencyIsoCode3: ").append(toIndentedString(currencyIsoCode3)).append("\n");
+    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
     sb.append("}");
     return sb.toString();
   }
