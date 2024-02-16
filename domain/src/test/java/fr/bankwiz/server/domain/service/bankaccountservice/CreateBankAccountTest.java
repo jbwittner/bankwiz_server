@@ -92,8 +92,9 @@ class CreateBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void groupNotExist() {
-        final BankAccountCreationInputDomain bankAccountCreationInput =
-                BankAccountCreationInputDomain.builder().groupId(UUID.randomUUID()).build();
+        final BankAccountCreationInputDomain bankAccountCreationInput = BankAccountCreationInputDomain.builder()
+                .groupId(UUID.randomUUID())
+                .build();
 
         Assertions.assertThrows(
                 GroupNotExistException.class,

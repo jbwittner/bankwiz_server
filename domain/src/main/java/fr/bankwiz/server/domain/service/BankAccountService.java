@@ -93,7 +93,8 @@ public class BankAccountService implements BankAccountApi {
     }
 
     @Override
-    public BankAccountDomain updateBankAccount(UUID bankAccountId, BankAccountUpdateInputDomain bankAccountUpdateInput) {
+    public BankAccountDomain updateBankAccount(
+            UUID bankAccountId, BankAccountUpdateInputDomain bankAccountUpdateInput) {
         final UserDomain user = this.authenticationSpi.getCurrentUser();
 
         final BankAccountDomain bankAccount = this.bankAccountSpi

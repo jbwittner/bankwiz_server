@@ -63,7 +63,8 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
     }
 
     @Override
-    public GroupRightDomain getGroupRight(final GroupDomain group, final UserDomain user, final GroupRightEnum groupRightEnum) {
+    public GroupRightDomain getGroupRight(
+            final GroupDomain group, final UserDomain user, final GroupRightEnum groupRightEnum) {
         final GroupRightDomain groupRight = super.getGroupRight(group, user, groupRightEnum);
         final GroupRightEntity groupRightEntity = GroupRightTransformer.toGroupRightEntity(groupRight);
         this.groupRightEntityRepository.save(groupRightEntity);

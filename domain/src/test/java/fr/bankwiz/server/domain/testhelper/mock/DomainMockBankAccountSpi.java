@@ -30,7 +30,8 @@ public class DomainMockBankAccountSpi extends DomainMockHelper<BankAccountSpi> {
         return this;
     }
 
-    public DomainMockBankAccountSpi mockFindByGroup(final GroupDomain group, final List<BankAccountDomain> bankAccounts) {
+    public DomainMockBankAccountSpi mockFindByGroup(
+            final GroupDomain group, final List<BankAccountDomain> bankAccounts) {
         Mockito.when(this.mock.findByGroup(group)).thenReturn(bankAccounts);
         return this;
     }

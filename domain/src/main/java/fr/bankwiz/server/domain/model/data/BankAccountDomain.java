@@ -19,7 +19,11 @@ public class BankAccountDomain extends GroupRelatedDomain {
 
     @Builder
     public BankAccountDomain(
-            String bankAccountName, Integer decimalBaseAmount, UUID id, GroupDomain group, CurrencyEnumDomain currency) {
+            String bankAccountName,
+            Integer decimalBaseAmount,
+            UUID id,
+            GroupDomain group,
+            CurrencyEnumDomain currency) {
         super(id, group);
         this.bankAccountName = bankAccountName;
         this.decimalBaseAmount = decimalBaseAmount;

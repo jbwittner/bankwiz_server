@@ -31,7 +31,8 @@ public class TransactionInfraService implements TransactionApi {
     }
 
     @Transactional
-    public TransactionDomain updateTransaction(UUID bankaccountId, UpdateTransactionInputDomain updateTransactionInput) {
+    public TransactionDomain updateTransaction(
+            UUID bankaccountId, UpdateTransactionInputDomain updateTransactionInput) {
         return this.transactionApi.updateTransaction(bankaccountId, updateTransactionInput);
     }
 

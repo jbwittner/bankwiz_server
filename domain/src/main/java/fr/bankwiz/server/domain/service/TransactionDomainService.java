@@ -55,7 +55,8 @@ public class TransactionDomainService implements TransactionApi {
     }
 
     @Override
-    public TransactionDomain updateTransaction(UUID bankaccountId, UpdateTransactionInputDomain updateTransactionInput) {
+    public TransactionDomain updateTransaction(
+            UUID bankaccountId, UpdateTransactionInputDomain updateTransactionInput) {
 
         final TransactionDomain transaction = this.transactionSpi
                 .findById(bankaccountId)

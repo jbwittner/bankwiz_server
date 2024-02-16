@@ -48,7 +48,8 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
 
         final List<GroupRightDomain> groupRights = new ArrayList<>();
         final GroupRightDomain groupRight1 = this.factory.getGroupRight(group, user, GroupRightEnum.READ);
-        final GroupRightDomain groupRight2 = this.factory.getGroupRight(group, this.factory.getUser(), GroupRightEnum.READ);
+        final GroupRightDomain groupRight2 =
+                this.factory.getGroupRight(group, this.factory.getUser(), GroupRightEnum.READ);
 
         groupRights.add(groupRight1);
         groupRights.add(groupRight2);

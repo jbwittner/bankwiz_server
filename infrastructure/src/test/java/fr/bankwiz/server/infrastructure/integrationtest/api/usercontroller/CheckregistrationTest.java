@@ -42,7 +42,8 @@ class CheckregistrationTest extends InfrastructureIntegrationTestBase {
         final String sub = this.factory.getAuthId();
 
         Mockito.when(this.authenticationSpi.getUserAuthentication())
-                .thenReturn(UserAuthenticationDomain.builder().email(email).sub(sub).build());
+                .thenReturn(
+                        UserAuthenticationDomain.builder().email(email).sub(sub).build());
 
         UserDTO response = given().auth()
                 .oauth2(jwt.getTokenValue())

@@ -34,7 +34,8 @@ public class DomainMockTransactionSpi extends DomainMockHelper<TransactionSpi> {
         return this;
     }
 
-    public DomainMockTransactionSpi mockFindByBankAccount(BankAccountDomain bankAccount, List<TransactionDomain> transactions) {
+    public DomainMockTransactionSpi mockFindByBankAccount(
+            BankAccountDomain bankAccount, List<TransactionDomain> transactions) {
         Mockito.when(this.mock.findByBankAccount(bankAccount)).thenReturn(transactions);
         return this;
     }

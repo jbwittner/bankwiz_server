@@ -8,8 +8,8 @@ import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.TransactionDomain;
-import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.model.data.UserAuthenticationDomain;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 
 public class DomainUnitTestFactory {
 
@@ -51,7 +51,8 @@ public class DomainUnitTestFactory {
                 .build();
     }
 
-    public GroupRightDomain getGroupRight(final GroupDomain group, final UserDomain user, final GroupRightEnum groupRightEnum) {
+    public GroupRightDomain getGroupRight(
+            final GroupDomain group, final UserDomain user, final GroupRightEnum groupRightEnum) {
         return GroupRightDomain.builder()
                 .id(UUID.randomUUID())
                 .group(group)
