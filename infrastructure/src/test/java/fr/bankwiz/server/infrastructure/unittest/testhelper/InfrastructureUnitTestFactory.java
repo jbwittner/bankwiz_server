@@ -5,12 +5,12 @@ import java.util.UUID;
 import fr.bankwiz.server.domain.testhelper.tools.DomainFaker;
 import fr.bankwiz.server.domain.testhelper.tools.DomainUnitTestFactory;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
+import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity.CurrencyEntityEnum;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity.GroupRightEntityEnum;
 import fr.bankwiz.server.infrastructure.spi.database.entity.TransactionEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
-import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity.CurrencyEntityEnum;
 
 public class InfrastructureUnitTestFactory extends DomainUnitTestFactory {
 

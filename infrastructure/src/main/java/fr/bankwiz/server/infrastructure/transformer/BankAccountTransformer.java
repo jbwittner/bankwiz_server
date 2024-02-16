@@ -16,7 +16,8 @@ public class BankAccountTransformer {
 
     public static BankAccountEntity toBankAccountEntity(final BankAccount bankAccount) {
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(bankAccount.getGroup());
-        final BankAccountEntity.CurrencyEntityEnum currencyEntityEnum = BankAccountEntity.CurrencyEntityEnum.valueOf(bankAccount.getCurrency().toString());
+        final BankAccountEntity.CurrencyEntityEnum currencyEntityEnum = BankAccountEntity.CurrencyEntityEnum.valueOf(
+                bankAccount.getCurrency().toString());
         return BankAccountEntity.builder()
                 .baseAmountDecimal(bankAccount.getDecimalBaseAmount())
                 .id(bankAccount.getId())
@@ -28,7 +29,8 @@ public class BankAccountTransformer {
 
     public static BankAccount fromBankAccountEntity(final BankAccountEntity bankAccountEntity) {
         final Group group = GroupTransformer.fromGroupEntity(bankAccountEntity.getGroupEntity());
-        final BankAccount.CurrencyEnumDomain currencyEnumDomain = BankAccount.CurrencyEnumDomain.valueOf(bankAccountEntity.getCurrencyEntityEnum().toString());
+        final BankAccount.CurrencyEnumDomain currencyEnumDomain = BankAccount.CurrencyEnumDomain.valueOf(
+                bankAccountEntity.getCurrencyEntityEnum().toString());
         return BankAccount.builder()
                 .bankAccountName(bankAccountEntity.getBankAccountName())
                 .decimalBaseAmount(bankAccountEntity.getBaseAmountDecimal())
@@ -46,9 +48,13 @@ public class BankAccountTransformer {
 
     public static BankAccountIndexDTO toBankAccountIndexDTO(final BankAccount bankAccount) {
         final Currency currency = Currency.getInstance(bankAccount.getCurrency().toString());
-        final CurrencyIndexDTO currencyIndexDTO = new CurrencyIndexDTO(currency.getCurrencyCode(), currency.getDisplayName(), currency.getSymbol());
+        final CurrencyIndexDTO currencyIndexDTO =
+                new CurrencyIndexDTO(currency.getCurrencyCode(), currency.getDisplayName(), currency.getSymbol());
         return new BankAccountIndexDTO(
-                bankAccount.getBankAccountName(), bankAccount.getId(), bankAccount.getDecimalBaseAmount(), currencyIndexDTO);
+                bankAccount.getBankAccountName(),
+                bankAccount.getId(),
+                bankAccount.getDecimalBaseAmount(),
+                currencyIndexDTO);
     }
 
     public static List<BankAccountIndexDTO> toBankAccountIndexDTO(final List<BankAccount> bankAccounts) {

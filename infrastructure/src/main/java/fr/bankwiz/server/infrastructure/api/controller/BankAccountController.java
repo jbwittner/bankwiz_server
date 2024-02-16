@@ -33,7 +33,8 @@ public class BankAccountController implements BankaccountApi {
     @Override
     public ResponseEntity<BankAccountIndexDTO> createBankAccount(
             BankAccountCreationRequest bankAccountCreationRequest) {
-        final CurrencyEnumDomain currencyEnumDomain = CurrencyEnumDomain.valueOf(bankAccountCreationRequest.getCurrency().toString());
+        final CurrencyEnumDomain currencyEnumDomain = CurrencyEnumDomain.valueOf(
+                bankAccountCreationRequest.getCurrency().toString());
         BankAccountCreationInput bankAccountCreationInput = BankAccountCreationInput.builder()
                 .bankAccountName(bankAccountCreationRequest.getBankAccountName())
                 .decimalBaseAmount(bankAccountCreationRequest.getDecimalBaseAmount())

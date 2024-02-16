@@ -2,7 +2,6 @@ package fr.bankwiz.server.infrastructure.spi.database.entity;
 
 import java.util.UUID;
 
-import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity.GroupRightEntityEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -21,7 +20,12 @@ import lombok.NoArgsConstructor;
 public class BankAccountEntity extends GroupRelatedEntity {
 
     @Builder
-    public BankAccountEntity(UUID id, GroupEntity groupEntity, String bankAccountName, Integer baseAmountDecimal, CurrencyEntityEnum currencyEntityEnum) {
+    public BankAccountEntity(
+            UUID id,
+            GroupEntity groupEntity,
+            String bankAccountName,
+            Integer baseAmountDecimal,
+            CurrencyEntityEnum currencyEntityEnum) {
         super(id, groupEntity);
         this.bankAccountName = bankAccountName;
         this.baseAmountDecimal = baseAmountDecimal;

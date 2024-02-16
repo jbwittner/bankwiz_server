@@ -3,13 +3,13 @@ package fr.bankwiz.server.domain.testhelper.tools;
 import java.util.UUID;
 
 import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccount.CurrencyEnumDomain;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.data.UserAuthentication;
-import fr.bankwiz.server.domain.model.data.BankAccount.CurrencyEnumDomain;
 
 public class DomainUnitTestFactory {
 
