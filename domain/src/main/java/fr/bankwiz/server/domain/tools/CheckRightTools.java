@@ -4,7 +4,7 @@ import fr.bankwiz.server.domain.exception.UserNoReadRightException;
 import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
 import fr.bankwiz.server.domain.exception.UserNotAdminException;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;

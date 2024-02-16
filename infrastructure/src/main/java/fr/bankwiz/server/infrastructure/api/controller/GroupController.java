@@ -14,8 +14,8 @@ import fr.bankwiz.openapi.model.GroupDetailsDTO;
 import fr.bankwiz.openapi.model.GroupIndexDTO;
 import fr.bankwiz.openapi.model.UserGroupRightDTO;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
 import fr.bankwiz.server.domain.model.input.GroupCreationInput;
 import fr.bankwiz.server.domain.model.other.GroupDetails;
@@ -63,7 +63,7 @@ public class GroupController implements GroupApi {
                 .userId(addUserGroupRequest.getUserId())
                 .right(GroupRightEnum.valueOf(addUserGroupRequest.getRight().name()))
                 .build();
-        final GroupRight groupRight = this.groupInfraService.addUserGroup(groupId, addUserGroupInput);
+        final GroupRightDomain groupRight = this.groupInfraService.addUserGroup(groupId, addUserGroupInput);
         final UserGroupRightDTO userGroupRightDTO = GroupRightTransformer.toGroupRightDTO(groupRight);
         return new ResponseEntity<>(userGroupRightDTO, HttpStatus.OK);
     }

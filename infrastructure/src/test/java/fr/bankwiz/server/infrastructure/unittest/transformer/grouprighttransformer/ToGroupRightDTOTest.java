@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.openapi.model.UserGroupRightDTO;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.infrastructure.transformer.GroupRightTransformer;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
@@ -20,7 +20,7 @@ class ToGroupRightDTOTest extends InfrastructureUnitTestBase {
     @Override
     protected void initDataBeforeEach() {}
 
-    void checkData(GroupRight groupRight, UserGroupRightDTO userGroupDetailsDTO) {
+    void checkData(GroupRightDomain groupRight, UserGroupRightDTO userGroupDetailsDTO) {
         Assertions.assertAll(
                 () -> Assertions.assertEquals(groupRight.getId(), userGroupDetailsDTO.getGroupRightId()),
                 () -> Assertions.assertEquals(
@@ -34,14 +34,14 @@ class ToGroupRightDTOTest extends InfrastructureUnitTestBase {
 
     @Test
     void ok() {
-        final GroupRight groupRight = this.factory.getGroupRight(GroupRightEnum.WRITE);
+        final GroupRightDomain groupRight = this.factory.getGroupRight(GroupRightEnum.WRITE);
         final UserGroupRightDTO userGroupDetailsDTO = GroupRightTransformer.toGroupRightDTO(groupRight);
         this.checkData(groupRight, userGroupDetailsDTO);
     }
 
     @Test
     void okList() {
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(GroupRightEnum.WRITE));
         groupRights.add(this.factory.getGroupRight(GroupRightEnum.ADMIN));
         groupRights.add(this.factory.getGroupRight(GroupRightEnum.READ));
@@ -51,14 +51,14 @@ class ToGroupRightDTOTest extends InfrastructureUnitTestBase {
         Assertions.assertEquals(groupRights.size(), userGroupDetailsDTOs.size());
 
         userGroupDetailsDTOs.stream().forEach(detailDTO -> {
-            final Optional<GroupRight> optional = groupRights.stream()
+            final Optional<GroupRightDomain> optional = groupRights.stream()
                     .filter(groupRight -> groupRight.getId().equals(detailDTO.getGroupRightId()))
                     .findAny();
             if (optional.isEmpty()) {
                 Assertions.fail();
             }
 
-            final GroupRight groupRight = optional.get();
+            final GroupRightDomain groupRight = optional.get();
             checkData(groupRight, detailDTO);
         });
     }

@@ -6,8 +6,8 @@ import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.openapi.model.UserGroupRightDTO;
 import fr.bankwiz.openapi.model.UserGroupRightEnum;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
@@ -18,12 +18,12 @@ public final class GroupRightTransformer {
 
     private GroupRightTransformer() {}
 
-    public static GroupRight fromGroupRightEntity(final GroupRightEntity groupRightEntity) {
+    public static GroupRightDomain fromGroupRightEntity(final GroupRightEntity groupRightEntity) {
 
         final User user = UserTransformer.fromUserEntity(groupRightEntity.getUserEntity());
         final GroupDomain group = GroupTransformer.fromGroupEntity(groupRightEntity.getGroupEntity());
 
-        return GroupRight.builder()
+        return GroupRightDomain.builder()
                 .id(groupRightEntity.getId())
                 .groupRightEnum(GroupRightEnum.valueOf(
                         groupRightEntity.getGroupRightEntityEnum().name()))
@@ -32,7 +32,7 @@ public final class GroupRightTransformer {
                 .build();
     }
 
-    public static GroupRightEntity toGroupRightEntity(final GroupRight groupRight) {
+    public static GroupRightEntity toGroupRightEntity(final GroupRightDomain groupRight) {
 
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(groupRight.getGroup());
         final UserEntity userEntity = UserTransformer.toUserEntity(groupRight.getUser());
@@ -46,13 +46,13 @@ public final class GroupRightTransformer {
                 .build();
     }
 
-    public static List<GroupRight> fromGroupRightEntity(final List<GroupRightEntity> groupRightEntities) {
+    public static List<GroupRightDomain> fromGroupRightEntity(final List<GroupRightEntity> groupRightEntities) {
         return groupRightEntities.stream()
                 .map(GroupRightTransformer::fromGroupRightEntity)
                 .toList();
     }
 
-    public static UserGroupRightDTO toGroupRightDTO(final GroupRight groupRight) {
+    public static UserGroupRightDTO toGroupRightDTO(final GroupRightDomain groupRight) {
         final UserDTO userDTO = UserTransformer.toUserDTO(groupRight.getUser());
         final UserGroupRightEnum userGroupRightEnum =
                 UserGroupRightEnum.fromValue(groupRight.getGroupRightEnum().name());
@@ -60,7 +60,7 @@ public final class GroupRightTransformer {
         return new UserGroupRightDTO(groupRight.getId(), userDTO, userGroupRightEnum);
     }
 
-    public static List<UserGroupRightDTO> toGroupRightDTO(final List<GroupRight> groupRights) {
+    public static List<UserGroupRightDTO> toGroupRightDTO(final List<GroupRightDomain> groupRights) {
         return groupRights.stream().map(GroupRightTransformer::toGroupRightDTO).toList();
     }
 }

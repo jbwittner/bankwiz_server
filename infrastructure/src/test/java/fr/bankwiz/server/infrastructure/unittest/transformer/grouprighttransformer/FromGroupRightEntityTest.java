@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
@@ -21,7 +21,7 @@ class FromGroupRightEntityTest extends InfrastructureUnitTestBase {
     @Test
     void ok() {
         final GroupRightEntity groupRightEntity = this.factory.getGroupRightEntity(GroupRightEntityEnum.WRITE);
-        final GroupRight groupRight = GroupRightTransformer.fromGroupRightEntity(groupRightEntity);
+        final GroupRightDomain groupRight = GroupRightTransformer.fromGroupRightEntity(groupRightEntity);
         Assertions.assertAll(
                 () -> Assertions.assertEquals(
                         groupRightEntity.getGroupRightEntityEnum().name(),

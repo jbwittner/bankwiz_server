@@ -2,7 +2,7 @@ package fr.bankwiz.server.domain.model.input;
 
 import java.util.UUID;
 
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import lombok.Builder;
 import lombok.Getter;
 

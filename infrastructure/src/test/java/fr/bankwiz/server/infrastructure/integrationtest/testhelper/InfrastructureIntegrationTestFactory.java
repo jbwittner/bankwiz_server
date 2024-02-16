@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.testhelper.tools.DomainUnitTestFactory;
@@ -63,16 +63,16 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
     }
 
     @Override
-    public GroupRight getGroupRight(final GroupDomain group, final User user, final GroupRightEnum groupRightEnum) {
-        final GroupRight groupRight = super.getGroupRight(group, user, groupRightEnum);
+    public GroupRightDomain getGroupRight(final GroupDomain group, final User user, final GroupRightEnum groupRightEnum) {
+        final GroupRightDomain groupRight = super.getGroupRight(group, user, groupRightEnum);
         final GroupRightEntity groupRightEntity = GroupRightTransformer.toGroupRightEntity(groupRight);
         this.groupRightEntityRepository.save(groupRightEntity);
         return groupRight;
     }
 
     @Override
-    public GroupRight getGroupRight(User user, GroupRightEnum groupRightEnum) {
-        final GroupRight groupRight = super.getGroupRight(user, groupRightEnum);
+    public GroupRightDomain getGroupRight(User user, GroupRightEnum groupRightEnum) {
+        final GroupRightDomain groupRight = super.getGroupRight(user, groupRightEnum);
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(groupRight.getGroup());
         final GroupRightEntity groupRightEntity = GroupRightTransformer.toGroupRightEntity(groupRight);
         this.groupEntityRepository.save(groupEntity);

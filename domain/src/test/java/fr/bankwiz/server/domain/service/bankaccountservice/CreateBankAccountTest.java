@@ -13,8 +13,8 @@ import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain.CurrencyEnumDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
 import fr.bankwiz.server.domain.service.BankAccountService;
@@ -41,7 +41,7 @@ class CreateBankAccountTest extends DomainUnitTestBase {
     void createBankAccountOk() {
         final User user = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(user, GroupRightEnum.WRITE));
 
         this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));
@@ -71,7 +71,7 @@ class CreateBankAccountTest extends DomainUnitTestBase {
     void userCantWrite() {
         final User user = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(user, GroupRightEnum.READ));
 
         this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));

@@ -8,7 +8,7 @@ import fr.bankwiz.server.domain.exception.BankAccountNotExistException;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
 import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
@@ -64,10 +64,10 @@ public class BankAccountService implements BankAccountApi {
     public List<GroupBankAccount> getAllBankAccount() {
 
         final User user = this.authenticationSpi.getCurrentUser();
-        final List<GroupRight> groupRights = this.groupRightSpi.findByUser(user);
+        final List<GroupRightDomain> groupRights = this.groupRightSpi.findByUser(user);
 
         return groupRights.stream()
-                .map(GroupRight::getGroup)
+                .map(GroupRightDomain::getGroup)
                 .map(group -> {
                     final List<BankAccountDomain> bankAccounts = this.bankAccountSpi.findByGroup(group);
                     return GroupBankAccount.builder()

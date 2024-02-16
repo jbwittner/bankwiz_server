@@ -3,8 +3,8 @@ package fr.bankwiz.server.infrastructure.unittest.spi.grouprightspiimpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
 import fr.bankwiz.server.infrastructure.transformer.GroupRightTransformer;
@@ -24,9 +24,9 @@ class SaveTest extends InfrastructureUnitTestBase {
 
         this.groupRightEntityRepositoryMockFactory.mockSave();
 
-        final GroupRight groupRight = this.factory.getGroupRight(GroupRightEnum.ADMIN);
+        final GroupRightDomain groupRight = this.factory.getGroupRight(GroupRightEnum.ADMIN);
 
-        final GroupRight groupRightSaved = this.groupRightSpi.save(groupRight);
+        final GroupRightDomain groupRightSaved = this.groupRightSpi.save(groupRight);
 
         final var argumentCaptor = this.groupRightEntityRepositoryMockFactory.verifySaveCalled(GroupRightEntity.class);
 

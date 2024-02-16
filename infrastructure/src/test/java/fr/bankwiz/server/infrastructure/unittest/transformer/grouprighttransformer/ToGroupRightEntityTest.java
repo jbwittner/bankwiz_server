@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
@@ -20,7 +20,7 @@ class ToGroupRightEntityTest extends InfrastructureUnitTestBase {
 
     @Test
     void ok() {
-        final GroupRight groupRight = this.factory.getGroupRight(GroupRightEnum.WRITE);
+        final GroupRightDomain groupRight = this.factory.getGroupRight(GroupRightEnum.WRITE);
         final GroupRightEntity groupRightEntity = GroupRightTransformer.toGroupRightEntity(groupRight);
         Assertions.assertAll(
                 () -> Assertions.assertEquals(

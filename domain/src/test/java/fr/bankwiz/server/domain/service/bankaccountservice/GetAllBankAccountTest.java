@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.other.GroupBankAccount;
 import fr.bankwiz.server.domain.service.BankAccountService;
@@ -37,10 +37,10 @@ class GetAllBankAccountTest extends DomainUnitTestBase {
 
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final List<GroupRight> groupRights = new ArrayList<>();
-        final GroupRight groupRight1 = this.factory.getGroupRight(user, GroupRightEnum.READ);
-        final GroupRight groupRight2 = this.factory.getGroupRight(user, GroupRightEnum.READ);
-        final GroupRight groupRight3 = this.factory.getGroupRight(user, GroupRightEnum.READ);
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
+        final GroupRightDomain groupRight1 = this.factory.getGroupRight(user, GroupRightEnum.READ);
+        final GroupRightDomain groupRight2 = this.factory.getGroupRight(user, GroupRightEnum.READ);
+        final GroupRightDomain groupRight3 = this.factory.getGroupRight(user, GroupRightEnum.READ);
 
         groupRights.add(groupRight1);
         groupRights.add(groupRight2);

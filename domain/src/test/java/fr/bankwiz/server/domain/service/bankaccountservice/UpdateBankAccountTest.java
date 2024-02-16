@@ -14,8 +14,8 @@ import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
 import fr.bankwiz.server.domain.exception.UserNotAdminException;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
 import fr.bankwiz.server.domain.service.BankAccountService;
@@ -51,7 +51,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
                 .mockFindById(bankAccountId, Optional.of(bankAccount))
                 .mockSave();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(bankAccount.getGroup(), user, GroupRightEnum.ADMIN));
 
         this.mockGroupRightSpi.mockFindByGroup(bankAccount.getGroup(), groupRights);
@@ -87,7 +87,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
                 .mockFindById(bankAccountId, Optional.of(bankAccount))
                 .mockSave();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(bankAccount.getGroup(), user, GroupRightEnum.ADMIN));
 
         this.mockGroupRightSpi.mockFindByGroup(bankAccount.getGroup(), groupRights);
@@ -123,14 +123,14 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
                 .mockFindById(bankAccountId, Optional.of(bankAccount))
                 .mockSave();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(bankAccount.getGroup(), user, GroupRightEnum.ADMIN));
 
         final GroupDomain newGroup = this.factory.getGroup();
 
         this.mockGroupSpi.mockFindById(newGroup.getId(), Optional.of(newGroup));
 
-        final List<GroupRight> newGroupRights = new ArrayList<>();
+        final List<GroupRightDomain> newGroupRights = new ArrayList<>();
         newGroupRights.add(this.factory.getGroupRight(newGroup, user, GroupRightEnum.ADMIN));
 
         this.mockGroupRightSpi
@@ -169,7 +169,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
                 .mockFindById(bankAccountId, Optional.of(bankAccount))
                 .mockSave();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(bankAccount.getGroup(), user, GroupRightEnum.ADMIN));
 
         final GroupDomain newGroup = this.factory.getGroup();
@@ -201,7 +201,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
                 .mockFindById(bankAccountId, Optional.of(bankAccount))
                 .mockSave();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(bankAccount.getGroup(), user, GroupRightEnum.ADMIN));
 
         final GroupDomain newGroup = this.factory.getGroup();
@@ -233,7 +233,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
                 .mockFindById(bankAccountId, Optional.of(bankAccount))
                 .mockSave();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(bankAccount.getGroup(), user, GroupRightEnum.WRITE));
 
         this.mockGroupRightSpi.mockFindByGroup(bankAccount.getGroup(), groupRights);

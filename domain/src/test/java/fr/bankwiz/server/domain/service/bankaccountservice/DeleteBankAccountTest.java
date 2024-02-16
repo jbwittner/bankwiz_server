@@ -13,8 +13,8 @@ import fr.bankwiz.server.domain.exception.BankAccountNotExistException;
 import fr.bankwiz.server.domain.exception.UserNotAdminException;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.service.BankAccountService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
@@ -47,7 +47,7 @@ class DeleteBankAccountTest extends DomainUnitTestBase {
         this.mockBankAccountSpi.mockFindById(bankAccountId, Optional.of(bankAccount));
 
         final GroupDomain group = bankAccount.getGroup();
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, user, GroupRightEnum.ADMIN));
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
 
@@ -67,7 +67,7 @@ class DeleteBankAccountTest extends DomainUnitTestBase {
         this.mockBankAccountSpi.mockFindById(bankAccountId, Optional.of(bankAccount));
 
         final GroupDomain group = bankAccount.getGroup();
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, user, GroupRightEnum.WRITE));
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
 

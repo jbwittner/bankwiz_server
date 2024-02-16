@@ -3,15 +3,15 @@ package fr.bankwiz.server.domain.spi;
 import java.util.List;
 
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.User;
 
 public interface GroupRightSpi {
-    GroupRight save(GroupRight groupRight);
+    GroupRightDomain save(GroupRightDomain groupRight);
 
-    List<GroupRight> findByUser(User user);
+    List<GroupRightDomain> findByUser(User user);
 
-    List<GroupRight> findByGroup(GroupDomain group);
+    List<GroupRightDomain> findByGroup(GroupDomain group);
 
     void deleteByGroupAndUser(GroupDomain group, User user);
 

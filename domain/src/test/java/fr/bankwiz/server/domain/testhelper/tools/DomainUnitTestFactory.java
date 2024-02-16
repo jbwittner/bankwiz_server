@@ -5,8 +5,8 @@ import java.util.UUID;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain.CurrencyEnumDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.data.UserAuthentication;
@@ -51,8 +51,8 @@ public class DomainUnitTestFactory {
                 .build();
     }
 
-    public GroupRight getGroupRight(final GroupDomain group, final User user, final GroupRightEnum groupRightEnum) {
-        return GroupRight.builder()
+    public GroupRightDomain getGroupRight(final GroupDomain group, final User user, final GroupRightEnum groupRightEnum) {
+        return GroupRightDomain.builder()
                 .id(UUID.randomUUID())
                 .group(group)
                 .user(user)
@@ -60,11 +60,11 @@ public class DomainUnitTestFactory {
                 .build();
     }
 
-    public GroupRight getGroupRight(final User user, final GroupRightEnum groupRightEnum) {
+    public GroupRightDomain getGroupRight(final User user, final GroupRightEnum groupRightEnum) {
         return this.getGroupRight(this.getGroup(), user, groupRightEnum);
     }
 
-    public GroupRight getGroupRight(final GroupRightEnum groupRightEnum) {
+    public GroupRightDomain getGroupRight(final GroupRightEnum groupRightEnum) {
         return this.getGroupRight(this.getGroup(), this.getUser(), groupRightEnum);
     }
 

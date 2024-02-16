@@ -7,38 +7,38 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 
 public class DomainMockGroupRightSpi extends DomainMockHelper<GroupRightSpi> {
 
-    private List<GroupRight> groupRightsSaved;
+    private List<GroupRightDomain> groupRightsSaved;
 
     public DomainMockGroupRightSpi() {
         super(GroupRightSpi.class);
         this.groupRightsSaved = new ArrayList<>();
     }
 
-    public List<GroupRight> getGroupRightsSaved() {
+    public List<GroupRightDomain> getGroupRightsSaved() {
         return this.groupRightsSaved;
     }
 
     public DomainMockGroupRightSpi mockSave() {
         Mockito.when(this.mock.save(ArgumentMatchers.any())).thenAnswer(invocation -> {
-            final GroupRight groupRight = invocation.<GroupRight>getArgument(0);
+            final GroupRightDomain groupRight = invocation.<GroupRightDomain>getArgument(0);
             this.groupRightsSaved.add(groupRight);
             return groupRight;
         });
         return this;
     }
 
-    public DomainMockGroupRightSpi mockFindByUser(final User user, final List<GroupRight> groupRights) {
+    public DomainMockGroupRightSpi mockFindByUser(final User user, final List<GroupRightDomain> groupRights) {
         Mockito.when(this.mock.findByUser(user)).thenReturn(groupRights);
         return this;
     }
 
-    public DomainMockGroupRightSpi mockFindByGroup(final GroupDomain group, final List<GroupRight> groupRights) {
+    public DomainMockGroupRightSpi mockFindByGroup(final GroupDomain group, final List<GroupRightDomain> groupRights) {
         Mockito.when(this.mock.findByGroup(group)).thenReturn(groupRights);
         return this;
     }

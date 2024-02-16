@@ -9,7 +9,7 @@ import lombok.ToString;
 @Builder
 @Getter
 @ToString
-public class GroupRight {
+public class GroupRightDomain {
 
     private UUID id;
     private GroupDomain group;

@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.GroupRight;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
@@ -39,7 +39,7 @@ class FindByUserTest extends InfrastructureUnitTestBase {
 
         this.groupRightEntityRepositoryMockFactory.mockFindByUserEntity(groupRightEntities);
 
-        final List<GroupRight> groupRights = this.groupRightSpi.findByUser(user);
+        final List<GroupRightDomain> groupRights = this.groupRightSpi.findByUser(user);
 
         this.groupRightEntityRepositoryMockFactory.verifyFindByUserEntity(userEntity);
 

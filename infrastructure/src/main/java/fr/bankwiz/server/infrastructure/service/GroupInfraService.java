@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.bankwiz.server.domain.api.GroupApi;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
 import fr.bankwiz.server.domain.model.input.GroupCreationInput;
 import fr.bankwiz.server.domain.model.other.GroupDetails;
@@ -38,7 +38,7 @@ public class GroupInfraService {
     }
 
     @Transactional
-    public GroupRight addUserGroup(UUID groupId, AddUserGroupInput addUserGroupInput) {
+    public GroupRightDomain addUserGroup(UUID groupId, AddUserGroupInput addUserGroupInput) {
         return this.groupApi.addUserToGroup(groupId, addUserGroupInput);
     }
 

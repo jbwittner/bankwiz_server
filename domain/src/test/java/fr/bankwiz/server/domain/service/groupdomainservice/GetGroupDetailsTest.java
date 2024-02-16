@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserNoReadRightException;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.other.GroupDetails;
 import fr.bankwiz.server.domain.service.GroupDomainService;
@@ -46,9 +46,9 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
 
         final UUID groupUuid = group.getId();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
-        final GroupRight groupRight1 = this.factory.getGroupRight(group, user, GroupRightEnum.READ);
-        final GroupRight groupRight2 = this.factory.getGroupRight(group, this.factory.getUser(), GroupRightEnum.READ);
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
+        final GroupRightDomain groupRight1 = this.factory.getGroupRight(group, user, GroupRightEnum.READ);
+        final GroupRightDomain groupRight2 = this.factory.getGroupRight(group, this.factory.getUser(), GroupRightEnum.READ);
 
         groupRights.add(groupRight1);
         groupRights.add(groupRight2);
@@ -86,7 +86,7 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
 
         final UUID groupUuid = group.getId();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
 
         this.mockGroupSpi.mockFindById(groupUuid, Optional.of(group));
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);

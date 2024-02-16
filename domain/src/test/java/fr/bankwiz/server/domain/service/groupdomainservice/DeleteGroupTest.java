@@ -13,8 +13,8 @@ import fr.bankwiz.server.domain.exception.GroupDeletionWithBankAccountsException
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserNotAdminException;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
@@ -46,7 +46,7 @@ class DeleteGroupTest extends DomainUnitTestBase {
 
         final UUID groupId = group.getId();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
         groupRights.add(this.factory.getGroupRight(group, otherUser, GroupRightEnum.READ));
 
@@ -69,7 +69,7 @@ class DeleteGroupTest extends DomainUnitTestBase {
 
         final UUID groupId = group.getId();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
         groupRights.add(this.factory.getGroupRight(group, otherUser, GroupRightEnum.READ));
 
@@ -92,7 +92,7 @@ class DeleteGroupTest extends DomainUnitTestBase {
 
         final UUID groupId = group.getId();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, notAdmin, GroupRightEnum.WRITE));
         groupRights.add(this.factory.getGroupRight(group, otherUser, GroupRightEnum.READ));
 

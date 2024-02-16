@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.input.GroupCreationInput;
 import fr.bankwiz.server.domain.service.GroupDomainService;
@@ -50,7 +50,7 @@ class GroupCreationTest extends DomainUnitTestBase {
 
         Assertions.assertEquals(1, groupeRightsSaved.size());
 
-        final GroupRight groupRight = groupeRightsSaved.get(0);
+        final GroupRightDomain groupRight = groupeRightsSaved.get(0);
 
         Assertions.assertNotNull(groupRight.getId());
 
