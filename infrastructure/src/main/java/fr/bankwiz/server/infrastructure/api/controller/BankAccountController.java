@@ -13,6 +13,7 @@ import fr.bankwiz.openapi.model.BankAccountIndexDTO;
 import fr.bankwiz.openapi.model.BankAccountUpdateRequest;
 import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccount.CurrencyEnumDomain;
 import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
 import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
 import fr.bankwiz.server.domain.model.other.GroupBankAccount;
@@ -32,10 +33,12 @@ public class BankAccountController implements BankaccountApi {
     @Override
     public ResponseEntity<BankAccountIndexDTO> createBankAccount(
             BankAccountCreationRequest bankAccountCreationRequest) {
+        final CurrencyEnumDomain currencyEnumDomain = CurrencyEnumDomain.valueOf(bankAccountCreationRequest.getCurrency().toString());
         BankAccountCreationInput bankAccountCreationInput = BankAccountCreationInput.builder()
                 .bankAccountName(bankAccountCreationRequest.getBankAccountName())
                 .decimalBaseAmount(bankAccountCreationRequest.getDecimalBaseAmount())
                 .groupId(bankAccountCreationRequest.getGroupId())
+                .currency(currencyEnumDomain)
                 .build();
         BankAccount bankAccount = this.bankAccountInfraService.createBankAccount(bankAccountCreationInput);
         BankAccountIndexDTO bankAccountIndexDTO = BankAccountTransformer.toBankAccountIndexDTO(bankAccount);

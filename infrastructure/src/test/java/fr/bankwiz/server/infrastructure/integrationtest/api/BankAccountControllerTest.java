@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import fr.bankwiz.openapi.model.BankAccountCreationRequest;
 import fr.bankwiz.openapi.model.BankAccountIndexDTO;
 import fr.bankwiz.openapi.model.BankAccountUpdateRequest;
+import fr.bankwiz.openapi.model.CurrencyEnum;
 import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccount;
 import fr.bankwiz.server.domain.model.data.Group;
@@ -46,7 +47,7 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
                 this.faker.superhero().name(),
                 group.getId(),
                 this.faker.random().nextInt(Integer.MAX_VALUE),
-                "EUR");
+                CurrencyEnum.EUR);
 
         final BankAccountIndexDTO response = given().auth()
                 .oauth2(jwt.getTokenValue())

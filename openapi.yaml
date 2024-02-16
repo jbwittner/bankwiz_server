@@ -401,13 +401,13 @@ components:
         decimalBaseAmount:
           type: integer
           format: int32
-        currencyIsoCode3:
-          type: string
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
       required:
         - bankAccountName
         - groupId
         - decimalBaseAmount
-        - currencyIsoCode3
+        - currency
     BankAccountUpdateRequest:
       type: object
       properties:
@@ -654,4 +654,9 @@ components:
         - READ
         - WRITE
         - ADMIN
+    CurrencyEnum:
+      type: string
+      enum:
+        - EUR
+        - USD
 #################################### Enul END #######################################
