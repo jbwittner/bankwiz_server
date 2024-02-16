@@ -15,11 +15,19 @@ import lombok.ToString;
 public class BankAccount extends GroupRelated {
     private String bankAccountName;
     private Integer decimalBaseAmount;
+    private CurrencyEnumDomain currency;
 
     @Builder
-    public BankAccount(String bankAccountName, Integer decimalBaseAmount, UUID id, Group group) {
+    public BankAccount(String bankAccountName, Integer decimalBaseAmount, UUID id, Group group, CurrencyEnumDomain currency) {
         super(id, group);
         this.bankAccountName = bankAccountName;
         this.decimalBaseAmount = decimalBaseAmount;
+        this.currency = currency;
     }
+
+    public enum CurrencyEnumDomain {
+        EUR,
+        USD
+    }
+    
 }

@@ -11,4 +11,5 @@ public class BankAccountCreationInput {
     private String bankAccountName;
     private UUID groupId;
     private Integer decimalBaseAmount;
+    private String currency;
 }

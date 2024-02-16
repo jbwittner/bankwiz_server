@@ -9,6 +9,7 @@ import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.data.UserAuthentication;
+import fr.bankwiz.server.domain.model.data.BankAccount.CurrencyEnumDomain;
 
 public class DomainUnitTestFactory {
 
@@ -73,6 +74,7 @@ public class DomainUnitTestFactory {
                 .decimalBaseAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
                 .id(UUID.randomUUID())
                 .group(group)
+                .currency(CurrencyEnumDomain.EUR)
                 .build();
     }
 

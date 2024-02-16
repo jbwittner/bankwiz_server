@@ -45,7 +45,8 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
         final BankAccountCreationRequest bankAccountCreationRequest = new BankAccountCreationRequest(
                 this.faker.superhero().name(),
                 group.getId(),
-                this.faker.random().nextInt(Integer.MAX_VALUE));
+                this.faker.random().nextInt(Integer.MAX_VALUE),
+                "EUR");
 
         final BankAccountIndexDTO response = given().auth()
                 .oauth2(jwt.getTokenValue())
