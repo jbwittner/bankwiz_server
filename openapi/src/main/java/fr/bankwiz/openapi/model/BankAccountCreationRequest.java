@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import fr.bankwiz.openapi.model.CurrencyEnum;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -28,6 +30,8 @@ public class BankAccountCreationRequest {
 
   private Integer decimalBaseAmount;
 
+  private CurrencyEnum currency;
+
   public BankAccountCreationRequest() {
     super();
   }
@@ -35,10 +39,11 @@ public class BankAccountCreationRequest {
   /**
    * Constructor with only required parameters
    */
-  public BankAccountCreationRequest(String bankAccountName, UUID groupId, Integer decimalBaseAmount) {
+  public BankAccountCreationRequest(String bankAccountName, UUID groupId, Integer decimalBaseAmount, CurrencyEnum currency) {
     this.bankAccountName = bankAccountName;
     this.groupId = groupId;
     this.decimalBaseAmount = decimalBaseAmount;
+    this.currency = currency;
   }
 
   public BankAccountCreationRequest bankAccountName(String bankAccountName) {
@@ -101,6 +106,26 @@ public class BankAccountCreationRequest {
     this.decimalBaseAmount = decimalBaseAmount;
   }
 
+  public BankAccountCreationRequest currency(CurrencyEnum currency) {
+    this.currency = currency;
+    return this;
+  }
+
+  /**
+   * Get currency
+   * @return currency
+  */
+  @NotNull @Valid 
+  @Schema(name = "currency", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("currency")
+  public CurrencyEnum getCurrency() {
+    return currency;
+  }
+
+  public void setCurrency(CurrencyEnum currency) {
+    this.currency = currency;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -112,12 +137,13 @@ public class BankAccountCreationRequest {
     BankAccountCreationRequest bankAccountCreationRequest = (BankAccountCreationRequest) o;
     return Objects.equals(this.bankAccountName, bankAccountCreationRequest.bankAccountName) &&
         Objects.equals(this.groupId, bankAccountCreationRequest.groupId) &&
-        Objects.equals(this.decimalBaseAmount, bankAccountCreationRequest.decimalBaseAmount);
+        Objects.equals(this.decimalBaseAmount, bankAccountCreationRequest.decimalBaseAmount) &&
+        Objects.equals(this.currency, bankAccountCreationRequest.currency);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bankAccountName, groupId, decimalBaseAmount);
+    return Objects.hash(bankAccountName, groupId, decimalBaseAmount, currency);
   }
 
   @Override
@@ -127,6 +153,7 @@ public class BankAccountCreationRequest {
     sb.append("    bankAccountName: ").append(toIndentedString(bankAccountName)).append("\n");
     sb.append("    groupId: ").append(toIndentedString(groupId)).append("\n");
     sb.append("    decimalBaseAmount: ").append(toIndentedString(decimalBaseAmount)).append("\n");
+    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
     sb.append("}");
     return sb.toString();
   }

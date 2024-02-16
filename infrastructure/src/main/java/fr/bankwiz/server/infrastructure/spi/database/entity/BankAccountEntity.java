@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
@@ -18,10 +20,16 @@ import lombok.NoArgsConstructor;
 public class BankAccountEntity extends GroupRelatedEntity {
 
     @Builder
-    public BankAccountEntity(UUID id, GroupEntity groupEntity, String bankAccountName, Integer baseAmountDecimal) {
+    public BankAccountEntity(
+            UUID id,
+            GroupEntity groupEntity,
+            String bankAccountName,
+            Integer baseAmountDecimal,
+            CurrencyEntityEnum currencyEntityEnum) {
         super(id, groupEntity);
         this.bankAccountName = bankAccountName;
         this.baseAmountDecimal = baseAmountDecimal;
+        this.currencyEntityEnum = currencyEntityEnum;
     }
 
     @Column(name = "BANK_ACCOUNT_NAME", nullable = false, length = 60)
@@ -29,4 +37,13 @@ public class BankAccountEntity extends GroupRelatedEntity {
 
     @Column(name = "BASE_AMOUNT", nullable = false)
     private Integer baseAmountDecimal;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "CURRENCY", columnDefinition = "ENUM('EUR','USD')", nullable = false)
+    private CurrencyEntityEnum currencyEntityEnum;
+
+    public enum CurrencyEntityEnum {
+        EUR,
+        USD
+    }
 }

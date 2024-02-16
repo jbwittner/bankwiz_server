@@ -188,7 +188,7 @@ paths:
                   $ref: '#/components/schemas/GroupIndexDTO'
         '400':
           description: Invalid request. Please check the provided data.
-#################################### GroupService END ############################## 
+#################################### GroupService END ############################### 
 #################################### BankAccountService START ####################### 
   /bankaccount:
     post:
@@ -401,10 +401,13 @@ components:
         decimalBaseAmount:
           type: integer
           format: int32
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
       required:
         - bankAccountName
         - groupId
         - decimalBaseAmount
+        - currency
     BankAccountUpdateRequest:
       type: object
       properties:
@@ -526,12 +529,6 @@ components:
       required:
         - groupId
         - groupName
-    UserGroupRightEnum:
-      type: string
-      enum:
-        - READ
-        - WRITE
-        - ADMIN
     UserGroupRightDTO:
       type: object
       properties:
@@ -573,10 +570,13 @@ components:
         decimalBaseAmount:
           type: integer
           format: int32
+        currency:
+          $ref: '#/components/schemas/CurrencyIndexDTO'
       required:
         - bankAccountName
         - bankAccountId
         - decimalBaseAmount
+        - currency
     GroupBankAccountIndexDTO:
       type: object
       properties:
@@ -633,4 +633,30 @@ components:
       required:
         - transactionId
         - decimalAmount
+    CurrencyIndexDTO:
+      type: object
+      properties:
+        currencyIsoCode3:
+          type: string
+        displayName:
+          type: string
+        symbol:
+          type: string
+      required:
+        - currencyIsoCode3
+        - displayName
+        - symbol
 #################################### DTO END ######################################## 
+#################################### Enum START #####################################
+    UserGroupRightEnum:
+      type: string
+      enum:
+        - READ
+        - WRITE
+        - ADMIN
+    CurrencyEnum:
+      type: string
+      enum:
+        - EUR
+        - USD
+#################################### Enul END #######################################

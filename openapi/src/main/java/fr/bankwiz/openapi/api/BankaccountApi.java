@@ -79,7 +79,7 @@ public interface BankaccountApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"decimalBaseAmount\" : 0 }";
+                    String exampleString = "{ \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"currency\" : { \"symbol\" : \"symbol\", \"currencyIsoCode3\" : \"currencyIsoCode3\", \"displayName\" : \"displayName\" }, \"decimalBaseAmount\" : 0 }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -154,7 +154,7 @@ public interface BankaccountApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"groupeIndex\" : { \"groupName\" : \"groupName\", \"groupId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }, \"bankAccountIndexList\" : [ { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"decimalBaseAmount\" : 0 }, { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"decimalBaseAmount\" : 0 } ] }, { \"groupeIndex\" : { \"groupName\" : \"groupName\", \"groupId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }, \"bankAccountIndexList\" : [ { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"decimalBaseAmount\" : 0 }, { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"decimalBaseAmount\" : 0 } ] } ]";
+                    String exampleString = "[ { \"groupeIndex\" : { \"groupName\" : \"groupName\", \"groupId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }, \"bankAccountIndexList\" : [ { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"currency\" : { \"symbol\" : \"symbol\", \"currencyIsoCode3\" : \"currencyIsoCode3\", \"displayName\" : \"displayName\" }, \"decimalBaseAmount\" : 0 }, { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"currency\" : { \"symbol\" : \"symbol\", \"currencyIsoCode3\" : \"currencyIsoCode3\", \"displayName\" : \"displayName\" }, \"decimalBaseAmount\" : 0 } ] }, { \"groupeIndex\" : { \"groupName\" : \"groupName\", \"groupId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }, \"bankAccountIndexList\" : [ { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"currency\" : { \"symbol\" : \"symbol\", \"currencyIsoCode3\" : \"currencyIsoCode3\", \"displayName\" : \"displayName\" }, \"decimalBaseAmount\" : 0 }, { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"currency\" : { \"symbol\" : \"symbol\", \"currencyIsoCode3\" : \"currencyIsoCode3\", \"displayName\" : \"displayName\" }, \"decimalBaseAmount\" : 0 } ] } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -201,7 +201,7 @@ public interface BankaccountApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"decimalBaseAmount\" : 0 }";
+                    String exampleString = "{ \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"currency\" : { \"symbol\" : \"symbol\", \"currencyIsoCode3\" : \"currencyIsoCode3\", \"displayName\" : \"displayName\" }, \"decimalBaseAmount\" : 0 }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

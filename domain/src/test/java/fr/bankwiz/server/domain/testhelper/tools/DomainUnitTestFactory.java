@@ -3,6 +3,7 @@ package fr.bankwiz.server.domain.testhelper.tools;
 import java.util.UUID;
 
 import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccount.CurrencyEnumDomain;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -73,6 +74,7 @@ public class DomainUnitTestFactory {
                 .decimalBaseAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
                 .id(UUID.randomUUID())
                 .group(group)
+                .currency(CurrencyEnumDomain.EUR)
                 .build();
     }
 

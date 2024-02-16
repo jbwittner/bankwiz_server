@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
 import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccount.CurrencyEnumDomain;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -79,8 +80,10 @@ class CreateBankAccountTest extends DomainUnitTestBase {
 
         final UUID groupId = group.getId();
 
-        final BankAccountCreationInput bankAccountCreationInput =
-                BankAccountCreationInput.builder().groupId(groupId).build();
+        final BankAccountCreationInput bankAccountCreationInput = BankAccountCreationInput.builder()
+                .groupId(groupId)
+                .currency(CurrencyEnumDomain.EUR)
+                .build();
 
         Assertions.assertThrows(
                 UserNoWriteRightException.class,

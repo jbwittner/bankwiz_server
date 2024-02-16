@@ -42,6 +42,7 @@ public class BankAccountService implements BankAccountApi {
 
     @Override
     public BankAccount createBankAccount(BankAccountCreationInput bankAccountCreationInput) {
+
         final Group group = this.groupSpi
                 .findById(bankAccountCreationInput.getGroupId())
                 .orElseThrow(() -> new GroupNotExistException(bankAccountCreationInput.getGroupId()));
@@ -53,6 +54,7 @@ public class BankAccountService implements BankAccountApi {
                 .decimalBaseAmount(bankAccountCreationInput.getDecimalBaseAmount())
                 .group(group)
                 .id(UUID.randomUUID())
+                .currency(bankAccountCreationInput.getCurrency())
                 .build();
 
         return this.bankAccountSpi.save(bankAccount);
