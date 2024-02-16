@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.spi.TransactionSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
@@ -32,7 +32,7 @@ public class TransactionSpiImpl implements TransactionSpi {
     }
 
     @Override
-    public List<Transaction> findByBankAccount(BankAccount bankAccount) {
+    public List<Transaction> findByBankAccount(BankAccountDomain bankAccount) {
         final BankAccountEntity bankAccountEntity = BankAccountTransformer.toBankAccountEntity(bankAccount);
         final var transactionEntities = this.transactionEntityRepository.findByBankAccountEntity(bankAccountEntity);
         return TransactionTransformer.fromTransactionEntity(transactionEntities);

@@ -4,7 +4,7 @@ import java.util.List;
 
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.openapi.model.TransactionIndexDTO;
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.TransactionEntity;
@@ -28,7 +28,7 @@ public final class TransactionTransformer {
     }
 
     public static Transaction fromTransactionEntity(final TransactionEntity transactionEntity) {
-        final BankAccount bankAccount =
+        final BankAccountDomain bankAccount =
                 BankAccountTransformer.fromBankAccountEntity(transactionEntity.getBankAccountEntity());
         return Transaction.builder()
                 .id(transactionEntity.getId())

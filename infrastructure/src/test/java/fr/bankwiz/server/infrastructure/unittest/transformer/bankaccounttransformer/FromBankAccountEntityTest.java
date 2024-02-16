@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.transformer.BankAccountTransformer;
@@ -22,7 +22,7 @@ class FromBankAccountEntityTest extends InfrastructureUnitTestBase {
     void single() {
         final GroupEntity groupEntity = this.factory.getGroupEntity();
         final BankAccountEntity bankAccountEntity = this.factory.getBankAccountEntity(groupEntity);
-        final BankAccount bankAccount = BankAccountTransformer.fromBankAccountEntity(bankAccountEntity);
+        final BankAccountDomain bankAccount = BankAccountTransformer.fromBankAccountEntity(bankAccountEntity);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(

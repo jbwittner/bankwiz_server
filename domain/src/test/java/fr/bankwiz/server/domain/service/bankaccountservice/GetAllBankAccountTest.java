@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -48,9 +48,9 @@ class GetAllBankAccountTest extends DomainUnitTestBase {
 
         this.mockGroupRightSpi.mockFindByUser(user, groupRights);
 
-        final List<BankAccount> bankAccounts1 = new ArrayList<>();
-        final List<BankAccount> bankAccounts2 = new ArrayList<>();
-        final List<BankAccount> bankAccounts3 = new ArrayList<>();
+        final List<BankAccountDomain> bankAccounts1 = new ArrayList<>();
+        final List<BankAccountDomain> bankAccounts2 = new ArrayList<>();
+        final List<BankAccountDomain> bankAccounts3 = new ArrayList<>();
 
         bankAccounts1.add(this.factory.getBankAccount(groupRight1.getGroup()));
         bankAccounts1.add(this.factory.getBankAccount(groupRight1.getGroup()));

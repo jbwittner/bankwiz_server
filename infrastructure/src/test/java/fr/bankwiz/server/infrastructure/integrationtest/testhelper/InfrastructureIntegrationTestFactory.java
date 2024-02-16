@@ -3,7 +3,7 @@ package fr.bankwiz.server.infrastructure.integrationtest.testhelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -81,21 +81,21 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
     }
 
     @Override
-    public BankAccount getBankAccount(final Group group) {
-        final BankAccount bankAccount = super.getBankAccount(group);
+    public BankAccountDomain getBankAccount(final Group group) {
+        final BankAccountDomain bankAccount = super.getBankAccount(group);
         final BankAccountEntity bankAccountEntity = BankAccountTransformer.toBankAccountEntity(bankAccount);
         this.bankAccountEntityRepository.save(bankAccountEntity);
         return bankAccount;
     }
 
     @Override
-    public BankAccount getBankAccount() {
+    public BankAccountDomain getBankAccount() {
         final Group group = this.getGroup();
         return this.getBankAccount(group);
     }
 
     @Override
-    public Transaction getTransaction(BankAccount bankAccount) {
+    public Transaction getTransaction(BankAccountDomain bankAccount) {
         final Transaction transaction = super.getTransaction(bankAccount);
         final TransactionEntity transactionEntity = TransactionTransformer.toTransactionEntity(transaction);
         this.transactionEntityRepository.save(transactionEntity);

@@ -6,7 +6,7 @@ import java.util.UUID;
 import fr.bankwiz.server.domain.api.BankAccountApi;
 import fr.bankwiz.server.domain.exception.BankAccountNotExistException;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.User;
@@ -41,7 +41,7 @@ public class BankAccountService implements BankAccountApi {
     }
 
     @Override
-    public BankAccount createBankAccount(BankAccountCreationInput bankAccountCreationInput) {
+    public BankAccountDomain createBankAccount(BankAccountCreationInput bankAccountCreationInput) {
 
         final Group group = this.groupSpi
                 .findById(bankAccountCreationInput.getGroupId())
@@ -49,7 +49,7 @@ public class BankAccountService implements BankAccountApi {
         final User user = this.authenticationSpi.getCurrentUser();
         this.checkRightTools.checkCanWrite(user, group);
 
-        final BankAccount bankAccount = BankAccount.builder()
+        final BankAccountDomain bankAccount = BankAccountDomain.builder()
                 .bankAccountName(bankAccountCreationInput.getBankAccountName())
                 .decimalBaseAmount(bankAccountCreationInput.getDecimalBaseAmount())
                 .group(group)
@@ -69,7 +69,7 @@ public class BankAccountService implements BankAccountApi {
         return groupRights.stream()
                 .map(GroupRight::getGroup)
                 .map(group -> {
-                    final List<BankAccount> bankAccounts = this.bankAccountSpi.findByGroup(group);
+                    final List<BankAccountDomain> bankAccounts = this.bankAccountSpi.findByGroup(group);
                     return GroupBankAccount.builder()
                             .bankAccounts(bankAccounts)
                             .group(group)
@@ -82,7 +82,7 @@ public class BankAccountService implements BankAccountApi {
     public void deleteBankAccount(UUID bankAccountId) {
         final User user = this.authenticationSpi.getCurrentUser();
 
-        final BankAccount bankAccount = this.bankAccountSpi
+        final BankAccountDomain bankAccount = this.bankAccountSpi
                 .findById(bankAccountId)
                 .orElseThrow(() -> new BankAccountNotExistException(bankAccountId));
 
@@ -93,10 +93,10 @@ public class BankAccountService implements BankAccountApi {
     }
 
     @Override
-    public BankAccount updateBankAccount(UUID bankAccountId, BankAccountUpdateInput bankAccountUpdateInput) {
+    public BankAccountDomain updateBankAccount(UUID bankAccountId, BankAccountUpdateInput bankAccountUpdateInput) {
         final User user = this.authenticationSpi.getCurrentUser();
 
-        final BankAccount bankAccount = this.bankAccountSpi
+        final BankAccountDomain bankAccount = this.bankAccountSpi
                 .findById(bankAccountId)
                 .orElseThrow(() -> new BankAccountNotExistException(bankAccountId));
 

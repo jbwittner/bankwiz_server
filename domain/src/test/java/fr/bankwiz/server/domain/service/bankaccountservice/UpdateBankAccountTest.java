@@ -12,7 +12,7 @@ import fr.bankwiz.server.domain.exception.BankAccountNotExistException;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
 import fr.bankwiz.server.domain.exception.UserNotAdminException;
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -43,7 +43,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
         final User user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final BankAccount bankAccount = this.factory.getBankAccount();
+        final BankAccountDomain bankAccount = this.factory.getBankAccount();
 
         final UUID bankAccountId = bankAccount.getId();
 
@@ -62,7 +62,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
                 .bankAccountName(this.faker.starTrek().character())
                 .build();
 
-        final BankAccount bankAccountUpdated =
+        final BankAccountDomain bankAccountUpdated =
                 this.bankAccountService.updateBankAccount(bankAccountId, bankAccountUpdateInput);
 
         Assertions.assertAll(
@@ -79,7 +79,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
         final User user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final BankAccount bankAccount = this.factory.getBankAccount();
+        final BankAccountDomain bankAccount = this.factory.getBankAccount();
 
         final UUID bankAccountId = bankAccount.getId();
 
@@ -98,7 +98,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
                 .decimalBaseAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
                 .build();
 
-        final BankAccount bankAccountUpdated =
+        final BankAccountDomain bankAccountUpdated =
                 this.bankAccountService.updateBankAccount(bankAccountId, bankAccountUpdateInput);
 
         Assertions.assertAll(
@@ -115,7 +115,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
         final User user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final BankAccount bankAccount = this.factory.getBankAccount();
+        final BankAccountDomain bankAccount = this.factory.getBankAccount();
 
         final UUID bankAccountId = bankAccount.getId();
 
@@ -142,7 +142,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
         BankAccountUpdateInput bankAccountUpdateInput =
                 BankAccountUpdateInput.builder().groupId(newGroup.getId()).build();
 
-        final BankAccount bankAccountUpdated =
+        final BankAccountDomain bankAccountUpdated =
                 this.bankAccountService.updateBankAccount(bankAccountId, bankAccountUpdateInput);
 
         Assertions.assertAll(
@@ -161,7 +161,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
         final User user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final BankAccount bankAccount = this.factory.getBankAccount();
+        final BankAccountDomain bankAccount = this.factory.getBankAccount();
 
         final UUID bankAccountId = bankAccount.getId();
 
@@ -193,7 +193,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
         final User user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final BankAccount bankAccount = this.factory.getBankAccount();
+        final BankAccountDomain bankAccount = this.factory.getBankAccount();
 
         final UUID bankAccountId = bankAccount.getId();
 
@@ -225,7 +225,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
         final User user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final BankAccount bankAccount = this.factory.getBankAccount();
+        final BankAccountDomain bankAccount = this.factory.getBankAccount();
 
         final UUID bankAccountId = bankAccount.getId();
 

@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.spi.TransactionSpi;
 
@@ -34,7 +34,7 @@ public class DomainMockTransactionSpi extends DomainMockHelper<TransactionSpi> {
         return this;
     }
 
-    public DomainMockTransactionSpi mockFindByBankAccount(BankAccount bankAccount, List<Transaction> transactions) {
+    public DomainMockTransactionSpi mockFindByBankAccount(BankAccountDomain bankAccount, List<Transaction> transactions) {
         Mockito.when(this.mock.findByBankAccount(bankAccount)).thenReturn(transactions);
         return this;
     }

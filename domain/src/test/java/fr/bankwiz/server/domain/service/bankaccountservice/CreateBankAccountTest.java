@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
-import fr.bankwiz.server.domain.model.data.BankAccount;
-import fr.bankwiz.server.domain.model.data.BankAccount.CurrencyEnumDomain;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain.CurrencyEnumDomain;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -59,7 +59,7 @@ class CreateBankAccountTest extends DomainUnitTestBase {
                 .decimalBaseAmount(decimalBaseAmount)
                 .build();
 
-        final BankAccount bankAccount = this.bankAccountService.createBankAccount(bankAccountCreationInput);
+        final BankAccountDomain bankAccount = this.bankAccountService.createBankAccount(bankAccountCreationInput);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(bankAccountName, bankAccount.getBankAccountName()),

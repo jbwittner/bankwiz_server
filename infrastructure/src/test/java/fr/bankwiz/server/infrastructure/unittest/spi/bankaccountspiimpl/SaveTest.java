@@ -3,7 +3,7 @@ package fr.bankwiz.server.infrastructure.unittest.spi.bankaccountspiimpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
@@ -25,9 +25,9 @@ class SaveTest extends InfrastructureUnitTestBase {
         this.bankAccountRepositoryMockFactory.mockSave();
 
         final Group group = this.factory.getGroup();
-        final BankAccount bankAccount = this.factory.getBankAccount(group);
+        final BankAccountDomain bankAccount = this.factory.getBankAccount(group);
 
-        final BankAccount bankAccountSaved = this.bankAccountSpi.save(bankAccount);
+        final BankAccountDomain bankAccountSaved = this.bankAccountSpi.save(bankAccount);
 
         final var argumentCaptor = this.bankAccountRepositoryMockFactory.verifySaveCalled(BankAccountEntity.class);
 

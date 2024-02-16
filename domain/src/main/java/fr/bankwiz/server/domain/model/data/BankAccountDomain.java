@@ -12,13 +12,13 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString
 @Setter
-public class BankAccount extends GroupRelated {
+public class BankAccountDomain extends GroupRelated {
     private String bankAccountName;
     private Integer decimalBaseAmount;
     private CurrencyEnumDomain currency;
 
     @Builder
-    public BankAccount(
+    public BankAccountDomain(
             String bankAccountName, Integer decimalBaseAmount, UUID id, Group group, CurrencyEnumDomain currency) {
         super(id, group);
         this.bankAccountName = bankAccountName;

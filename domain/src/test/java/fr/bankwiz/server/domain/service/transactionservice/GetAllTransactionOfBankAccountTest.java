@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.exception.UserNoReadRightException;
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
 import fr.bankwiz.server.domain.service.TransactionDomainService;
@@ -29,7 +29,7 @@ class GetAllTransactionOfBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void getAll() {
-        final BankAccount bankAccount = this.factory.getBankAccount();
+        final BankAccountDomain bankAccount = this.factory.getBankAccount();
         final List<Transaction> transactions = new ArrayList<>();
         transactions.add(this.factory.getTransaction(bankAccount));
         transactions.add(this.factory.getTransaction(bankAccount));
@@ -61,7 +61,7 @@ class GetAllTransactionOfBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void userCantRead() {
-        final BankAccount bankAccount = this.factory.getBankAccount();
+        final BankAccountDomain bankAccount = this.factory.getBankAccount();
         final UUID bankAccountId = bankAccount.getId();
         this.mockBankAccountSpi.mockFindById(bankAccount.getId(), Optional.of(bankAccount));
         this.mockCheckRightTool.mockCheckCurrentUserCanRead(bankAccount.getGroup(), false);

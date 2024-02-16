@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 
 import fr.bankwiz.server.domain.exception.BankAccountNotExistException;
 import fr.bankwiz.server.domain.exception.UserNotAdminException;
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -41,7 +41,7 @@ class DeleteBankAccountTest extends DomainUnitTestBase {
         final User user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final BankAccount bankAccount = this.factory.getBankAccount();
+        final BankAccountDomain bankAccount = this.factory.getBankAccount();
         final UUID bankAccountId = bankAccount.getId();
 
         this.mockBankAccountSpi.mockFindById(bankAccountId, Optional.of(bankAccount));
@@ -61,7 +61,7 @@ class DeleteBankAccountTest extends DomainUnitTestBase {
         final User user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final BankAccount bankAccount = this.factory.getBankAccount();
+        final BankAccountDomain bankAccount = this.factory.getBankAccount();
         final UUID bankAccountId = bankAccount.getId();
 
         this.mockBankAccountSpi.mockFindById(bankAccountId, Optional.of(bankAccount));

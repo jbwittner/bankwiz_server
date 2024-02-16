@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import fr.bankwiz.server.domain.api.TransactionApi;
 import fr.bankwiz.server.domain.exception.TransactionNotExistException;
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.model.input.TransactionCreationInput;
 import fr.bankwiz.server.domain.model.input.UpdateTransactionInput;
@@ -29,7 +29,7 @@ public class TransactionDomainService implements TransactionApi {
     @Override
     public Transaction createTransaction(TransactionCreationInput transactionCreationInput) {
 
-        final BankAccount bankAccount = this.bankAccountSpi.getById(transactionCreationInput.getBankAccountId());
+        final BankAccountDomain bankAccount = this.bankAccountSpi.getById(transactionCreationInput.getBankAccountId());
 
         this.checkRightTools.checkCurrentUserCanWrite(bankAccount.getGroup());
 
@@ -45,7 +45,7 @@ public class TransactionDomainService implements TransactionApi {
 
     @Override
     public BankAccountTransactions getAllTransactionOfBankAccount(UUID bankaccountId) {
-        final BankAccount bankAccount = this.bankAccountSpi.getById(bankaccountId);
+        final BankAccountDomain bankAccount = this.bankAccountSpi.getById(bankaccountId);
         this.checkRightTools.checkCurrentUserCanRead(bankAccount.getGroup());
         final var transactions = this.transactionSpi.findByBankAccount(bankAccount);
         return BankAccountTransactions.builder()

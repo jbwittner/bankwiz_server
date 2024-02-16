@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 
@@ -20,7 +20,7 @@ public class DomainMockBankAccountSpi extends DomainMockHelper<BankAccountSpi> {
 
     public DomainMockBankAccountSpi mockSave() {
         Mockito.when(this.mock.save(ArgumentMatchers.any())).thenAnswer(invocation -> {
-            return invocation.<BankAccount>getArgument(0);
+            return invocation.<BankAccountDomain>getArgument(0);
         });
         return this;
     }
@@ -30,12 +30,12 @@ public class DomainMockBankAccountSpi extends DomainMockHelper<BankAccountSpi> {
         return this;
     }
 
-    public DomainMockBankAccountSpi mockFindByGroup(final Group group, final List<BankAccount> bankAccounts) {
+    public DomainMockBankAccountSpi mockFindByGroup(final Group group, final List<BankAccountDomain> bankAccounts) {
         Mockito.when(this.mock.findByGroup(group)).thenReturn(bankAccounts);
         return this;
     }
 
-    public DomainMockBankAccountSpi mockFindById(final UUID id, final Optional<BankAccount> optionalBankAccount) {
+    public DomainMockBankAccountSpi mockFindById(final UUID id, final Optional<BankAccountDomain> optionalBankAccount) {
         Mockito.when(this.mock.findById(id)).thenReturn(optionalBankAccount);
         return this;
     }

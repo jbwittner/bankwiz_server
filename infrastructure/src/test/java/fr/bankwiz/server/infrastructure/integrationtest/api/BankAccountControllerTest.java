@@ -14,7 +14,7 @@ import fr.bankwiz.openapi.model.BankAccountIndexDTO;
 import fr.bankwiz.openapi.model.BankAccountUpdateRequest;
 import fr.bankwiz.openapi.model.CurrencyEnum;
 import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -94,8 +94,8 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
         groups.add(group2);
         this.factory.getGroupRight(group2, user, GroupRightEnum.READ);
 
-        final List<BankAccount> bankAccountsGroup1 = new ArrayList<>();
-        final List<BankAccount> bankAccountsGroup2 = new ArrayList<>();
+        final List<BankAccountDomain> bankAccountsGroup1 = new ArrayList<>();
+        final List<BankAccountDomain> bankAccountsGroup2 = new ArrayList<>();
 
         bankAccountsGroup1.add(this.factory.getBankAccount(group1));
         bankAccountsGroup1.add(this.factory.getBankAccount(group1));
@@ -125,7 +125,7 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
                 bankAccountsGroup1.size(),
                 groupBankAccountIndexDTO1.getBankAccountIndexList().size());
         groupBankAccountIndexDTO1.getBankAccountIndexList().forEach(bankAccountIndexDTO -> {
-            final BankAccount bankAccount = bankAccountsGroup1.stream()
+            final BankAccountDomain bankAccount = bankAccountsGroup1.stream()
                     .filter(bankAccountToFind ->
                             bankAccountToFind.getId().equals(bankAccountIndexDTO.getBankAccountId()))
                     .findFirst()
@@ -145,7 +145,7 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
                 bankAccountsGroup2.size(),
                 groupBankAccountIndexDTO2.getBankAccountIndexList().size());
         groupBankAccountIndexDTO2.getBankAccountIndexList().forEach(bankAccountIndexDTO -> {
-            final BankAccount bankAccount = bankAccountsGroup2.stream()
+            final BankAccountDomain bankAccount = bankAccountsGroup2.stream()
                     .filter(bankAccountToFind ->
                             bankAccountToFind.getId().equals(bankAccountIndexDTO.getBankAccountId()))
                     .findFirst()
@@ -162,7 +162,7 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
         final User user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
-        final BankAccount bankAccount = this.factory.getBankAccount();
+        final BankAccountDomain bankAccount = this.factory.getBankAccount();
         final UUID id = bankAccount.getId();
 
         this.factory.getGroupRight(bankAccount.getGroup(), user, GroupRightEnum.ADMIN);
@@ -187,7 +187,7 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
         final User user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
-        final BankAccount bankAccountBefore = this.factory.getBankAccount();
+        final BankAccountDomain bankAccountBefore = this.factory.getBankAccount();
         this.factory.getGroupRight(bankAccountBefore.getGroup(), user, GroupRightEnum.ADMIN);
 
         final BankAccountUpdateRequest bankAccountCreationRequest = new BankAccountUpdateRequest();

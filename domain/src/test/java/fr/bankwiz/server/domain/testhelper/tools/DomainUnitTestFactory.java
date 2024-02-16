@@ -2,8 +2,8 @@ package fr.bankwiz.server.domain.testhelper.tools;
 
 import java.util.UUID;
 
-import fr.bankwiz.server.domain.model.data.BankAccount;
-import fr.bankwiz.server.domain.model.data.BankAccount.CurrencyEnumDomain;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain.CurrencyEnumDomain;
 import fr.bankwiz.server.domain.model.data.Group;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
@@ -68,8 +68,8 @@ public class DomainUnitTestFactory {
         return this.getGroupRight(this.getGroup(), this.getUser(), groupRightEnum);
     }
 
-    public BankAccount getBankAccount(Group group) {
-        return BankAccount.builder()
+    public BankAccountDomain getBankAccount(Group group) {
+        return BankAccountDomain.builder()
                 .bankAccountName(this.faker.superhero().name())
                 .decimalBaseAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
                 .id(UUID.randomUUID())
@@ -78,12 +78,12 @@ public class DomainUnitTestFactory {
                 .build();
     }
 
-    public BankAccount getBankAccount() {
+    public BankAccountDomain getBankAccount() {
         final Group group = this.getGroup();
         return this.getBankAccount(group);
     }
 
-    public Transaction getTransaction(BankAccount bankAccount) {
+    public Transaction getTransaction(BankAccountDomain bankAccount) {
         return Transaction.builder()
                 .bankAccount(bankAccount)
                 .id(UUID.randomUUID())
@@ -93,7 +93,7 @@ public class DomainUnitTestFactory {
     }
 
     public Transaction getTransaction() {
-        final BankAccount bankAccount = this.getBankAccount();
+        final BankAccountDomain bankAccount = this.getBankAccount();
         return this.getTransaction(bankAccount);
     }
 }

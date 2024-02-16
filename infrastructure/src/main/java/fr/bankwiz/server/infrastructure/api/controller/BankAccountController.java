@@ -12,8 +12,8 @@ import fr.bankwiz.openapi.model.BankAccountCreationRequest;
 import fr.bankwiz.openapi.model.BankAccountIndexDTO;
 import fr.bankwiz.openapi.model.BankAccountUpdateRequest;
 import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
-import fr.bankwiz.server.domain.model.data.BankAccount;
-import fr.bankwiz.server.domain.model.data.BankAccount.CurrencyEnumDomain;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain.CurrencyEnumDomain;
 import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
 import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
 import fr.bankwiz.server.domain.model.other.GroupBankAccount;
@@ -41,7 +41,7 @@ public class BankAccountController implements BankaccountApi {
                 .groupId(bankAccountCreationRequest.getGroupId())
                 .currency(currencyEnumDomain)
                 .build();
-        BankAccount bankAccount = this.bankAccountInfraService.createBankAccount(bankAccountCreationInput);
+        BankAccountDomain bankAccount = this.bankAccountInfraService.createBankAccount(bankAccountCreationInput);
         BankAccountIndexDTO bankAccountIndexDTO = BankAccountTransformer.toBankAccountIndexDTO(bankAccount);
         return new ResponseEntity<>(bankAccountIndexDTO, HttpStatus.CREATED);
     }
@@ -68,7 +68,7 @@ public class BankAccountController implements BankaccountApi {
                 .decimalBaseAmount(bankAccountUpdateRequest.getDecimalBaseAmount())
                 .groupId(bankAccountUpdateRequest.getGroupId())
                 .build();
-        BankAccount bankAccount = this.bankAccountInfraService.updateBankAccount(id, bankAccountUpdateInput);
+        BankAccountDomain bankAccount = this.bankAccountInfraService.updateBankAccount(id, bankAccountUpdateInput);
         BankAccountIndexDTO bankAccountIndexDTO = BankAccountTransformer.toBankAccountIndexDTO(bankAccount);
         return new ResponseEntity<>(bankAccountIndexDTO, HttpStatus.OK);
     }

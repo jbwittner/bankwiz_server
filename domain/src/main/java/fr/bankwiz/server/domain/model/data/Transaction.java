@@ -13,5 +13,5 @@ public class Transaction {
     private UUID id;
     private Integer decimalAmount;
     private String comment;
-    private BankAccount bankAccount;
+    private BankAccountDomain bankAccount;
 }
