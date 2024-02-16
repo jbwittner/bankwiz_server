@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import fr.bankwiz.server.domain.exception.TransactionNotExistException;
 import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
 import fr.bankwiz.server.domain.model.data.TransactionDomain;
-import fr.bankwiz.server.domain.model.input.UpdateTransactionInput;
+import fr.bankwiz.server.domain.model.input.UpdateTransactionInputDomain;
 import fr.bankwiz.server.domain.service.TransactionDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 
@@ -36,7 +36,7 @@ class UpdateTransactionTest extends DomainUnitTestBase {
         this.mockCheckRightTool.mockCheckCurrentUserCanWrite(
                 transaction.getBankAccount().getGroup(), true);
 
-        final UpdateTransactionInput updateTransactionInput = UpdateTransactionInput.builder()
+        final UpdateTransactionInputDomain updateTransactionInput = UpdateTransactionInputDomain.builder()
                 .comment(this.faker.superhero().name())
                 .decimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
                 .build();
@@ -66,7 +66,7 @@ class UpdateTransactionTest extends DomainUnitTestBase {
         this.mockCheckRightTool.mockCheckCurrentUserCanWrite(
                 transaction.getBankAccount().getGroup(), true);
 
-        final UpdateTransactionInput updateTransactionInput = UpdateTransactionInput.builder()
+        final UpdateTransactionInputDomain updateTransactionInput = UpdateTransactionInputDomain.builder()
                 .decimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
                 .build();
 
@@ -94,7 +94,7 @@ class UpdateTransactionTest extends DomainUnitTestBase {
         this.mockCheckRightTool.mockCheckCurrentUserCanWrite(
                 transaction.getBankAccount().getGroup(), true);
 
-        final UpdateTransactionInput updateTransactionInput = UpdateTransactionInput.builder()
+        final UpdateTransactionInputDomain updateTransactionInput = UpdateTransactionInputDomain.builder()
                 .comment(this.faker.rickAndMorty().quote())
                 .build();
 

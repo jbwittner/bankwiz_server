@@ -14,9 +14,9 @@ import fr.bankwiz.openapi.model.BankAccountUpdateRequest;
 import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain.CurrencyEnumDomain;
-import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
-import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
-import fr.bankwiz.server.domain.model.other.GroupBankAccount;
+import fr.bankwiz.server.domain.model.input.BankAccountCreationInputDomain;
+import fr.bankwiz.server.domain.model.input.BankAccountUpdateInputDomain;
+import fr.bankwiz.server.domain.model.other.GroupBankAccountDomain;
 import fr.bankwiz.server.infrastructure.service.BankAccountInfraService;
 import fr.bankwiz.server.infrastructure.transformer.BankAccountTransformer;
 import fr.bankwiz.server.infrastructure.transformer.GroupBankAccountTransformer;
@@ -35,7 +35,7 @@ public class BankAccountController implements BankaccountApi {
             BankAccountCreationRequest bankAccountCreationRequest) {
         final CurrencyEnumDomain currencyEnumDomain = CurrencyEnumDomain.valueOf(
                 bankAccountCreationRequest.getCurrency().toString());
-        BankAccountCreationInput bankAccountCreationInput = BankAccountCreationInput.builder()
+        BankAccountCreationInputDomain bankAccountCreationInput = BankAccountCreationInputDomain.builder()
                 .bankAccountName(bankAccountCreationRequest.getBankAccountName())
                 .decimalBaseAmount(bankAccountCreationRequest.getDecimalBaseAmount())
                 .groupId(bankAccountCreationRequest.getGroupId())
@@ -48,7 +48,7 @@ public class BankAccountController implements BankaccountApi {
 
     @Override
     public ResponseEntity<List<GroupBankAccountIndexDTO>> getAllBankAccount() {
-        final List<GroupBankAccount> groupBankAccounts = this.bankAccountInfraService.getAllBankAccount();
+        final List<GroupBankAccountDomain> groupBankAccounts = this.bankAccountInfraService.getAllBankAccount();
         final List<GroupBankAccountIndexDTO> groupBankAccountIndexDTOs =
                 GroupBankAccountTransformer.toGroupBankAccountIndexDTO(groupBankAccounts);
         return new ResponseEntity<>(groupBankAccountIndexDTOs, HttpStatus.OK);
@@ -63,7 +63,7 @@ public class BankAccountController implements BankaccountApi {
     @Override
     public ResponseEntity<BankAccountIndexDTO> updateBankAccount(
             UUID id, BankAccountUpdateRequest bankAccountUpdateRequest) {
-        BankAccountUpdateInput bankAccountUpdateInput = BankAccountUpdateInput.builder()
+        BankAccountUpdateInputDomain bankAccountUpdateInput = BankAccountUpdateInputDomain.builder()
                 .bankAccountName(bankAccountUpdateRequest.getBankAccountName())
                 .decimalBaseAmount(bankAccountUpdateRequest.getDecimalBaseAmount())
                 .groupId(bankAccountUpdateRequest.getGroupId())

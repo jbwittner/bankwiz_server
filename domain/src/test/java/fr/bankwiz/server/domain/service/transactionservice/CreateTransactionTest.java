@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.TransactionDomain;
-import fr.bankwiz.server.domain.model.input.TransactionCreationInput;
+import fr.bankwiz.server.domain.model.input.TransactionCreationInputDomain;
 import fr.bankwiz.server.domain.service.TransactionDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 
@@ -27,7 +27,7 @@ class CreateTransactionTest extends DomainUnitTestBase {
     @Test
     void creationOk() {
         final BankAccountDomain bankAccount = this.factory.getBankAccount();
-        final TransactionCreationInput transactionCreationInput = TransactionCreationInput.builder()
+        final TransactionCreationInputDomain transactionCreationInput = TransactionCreationInputDomain.builder()
                 .bankAccountId(bankAccount.getId())
                 .comment(this.faker.yoda().quote())
                 .decimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
@@ -51,7 +51,7 @@ class CreateTransactionTest extends DomainUnitTestBase {
     @Test
     void userCantWrite() {
         final BankAccountDomain bankAccount = this.factory.getBankAccount();
-        final TransactionCreationInput transactionCreationInput = TransactionCreationInput.builder()
+        final TransactionCreationInputDomain transactionCreationInput = TransactionCreationInputDomain.builder()
                 .bankAccountId(bankAccount.getId())
                 .comment(this.faker.yoda().quote())
                 .decimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE))

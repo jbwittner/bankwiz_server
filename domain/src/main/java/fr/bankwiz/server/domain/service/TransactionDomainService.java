@@ -6,9 +6,9 @@ import fr.bankwiz.server.domain.api.TransactionApi;
 import fr.bankwiz.server.domain.exception.TransactionNotExistException;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.TransactionDomain;
-import fr.bankwiz.server.domain.model.input.TransactionCreationInput;
-import fr.bankwiz.server.domain.model.input.UpdateTransactionInput;
-import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
+import fr.bankwiz.server.domain.model.input.TransactionCreationInputDomain;
+import fr.bankwiz.server.domain.model.input.UpdateTransactionInputDomain;
+import fr.bankwiz.server.domain.model.other.BankAccountTransactionsDomain;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.domain.spi.TransactionSpi;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -27,7 +27,7 @@ public class TransactionDomainService implements TransactionApi {
     }
 
     @Override
-    public TransactionDomain createTransaction(TransactionCreationInput transactionCreationInput) {
+    public TransactionDomain createTransaction(TransactionCreationInputDomain transactionCreationInput) {
 
         final BankAccountDomain bankAccount = this.bankAccountSpi.getById(transactionCreationInput.getBankAccountId());
 
@@ -44,18 +44,18 @@ public class TransactionDomainService implements TransactionApi {
     }
 
     @Override
-    public BankAccountTransactions getAllTransactionOfBankAccount(UUID bankaccountId) {
+    public BankAccountTransactionsDomain getAllTransactionOfBankAccount(UUID bankaccountId) {
         final BankAccountDomain bankAccount = this.bankAccountSpi.getById(bankaccountId);
         this.checkRightTools.checkCurrentUserCanRead(bankAccount.getGroup());
         final var transactions = this.transactionSpi.findByBankAccount(bankAccount);
-        return BankAccountTransactions.builder()
+        return BankAccountTransactionsDomain.builder()
                 .bankAccount(bankAccount)
                 .transactions(transactions)
                 .build();
     }
 
     @Override
-    public TransactionDomain updateTransaction(UUID bankaccountId, UpdateTransactionInput updateTransactionInput) {
+    public TransactionDomain updateTransaction(UUID bankaccountId, UpdateTransactionInputDomain updateTransactionInput) {
 
         final TransactionDomain transaction = this.transactionSpi
                 .findById(bankaccountId)

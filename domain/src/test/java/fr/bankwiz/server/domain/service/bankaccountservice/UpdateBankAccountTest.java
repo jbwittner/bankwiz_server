@@ -17,7 +17,7 @@ import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.UserDomain;
-import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
+import fr.bankwiz.server.domain.model.input.BankAccountUpdateInputDomain;
 import fr.bankwiz.server.domain.service.BankAccountService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -58,7 +58,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
         final String bankAccountNameBefore = bankAccount.getBankAccountName();
 
-        BankAccountUpdateInput bankAccountUpdateInput = BankAccountUpdateInput.builder()
+        BankAccountUpdateInputDomain bankAccountUpdateInput = BankAccountUpdateInputDomain.builder()
                 .bankAccountName(this.faker.starTrek().character())
                 .build();
 
@@ -94,7 +94,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
         final Integer decimalBaseAmountBefore = bankAccount.getDecimalBaseAmount();
 
-        BankAccountUpdateInput bankAccountUpdateInput = BankAccountUpdateInput.builder()
+        BankAccountUpdateInputDomain bankAccountUpdateInput = BankAccountUpdateInputDomain.builder()
                 .decimalBaseAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
                 .build();
 
@@ -139,8 +139,8 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
         final GroupDomain groupBefore = bankAccount.getGroup();
 
-        BankAccountUpdateInput bankAccountUpdateInput =
-                BankAccountUpdateInput.builder().groupId(newGroup.getId()).build();
+        BankAccountUpdateInputDomain bankAccountUpdateInput =
+                BankAccountUpdateInputDomain.builder().groupId(newGroup.getId()).build();
 
         final BankAccountDomain bankAccountUpdated =
                 this.bankAccountService.updateBankAccount(bankAccountId, bankAccountUpdateInput);
@@ -180,8 +180,8 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
         this.mockGroupRightSpi.mockFindByGroup(bankAccount.getGroup(), groupRights);
 
-        BankAccountUpdateInput bankAccountUpdateInput =
-                BankAccountUpdateInput.builder().groupId(newGroup.getId()).build();
+        BankAccountUpdateInputDomain bankAccountUpdateInput =
+                BankAccountUpdateInputDomain.builder().groupId(newGroup.getId()).build();
 
         Assertions.assertThrows(UserNoWriteRightException.class, () -> {
             this.bankAccountService.updateBankAccount(bankAccountId, bankAccountUpdateInput);
@@ -212,8 +212,8 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
         this.mockGroupRightSpi.mockFindByGroup(bankAccount.getGroup(), groupRights);
 
-        BankAccountUpdateInput bankAccountUpdateInput =
-                BankAccountUpdateInput.builder().groupId(newGroup.getId()).build();
+        BankAccountUpdateInputDomain bankAccountUpdateInput =
+                BankAccountUpdateInputDomain.builder().groupId(newGroup.getId()).build();
 
         Assertions.assertThrows(GroupNotExistException.class, () -> {
             this.bankAccountService.updateBankAccount(bankAccountId, bankAccountUpdateInput);
@@ -238,8 +238,8 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
         this.mockGroupRightSpi.mockFindByGroup(bankAccount.getGroup(), groupRights);
 
-        BankAccountUpdateInput bankAccountUpdateInput =
-                BankAccountUpdateInput.builder().build();
+        BankAccountUpdateInputDomain bankAccountUpdateInput =
+                BankAccountUpdateInputDomain.builder().build();
 
         Assertions.assertThrows(UserNotAdminException.class, () -> {
             this.bankAccountService.updateBankAccount(bankAccountId, bankAccountUpdateInput);
@@ -255,8 +255,8 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
         this.mockBankAccountSpi.mockFindById(bankAccountId, Optional.empty()).mockSave();
 
-        BankAccountUpdateInput bankAccountUpdateInput =
-                BankAccountUpdateInput.builder().build();
+        BankAccountUpdateInputDomain bankAccountUpdateInput =
+                BankAccountUpdateInputDomain.builder().build();
 
         Assertions.assertThrows(BankAccountNotExistException.class, () -> {
             this.bankAccountService.updateBankAccount(bankAccountId, bankAccountUpdateInput);

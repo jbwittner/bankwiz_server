@@ -14,7 +14,7 @@ import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.UserDomain;
-import fr.bankwiz.server.domain.model.other.GroupDetails;
+import fr.bankwiz.server.domain.model.other.GroupDetailsDomain;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -56,7 +56,7 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
         this.mockGroupSpi.mockFindById(groupUuid, Optional.of(group));
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
 
-        final GroupDetails groupDetails = this.groupDomainService.getGroupDetails(groupUuid);
+        final GroupDetailsDomain groupDetails = this.groupDomainService.getGroupDetails(groupUuid);
 
         Assertions.assertAll(
                 () -> Assertions.assertNotNull(groupDetails.getGroup()),

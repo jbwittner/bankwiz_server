@@ -14,9 +14,9 @@ import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.UserDomain;
-import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
-import fr.bankwiz.server.domain.model.input.GroupCreationInput;
-import fr.bankwiz.server.domain.model.other.GroupDetails;
+import fr.bankwiz.server.domain.model.input.AddUserGroupInputDomain;
+import fr.bankwiz.server.domain.model.input.GroupCreationInputDomain;
+import fr.bankwiz.server.domain.model.other.GroupDetailsDomain;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
@@ -49,7 +49,7 @@ public class GroupDomainService implements GroupApi {
     }
 
     @Override
-    public GroupDomain groupCreation(GroupCreationInput groupCreationInput) {
+    public GroupDomain groupCreation(GroupCreationInputDomain groupCreationInput) {
         final GroupDomain group = GroupDomain.builder()
                 .id(UUID.randomUUID())
                 .groupName(groupCreationInput.getGroupName())
@@ -74,16 +74,16 @@ public class GroupDomainService implements GroupApi {
     }
 
     @Override
-    public GroupDetails getGroupDetails(UUID groupId) {
+    public GroupDetailsDomain getGroupDetails(UUID groupId) {
         final Optional<GroupDomain> optionalGroup = this.groupSpi.findById(groupId);
         final GroupDomain group = optionalGroup.orElseThrow(() -> new GroupNotExistException(groupId));
         this.checkRightTools.checkCanRead(this.authenticationSpi.getCurrentUser(), group);
         final List<GroupRightDomain> groupRights = this.groupRightSpi.findByGroup(group);
-        return GroupDetails.builder().group(group).groupRights(groupRights).build();
+        return GroupDetailsDomain.builder().group(group).groupRights(groupRights).build();
     }
 
     @Override
-    public GroupRightDomain addUserToGroup(UUID groupId, AddUserGroupInput addUserGroupInput) {
+    public GroupRightDomain addUserToGroup(UUID groupId, AddUserGroupInputDomain addUserGroupInput) {
         final GroupDomain group = this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
 
         this.checkRightTools.checkIsAdmin(this.authenticationSpi.getCurrentUser(), group);

@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class AddUserGroupInput {
+public class AddUserGroupInputDomain {
     private UUID userId;
     private GroupRightEnum right;
 }

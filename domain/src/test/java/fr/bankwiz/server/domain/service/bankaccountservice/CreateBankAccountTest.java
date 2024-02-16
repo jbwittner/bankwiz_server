@@ -16,7 +16,7 @@ import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.UserDomain;
-import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
+import fr.bankwiz.server.domain.model.input.BankAccountCreationInputDomain;
 import fr.bankwiz.server.domain.service.BankAccountService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -53,7 +53,7 @@ class CreateBankAccountTest extends DomainUnitTestBase {
         final UUID groupId = group.getId();
         final Integer decimalBaseAmount = this.faker.random().nextInt(Integer.MAX_VALUE);
 
-        final BankAccountCreationInput bankAccountCreationInput = BankAccountCreationInput.builder()
+        final BankAccountCreationInputDomain bankAccountCreationInput = BankAccountCreationInputDomain.builder()
                 .bankAccountName(bankAccountName)
                 .groupId(groupId)
                 .decimalBaseAmount(decimalBaseAmount)
@@ -80,7 +80,7 @@ class CreateBankAccountTest extends DomainUnitTestBase {
 
         final UUID groupId = group.getId();
 
-        final BankAccountCreationInput bankAccountCreationInput = BankAccountCreationInput.builder()
+        final BankAccountCreationInputDomain bankAccountCreationInput = BankAccountCreationInputDomain.builder()
                 .groupId(groupId)
                 .currency(CurrencyEnumDomain.EUR)
                 .build();
@@ -92,8 +92,8 @@ class CreateBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void groupNotExist() {
-        final BankAccountCreationInput bankAccountCreationInput =
-                BankAccountCreationInput.builder().groupId(UUID.randomUUID()).build();
+        final BankAccountCreationInputDomain bankAccountCreationInput =
+                BankAccountCreationInputDomain.builder().groupId(UUID.randomUUID()).build();
 
         Assertions.assertThrows(
                 GroupNotExistException.class,

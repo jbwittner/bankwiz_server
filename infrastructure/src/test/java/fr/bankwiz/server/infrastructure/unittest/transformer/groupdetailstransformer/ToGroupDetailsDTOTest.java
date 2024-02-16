@@ -11,7 +11,7 @@ import fr.bankwiz.openapi.model.GroupDetailsDTO;
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.other.GroupDetails;
+import fr.bankwiz.server.domain.model.other.GroupDetailsDomain;
 import fr.bankwiz.server.infrastructure.transformer.GroupDetailsTransformer;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
@@ -28,7 +28,7 @@ class ToGroupDetailsDTOTest extends InfrastructureUnitTestBase {
         groupRights.add(this.factory.getGroupRight(GroupRightEnum.READ));
         groupRights.add(this.factory.getGroupRight(GroupRightEnum.WRITE));
 
-        final GroupDetails groupDetails = GroupDetails.builder()
+        final GroupDetailsDomain groupDetails = GroupDetailsDomain.builder()
                 .group(this.factory.getGroup())
                 .groupRights(groupRights)
                 .build();

@@ -10,9 +10,9 @@ import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.UserDomain;
-import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
-import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
-import fr.bankwiz.server.domain.model.other.GroupBankAccount;
+import fr.bankwiz.server.domain.model.input.BankAccountCreationInputDomain;
+import fr.bankwiz.server.domain.model.input.BankAccountUpdateInputDomain;
+import fr.bankwiz.server.domain.model.other.GroupBankAccountDomain;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
@@ -41,7 +41,7 @@ public class BankAccountService implements BankAccountApi {
     }
 
     @Override
-    public BankAccountDomain createBankAccount(BankAccountCreationInput bankAccountCreationInput) {
+    public BankAccountDomain createBankAccount(BankAccountCreationInputDomain bankAccountCreationInput) {
 
         final GroupDomain group = this.groupSpi
                 .findById(bankAccountCreationInput.getGroupId())
@@ -61,7 +61,7 @@ public class BankAccountService implements BankAccountApi {
     }
 
     @Override
-    public List<GroupBankAccount> getAllBankAccount() {
+    public List<GroupBankAccountDomain> getAllBankAccount() {
 
         final UserDomain user = this.authenticationSpi.getCurrentUser();
         final List<GroupRightDomain> groupRights = this.groupRightSpi.findByUser(user);
@@ -70,7 +70,7 @@ public class BankAccountService implements BankAccountApi {
                 .map(GroupRightDomain::getGroup)
                 .map(group -> {
                     final List<BankAccountDomain> bankAccounts = this.bankAccountSpi.findByGroup(group);
-                    return GroupBankAccount.builder()
+                    return GroupBankAccountDomain.builder()
                             .bankAccounts(bankAccounts)
                             .group(group)
                             .build();
@@ -93,7 +93,7 @@ public class BankAccountService implements BankAccountApi {
     }
 
     @Override
-    public BankAccountDomain updateBankAccount(UUID bankAccountId, BankAccountUpdateInput bankAccountUpdateInput) {
+    public BankAccountDomain updateBankAccount(UUID bankAccountId, BankAccountUpdateInputDomain bankAccountUpdateInput) {
         final UserDomain user = this.authenticationSpi.getCurrentUser();
 
         final BankAccountDomain bankAccount = this.bankAccountSpi

@@ -16,7 +16,7 @@ import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.UserDomain;
-import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
+import fr.bankwiz.server.domain.model.input.AddUserGroupInputDomain;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -52,7 +52,7 @@ class AddUserToGroupTest extends DomainUnitTestBase {
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights).mockSave();
         this.mockUserSpi.mockFindById(userToAdd.getId(), Optional.of(userToAdd));
 
-        final AddUserGroupInput addUserGroupInput = AddUserGroupInput.builder()
+        final AddUserGroupInputDomain addUserGroupInput = AddUserGroupInputDomain.builder()
                 .userId(userToAdd.getId())
                 .right(GroupRightEnum.READ)
                 .build();
@@ -80,7 +80,7 @@ class AddUserToGroupTest extends DomainUnitTestBase {
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights).mockSave();
         this.mockUserSpi.mockFindById(userToAdd.getId(), Optional.of(userToAdd));
 
-        final AddUserGroupInput addUserGroupInput = AddUserGroupInput.builder()
+        final AddUserGroupInputDomain addUserGroupInput = AddUserGroupInputDomain.builder()
                 .userId(userToAdd.getId())
                 .right(GroupRightEnum.WRITE)
                 .build();
@@ -121,7 +121,7 @@ class AddUserToGroupTest extends DomainUnitTestBase {
         this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights).mockSave();
 
-        final AddUserGroupInput addUserGroupInput = AddUserGroupInput.builder()
+        final AddUserGroupInputDomain addUserGroupInput = AddUserGroupInputDomain.builder()
                 .userId(UUID.randomUUID())
                 .right(GroupRightEnum.WRITE)
                 .build();
@@ -142,7 +142,7 @@ class AddUserToGroupTest extends DomainUnitTestBase {
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
         this.mockGroupSpi.mockFindById(groupId, Optional.empty());
 
-        final AddUserGroupInput addUserGroupInput = AddUserGroupInput.builder()
+        final AddUserGroupInputDomain addUserGroupInput = AddUserGroupInputDomain.builder()
                 .userId(UUID.randomUUID())
                 .right(GroupRightEnum.WRITE)
                 .build();

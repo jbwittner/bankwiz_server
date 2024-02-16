@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.bankwiz.server.domain.api.BankAccountApi;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
-import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
-import fr.bankwiz.server.domain.model.other.GroupBankAccount;
+import fr.bankwiz.server.domain.model.input.BankAccountCreationInputDomain;
+import fr.bankwiz.server.domain.model.input.BankAccountUpdateInputDomain;
+import fr.bankwiz.server.domain.model.other.GroupBankAccountDomain;
 
 @Service
 public class BankAccountInfraService {
@@ -22,12 +22,12 @@ public class BankAccountInfraService {
     }
 
     @Transactional
-    public BankAccountDomain createBankAccount(BankAccountCreationInput bankAccountCreationInput) {
+    public BankAccountDomain createBankAccount(BankAccountCreationInputDomain bankAccountCreationInput) {
         return this.bankAccountApi.createBankAccount(bankAccountCreationInput);
     }
 
     @Transactional(readOnly = true)
-    public List<GroupBankAccount> getAllBankAccount() {
+    public List<GroupBankAccountDomain> getAllBankAccount() {
         return this.bankAccountApi.getAllBankAccount();
     }
 
@@ -37,7 +37,7 @@ public class BankAccountInfraService {
     }
 
     @Transactional
-    public BankAccountDomain updateBankAccount(UUID uuid, BankAccountUpdateInput bankAccountUpdateInput) {
+    public BankAccountDomain updateBankAccount(UUID uuid, BankAccountUpdateInputDomain bankAccountUpdateInput) {
         return this.bankAccountApi.updateBankAccount(uuid, bankAccountUpdateInput);
     }
 }

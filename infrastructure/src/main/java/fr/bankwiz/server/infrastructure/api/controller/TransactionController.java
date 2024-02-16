@@ -12,9 +12,9 @@ import fr.bankwiz.openapi.model.CreateTransactionRequest;
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.openapi.model.UpdateTransactionRequest;
 import fr.bankwiz.server.domain.model.data.TransactionDomain;
-import fr.bankwiz.server.domain.model.input.TransactionCreationInput;
-import fr.bankwiz.server.domain.model.input.UpdateTransactionInput;
-import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
+import fr.bankwiz.server.domain.model.input.TransactionCreationInputDomain;
+import fr.bankwiz.server.domain.model.input.UpdateTransactionInputDomain;
+import fr.bankwiz.server.domain.model.other.BankAccountTransactionsDomain;
 import fr.bankwiz.server.infrastructure.service.TransactionInfraService;
 import fr.bankwiz.server.infrastructure.transformer.BankAccountTransactionsTransformer;
 import fr.bankwiz.server.infrastructure.transformer.TransactionTransformer;
@@ -30,7 +30,7 @@ public class TransactionController implements TransactionApi {
 
     @Override
     public ResponseEntity<TransactionDTO> createTransaction(CreateTransactionRequest createTransactionRequest) {
-        final TransactionCreationInput transactionCreationInput = TransactionCreationInput.builder()
+        final TransactionCreationInputDomain transactionCreationInput = TransactionCreationInputDomain.builder()
                 .bankAccountId(createTransactionRequest.getBankAccountId())
                 .decimalAmount(createTransactionRequest.getDecimalAmount())
                 .comment(createTransactionRequest.getComment())
@@ -42,7 +42,7 @@ public class TransactionController implements TransactionApi {
 
     @Override
     public ResponseEntity<BankAccountTransactionsDTO> getAllTransactionOfBankAccount(UUID bankaccountId) {
-        final BankAccountTransactions bankAccountTransactions =
+        final BankAccountTransactionsDomain bankAccountTransactions =
                 this.transactionInfraService.getAllTransactionOfBankAccount(bankaccountId);
         final BankAccountTransactionsDTO bankAccountTransactionsDTO =
                 BankAccountTransactionsTransformer.toBankAccountTransactionDTO(bankAccountTransactions);
@@ -52,7 +52,7 @@ public class TransactionController implements TransactionApi {
     @Override
     public ResponseEntity<TransactionDTO> updateTransaction(
             UUID transactionId, UpdateTransactionRequest updateTransactionRequest) {
-        final UpdateTransactionInput updateTransactionInput = UpdateTransactionInput.builder()
+        final UpdateTransactionInputDomain updateTransactionInput = UpdateTransactionInputDomain.builder()
                 .decimalAmount(updateTransactionRequest.getDecimalAmount())
                 .comment(updateTransactionRequest.getComment())
                 .build();

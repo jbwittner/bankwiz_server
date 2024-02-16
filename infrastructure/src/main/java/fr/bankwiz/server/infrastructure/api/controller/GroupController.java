@@ -16,9 +16,9 @@ import fr.bankwiz.openapi.model.UserGroupRightDTO;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
-import fr.bankwiz.server.domain.model.input.GroupCreationInput;
-import fr.bankwiz.server.domain.model.other.GroupDetails;
+import fr.bankwiz.server.domain.model.input.AddUserGroupInputDomain;
+import fr.bankwiz.server.domain.model.input.GroupCreationInputDomain;
+import fr.bankwiz.server.domain.model.other.GroupDetailsDomain;
 import fr.bankwiz.server.infrastructure.service.GroupInfraService;
 import fr.bankwiz.server.infrastructure.transformer.GroupDetailsTransformer;
 import fr.bankwiz.server.infrastructure.transformer.GroupRightTransformer;
@@ -35,7 +35,7 @@ public class GroupController implements GroupApi {
 
     @Override
     public ResponseEntity<GroupIndexDTO> createGroup(GroupCreationRequest groupCreationRequest) {
-        final GroupCreationInput groupCreationInput = GroupCreationInput.builder()
+        final GroupCreationInputDomain groupCreationInput = GroupCreationInputDomain.builder()
                 .groupName(groupCreationRequest.getGroupName())
                 .build();
         final GroupDomain group = this.groupInfraService.createGroup(groupCreationInput);
@@ -52,14 +52,14 @@ public class GroupController implements GroupApi {
 
     @Override
     public ResponseEntity<GroupDetailsDTO> getGroupDetails(UUID id) {
-        final GroupDetails groupDetails = this.groupInfraService.getGroupDetails(id);
+        final GroupDetailsDomain groupDetails = this.groupInfraService.getGroupDetails(id);
         final GroupDetailsDTO groupDetailsDTO = GroupDetailsTransformer.toGroupDetailsDTO(groupDetails);
         return new ResponseEntity<>(groupDetailsDTO, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<UserGroupRightDTO> addUserGroup(UUID groupId, AddUserGroupRequest addUserGroupRequest) {
-        final AddUserGroupInput addUserGroupInput = AddUserGroupInput.builder()
+        final AddUserGroupInputDomain addUserGroupInput = AddUserGroupInputDomain.builder()
                 .userId(addUserGroupRequest.getUserId())
                 .right(GroupRightEnum.valueOf(addUserGroupRequest.getRight().name()))
                 .build();

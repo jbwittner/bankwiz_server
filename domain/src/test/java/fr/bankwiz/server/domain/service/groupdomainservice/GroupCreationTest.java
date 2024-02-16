@@ -7,7 +7,7 @@ import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.UserDomain;
-import fr.bankwiz.server.domain.model.input.GroupCreationInput;
+import fr.bankwiz.server.domain.model.input.GroupCreationInputDomain;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -31,7 +31,7 @@ class GroupCreationTest extends DomainUnitTestBase {
 
     @Test
     void creationOk() {
-        final GroupCreationInput groupCreationRequest = GroupCreationInput.builder()
+        final GroupCreationInputDomain groupCreationRequest = GroupCreationInputDomain.builder()
                 .groupName(this.faker.space().star())
                 .build();
 

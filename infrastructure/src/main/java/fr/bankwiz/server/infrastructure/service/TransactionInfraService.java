@@ -7,9 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.bankwiz.server.domain.api.TransactionApi;
 import fr.bankwiz.server.domain.model.data.TransactionDomain;
-import fr.bankwiz.server.domain.model.input.TransactionCreationInput;
-import fr.bankwiz.server.domain.model.input.UpdateTransactionInput;
-import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
+import fr.bankwiz.server.domain.model.input.TransactionCreationInputDomain;
+import fr.bankwiz.server.domain.model.input.UpdateTransactionInputDomain;
+import fr.bankwiz.server.domain.model.other.BankAccountTransactionsDomain;
 
 @Service
 public class TransactionInfraService implements TransactionApi {
@@ -21,17 +21,17 @@ public class TransactionInfraService implements TransactionApi {
     }
 
     @Transactional
-    public TransactionDomain createTransaction(TransactionCreationInput transactionCreationInput) {
+    public TransactionDomain createTransaction(TransactionCreationInputDomain transactionCreationInput) {
         return this.transactionApi.createTransaction(transactionCreationInput);
     }
 
     @Transactional(readOnly = true)
-    public BankAccountTransactions getAllTransactionOfBankAccount(UUID bankaccountId) {
+    public BankAccountTransactionsDomain getAllTransactionOfBankAccount(UUID bankaccountId) {
         return this.transactionApi.getAllTransactionOfBankAccount(bankaccountId);
     }
 
     @Transactional
-    public TransactionDomain updateTransaction(UUID bankaccountId, UpdateTransactionInput updateTransactionInput) {
+    public TransactionDomain updateTransaction(UUID bankaccountId, UpdateTransactionInputDomain updateTransactionInput) {
         return this.transactionApi.updateTransaction(bankaccountId, updateTransactionInput);
     }
 

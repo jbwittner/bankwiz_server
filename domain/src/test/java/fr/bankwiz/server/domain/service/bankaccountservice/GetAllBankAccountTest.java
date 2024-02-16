@@ -10,7 +10,7 @@ import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.UserDomain;
-import fr.bankwiz.server.domain.model.other.GroupBankAccount;
+import fr.bankwiz.server.domain.model.other.GroupBankAccountDomain;
 import fr.bankwiz.server.domain.service.BankAccountService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -69,7 +69,7 @@ class GetAllBankAccountTest extends DomainUnitTestBase {
 
         Assertions.assertEquals(3, result.size());
 
-        final GroupBankAccount groupBankAccount1 = result.stream()
+        final GroupBankAccountDomain groupBankAccount1 = result.stream()
                 .filter(groupBankAccount -> groupBankAccount
                         .getGroup()
                         .getId()
@@ -80,7 +80,7 @@ class GetAllBankAccountTest extends DomainUnitTestBase {
         Assertions.assertEquals(groupRight1.getGroup(), groupBankAccount1.getGroup());
         Assertions.assertEquals(bankAccounts1, groupBankAccount1.getBankAccounts());
 
-        final GroupBankAccount groupBankAccount2 = result.stream()
+        final GroupBankAccountDomain groupBankAccount2 = result.stream()
                 .filter(groupBankAccount -> groupBankAccount
                         .getGroup()
                         .getId()
@@ -91,7 +91,7 @@ class GetAllBankAccountTest extends DomainUnitTestBase {
         Assertions.assertEquals(groupRight2.getGroup(), groupBankAccount2.getGroup());
         Assertions.assertEquals(bankAccounts2, groupBankAccount2.getBankAccounts());
 
-        final GroupBankAccount groupBankAccount3 = result.stream()
+        final GroupBankAccountDomain groupBankAccount3 = result.stream()
                 .filter(groupBankAccount -> groupBankAccount
                         .getGroup()
                         .getId()

@@ -9,7 +9,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class BankAccountTransactions {
+public class BankAccountTransactionsDomain {
     private BankAccountDomain bankAccount;
     private List<TransactionDomain> transactions;
 }

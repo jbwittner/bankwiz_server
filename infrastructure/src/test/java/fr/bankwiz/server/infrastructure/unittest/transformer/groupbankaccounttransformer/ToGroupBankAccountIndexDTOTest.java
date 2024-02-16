@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.other.GroupBankAccount;
+import fr.bankwiz.server.domain.model.other.GroupBankAccountDomain;
 import fr.bankwiz.server.infrastructure.transformer.GroupBankAccountTransformer;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
 
@@ -20,7 +20,7 @@ class ToGroupBankAccountIndexDTOTest extends InfrastructureUnitTestBase {
     protected void initDataBeforeEach() {}
 
     void compareBankAccountIndexDTO(
-            GroupBankAccount groupBankAccount, GroupBankAccountIndexDTO groupBankAccountIndexDTO) {
+            GroupBankAccountDomain groupBankAccount, GroupBankAccountIndexDTO groupBankAccountIndexDTO) {
         Assertions.assertAll(
                 () -> Assertions.assertEquals(
                         groupBankAccount.getGroup().getId(),
@@ -56,7 +56,7 @@ class ToGroupBankAccountIndexDTOTest extends InfrastructureUnitTestBase {
         bankAccounts.add(this.factory.getBankAccount(group));
         bankAccounts.add(this.factory.getBankAccount(group));
 
-        final GroupBankAccount groupBankAccount = GroupBankAccount.builder()
+        final GroupBankAccountDomain groupBankAccount = GroupBankAccountDomain.builder()
                 .bankAccounts(bankAccounts)
                 .group(group)
                 .build();
@@ -75,7 +75,7 @@ class ToGroupBankAccountIndexDTOTest extends InfrastructureUnitTestBase {
         bankAccountsOne.add(this.factory.getBankAccount(groupOne));
         bankAccountsOne.add(this.factory.getBankAccount(groupOne));
 
-        final GroupBankAccount groupBankAccountOne = GroupBankAccount.builder()
+        final GroupBankAccountDomain groupBankAccountOne = GroupBankAccountDomain.builder()
                 .bankAccounts(bankAccountsOne)
                 .group(groupOne)
                 .build();
@@ -86,12 +86,12 @@ class ToGroupBankAccountIndexDTOTest extends InfrastructureUnitTestBase {
         bankAccountsTwo.add(this.factory.getBankAccount(groupTwo));
         bankAccountsTwo.add(this.factory.getBankAccount(groupTwo));
 
-        final GroupBankAccount groupBankAccountTwo = GroupBankAccount.builder()
+        final GroupBankAccountDomain groupBankAccountTwo = GroupBankAccountDomain.builder()
                 .bankAccounts(bankAccountsTwo)
                 .group(groupTwo)
                 .build();
 
-        final List<GroupBankAccount> groupBankAccounts = new ArrayList<>();
+        final List<GroupBankAccountDomain> groupBankAccounts = new ArrayList<>();
         groupBankAccounts.add(groupBankAccountOne);
         groupBankAccounts.add(groupBankAccountTwo);
 
@@ -101,14 +101,14 @@ class ToGroupBankAccountIndexDTOTest extends InfrastructureUnitTestBase {
         Assertions.assertEquals(groupBankAccounts.size(), groupBankAccountIndexDTOs.size());
 
         groupBankAccountIndexDTOs.stream().forEach(groupBankAccountIndexDTO -> {
-            Optional<GroupBankAccount> optional = groupBankAccounts.stream()
+            Optional<GroupBankAccountDomain> optional = groupBankAccounts.stream()
                     .filter(groupBankAccount -> groupBankAccount
                             .getGroup()
                             .getId()
                             .equals(groupBankAccountIndexDTO.getGroupeIndex().getGroupId()))
                     .findFirst();
             Assertions.assertTrue(optional.isPresent());
-            GroupBankAccount groupBankAccount = optional.get();
+            GroupBankAccountDomain groupBankAccount = optional.get();
             this.compareBankAccountIndexDTO(groupBankAccount, groupBankAccountIndexDTO);
         });
     }

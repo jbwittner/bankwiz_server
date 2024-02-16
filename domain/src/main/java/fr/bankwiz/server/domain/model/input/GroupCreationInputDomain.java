@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class UpdateTransactionInput {
-    private Integer decimalAmount;
-    private String comment;
+public class GroupCreationInputDomain {
+
+    private String groupName;
 }

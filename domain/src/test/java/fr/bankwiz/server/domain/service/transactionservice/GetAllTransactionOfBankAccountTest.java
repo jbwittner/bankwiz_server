@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import fr.bankwiz.server.domain.exception.UserNoReadRightException;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.TransactionDomain;
-import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
+import fr.bankwiz.server.domain.model.other.BankAccountTransactionsDomain;
 import fr.bankwiz.server.domain.service.TransactionDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 
@@ -40,7 +40,7 @@ class GetAllTransactionOfBankAccountTest extends DomainUnitTestBase {
         this.mockCheckRightTool.mockCheckCurrentUserCanWrite(bankAccount.getGroup(), true);
         this.mockTransactionSpi.mockFindByBankAccount(bankAccount, transactions);
 
-        final BankAccountTransactions bankAccountTransactions =
+        final BankAccountTransactionsDomain bankAccountTransactions =
                 this.transactionDomainService.getAllTransactionOfBankAccount(bankAccount.getId());
 
         Assertions.assertAll(
