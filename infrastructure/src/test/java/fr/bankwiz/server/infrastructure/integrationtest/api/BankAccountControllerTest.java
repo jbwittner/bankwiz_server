@@ -14,10 +14,10 @@ import fr.bankwiz.openapi.model.BankAccountIndexDTO;
 import fr.bankwiz.openapi.model.BankAccountUpdateRequest;
 import fr.bankwiz.openapi.model.CurrencyEnum;
 import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
-import fr.bankwiz.server.domain.model.data.BankAccount;
-import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
@@ -37,10 +37,10 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void createBankAccount() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         this.factory.getGroupRight(group, user, GroupRightEnum.ADMIN);
 
         final BankAccountCreationRequest bankAccountCreationRequest = new BankAccountCreationRequest(
@@ -82,20 +82,20 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void getAllBankAccount() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
-        final List<Group> groups = new ArrayList<>();
-        final Group group1 = this.factory.getGroup();
+        final List<GroupDomain> groups = new ArrayList<>();
+        final GroupDomain group1 = this.factory.getGroup();
         groups.add(group1);
         this.factory.getGroupRight(group1, user, GroupRightEnum.READ);
 
-        final Group group2 = this.factory.getGroup();
+        final GroupDomain group2 = this.factory.getGroup();
         groups.add(group2);
         this.factory.getGroupRight(group2, user, GroupRightEnum.READ);
 
-        final List<BankAccount> bankAccountsGroup1 = new ArrayList<>();
-        final List<BankAccount> bankAccountsGroup2 = new ArrayList<>();
+        final List<BankAccountDomain> bankAccountsGroup1 = new ArrayList<>();
+        final List<BankAccountDomain> bankAccountsGroup2 = new ArrayList<>();
 
         bankAccountsGroup1.add(this.factory.getBankAccount(group1));
         bankAccountsGroup1.add(this.factory.getBankAccount(group1));
@@ -125,7 +125,7 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
                 bankAccountsGroup1.size(),
                 groupBankAccountIndexDTO1.getBankAccountIndexList().size());
         groupBankAccountIndexDTO1.getBankAccountIndexList().forEach(bankAccountIndexDTO -> {
-            final BankAccount bankAccount = bankAccountsGroup1.stream()
+            final BankAccountDomain bankAccount = bankAccountsGroup1.stream()
                     .filter(bankAccountToFind ->
                             bankAccountToFind.getId().equals(bankAccountIndexDTO.getBankAccountId()))
                     .findFirst()
@@ -145,7 +145,7 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
                 bankAccountsGroup2.size(),
                 groupBankAccountIndexDTO2.getBankAccountIndexList().size());
         groupBankAccountIndexDTO2.getBankAccountIndexList().forEach(bankAccountIndexDTO -> {
-            final BankAccount bankAccount = bankAccountsGroup2.stream()
+            final BankAccountDomain bankAccount = bankAccountsGroup2.stream()
                     .filter(bankAccountToFind ->
                             bankAccountToFind.getId().equals(bankAccountIndexDTO.getBankAccountId()))
                     .findFirst()
@@ -159,10 +159,10 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void deleteBankAccount() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
-        final BankAccount bankAccount = this.factory.getBankAccount();
+        final BankAccountDomain bankAccount = this.factory.getBankAccount();
         final UUID id = bankAccount.getId();
 
         this.factory.getGroupRight(bankAccount.getGroup(), user, GroupRightEnum.ADMIN);
@@ -184,10 +184,10 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void updateBankAccount() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
-        final BankAccount bankAccountBefore = this.factory.getBankAccount();
+        final BankAccountDomain bankAccountBefore = this.factory.getBankAccount();
         this.factory.getGroupRight(bankAccountBefore.getGroup(), user, GroupRightEnum.ADMIN);
 
         final BankAccountUpdateRequest bankAccountCreationRequest = new BankAccountUpdateRequest();

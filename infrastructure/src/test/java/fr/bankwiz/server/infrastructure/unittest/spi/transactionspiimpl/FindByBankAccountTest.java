@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.spi.TransactionSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.TransactionEntity;
@@ -33,7 +33,7 @@ class FindByBankAccountTest extends InfrastructureUnitTestBase {
 
         this.transactionRepositoryMockFactory.mockFindByBankAccountEntity(bankAccountEntity, transactionEntities);
 
-        final BankAccount bankAccount = BankAccountTransformer.fromBankAccountEntity(bankAccountEntity);
+        final BankAccountDomain bankAccount = BankAccountTransformer.fromBankAccountEntity(bankAccountEntity);
 
         final var transations = this.transactionSpi.findByBankAccount(bankAccount);
 

@@ -11,13 +11,13 @@ import lombok.ToString;
 @Getter
 @EqualsAndHashCode
 @ToString
-public class User {
+public class UserDomain {
 
     private UUID id;
     private String authId;
     private String email;
 
-    public User setEmail(String email) {
+    public UserDomain setEmail(String email) {
         this.email = email;
         return this;
     }

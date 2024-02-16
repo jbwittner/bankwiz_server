@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.BankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.transformer.BankAccountTransformer;
@@ -27,11 +27,11 @@ class FindByIdTest extends InfrastructureUnitTestBase {
         final UUID id = bankAccountEntity.getId();
         this.bankAccountRepositoryMockFactory.mockFindById(id, bankAccountEntity);
 
-        final Optional<BankAccount> optionalBankAccount = this.bankAccountSpi.findById(id);
+        final Optional<BankAccountDomain> optionalBankAccount = this.bankAccountSpi.findById(id);
 
         Assertions.assertTrue(optionalBankAccount.isPresent());
 
-        final BankAccount bankAccount = optionalBankAccount.get();
+        final BankAccountDomain bankAccount = optionalBankAccount.get();
 
         final BankAccountEntity bankAccountEntityToCheck = BankAccountTransformer.toBankAccountEntity(bankAccount);
 
@@ -49,7 +49,7 @@ class FindByIdTest extends InfrastructureUnitTestBase {
     void entityNotExist() {
         final UUID id = UUID.randomUUID();
         this.bankAccountRepositoryMockFactory.mockFindById(id, Optional.empty());
-        final Optional<BankAccount> optionalBankAccount = this.bankAccountSpi.findById(id);
+        final Optional<BankAccountDomain> optionalBankAccount = this.bankAccountSpi.findById(id);
         Assertions.assertTrue(optionalBankAccount.isEmpty());
     }
 }

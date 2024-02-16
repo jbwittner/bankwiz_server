@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
 
@@ -27,10 +27,10 @@ class CanReadTest extends DomainUnitTestBase {
 
     @Test
     void noRight() {
-        final User user = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final UserDomain user = this.factory.getUser();
+        final GroupDomain group = this.factory.getGroup();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
 
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);
 
@@ -41,10 +41,10 @@ class CanReadTest extends DomainUnitTestBase {
     @ParameterizedTest
     @EnumSource(value = GroupRightEnum.class)
     void canRead(final GroupRightEnum right) {
-        final User user = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final UserDomain user = this.factory.getUser();
+        final GroupDomain group = this.factory.getGroup();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, user, right));
 
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights);

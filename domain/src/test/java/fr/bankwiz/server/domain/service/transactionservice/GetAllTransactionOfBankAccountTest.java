@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.exception.UserNoReadRightException;
-import fr.bankwiz.server.domain.model.data.BankAccount;
-import fr.bankwiz.server.domain.model.data.Transaction;
-import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
+import fr.bankwiz.server.domain.model.other.BankAccountTransactionsDomain;
 import fr.bankwiz.server.domain.service.TransactionDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 
@@ -29,8 +29,8 @@ class GetAllTransactionOfBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void getAll() {
-        final BankAccount bankAccount = this.factory.getBankAccount();
-        final List<Transaction> transactions = new ArrayList<>();
+        final BankAccountDomain bankAccount = this.factory.getBankAccount();
+        final List<TransactionDomain> transactions = new ArrayList<>();
         transactions.add(this.factory.getTransaction(bankAccount));
         transactions.add(this.factory.getTransaction(bankAccount));
         transactions.add(this.factory.getTransaction(bankAccount));
@@ -40,7 +40,7 @@ class GetAllTransactionOfBankAccountTest extends DomainUnitTestBase {
         this.mockCheckRightTool.mockCheckCurrentUserCanWrite(bankAccount.getGroup(), true);
         this.mockTransactionSpi.mockFindByBankAccount(bankAccount, transactions);
 
-        final BankAccountTransactions bankAccountTransactions =
+        final BankAccountTransactionsDomain bankAccountTransactions =
                 this.transactionDomainService.getAllTransactionOfBankAccount(bankAccount.getId());
 
         Assertions.assertAll(
@@ -50,7 +50,7 @@ class GetAllTransactionOfBankAccountTest extends DomainUnitTestBase {
                         bankAccountTransactions.getTransactions().size()),
                 () -> {
                     bankAccountTransactions.getTransactions().forEach(transactionFinded -> {
-                        Transaction transactionInput = transactions.stream()
+                        TransactionDomain transactionInput = transactions.stream()
                                 .filter(transaction -> transaction.getId().equals(transactionFinded.getId()))
                                 .findAny()
                                 .orElseThrow();
@@ -61,7 +61,7 @@ class GetAllTransactionOfBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void userCantRead() {
-        final BankAccount bankAccount = this.factory.getBankAccount();
+        final BankAccountDomain bankAccount = this.factory.getBankAccount();
         final UUID bankAccountId = bankAccount.getId();
         this.mockBankAccountSpi.mockFindById(bankAccount.getId(), Optional.of(bankAccount));
         this.mockCheckRightTool.mockCheckCurrentUserCanRead(bankAccount.getGroup(), false);

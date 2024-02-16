@@ -6,8 +6,8 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupRight;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
@@ -27,7 +27,7 @@ class FindByGroupTest extends InfrastructureUnitTestBase {
     @Test
     void listWithData() {
         final GroupEntity groupEntity = this.factory.getGroupEntity();
-        final Group group = GroupTransformer.fromGroupEntity(groupEntity);
+        final GroupDomain group = GroupTransformer.fromGroupEntity(groupEntity);
 
         final GroupRightEntity groupRightEntity1 =
                 this.factory.getGroupRightEntity(groupEntity, GroupRightEntityEnum.ADMIN);
@@ -39,7 +39,7 @@ class FindByGroupTest extends InfrastructureUnitTestBase {
 
         this.groupRightEntityRepositoryMockFactory.mockFindByGroupEntity(groupRightEntities);
 
-        final List<GroupRight> groupRights = this.groupRightSpi.findByGroup(group);
+        final List<GroupRightDomain> groupRights = this.groupRightSpi.findByGroup(group);
 
         this.groupRightEntityRepositoryMockFactory.verifyFindByGroupEntity(groupEntity);
 

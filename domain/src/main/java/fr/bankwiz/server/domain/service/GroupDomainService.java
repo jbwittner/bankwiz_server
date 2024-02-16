@@ -10,13 +10,13 @@ import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserAlreadyAccessGroupException;
 import fr.bankwiz.server.domain.exception.UserNoAccessGroupException;
 import fr.bankwiz.server.domain.exception.UserNotExistException;
-import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
-import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
-import fr.bankwiz.server.domain.model.input.GroupCreationInput;
-import fr.bankwiz.server.domain.model.other.GroupDetails;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.UserDomain;
+import fr.bankwiz.server.domain.model.input.AddUserGroupInputDomain;
+import fr.bankwiz.server.domain.model.input.GroupCreationInputDomain;
+import fr.bankwiz.server.domain.model.other.GroupDetailsDomain;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
@@ -49,14 +49,14 @@ public class GroupDomainService implements GroupApi {
     }
 
     @Override
-    public Group groupCreation(GroupCreationInput groupCreationInput) {
-        final Group group = Group.builder()
+    public GroupDomain groupCreation(GroupCreationInputDomain groupCreationInput) {
+        final GroupDomain group = GroupDomain.builder()
                 .id(UUID.randomUUID())
                 .groupName(groupCreationInput.getGroupName())
                 .build();
-        final Group groupSaved = this.groupSpi.save(group);
-        final User admin = this.authenticationSpi.getCurrentUser();
-        final GroupRight groupRight = GroupRight.builder()
+        final GroupDomain groupSaved = this.groupSpi.save(group);
+        final UserDomain admin = this.authenticationSpi.getCurrentUser();
+        final GroupRightDomain groupRight = GroupRightDomain.builder()
                 .group(groupSaved)
                 .user(admin)
                 .id(UUID.randomUUID())
@@ -67,28 +67,32 @@ public class GroupDomainService implements GroupApi {
     }
 
     @Override
-    public List<Group> getUserGroups() {
-        final User user = this.authenticationSpi.getCurrentUser();
-        final List<GroupRight> groupRights = this.groupRightSpi.findByUser(user);
-        return groupRights.stream().map(GroupRight::getGroup).toList();
+    public List<GroupDomain> getUserGroups() {
+        final UserDomain user = this.authenticationSpi.getCurrentUser();
+        final List<GroupRightDomain> groupRights = this.groupRightSpi.findByUser(user);
+        return groupRights.stream().map(GroupRightDomain::getGroup).toList();
     }
 
     @Override
-    public GroupDetails getGroupDetails(UUID groupId) {
-        final Optional<Group> optionalGroup = this.groupSpi.findById(groupId);
-        final Group group = optionalGroup.orElseThrow(() -> new GroupNotExistException(groupId));
+    public GroupDetailsDomain getGroupDetails(UUID groupId) {
+        final Optional<GroupDomain> optionalGroup = this.groupSpi.findById(groupId);
+        final GroupDomain group = optionalGroup.orElseThrow(() -> new GroupNotExistException(groupId));
         this.checkRightTools.checkCanRead(this.authenticationSpi.getCurrentUser(), group);
-        final List<GroupRight> groupRights = this.groupRightSpi.findByGroup(group);
-        return GroupDetails.builder().group(group).groupRights(groupRights).build();
+        final List<GroupRightDomain> groupRights = this.groupRightSpi.findByGroup(group);
+        return GroupDetailsDomain.builder()
+                .group(group)
+                .groupRights(groupRights)
+                .build();
     }
 
     @Override
-    public GroupRight addUserToGroup(UUID groupId, AddUserGroupInput addUserGroupInput) {
-        final Group group = this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+    public GroupRightDomain addUserToGroup(UUID groupId, AddUserGroupInputDomain addUserGroupInput) {
+        final GroupDomain group =
+                this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
 
         this.checkRightTools.checkIsAdmin(this.authenticationSpi.getCurrentUser(), group);
 
-        final User userToAdd = this.userSpi
+        final UserDomain userToAdd = this.userSpi
                 .findById(addUserGroupInput.getUserId())
                 .orElseThrow(() -> new UserNotExistException(addUserGroupInput.getUserId()));
 
@@ -96,7 +100,7 @@ public class GroupDomainService implements GroupApi {
             throw new UserAlreadyAccessGroupException(userToAdd, group);
         }
 
-        final GroupRight groupRight = GroupRight.builder()
+        final GroupRightDomain groupRight = GroupRightDomain.builder()
                 .group(group)
                 .user(userToAdd)
                 .id(UUID.randomUUID())
@@ -107,11 +111,13 @@ public class GroupDomainService implements GroupApi {
 
     @Override
     public void deleteUserFromGroup(UUID groupId, UUID userId) {
-        final Group group = this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+        final GroupDomain group =
+                this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
 
         this.checkRightTools.checkIsAdmin(this.authenticationSpi.getCurrentUser(), group);
 
-        final User userToRemove = this.userSpi.findById(userId).orElseThrow(() -> new UserNotExistException(userId));
+        final UserDomain userToRemove =
+                this.userSpi.findById(userId).orElseThrow(() -> new UserNotExistException(userId));
 
         if (!this.checkRightTools.hasAnyRight(userToRemove, group)) {
             throw new UserNoAccessGroupException(userToRemove, group);
@@ -122,7 +128,8 @@ public class GroupDomainService implements GroupApi {
 
     @Override
     public void deleteGroup(UUID groupId) {
-        final Group group = this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
+        final GroupDomain group =
+                this.groupSpi.findById(groupId).orElseThrow(() -> new GroupNotExistException(groupId));
         this.checkRightTools.checkIsAdmin(this.authenticationSpi.getCurrentUser(), group);
 
         if (this.bankAccountSpi.existsByGroup(group)) {

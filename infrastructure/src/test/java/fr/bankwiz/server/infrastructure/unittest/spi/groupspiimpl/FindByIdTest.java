@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.spi.GroupSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
@@ -23,12 +23,12 @@ class FindByIdTest extends InfrastructureUnitTestBase {
 
     @Test
     void findGroup() {
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
 
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
         this.groupEntityRepositoryMockFactory.mockFindById(group.getId(), groupEntity);
 
-        final Optional<Group> optionalGroup = this.groupSpi.findById(group.getId());
+        final Optional<GroupDomain> optionalGroup = this.groupSpi.findById(group.getId());
 
         Assertions.assertTrue(optionalGroup.isPresent());
         Assertions.assertEquals(group, optionalGroup.get());
@@ -39,7 +39,7 @@ class FindByIdTest extends InfrastructureUnitTestBase {
         final UUID uuid = UUID.randomUUID();
         this.groupEntityRepositoryMockFactory.mockFindById(uuid, Optional.empty());
 
-        final Optional<Group> optionalGroup = this.groupSpi.findById(uuid);
+        final Optional<GroupDomain> optionalGroup = this.groupSpi.findById(uuid);
 
         Assertions.assertTrue(optionalGroup.isEmpty());
     }

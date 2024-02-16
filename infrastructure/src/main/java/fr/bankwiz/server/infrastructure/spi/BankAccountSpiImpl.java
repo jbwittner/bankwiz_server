@@ -6,8 +6,8 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import fr.bankwiz.server.domain.model.data.BankAccount;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
@@ -25,33 +25,33 @@ public class BankAccountSpiImpl implements BankAccountSpi {
     }
 
     @Override
-    public BankAccount save(BankAccount bankAccount) {
+    public BankAccountDomain save(BankAccountDomain bankAccount) {
         final BankAccountEntity bankAccountEntity = BankAccountTransformer.toBankAccountEntity(bankAccount);
         final BankAccountEntity bankAccountEntitySaved = this.bankAccountEntityRepository.save(bankAccountEntity);
         return BankAccountTransformer.fromBankAccountEntity(bankAccountEntitySaved);
     }
 
     @Override
-    public boolean existsByGroup(Group group) {
+    public boolean existsByGroup(GroupDomain group) {
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
         return this.bankAccountEntityRepository.existsByGroupEntity(groupEntity);
     }
 
     @Override
-    public List<BankAccount> findByGroup(Group group) {
+    public List<BankAccountDomain> findByGroup(GroupDomain group) {
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
         List<BankAccountEntity> bankAccountEntities = this.bankAccountEntityRepository.findByGroupEntity(groupEntity);
         return BankAccountTransformer.fromBankAccountEntity(bankAccountEntities);
     }
 
     @Override
-    public Optional<BankAccount> findById(UUID id) {
+    public Optional<BankAccountDomain> findById(UUID id) {
         final Optional<BankAccountEntity> optionalBankAccountEntity = this.bankAccountEntityRepository.findById(id);
 
         if (optionalBankAccountEntity.isEmpty()) {
             return Optional.empty();
         } else {
-            final BankAccount bankAccount =
+            final BankAccountDomain bankAccount =
                     BankAccountTransformer.fromBankAccountEntity(optionalBankAccountEntity.get());
             return Optional.of(bankAccount);
         }

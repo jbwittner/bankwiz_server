@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import fr.bankwiz.server.domain.model.data.BankAccount;
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 
 public interface TransactionSpi {
-    Transaction save(Transaction transaction);
+    TransactionDomain save(TransactionDomain transaction);
 
-    List<Transaction> findByBankAccount(BankAccount bankAccount);
+    List<TransactionDomain> findByBankAccount(BankAccountDomain bankAccount);
 
-    Optional<Transaction> findById(UUID uuid);
+    Optional<TransactionDomain> findById(UUID uuid);
 
     void deleteById(UUID uuid);
 }

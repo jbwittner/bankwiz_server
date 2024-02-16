@@ -3,11 +3,11 @@ package fr.bankwiz.server.domain.service.groupdomainservice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
-import fr.bankwiz.server.domain.model.input.GroupCreationInput;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.UserDomain;
+import fr.bankwiz.server.domain.model.input.GroupCreationInputDomain;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -31,17 +31,17 @@ class GroupCreationTest extends DomainUnitTestBase {
 
     @Test
     void creationOk() {
-        final GroupCreationInput groupCreationRequest = GroupCreationInput.builder()
+        final GroupCreationInputDomain groupCreationRequest = GroupCreationInputDomain.builder()
                 .groupName(this.faker.space().star())
                 .build();
 
         this.mockGroupRightSpi.mockSave();
         this.mockGroupSpi.mockSave();
 
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final Group group = this.groupDomainService.groupCreation(groupCreationRequest);
+        final GroupDomain group = this.groupDomainService.groupCreation(groupCreationRequest);
 
         Assertions.assertEquals(groupCreationRequest.getGroupName(), group.getGroupName());
         Assertions.assertNotNull(group.getId());
@@ -50,7 +50,7 @@ class GroupCreationTest extends DomainUnitTestBase {
 
         Assertions.assertEquals(1, groupeRightsSaved.size());
 
-        final GroupRight groupRight = groupeRightsSaved.get(0);
+        final GroupRightDomain groupRight = groupeRightsSaved.get(0);
 
         Assertions.assertNotNull(groupRight.getId());
 

@@ -16,7 +16,7 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MySQLContainer;
 
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.testhelper.tools.DomainFaker;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import io.restassured.RestAssured;
@@ -62,7 +62,7 @@ public abstract class InfrastructureIntegrationTestBase {
         this.initDataBeforeEach();
     }
 
-    protected Jwt mockAuthentification(User user) {
+    protected Jwt mockAuthentification(UserDomain user) {
         List<String> permissions = new ArrayList<>();
 
         final Jwt jwt = Jwt.withTokenValue(this.faker.superhero().descriptor().replaceAll("\\s", ""))

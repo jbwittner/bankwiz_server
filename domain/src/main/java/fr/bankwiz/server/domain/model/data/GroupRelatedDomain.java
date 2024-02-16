@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @EqualsAndHashCode
-public abstract class GroupRelated {
+public abstract class GroupRelatedDomain {
     private UUID id;
-    protected Group group;
+    protected GroupDomain group;
 }

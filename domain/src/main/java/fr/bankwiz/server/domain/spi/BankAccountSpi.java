@@ -5,20 +5,20 @@ import java.util.Optional;
 import java.util.UUID;
 
 import fr.bankwiz.server.domain.exception.BankAccountNotExistException;
-import fr.bankwiz.server.domain.model.data.BankAccount;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 
 public interface BankAccountSpi {
 
-    BankAccount save(BankAccount bankAccount);
+    BankAccountDomain save(BankAccountDomain bankAccount);
 
-    boolean existsByGroup(Group group);
+    boolean existsByGroup(GroupDomain group);
 
-    List<BankAccount> findByGroup(Group group);
+    List<BankAccountDomain> findByGroup(GroupDomain group);
 
-    Optional<BankAccount> findById(UUID id);
+    Optional<BankAccountDomain> findById(UUID id);
 
-    default BankAccount getById(UUID id) {
+    default BankAccountDomain getById(UUID id) {
         return this.findById(id).orElseThrow(() -> new BankAccountNotExistException(id));
     }
 

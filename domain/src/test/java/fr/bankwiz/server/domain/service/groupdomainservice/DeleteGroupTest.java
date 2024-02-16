@@ -12,10 +12,10 @@ import org.mockito.Mockito;
 import fr.bankwiz.server.domain.exception.GroupDeletionWithBankAccountsException;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserNotAdminException;
-import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -39,14 +39,14 @@ class DeleteGroupTest extends DomainUnitTestBase {
 
     @Test
     void deleteGroupOk() {
-        final User admin = this.factory.getUser();
+        final UserDomain admin = this.factory.getUser();
 
-        final User otherUser = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final UserDomain otherUser = this.factory.getUser();
+        final GroupDomain group = this.factory.getGroup();
 
         final UUID groupId = group.getId();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
         groupRights.add(this.factory.getGroupRight(group, otherUser, GroupRightEnum.READ));
 
@@ -62,14 +62,14 @@ class DeleteGroupTest extends DomainUnitTestBase {
 
     @Test
     void groupHaveBankAccounts() {
-        final User admin = this.factory.getUser();
+        final UserDomain admin = this.factory.getUser();
 
-        final User otherUser = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final UserDomain otherUser = this.factory.getUser();
+        final GroupDomain group = this.factory.getGroup();
 
         final UUID groupId = group.getId();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
         groupRights.add(this.factory.getGroupRight(group, otherUser, GroupRightEnum.READ));
 
@@ -85,14 +85,14 @@ class DeleteGroupTest extends DomainUnitTestBase {
 
     @Test
     void userNotAdmin() {
-        final User notAdmin = this.factory.getUser();
+        final UserDomain notAdmin = this.factory.getUser();
 
-        final User otherUser = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final UserDomain otherUser = this.factory.getUser();
+        final GroupDomain group = this.factory.getGroup();
 
         final UUID groupId = group.getId();
 
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, notAdmin, GroupRightEnum.WRITE));
         groupRights.add(this.factory.getGroupRight(group, otherUser, GroupRightEnum.READ));
 
@@ -107,7 +107,7 @@ class DeleteGroupTest extends DomainUnitTestBase {
 
     @Test
     void groupNotExist() {
-        final User notAdmin = this.factory.getUser();
+        final UserDomain notAdmin = this.factory.getUser();
         final UUID groupId = UUID.randomUUID();
 
         this.mockAuthenticationSpi.mockGetCurrentUser(notAdmin);

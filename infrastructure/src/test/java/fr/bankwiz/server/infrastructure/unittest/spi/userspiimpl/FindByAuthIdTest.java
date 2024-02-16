@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.spi.UserSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
@@ -28,11 +28,11 @@ class FindByAuthIdTest extends InfrastructureUnitTestBase {
 
         this.userEntityRepositoryMockFactory.mockFindByAuthId(authId, Optional.of(userEntity));
 
-        final Optional<User> optionalUser = this.userSpi.findByAuthId(authId);
+        final Optional<UserDomain> optionalUser = this.userSpi.findByAuthId(authId);
 
         Assertions.assertTrue(optionalUser.isPresent());
 
-        final User userFind = optionalUser.get();
+        final UserDomain userFind = optionalUser.get();
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(userEntity.getAuthId(), userFind.getAuthId()),
@@ -43,7 +43,7 @@ class FindByAuthIdTest extends InfrastructureUnitTestBase {
     @Test
     void userNotExist() {
 
-        final Optional<User> optionalUser =
+        final Optional<UserDomain> optionalUser =
                 this.userSpi.findByAuthId(this.faker.pokemon().name());
 
         Assertions.assertTrue(optionalUser.isEmpty());

@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.domain.spi.TransactionSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.TransactionEntity;
 import fr.bankwiz.server.infrastructure.transformer.TransactionTransformer;
@@ -27,11 +27,11 @@ class FindByIdTest extends InfrastructureUnitTestBase {
         final UUID uuid = transactionEntity.getId();
         this.transactionRepositoryMockFactory.mockFindById(uuid, Optional.of(transactionEntity));
 
-        final Optional<Transaction> optional = this.transactionSpi.findById(uuid);
+        final Optional<TransactionDomain> optional = this.transactionSpi.findById(uuid);
 
         Assertions.assertTrue(optional.isPresent());
 
-        final Transaction transaction = optional.get();
+        final TransactionDomain transaction = optional.get();
 
         final TransactionEntity transactionEntityFinded = TransactionTransformer.toTransactionEntity(transaction);
 
@@ -43,7 +43,7 @@ class FindByIdTest extends InfrastructureUnitTestBase {
         final UUID uuid = UUID.randomUUID();
         this.transactionRepositoryMockFactory.mockFindById(uuid, Optional.empty());
 
-        final Optional<Transaction> optional = this.transactionSpi.findById(uuid);
+        final Optional<TransactionDomain> optional = this.transactionSpi.findById(uuid);
 
         Assertions.assertTrue(optional.isEmpty());
     }

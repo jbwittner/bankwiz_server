@@ -4,11 +4,11 @@ import java.util.UUID;
 
 import fr.bankwiz.server.domain.api.TransactionApi;
 import fr.bankwiz.server.domain.exception.TransactionNotExistException;
-import fr.bankwiz.server.domain.model.data.BankAccount;
-import fr.bankwiz.server.domain.model.data.Transaction;
-import fr.bankwiz.server.domain.model.input.TransactionCreationInput;
-import fr.bankwiz.server.domain.model.input.UpdateTransactionInput;
-import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
+import fr.bankwiz.server.domain.model.input.TransactionCreationInputDomain;
+import fr.bankwiz.server.domain.model.input.UpdateTransactionInputDomain;
+import fr.bankwiz.server.domain.model.other.BankAccountTransactionsDomain;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.domain.spi.TransactionSpi;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -27,13 +27,13 @@ public class TransactionDomainService implements TransactionApi {
     }
 
     @Override
-    public Transaction createTransaction(TransactionCreationInput transactionCreationInput) {
+    public TransactionDomain createTransaction(TransactionCreationInputDomain transactionCreationInput) {
 
-        final BankAccount bankAccount = this.bankAccountSpi.getById(transactionCreationInput.getBankAccountId());
+        final BankAccountDomain bankAccount = this.bankAccountSpi.getById(transactionCreationInput.getBankAccountId());
 
         this.checkRightTools.checkCurrentUserCanWrite(bankAccount.getGroup());
 
-        final Transaction transaction = Transaction.builder()
+        final TransactionDomain transaction = TransactionDomain.builder()
                 .id(UUID.randomUUID())
                 .bankAccount(bankAccount)
                 .comment(transactionCreationInput.getComment())
@@ -44,27 +44,28 @@ public class TransactionDomainService implements TransactionApi {
     }
 
     @Override
-    public BankAccountTransactions getAllTransactionOfBankAccount(UUID bankaccountId) {
-        final BankAccount bankAccount = this.bankAccountSpi.getById(bankaccountId);
+    public BankAccountTransactionsDomain getAllTransactionOfBankAccount(UUID bankaccountId) {
+        final BankAccountDomain bankAccount = this.bankAccountSpi.getById(bankaccountId);
         this.checkRightTools.checkCurrentUserCanRead(bankAccount.getGroup());
         final var transactions = this.transactionSpi.findByBankAccount(bankAccount);
-        return BankAccountTransactions.builder()
+        return BankAccountTransactionsDomain.builder()
                 .bankAccount(bankAccount)
                 .transactions(transactions)
                 .build();
     }
 
     @Override
-    public Transaction updateTransaction(UUID bankaccountId, UpdateTransactionInput updateTransactionInput) {
+    public TransactionDomain updateTransaction(
+            UUID bankaccountId, UpdateTransactionInputDomain updateTransactionInput) {
 
-        final Transaction transaction = this.transactionSpi
+        final TransactionDomain transaction = this.transactionSpi
                 .findById(bankaccountId)
                 .orElseThrow(() -> new TransactionNotExistException(bankaccountId));
 
         this.checkRightTools.checkCurrentUserCanWrite(
                 transaction.getBankAccount().getGroup());
 
-        var transactionBuilder = Transaction.builder();
+        var transactionBuilder = TransactionDomain.builder();
 
         if (updateTransactionInput.getComment() != null) {
             transactionBuilder.comment(updateTransactionInput.getComment());
@@ -80,14 +81,14 @@ public class TransactionDomainService implements TransactionApi {
 
         transactionBuilder.id(transaction.getId()).bankAccount(transaction.getBankAccount());
 
-        final Transaction transactionUpdated = transactionBuilder.build();
+        final TransactionDomain transactionUpdated = transactionBuilder.build();
 
         return this.transactionSpi.save(transactionUpdated);
     }
 
     @Override
     public void deleteTransaction(UUID bankaccountId) {
-        final Transaction transaction = this.transactionSpi
+        final TransactionDomain transaction = this.transactionSpi
                 .findById(bankaccountId)
                 .orElseThrow(() -> new TransactionNotExistException(bankaccountId));
         this.checkRightTools.checkCurrentUserCanWrite(

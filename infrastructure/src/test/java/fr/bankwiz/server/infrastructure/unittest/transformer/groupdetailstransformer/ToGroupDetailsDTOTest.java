@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.openapi.model.GroupDetailsDTO;
 import fr.bankwiz.openapi.model.UserDTO;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
-import fr.bankwiz.server.domain.model.other.GroupDetails;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
+import fr.bankwiz.server.domain.model.other.GroupDetailsDomain;
 import fr.bankwiz.server.infrastructure.transformer.GroupDetailsTransformer;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
@@ -23,12 +23,12 @@ class ToGroupDetailsDTOTest extends InfrastructureUnitTestBase {
 
     @Test
     void ok() {
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(GroupRightEnum.ADMIN));
         groupRights.add(this.factory.getGroupRight(GroupRightEnum.READ));
         groupRights.add(this.factory.getGroupRight(GroupRightEnum.WRITE));
 
-        final GroupDetails groupDetails = GroupDetails.builder()
+        final GroupDetailsDomain groupDetails = GroupDetailsDomain.builder()
                 .group(this.factory.getGroup())
                 .groupRights(groupRights)
                 .build();
@@ -43,14 +43,14 @@ class ToGroupDetailsDTOTest extends InfrastructureUnitTestBase {
                         groupDetailsDTO.getUsersRights().size()),
                 () -> {
                     groupDetailsDTO.getUsersRights().stream().forEach(userGroupRightDTO -> {
-                        final Optional<GroupRight> optional = groupRights.stream()
+                        final Optional<GroupRightDomain> optional = groupRights.stream()
                                 .filter(groupRight -> groupRight.getId().equals(userGroupRightDTO.getGroupRightId()))
                                 .findAny();
                         if (optional.isEmpty()) {
                             Assertions.fail();
                         }
 
-                        final GroupRight groupRight = optional.get();
+                        final GroupRightDomain groupRight = optional.get();
                         Assertions.assertAll(
                                 () -> Assertions.assertEquals(groupRight.getId(), userGroupRightDTO.getGroupRightId()),
                                 () -> Assertions.assertEquals(

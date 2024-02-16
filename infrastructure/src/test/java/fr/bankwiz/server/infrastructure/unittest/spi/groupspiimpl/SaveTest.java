@@ -3,7 +3,7 @@ package fr.bankwiz.server.infrastructure.unittest.spi.groupspiimpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.spi.GroupSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
@@ -23,9 +23,9 @@ class SaveTest extends InfrastructureUnitTestBase {
 
         this.groupEntityRepositoryMockFactory.mockSave();
 
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
 
-        final Group groupSaved = this.groupSpi.save(group);
+        final GroupDomain groupSaved = this.groupSpi.save(group);
 
         final var argumentCaptor = this.groupEntityRepositoryMockFactory.verifySaveCalled(GroupEntity.class);
 

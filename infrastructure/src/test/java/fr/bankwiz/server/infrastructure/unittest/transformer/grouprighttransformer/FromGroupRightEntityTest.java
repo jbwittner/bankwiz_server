@@ -3,9 +3,9 @@ package fr.bankwiz.server.infrastructure.unittest.transformer.grouprighttransfor
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity.GroupRightEntityEnum;
@@ -21,14 +21,14 @@ class FromGroupRightEntityTest extends InfrastructureUnitTestBase {
     @Test
     void ok() {
         final GroupRightEntity groupRightEntity = this.factory.getGroupRightEntity(GroupRightEntityEnum.WRITE);
-        final GroupRight groupRight = GroupRightTransformer.fromGroupRightEntity(groupRightEntity);
+        final GroupRightDomain groupRight = GroupRightTransformer.fromGroupRightEntity(groupRightEntity);
         Assertions.assertAll(
                 () -> Assertions.assertEquals(
                         groupRightEntity.getGroupRightEntityEnum().name(),
                         groupRight.getGroupRightEnum().name()),
                 () -> {
                     final UserEntity userEntity = groupRightEntity.getUserEntity();
-                    final User user = groupRight.getUser();
+                    final UserDomain user = groupRight.getUser();
 
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(userEntity.getEmail(), user.getEmail()),
@@ -37,7 +37,7 @@ class FromGroupRightEntityTest extends InfrastructureUnitTestBase {
                 },
                 () -> {
                     final GroupEntity groupEntity = groupRightEntity.getGroupEntity();
-                    final Group group = groupRight.getGroup();
+                    final GroupDomain group = groupRight.getGroup();
 
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(groupEntity.getGroupName(), group.getGroupName()),

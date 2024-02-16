@@ -12,11 +12,11 @@ import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserAlreadyAccessGroupException;
 import fr.bankwiz.server.domain.exception.UserNotAdminException;
 import fr.bankwiz.server.domain.exception.UserNotExistException;
-import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
-import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.UserDomain;
+import fr.bankwiz.server.domain.model.input.AddUserGroupInputDomain;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -40,24 +40,24 @@ class AddUserToGroupTest extends DomainUnitTestBase {
 
     @Test
     void addUserOk() {
-        final User admin = this.factory.getUser();
-        final Group group = this.factory.getGroup();
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final UserDomain admin = this.factory.getUser();
+        final GroupDomain group = this.factory.getGroup();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
 
-        final User userToAdd = this.factory.getUser();
+        final UserDomain userToAdd = this.factory.getUser();
 
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
         this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights).mockSave();
         this.mockUserSpi.mockFindById(userToAdd.getId(), Optional.of(userToAdd));
 
-        final AddUserGroupInput addUserGroupInput = AddUserGroupInput.builder()
+        final AddUserGroupInputDomain addUserGroupInput = AddUserGroupInputDomain.builder()
                 .userId(userToAdd.getId())
                 .right(GroupRightEnum.READ)
                 .build();
 
-        final GroupRight groupRight = this.groupDomainService.addUserToGroup(group.getId(), addUserGroupInput);
+        final GroupRightDomain groupRight = this.groupDomainService.addUserToGroup(group.getId(), addUserGroupInput);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(group, groupRight.getGroup()),
@@ -67,12 +67,12 @@ class AddUserToGroupTest extends DomainUnitTestBase {
 
     @Test
     void userHaveAlreadyAccess() {
-        final User admin = this.factory.getUser();
-        final Group group = this.factory.getGroup();
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final UserDomain admin = this.factory.getUser();
+        final GroupDomain group = this.factory.getGroup();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
 
-        final User userToAdd = this.factory.getUser();
+        final UserDomain userToAdd = this.factory.getUser();
         groupRights.add(this.factory.getGroupRight(group, userToAdd, GroupRightEnum.READ));
 
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
@@ -80,7 +80,7 @@ class AddUserToGroupTest extends DomainUnitTestBase {
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights).mockSave();
         this.mockUserSpi.mockFindById(userToAdd.getId(), Optional.of(userToAdd));
 
-        final AddUserGroupInput addUserGroupInput = AddUserGroupInput.builder()
+        final AddUserGroupInputDomain addUserGroupInput = AddUserGroupInputDomain.builder()
                 .userId(userToAdd.getId())
                 .right(GroupRightEnum.WRITE)
                 .build();
@@ -94,9 +94,9 @@ class AddUserToGroupTest extends DomainUnitTestBase {
 
     @Test
     void userNotAdmin() {
-        final User admin = this.factory.getUser();
-        final Group group = this.factory.getGroup();
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final UserDomain admin = this.factory.getUser();
+        final GroupDomain group = this.factory.getGroup();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.WRITE));
 
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
@@ -112,16 +112,16 @@ class AddUserToGroupTest extends DomainUnitTestBase {
 
     @Test
     void userNotExist() {
-        final User admin = this.factory.getUser();
-        final Group group = this.factory.getGroup();
-        final List<GroupRight> groupRights = new ArrayList<>();
+        final UserDomain admin = this.factory.getUser();
+        final GroupDomain group = this.factory.getGroup();
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
 
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
         this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));
         this.mockGroupRightSpi.mockFindByGroup(group, groupRights).mockSave();
 
-        final AddUserGroupInput addUserGroupInput = AddUserGroupInput.builder()
+        final AddUserGroupInputDomain addUserGroupInput = AddUserGroupInputDomain.builder()
                 .userId(UUID.randomUUID())
                 .right(GroupRightEnum.WRITE)
                 .build();
@@ -135,14 +135,14 @@ class AddUserToGroupTest extends DomainUnitTestBase {
 
     @Test
     void groupNotExist() {
-        final User admin = this.factory.getUser();
+        final UserDomain admin = this.factory.getUser();
 
         final UUID groupId = UUID.randomUUID();
 
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
         this.mockGroupSpi.mockFindById(groupId, Optional.empty());
 
-        final AddUserGroupInput addUserGroupInput = AddUserGroupInput.builder()
+        final AddUserGroupInputDomain addUserGroupInput = AddUserGroupInputDomain.builder()
                 .userId(UUID.randomUUID())
                 .right(GroupRightEnum.WRITE)
                 .build();

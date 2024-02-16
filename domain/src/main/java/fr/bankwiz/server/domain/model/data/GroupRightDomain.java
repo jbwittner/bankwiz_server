@@ -9,11 +9,11 @@ import lombok.ToString;
 @Builder
 @Getter
 @ToString
-public class GroupRight {
+public class GroupRightDomain {
 
     private UUID id;
-    private Group group;
-    private User user;
+    private GroupDomain group;
+    private UserDomain user;
     private GroupRightEnum groupRightEnum;
 
     public enum GroupRightEnum {

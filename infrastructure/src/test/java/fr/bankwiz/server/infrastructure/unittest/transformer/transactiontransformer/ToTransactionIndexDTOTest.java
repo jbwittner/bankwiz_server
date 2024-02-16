@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.openapi.model.TransactionIndexDTO;
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.infrastructure.transformer.TransactionTransformer;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
 
@@ -16,7 +16,7 @@ class ToTransactionIndexDTOTest extends InfrastructureUnitTestBase {
     @Override
     protected void initDataBeforeEach() {}
 
-    void compare(Transaction transaction, TransactionIndexDTO transactionIndexDTO) {
+    void compare(TransactionDomain transaction, TransactionIndexDTO transactionIndexDTO) {
         Assertions.assertAll(
                 () -> Assertions.assertEquals(transaction.getDecimalAmount(), transactionIndexDTO.getDecimalAmount()),
                 () -> Assertions.assertEquals(transaction.getComment(), transactionIndexDTO.getComment()),
@@ -25,14 +25,14 @@ class ToTransactionIndexDTOTest extends InfrastructureUnitTestBase {
 
     @Test
     void single() {
-        final Transaction transaction = this.factory.getTransaction();
+        final TransactionDomain transaction = this.factory.getTransaction();
         final TransactionIndexDTO transactionIndexDTO = TransactionTransformer.toTransactionIndexDTO(transaction);
         compare(transaction, transactionIndexDTO);
     }
 
     @Test
     void list() {
-        final List<Transaction> transactions = new ArrayList<>();
+        final List<TransactionDomain> transactions = new ArrayList<>();
         transactions.add(this.factory.getTransaction());
         transactions.add(this.factory.getTransaction());
         transactions.add(this.factory.getTransaction());
@@ -42,7 +42,7 @@ class ToTransactionIndexDTOTest extends InfrastructureUnitTestBase {
 
         Assertions.assertAll(() -> Assertions.assertEquals(transactions.size(), transactionIndexDTOs.size()), () -> {
             transactionIndexDTOs.forEach(transactionIndexDTO -> {
-                Transaction transaction = transactions.stream()
+                TransactionDomain transaction = transactions.stream()
                         .filter(transactionToFind ->
                                 transactionToFind.getId().equals(transactionIndexDTO.getTransactionId()))
                         .findFirst()

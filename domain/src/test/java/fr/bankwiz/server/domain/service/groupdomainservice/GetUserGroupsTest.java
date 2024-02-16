@@ -6,10 +6,10 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -33,19 +33,19 @@ class GetUserGroupsTest extends DomainUnitTestBase {
 
     @Test
     void getGroupOk() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final List<GroupRight> groupRights = new ArrayList<>();
-        final GroupRight groupRight1 = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
-        final GroupRight groupRight2 = this.factory.getGroupRight(user, GroupRightEnum.READ);
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
+        final GroupRightDomain groupRight1 = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
+        final GroupRightDomain groupRight2 = this.factory.getGroupRight(user, GroupRightEnum.READ);
 
         groupRights.add(groupRight1);
         groupRights.add(groupRight2);
 
         this.mockGroupRightSpi.mockFindByUser(user, groupRights);
 
-        final List<Group> groups = this.groupDomainService.getUserGroups();
+        final List<GroupDomain> groups = this.groupDomainService.getUserGroups();
 
         Assertions.assertEquals(groupRights.size(), groups.size());
 

@@ -3,7 +3,7 @@ package fr.bankwiz.server.infrastructure.unittest.spi.userspiimpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.spi.UserSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
@@ -23,9 +23,9 @@ class SaveTest extends InfrastructureUnitTestBase {
 
         this.userEntityRepositoryMockFactory.mockSave();
 
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
 
-        final User userSaved = this.userSpi.save(user);
+        final UserDomain userSaved = this.userSpi.save(user);
 
         final var argumentCaptor = this.userEntityRepositoryMockFactory.verifySaveCalled(UserEntity.class);
 

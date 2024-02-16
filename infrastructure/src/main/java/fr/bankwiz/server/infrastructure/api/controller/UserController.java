@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 
 import fr.bankwiz.openapi.api.UserApi;
 import fr.bankwiz.openapi.model.UserDTO;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.infrastructure.service.UserInfraService;
 import fr.bankwiz.server.infrastructure.transformer.UserTransformer;
 
@@ -21,14 +21,14 @@ public class UserController implements UserApi {
 
     @Override
     public ResponseEntity<UserDTO> checkRegistration() {
-        final User user = userInfraService.checkRegistration();
+        final UserDomain user = userInfraService.checkRegistration();
         final UserDTO userDTO = UserTransformer.toUserDTO(user);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<UserDTO> getCurrentUserInfo() {
-        final User user = userInfraService.getCurrentUser();
+        final UserDomain user = userInfraService.getCurrentUser();
         final UserDTO userDTO = UserTransformer.toUserDTO(user);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }

@@ -5,13 +5,13 @@ import java.util.List;
 import fr.bankwiz.openapi.model.BankAccountIndexDTO;
 import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
 import fr.bankwiz.openapi.model.GroupIndexDTO;
-import fr.bankwiz.server.domain.model.other.GroupBankAccount;
+import fr.bankwiz.server.domain.model.other.GroupBankAccountDomain;
 
 public class GroupBankAccountTransformer {
 
     private GroupBankAccountTransformer() {}
 
-    public static GroupBankAccountIndexDTO toGroupBankAccountIndexDTO(final GroupBankAccount groupBankAccount) {
+    public static GroupBankAccountIndexDTO toGroupBankAccountIndexDTO(final GroupBankAccountDomain groupBankAccount) {
         final GroupIndexDTO groupIndexDTO = GroupTransformer.toGroupIndexDTO(groupBankAccount.getGroup());
         final List<BankAccountIndexDTO> bankAccountIndexList =
                 BankAccountTransformer.toBankAccountIndexDTO(groupBankAccount.getBankAccounts());
@@ -19,7 +19,7 @@ public class GroupBankAccountTransformer {
     }
 
     public static List<GroupBankAccountIndexDTO> toGroupBankAccountIndexDTO(
-            final List<GroupBankAccount> groupBankAccounts) {
+            final List<GroupBankAccountDomain> groupBankAccounts) {
         return groupBankAccounts.stream()
                 .map(GroupBankAccountTransformer::toGroupBankAccountIndexDTO)
                 .toList();

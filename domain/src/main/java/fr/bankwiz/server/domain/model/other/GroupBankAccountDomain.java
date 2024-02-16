@@ -1,0 +1,15 @@
+package fr.bankwiz.server.domain.model.other;
+
+import java.util.List;
+
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
+import lombok.Builder;
+import lombok.Getter;
+
+@Builder
+@Getter
+public class GroupBankAccountDomain {
+    private List<BankAccountDomain> bankAccounts;
+    private GroupDomain group;
+}

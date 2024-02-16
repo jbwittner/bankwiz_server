@@ -3,20 +3,20 @@ package fr.bankwiz.server.domain.api;
 import java.util.List;
 import java.util.UUID;
 
-import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
-import fr.bankwiz.server.domain.model.input.GroupCreationInput;
-import fr.bankwiz.server.domain.model.other.GroupDetails;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.input.AddUserGroupInputDomain;
+import fr.bankwiz.server.domain.model.input.GroupCreationInputDomain;
+import fr.bankwiz.server.domain.model.other.GroupDetailsDomain;
 
 public interface GroupApi {
-    Group groupCreation(GroupCreationInput groupCreationInput);
+    GroupDomain groupCreation(GroupCreationInputDomain groupCreationInput);
 
-    List<Group> getUserGroups();
+    List<GroupDomain> getUserGroups();
 
-    GroupDetails getGroupDetails(UUID groupId);
+    GroupDetailsDomain getGroupDetails(UUID groupId);
 
-    GroupRight addUserToGroup(UUID groupId, AddUserGroupInput addUserGroupInput);
+    GroupRightDomain addUserToGroup(UUID groupId, AddUserGroupInputDomain addUserGroupInput);
 
     void deleteUserFromGroup(UUID groupId, UUID userId);
 

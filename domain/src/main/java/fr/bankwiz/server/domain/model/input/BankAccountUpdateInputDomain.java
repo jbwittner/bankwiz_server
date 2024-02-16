@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class BankAccountUpdateInput {
+public class BankAccountUpdateInputDomain {
     private String bankAccountName;
     private UUID groupId;
     private Integer decimalBaseAmount;

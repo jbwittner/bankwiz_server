@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class TransactionCreationInput {
+public class TransactionCreationInputDomain {
     private UUID bankAccountId;
     private Integer decimalAmount;
     private String comment;

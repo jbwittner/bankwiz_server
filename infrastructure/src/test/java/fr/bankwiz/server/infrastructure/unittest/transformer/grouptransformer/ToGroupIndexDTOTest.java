@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.openapi.model.GroupIndexDTO;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
 
@@ -15,7 +15,7 @@ class ToGroupIndexDTOTest extends InfrastructureUnitTestBase {
 
     @Test
     void ok() {
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         final GroupIndexDTO groupIndexDTO = GroupTransformer.toGroupIndexDTO(group);
         Assertions.assertAll(
                 () -> Assertions.assertEquals(group.getGroupName(), groupIndexDTO.getGroupName()),

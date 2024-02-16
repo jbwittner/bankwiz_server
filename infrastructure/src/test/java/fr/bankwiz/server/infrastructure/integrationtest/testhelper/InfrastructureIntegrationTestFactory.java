@@ -3,12 +3,12 @@ package fr.bankwiz.server.infrastructure.integrationtest.testhelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import fr.bankwiz.server.domain.model.data.BankAccount;
-import fr.bankwiz.server.domain.model.data.Group;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.Transaction;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.testhelper.tools.DomainUnitTestFactory;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
@@ -47,32 +47,33 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
     public InfrastructureIntegrationTestFactory() {}
 
     @Override
-    public User getUser() {
-        final User user = super.getUser();
+    public UserDomain getUser() {
+        final UserDomain user = super.getUser();
         final UserEntity userEntity = UserTransformer.toUserEntity(user);
         this.userEntityRepository.save(userEntity);
         return user;
     }
 
     @Override
-    public Group getGroup() {
-        final Group group = super.getGroup();
+    public GroupDomain getGroup() {
+        final GroupDomain group = super.getGroup();
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
         this.groupEntityRepository.save(groupEntity);
         return group;
     }
 
     @Override
-    public GroupRight getGroupRight(final Group group, final User user, final GroupRightEnum groupRightEnum) {
-        final GroupRight groupRight = super.getGroupRight(group, user, groupRightEnum);
+    public GroupRightDomain getGroupRight(
+            final GroupDomain group, final UserDomain user, final GroupRightEnum groupRightEnum) {
+        final GroupRightDomain groupRight = super.getGroupRight(group, user, groupRightEnum);
         final GroupRightEntity groupRightEntity = GroupRightTransformer.toGroupRightEntity(groupRight);
         this.groupRightEntityRepository.save(groupRightEntity);
         return groupRight;
     }
 
     @Override
-    public GroupRight getGroupRight(User user, GroupRightEnum groupRightEnum) {
-        final GroupRight groupRight = super.getGroupRight(user, groupRightEnum);
+    public GroupRightDomain getGroupRight(UserDomain user, GroupRightEnum groupRightEnum) {
+        final GroupRightDomain groupRight = super.getGroupRight(user, groupRightEnum);
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(groupRight.getGroup());
         final GroupRightEntity groupRightEntity = GroupRightTransformer.toGroupRightEntity(groupRight);
         this.groupEntityRepository.save(groupEntity);
@@ -81,22 +82,22 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
     }
 
     @Override
-    public BankAccount getBankAccount(final Group group) {
-        final BankAccount bankAccount = super.getBankAccount(group);
+    public BankAccountDomain getBankAccount(final GroupDomain group) {
+        final BankAccountDomain bankAccount = super.getBankAccount(group);
         final BankAccountEntity bankAccountEntity = BankAccountTransformer.toBankAccountEntity(bankAccount);
         this.bankAccountEntityRepository.save(bankAccountEntity);
         return bankAccount;
     }
 
     @Override
-    public BankAccount getBankAccount() {
-        final Group group = this.getGroup();
+    public BankAccountDomain getBankAccount() {
+        final GroupDomain group = this.getGroup();
         return this.getBankAccount(group);
     }
 
     @Override
-    public Transaction getTransaction(BankAccount bankAccount) {
-        final Transaction transaction = super.getTransaction(bankAccount);
+    public TransactionDomain getTransaction(BankAccountDomain bankAccount) {
+        final TransactionDomain transaction = super.getTransaction(bankAccount);
         final TransactionEntity transactionEntity = TransactionTransformer.toTransactionEntity(transaction);
         this.transactionEntityRepository.save(transactionEntity);
         return transaction;

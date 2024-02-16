@@ -6,11 +6,11 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.BankAccount;
-import fr.bankwiz.server.domain.model.data.GroupRight;
-import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
-import fr.bankwiz.server.domain.model.other.GroupBankAccount;
+import fr.bankwiz.server.domain.model.data.BankAccountDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain;
+import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
+import fr.bankwiz.server.domain.model.data.UserDomain;
+import fr.bankwiz.server.domain.model.other.GroupBankAccountDomain;
 import fr.bankwiz.server.domain.service.BankAccountService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -33,14 +33,14 @@ class GetAllBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void ok() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
 
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final List<GroupRight> groupRights = new ArrayList<>();
-        final GroupRight groupRight1 = this.factory.getGroupRight(user, GroupRightEnum.READ);
-        final GroupRight groupRight2 = this.factory.getGroupRight(user, GroupRightEnum.READ);
-        final GroupRight groupRight3 = this.factory.getGroupRight(user, GroupRightEnum.READ);
+        final List<GroupRightDomain> groupRights = new ArrayList<>();
+        final GroupRightDomain groupRight1 = this.factory.getGroupRight(user, GroupRightEnum.READ);
+        final GroupRightDomain groupRight2 = this.factory.getGroupRight(user, GroupRightEnum.READ);
+        final GroupRightDomain groupRight3 = this.factory.getGroupRight(user, GroupRightEnum.READ);
 
         groupRights.add(groupRight1);
         groupRights.add(groupRight2);
@@ -48,9 +48,9 @@ class GetAllBankAccountTest extends DomainUnitTestBase {
 
         this.mockGroupRightSpi.mockFindByUser(user, groupRights);
 
-        final List<BankAccount> bankAccounts1 = new ArrayList<>();
-        final List<BankAccount> bankAccounts2 = new ArrayList<>();
-        final List<BankAccount> bankAccounts3 = new ArrayList<>();
+        final List<BankAccountDomain> bankAccounts1 = new ArrayList<>();
+        final List<BankAccountDomain> bankAccounts2 = new ArrayList<>();
+        final List<BankAccountDomain> bankAccounts3 = new ArrayList<>();
 
         bankAccounts1.add(this.factory.getBankAccount(groupRight1.getGroup()));
         bankAccounts1.add(this.factory.getBankAccount(groupRight1.getGroup()));
@@ -69,7 +69,7 @@ class GetAllBankAccountTest extends DomainUnitTestBase {
 
         Assertions.assertEquals(3, result.size());
 
-        final GroupBankAccount groupBankAccount1 = result.stream()
+        final GroupBankAccountDomain groupBankAccount1 = result.stream()
                 .filter(groupBankAccount -> groupBankAccount
                         .getGroup()
                         .getId()
@@ -80,7 +80,7 @@ class GetAllBankAccountTest extends DomainUnitTestBase {
         Assertions.assertEquals(groupRight1.getGroup(), groupBankAccount1.getGroup());
         Assertions.assertEquals(bankAccounts1, groupBankAccount1.getBankAccounts());
 
-        final GroupBankAccount groupBankAccount2 = result.stream()
+        final GroupBankAccountDomain groupBankAccount2 = result.stream()
                 .filter(groupBankAccount -> groupBankAccount
                         .getGroup()
                         .getId()
@@ -91,7 +91,7 @@ class GetAllBankAccountTest extends DomainUnitTestBase {
         Assertions.assertEquals(groupRight2.getGroup(), groupBankAccount2.getGroup());
         Assertions.assertEquals(bankAccounts2, groupBankAccount2.getBankAccounts());
 
-        final GroupBankAccount groupBankAccount3 = result.stream()
+        final GroupBankAccountDomain groupBankAccount3 = result.stream()
                 .filter(groupBankAccount -> groupBankAccount
                         .getGroup()
                         .getId()
