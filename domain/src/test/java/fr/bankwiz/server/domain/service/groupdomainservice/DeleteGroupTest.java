@@ -15,7 +15,7 @@ import fr.bankwiz.server.domain.exception.UserNotAdminException;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -39,9 +39,9 @@ class DeleteGroupTest extends DomainUnitTestBase {
 
     @Test
     void deleteGroupOk() {
-        final User admin = this.factory.getUser();
+        final UserDomain admin = this.factory.getUser();
 
-        final User otherUser = this.factory.getUser();
+        final UserDomain otherUser = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
 
         final UUID groupId = group.getId();
@@ -62,9 +62,9 @@ class DeleteGroupTest extends DomainUnitTestBase {
 
     @Test
     void groupHaveBankAccounts() {
-        final User admin = this.factory.getUser();
+        final UserDomain admin = this.factory.getUser();
 
-        final User otherUser = this.factory.getUser();
+        final UserDomain otherUser = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
 
         final UUID groupId = group.getId();
@@ -85,9 +85,9 @@ class DeleteGroupTest extends DomainUnitTestBase {
 
     @Test
     void userNotAdmin() {
-        final User notAdmin = this.factory.getUser();
+        final UserDomain notAdmin = this.factory.getUser();
 
-        final User otherUser = this.factory.getUser();
+        final UserDomain otherUser = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
 
         final UUID groupId = group.getId();
@@ -107,7 +107,7 @@ class DeleteGroupTest extends DomainUnitTestBase {
 
     @Test
     void groupNotExist() {
-        final User notAdmin = this.factory.getUser();
+        final UserDomain notAdmin = this.factory.getUser();
         final UUID groupId = UUID.randomUUID();
 
         this.mockAuthenticationSpi.mockGetCurrentUser(notAdmin);

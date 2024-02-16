@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 
 public class DomainMockGroupRightSpi extends DomainMockHelper<GroupRightSpi> {
@@ -33,7 +33,7 @@ public class DomainMockGroupRightSpi extends DomainMockHelper<GroupRightSpi> {
         return this;
     }
 
-    public DomainMockGroupRightSpi mockFindByUser(final User user, final List<GroupRightDomain> groupRights) {
+    public DomainMockGroupRightSpi mockFindByUser(final UserDomain user, final List<GroupRightDomain> groupRights) {
         Mockito.when(this.mock.findByUser(user)).thenReturn(groupRights);
         return this;
     }

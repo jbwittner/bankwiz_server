@@ -13,7 +13,7 @@ import fr.bankwiz.server.domain.exception.UserNoReadRightException;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.model.other.GroupDetails;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
@@ -38,7 +38,7 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
 
     @Test
     void getGroupOk() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
 
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
@@ -78,7 +78,7 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
 
     @Test
     void noReadException() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
 
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 

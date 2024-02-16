@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.spi.UserSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.spi.database.repository.UserEntityRepository;
@@ -21,7 +21,7 @@ public class UserSpiImpl implements UserSpi {
     }
 
     @Override
-    public Optional<User> findByAuthId(String authId) {
+    public Optional<UserDomain> findByAuthId(String authId) {
         final Optional<UserEntity> optionalUserEntity = this.userEntityRepository.findByAuthId(authId);
 
         if (optionalUserEntity.isEmpty()) {
@@ -29,19 +29,19 @@ public class UserSpiImpl implements UserSpi {
         }
 
         final UserEntity userEntity = optionalUserEntity.get();
-        final User user = UserTransformer.fromUserEntity(userEntity);
+        final UserDomain user = UserTransformer.fromUserEntity(userEntity);
         return Optional.of(user);
     }
 
     @Override
-    public User save(User user) {
+    public UserDomain save(UserDomain user) {
         final UserEntity userEntityToSave = UserTransformer.toUserEntity(user);
         final UserEntity userEntitySaved = this.userEntityRepository.save(userEntityToSave);
         return UserTransformer.fromUserEntity(userEntitySaved);
     }
 
     @Override
-    public Optional<User> findById(UUID id) {
+    public Optional<UserDomain> findById(UUID id) {
         final Optional<UserEntity> optionalUserEntity = this.userEntityRepository.findById(id);
 
         if (optionalUserEntity.isEmpty()) {
@@ -49,7 +49,7 @@ public class UserSpiImpl implements UserSpi {
         }
 
         final UserEntity userEntity = optionalUserEntity.get();
-        final User user = UserTransformer.fromUserEntity(userEntity);
+        final UserDomain user = UserTransformer.fromUserEntity(userEntity);
         return Optional.of(user);
     }
 }

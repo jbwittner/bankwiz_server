@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.bankwiz.server.domain.api.UserApi;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 
 @Service
 public class UserInfraService {
@@ -16,12 +16,12 @@ public class UserInfraService {
     }
 
     @Transactional
-    public User checkRegistration() {
+    public UserDomain checkRegistration() {
         return this.userApi.checkRegistration();
     }
 
     @Transactional(readOnly = true)
-    public User getCurrentUser() {
+    public UserDomain getCurrentUser() {
         return this.userApi.getCurrentUser();
     }
 }

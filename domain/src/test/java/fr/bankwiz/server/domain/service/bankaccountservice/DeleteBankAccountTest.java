@@ -15,7 +15,7 @@ import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.service.BankAccountService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
@@ -38,7 +38,7 @@ class DeleteBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void ok() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
         final BankAccountDomain bankAccount = this.factory.getBankAccount();
@@ -58,7 +58,7 @@ class DeleteBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void isNotAdmin() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
         final BankAccountDomain bankAccount = this.factory.getBankAccount();
@@ -77,7 +77,7 @@ class DeleteBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void bankAccountNotExist() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
         final UUID bankAccountId = UUID.randomUUID();

@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 
 import fr.bankwiz.openapi.model.FunctionalExceptionDTO;
 import fr.bankwiz.server.domain.exception.FunctionalException;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
 
@@ -29,12 +29,12 @@ class GlobalExceptionHandlerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void functionalException() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final String attribute_1 = this.faker.superhero().name();
         final Integer attribute_2 = this.faker.random().nextInt(Integer.MAX_VALUE);
-        final User attribute_3 = this.factory.getUser();
+        final UserDomain attribute_3 = this.factory.getUser();
         final List<String> attribute_4 = new ArrayList<>();
         attribute_4.add(this.faker.space().constellation());
         attribute_4.add(this.faker.space().constellation());

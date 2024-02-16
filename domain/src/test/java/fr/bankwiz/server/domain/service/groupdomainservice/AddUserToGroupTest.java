@@ -15,7 +15,7 @@ import fr.bankwiz.server.domain.exception.UserNotExistException;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
 import fr.bankwiz.server.domain.service.GroupDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
@@ -40,12 +40,12 @@ class AddUserToGroupTest extends DomainUnitTestBase {
 
     @Test
     void addUserOk() {
-        final User admin = this.factory.getUser();
+        final UserDomain admin = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
         final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
 
-        final User userToAdd = this.factory.getUser();
+        final UserDomain userToAdd = this.factory.getUser();
 
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
         this.mockGroupSpi.mockFindById(group.getId(), Optional.of(group));
@@ -67,12 +67,12 @@ class AddUserToGroupTest extends DomainUnitTestBase {
 
     @Test
     void userHaveAlreadyAccess() {
-        final User admin = this.factory.getUser();
+        final UserDomain admin = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
         final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
 
-        final User userToAdd = this.factory.getUser();
+        final UserDomain userToAdd = this.factory.getUser();
         groupRights.add(this.factory.getGroupRight(group, userToAdd, GroupRightEnum.READ));
 
         this.mockAuthenticationSpi.mockGetCurrentUser(admin);
@@ -94,7 +94,7 @@ class AddUserToGroupTest extends DomainUnitTestBase {
 
     @Test
     void userNotAdmin() {
-        final User admin = this.factory.getUser();
+        final UserDomain admin = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
         final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.WRITE));
@@ -112,7 +112,7 @@ class AddUserToGroupTest extends DomainUnitTestBase {
 
     @Test
     void userNotExist() {
-        final User admin = this.factory.getUser();
+        final UserDomain admin = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
         final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
@@ -135,7 +135,7 @@ class AddUserToGroupTest extends DomainUnitTestBase {
 
     @Test
     void groupNotExist() {
-        final User admin = this.factory.getUser();
+        final UserDomain admin = this.factory.getUser();
 
         final UUID groupId = UUID.randomUUID();
 

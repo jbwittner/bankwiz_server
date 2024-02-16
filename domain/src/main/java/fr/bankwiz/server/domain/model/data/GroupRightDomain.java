@@ -13,7 +13,7 @@ public class GroupRightDomain {
 
     private UUID id;
     private GroupDomain group;
-    private User user;
+    private UserDomain user;
     private GroupRightEnum groupRightEnum;
 
     public enum GroupRightEnum {

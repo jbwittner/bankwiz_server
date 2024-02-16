@@ -15,7 +15,7 @@ import fr.bankwiz.server.domain.model.data.BankAccountDomain.CurrencyEnumDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
 import fr.bankwiz.server.domain.service.BankAccountService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
@@ -39,7 +39,7 @@ class CreateBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void createBankAccountOk() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
         final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(user, GroupRightEnum.WRITE));
@@ -69,7 +69,7 @@ class CreateBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void userCantWrite() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
         final List<GroupRightDomain> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(user, GroupRightEnum.READ));

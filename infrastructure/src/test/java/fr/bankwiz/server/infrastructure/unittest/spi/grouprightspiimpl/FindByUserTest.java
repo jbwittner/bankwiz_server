@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity.GroupRightEntityEnum;
@@ -27,7 +27,7 @@ class FindByUserTest extends InfrastructureUnitTestBase {
     @Test
     void listWithData() {
         final UserEntity userEntity = this.factory.getUserEntity();
-        final User user = UserTransformer.fromUserEntity(userEntity);
+        final UserDomain user = UserTransformer.fromUserEntity(userEntity);
 
         final GroupRightEntity groupRightEntity1 =
                 this.factory.getGroupRightEntity(userEntity, GroupRightEntityEnum.ADMIN);

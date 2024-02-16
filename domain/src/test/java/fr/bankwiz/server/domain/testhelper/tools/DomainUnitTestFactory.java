@@ -8,7 +8,7 @@ import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.TransactionDomain;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.model.data.UserAuthentication;
 
 public class DomainUnitTestFactory {
@@ -36,8 +36,8 @@ public class DomainUnitTestFactory {
                 .build();
     }
 
-    public User getUser() {
-        return User.builder()
+    public UserDomain getUser() {
+        return UserDomain.builder()
                 .authId(this.getAuthId())
                 .email(this.faker.internet().emailAddress())
                 .id(UUID.randomUUID())
@@ -51,7 +51,7 @@ public class DomainUnitTestFactory {
                 .build();
     }
 
-    public GroupRightDomain getGroupRight(final GroupDomain group, final User user, final GroupRightEnum groupRightEnum) {
+    public GroupRightDomain getGroupRight(final GroupDomain group, final UserDomain user, final GroupRightEnum groupRightEnum) {
         return GroupRightDomain.builder()
                 .id(UUID.randomUUID())
                 .group(group)
@@ -60,7 +60,7 @@ public class DomainUnitTestFactory {
                 .build();
     }
 
-    public GroupRightDomain getGroupRight(final User user, final GroupRightEnum groupRightEnum) {
+    public GroupRightDomain getGroupRight(final UserDomain user, final GroupRightEnum groupRightEnum) {
         return this.getGroupRight(this.getGroup(), user, groupRightEnum);
     }
 

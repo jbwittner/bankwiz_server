@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 import fr.bankwiz.openapi.model.UserDTO;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.spi.database.repository.UserEntityRepository;
@@ -25,7 +25,7 @@ class GetCurrentUserInfoTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void getCurrentUserInfo() throws Exception {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final UserDTO response = given().auth()

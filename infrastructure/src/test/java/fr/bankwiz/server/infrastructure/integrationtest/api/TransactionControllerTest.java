@@ -20,7 +20,7 @@ import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.TransactionDomain;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
 import fr.bankwiz.server.infrastructure.spi.database.entity.TransactionEntity;
 import fr.bankwiz.server.infrastructure.spi.database.repository.TransactionEntityRepository;
@@ -39,7 +39,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void createTransaction() throws Exception {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final GroupDomain group = this.factory.getGroup();
@@ -85,7 +85,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void getAllTransactionOfBankAccount() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final GroupDomain group = this.factory.getGroup();
@@ -125,7 +125,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void updateTransaction() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final GroupDomain group = this.factory.getGroup();
@@ -169,7 +169,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void deleteTransaction() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final GroupDomain group = this.factory.getGroup();

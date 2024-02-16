@@ -6,7 +6,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import fr.bankwiz.server.domain.model.data.GroupDomain;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
@@ -29,7 +29,7 @@ class DeleteByGroupAndUserTest extends InfrastructureUnitTestBase {
         final GroupDomain group = GroupTransformer.fromGroupEntity(groupEntity);
 
         final UserEntity userEntity = this.factory.getUserEntity();
-        final User user = UserTransformer.fromUserEntity(userEntity);
+        final UserDomain user = UserTransformer.fromUserEntity(userEntity);
 
         ArgumentCaptor<GroupEntity> argumentGroupEntity = ArgumentCaptor.forClass(GroupEntity.class);
         ArgumentCaptor<UserEntity> argumentUserEntity = ArgumentCaptor.forClass(UserEntity.class);

@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
 
@@ -27,7 +27,7 @@ class IsAdminTest extends DomainUnitTestBase {
 
     @Test
     void noRight() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
 
         final List<GroupRightDomain> groupRights = new ArrayList<>();
@@ -40,7 +40,7 @@ class IsAdminTest extends DomainUnitTestBase {
 
     @Test
     void isAdmin() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
 
         final List<GroupRightDomain> groupRights = new ArrayList<>();
@@ -57,7 +57,7 @@ class IsAdminTest extends DomainUnitTestBase {
             value = GroupRightEnum.class,
             names = {"READ", "WRITE"})
     void isNotAdmin(final GroupRightEnum right) {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
 
         final List<GroupRightDomain> groupRights = new ArrayList<>();

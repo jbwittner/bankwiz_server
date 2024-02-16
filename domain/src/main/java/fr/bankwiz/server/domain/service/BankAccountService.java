@@ -9,7 +9,7 @@ import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
 import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
 import fr.bankwiz.server.domain.model.other.GroupBankAccount;
@@ -46,7 +46,7 @@ public class BankAccountService implements BankAccountApi {
         final GroupDomain group = this.groupSpi
                 .findById(bankAccountCreationInput.getGroupId())
                 .orElseThrow(() -> new GroupNotExistException(bankAccountCreationInput.getGroupId()));
-        final User user = this.authenticationSpi.getCurrentUser();
+        final UserDomain user = this.authenticationSpi.getCurrentUser();
         this.checkRightTools.checkCanWrite(user, group);
 
         final BankAccountDomain bankAccount = BankAccountDomain.builder()
@@ -63,7 +63,7 @@ public class BankAccountService implements BankAccountApi {
     @Override
     public List<GroupBankAccount> getAllBankAccount() {
 
-        final User user = this.authenticationSpi.getCurrentUser();
+        final UserDomain user = this.authenticationSpi.getCurrentUser();
         final List<GroupRightDomain> groupRights = this.groupRightSpi.findByUser(user);
 
         return groupRights.stream()
@@ -80,7 +80,7 @@ public class BankAccountService implements BankAccountApi {
 
     @Override
     public void deleteBankAccount(UUID bankAccountId) {
-        final User user = this.authenticationSpi.getCurrentUser();
+        final UserDomain user = this.authenticationSpi.getCurrentUser();
 
         final BankAccountDomain bankAccount = this.bankAccountSpi
                 .findById(bankAccountId)
@@ -94,7 +94,7 @@ public class BankAccountService implements BankAccountApi {
 
     @Override
     public BankAccountDomain updateBankAccount(UUID bankAccountId, BankAccountUpdateInput bankAccountUpdateInput) {
-        final User user = this.authenticationSpi.getCurrentUser();
+        final UserDomain user = this.authenticationSpi.getCurrentUser();
 
         final BankAccountDomain bankAccount = this.bankAccountSpi
                 .findById(bankAccountId)

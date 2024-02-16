@@ -16,7 +16,7 @@ import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.model.input.BankAccountUpdateInput;
 import fr.bankwiz.server.domain.service.BankAccountService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
@@ -40,7 +40,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void bankAccountName() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
         final BankAccountDomain bankAccount = this.factory.getBankAccount();
@@ -76,7 +76,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void decimalBaseAmount() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
         final BankAccountDomain bankAccount = this.factory.getBankAccount();
@@ -112,7 +112,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void group() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
         final BankAccountDomain bankAccount = this.factory.getBankAccount();
@@ -158,7 +158,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void newGroupNotAdminException() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
         final BankAccountDomain bankAccount = this.factory.getBankAccount();
@@ -190,7 +190,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void newGroupNotExistException() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
         final BankAccountDomain bankAccount = this.factory.getBankAccount();
@@ -222,7 +222,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void userNotAdminException() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
         final BankAccountDomain bankAccount = this.factory.getBankAccount();
@@ -248,7 +248,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void bankAccountNotExistException() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
         final UUID bankAccountId = UUID.randomUUID();

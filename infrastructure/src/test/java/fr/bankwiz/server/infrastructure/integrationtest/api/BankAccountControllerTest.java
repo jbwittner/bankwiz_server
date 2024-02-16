@@ -17,7 +17,7 @@ import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
@@ -37,7 +37,7 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void createBankAccount() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final GroupDomain group = this.factory.getGroup();
@@ -82,7 +82,7 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void getAllBankAccount() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final List<GroupDomain> groups = new ArrayList<>();
@@ -159,7 +159,7 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void deleteBankAccount() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final BankAccountDomain bankAccount = this.factory.getBankAccount();
@@ -184,7 +184,7 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void updateBankAccount() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final BankAccountDomain bankAccountBefore = this.factory.getBankAccount();

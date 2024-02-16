@@ -8,7 +8,7 @@ import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.TransactionDomain;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.testhelper.tools.DomainUnitTestFactory;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
@@ -47,8 +47,8 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
     public InfrastructureIntegrationTestFactory() {}
 
     @Override
-    public User getUser() {
-        final User user = super.getUser();
+    public UserDomain getUser() {
+        final UserDomain user = super.getUser();
         final UserEntity userEntity = UserTransformer.toUserEntity(user);
         this.userEntityRepository.save(userEntity);
         return user;
@@ -63,7 +63,7 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
     }
 
     @Override
-    public GroupRightDomain getGroupRight(final GroupDomain group, final User user, final GroupRightEnum groupRightEnum) {
+    public GroupRightDomain getGroupRight(final GroupDomain group, final UserDomain user, final GroupRightEnum groupRightEnum) {
         final GroupRightDomain groupRight = super.getGroupRight(group, user, groupRightEnum);
         final GroupRightEntity groupRightEntity = GroupRightTransformer.toGroupRightEntity(groupRight);
         this.groupRightEntityRepository.save(groupRightEntity);
@@ -71,7 +71,7 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
     }
 
     @Override
-    public GroupRightDomain getGroupRight(User user, GroupRightEnum groupRightEnum) {
+    public GroupRightDomain getGroupRight(UserDomain user, GroupRightEnum groupRightEnum) {
         final GroupRightDomain groupRight = super.getGroupRight(user, groupRightEnum);
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(groupRight.getGroup());
         final GroupRightEntity groupRightEntity = GroupRightTransformer.toGroupRightEntity(groupRight);

@@ -12,7 +12,7 @@ import fr.bankwiz.server.domain.exception.UserNoReadRightException;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
 
@@ -28,7 +28,7 @@ class CheckCanReadTest extends DomainUnitTestBase {
 
     @Test
     void noRight() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
 
         final List<GroupRightDomain> groupRights = new ArrayList<>();
@@ -41,7 +41,7 @@ class CheckCanReadTest extends DomainUnitTestBase {
     @ParameterizedTest
     @EnumSource(value = GroupRightEnum.class)
     void canRead(final GroupRightEnum right) {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final GroupDomain group = this.factory.getGroup();
 
         final List<GroupRightDomain> groupRights = new ArrayList<>();

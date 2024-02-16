@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.model.data.UserAuthentication;
 import fr.bankwiz.server.domain.service.UserDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
@@ -30,7 +30,7 @@ class CheckRegistrationTest extends DomainUnitTestBase {
                 .mockFindByAuthId(userAuthentication.getSub(), Optional.empty())
                 .mockSave();
 
-        final User userResult = this.userDomainService.checkRegistration();
+        final UserDomain userResult = this.userDomainService.checkRegistration();
         Assertions.assertAll(
                 () -> Assertions.assertNotNull(userResult),
                 () -> Assertions.assertEquals(userAuthentication.getEmail(), userResult.getEmail()),
@@ -43,7 +43,7 @@ class CheckRegistrationTest extends DomainUnitTestBase {
 
         this.mockAuthenticationSpi.mockGetUserAuthentication(userAuthentication);
 
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         Assertions.assertNotEquals(userAuthentication.getEmail(), user.getEmail());
 
         final String oldEmail = user.getEmail();
@@ -53,7 +53,7 @@ class CheckRegistrationTest extends DomainUnitTestBase {
                 .mockFindByAuthId(userAuthentication.getSub(), Optional.of(user))
                 .mockSave();
 
-        final User userResult = this.userDomainService.checkRegistration();
+        final UserDomain userResult = this.userDomainService.checkRegistration();
 
         Assertions.assertAll(
                 () -> Assertions.assertNotNull(user),

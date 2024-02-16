@@ -17,7 +17,7 @@ import fr.bankwiz.openapi.model.UserGroupRightEnum;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupRightEntity;
@@ -44,7 +44,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void createGroup() throws Exception {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final GroupCreationRequest groupCreationRequest =
@@ -90,7 +90,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void getUserGroups() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final GroupRightDomain groupRight1 = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
@@ -131,7 +131,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void getGroupDetails() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final GroupRightDomain groupRight = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
@@ -153,7 +153,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void addUserGroup() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final GroupRightDomain groupRight = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
@@ -161,7 +161,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
         final GroupDomain group = groupRight.getGroup();
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
 
-        final User anotherUser = this.factory.getUser();
+        final UserDomain anotherUser = this.factory.getUser();
 
         final AddUserGroupRequest addUserGroupRequest =
                 new AddUserGroupRequest(anotherUser.getId(), UserGroupRightEnum.READ);
@@ -209,9 +209,9 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void deleteUserFromGroup() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
-        final User anotherUser = this.factory.getUser();
+        final UserDomain anotherUser = this.factory.getUser();
 
         final GroupDomain group = this.factory.getGroup();
         this.factory.getGroupRight(group, user, GroupRightEnum.ADMIN);
@@ -237,7 +237,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void deleteGroup() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
         final GroupDomain group = this.factory.getGroup();

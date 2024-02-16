@@ -3,12 +3,12 @@ package fr.bankwiz.server.domain.spi;
 import java.util.Optional;
 import java.util.UUID;
 
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 
 public interface UserSpi {
-    Optional<User> findByAuthId(String authId);
+    Optional<UserDomain> findByAuthId(String authId);
 
-    User save(User user);
+    UserDomain save(UserDomain user);
 
-    Optional<User> findById(UUID id);
+    Optional<UserDomain> findById(UUID id);
 }

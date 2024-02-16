@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import fr.bankwiz.server.domain.exception.UserNotExistException;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.model.data.UserAuthentication;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.UserSpi;
@@ -46,10 +46,10 @@ public class AuthenticationSpiImpl implements AuthenticationSpi {
     }
 
     @Override
-    public User getCurrentUser() {
+    public UserDomain getCurrentUser() {
         final JwtAuthenticationToken jwtAuthenticationToken = this.getAuthentication();
         final String subject = jwtAuthenticationToken.getToken().getSubject();
-        final Optional<User> optional = userSpi.findByAuthId(subject);
+        final Optional<UserDomain> optional = userSpi.findByAuthId(subject);
         if (optional.isEmpty()) {
             throw new UserNotExistException(subject);
         }

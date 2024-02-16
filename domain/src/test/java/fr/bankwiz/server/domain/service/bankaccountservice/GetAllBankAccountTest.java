@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.model.other.GroupBankAccount;
 import fr.bankwiz.server.domain.service.BankAccountService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
@@ -33,7 +33,7 @@ class GetAllBankAccountTest extends DomainUnitTestBase {
 
     @Test
     void ok() {
-        final User user = this.factory.getUser();
+        final UserDomain user = this.factory.getUser();
 
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 

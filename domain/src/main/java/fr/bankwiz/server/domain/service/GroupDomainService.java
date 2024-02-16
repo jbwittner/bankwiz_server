@@ -13,7 +13,7 @@ import fr.bankwiz.server.domain.exception.UserNotExistException;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.User;
+import fr.bankwiz.server.domain.model.data.UserDomain;
 import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
 import fr.bankwiz.server.domain.model.input.GroupCreationInput;
 import fr.bankwiz.server.domain.model.other.GroupDetails;
@@ -55,7 +55,7 @@ public class GroupDomainService implements GroupApi {
                 .groupName(groupCreationInput.getGroupName())
                 .build();
         final GroupDomain groupSaved = this.groupSpi.save(group);
-        final User admin = this.authenticationSpi.getCurrentUser();
+        final UserDomain admin = this.authenticationSpi.getCurrentUser();
         final GroupRightDomain groupRight = GroupRightDomain.builder()
                 .group(groupSaved)
                 .user(admin)
@@ -68,7 +68,7 @@ public class GroupDomainService implements GroupApi {
 
     @Override
     public List<GroupDomain> getUserGroups() {
-        final User user = this.authenticationSpi.getCurrentUser();
+        final UserDomain user = this.authenticationSpi.getCurrentUser();
         final List<GroupRightDomain> groupRights = this.groupRightSpi.findByUser(user);
         return groupRights.stream().map(GroupRightDomain::getGroup).toList();
     }
@@ -88,7 +88,7 @@ public class GroupDomainService implements GroupApi {
 
         this.checkRightTools.checkIsAdmin(this.authenticationSpi.getCurrentUser(), group);
 
-        final User userToAdd = this.userSpi
+        final UserDomain userToAdd = this.userSpi
                 .findById(addUserGroupInput.getUserId())
                 .orElseThrow(() -> new UserNotExistException(addUserGroupInput.getUserId()));
 
@@ -111,7 +111,7 @@ public class GroupDomainService implements GroupApi {
 
         this.checkRightTools.checkIsAdmin(this.authenticationSpi.getCurrentUser(), group);
 
-        final User userToRemove = this.userSpi.findById(userId).orElseThrow(() -> new UserNotExistException(userId));
+        final UserDomain userToRemove = this.userSpi.findById(userId).orElseThrow(() -> new UserNotExistException(userId));
 
         if (!this.checkRightTools.hasAnyRight(userToRemove, group)) {
             throw new UserNoAccessGroupException(userToRemove, group);
