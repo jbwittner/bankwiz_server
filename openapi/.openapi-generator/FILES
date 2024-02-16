@@ -12,7 +12,6 @@ src/main/java/fr/bankwiz/openapi/model/BankAccountIndexDTO.java
 src/main/java/fr/bankwiz/openapi/model/BankAccountTransactionsDTO.java
 src/main/java/fr/bankwiz/openapi/model/BankAccountUpdateRequest.java
 src/main/java/fr/bankwiz/openapi/model/CreateTransactionRequest.java
-src/main/java/fr/bankwiz/openapi/model/CurrencyEnum.java
 src/main/java/fr/bankwiz/openapi/model/CurrencyIndexDTO.java
 src/main/java/fr/bankwiz/openapi/model/FunctionalExceptionDTO.java
 src/main/java/fr/bankwiz/openapi/model/GroupBankAccountIndexDTO.java

@@ -155,7 +155,7 @@ public interface TransactionApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"bankAccountIndex\" : { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"currency\" : { \"symbol\" : \"symbol\", \"displayName\" : \"displayName\" }, \"decimalBaseAmount\" : 0 }, \"transactions\" : [ { \"decimalAmount\" : 0, \"comment\" : \"comment\", \"transactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }, { \"decimalAmount\" : 0, \"comment\" : \"comment\", \"transactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" } ] }";
+                    String exampleString = "{ \"bankAccountIndex\" : { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"currency\" : { \"symbol\" : \"symbol\", \"currencyIsoCode3\" : \"currencyIsoCode3\", \"displayName\" : \"displayName\" }, \"decimalBaseAmount\" : 0 }, \"transactions\" : [ { \"decimalAmount\" : 0, \"comment\" : \"comment\", \"transactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }, { \"decimalAmount\" : 0, \"comment\" : \"comment\", \"transactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" } ] }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
