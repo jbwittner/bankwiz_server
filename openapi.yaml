@@ -645,7 +645,7 @@ components:
       required:
         - currencyIsoCode3
         - displayName
-        - string
+        - symbol
 #################################### DTO END ######################################## 
 #################################### Enum START #####################################
     UserGroupRightEnum:

@@ -34,9 +34,10 @@ public class CurrencyIndexDTO {
   /**
    * Constructor with only required parameters
    */
-  public CurrencyIndexDTO(String currencyIsoCode3, String displayName) {
+  public CurrencyIndexDTO(String currencyIsoCode3, String displayName, String symbol) {
     this.currencyIsoCode3 = currencyIsoCode3;
     this.displayName = displayName;
+    this.symbol = symbol;
   }
 
   public CurrencyIndexDTO currencyIsoCode3(String currencyIsoCode3) {
@@ -88,8 +89,8 @@ public class CurrencyIndexDTO {
    * Get symbol
    * @return symbol
   */
-  
-  @Schema(name = "symbol", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull 
+  @Schema(name = "symbol", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("symbol")
   public String getSymbol() {
     return symbol;
