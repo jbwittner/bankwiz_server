@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.TransactionEntity;
 import fr.bankwiz.server.infrastructure.transformer.BankAccountTransformer;
@@ -18,7 +18,7 @@ class FromTransactionEntityTest extends InfrastructureUnitTestBase {
     @Override
     protected void initDataBeforeEach() {}
 
-    void compare(TransactionEntity transactionEntity, Transaction transaction) {
+    void compare(TransactionEntity transactionEntity, TransactionDomain transaction) {
         Assertions.assertAll(
                 () -> Assertions.assertEquals(transactionEntity.getDecimalAmount(), transaction.getDecimalAmount()),
                 () -> Assertions.assertEquals(transactionEntity.getComment(), transaction.getComment()),
@@ -31,7 +31,7 @@ class FromTransactionEntityTest extends InfrastructureUnitTestBase {
     @Test
     void single() {
         final TransactionEntity transactionEntity = this.factory.getTransactionEntity();
-        final Transaction transaction = TransactionTransformer.fromTransactionEntity(transactionEntity);
+        final TransactionDomain transaction = TransactionTransformer.fromTransactionEntity(transactionEntity);
         compare(transactionEntity, transaction);
     }
 
@@ -43,7 +43,7 @@ class FromTransactionEntityTest extends InfrastructureUnitTestBase {
         transactionEntities.add(this.factory.getTransactionEntity(bankAccountEntity));
         transactionEntities.add(this.factory.getTransactionEntity(bankAccountEntity));
         transactionEntities.add(this.factory.getTransactionEntity(bankAccountEntity));
-        final List<Transaction> transactions = TransactionTransformer.fromTransactionEntity(transactionEntities);
+        final List<TransactionDomain> transactions = TransactionTransformer.fromTransactionEntity(transactionEntities);
 
         Assertions.assertAll(() -> Assertions.assertEquals(transactionEntities.size(), transactions.size()), () -> {
             transactions.forEach(transaction -> {

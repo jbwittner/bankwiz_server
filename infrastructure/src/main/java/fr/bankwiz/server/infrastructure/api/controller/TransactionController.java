@@ -11,7 +11,7 @@ import fr.bankwiz.openapi.model.BankAccountTransactionsDTO;
 import fr.bankwiz.openapi.model.CreateTransactionRequest;
 import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.openapi.model.UpdateTransactionRequest;
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.domain.model.input.TransactionCreationInput;
 import fr.bankwiz.server.domain.model.input.UpdateTransactionInput;
 import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
@@ -35,7 +35,7 @@ public class TransactionController implements TransactionApi {
                 .decimalAmount(createTransactionRequest.getDecimalAmount())
                 .comment(createTransactionRequest.getComment())
                 .build();
-        final Transaction transaction = this.transactionInfraService.createTransaction(transactionCreationInput);
+        final TransactionDomain transaction = this.transactionInfraService.createTransaction(transactionCreationInput);
         final TransactionDTO transactionDTO = TransactionTransformer.toTransactionDTO(transaction);
         return new ResponseEntity<>(transactionDTO, HttpStatus.CREATED);
     }
@@ -56,7 +56,7 @@ public class TransactionController implements TransactionApi {
                 .decimalAmount(updateTransactionRequest.getDecimalAmount())
                 .comment(updateTransactionRequest.getComment())
                 .build();
-        final Transaction transaction =
+        final TransactionDomain transaction =
                 this.transactionInfraService.updateTransaction(transactionId, updateTransactionInput);
         final TransactionDTO transactionDTO = TransactionTransformer.toTransactionDTO(transaction);
         return new ResponseEntity<>(transactionDTO, HttpStatus.OK);

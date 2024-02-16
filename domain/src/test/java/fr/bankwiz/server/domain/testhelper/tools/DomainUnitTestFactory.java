@@ -7,7 +7,7 @@ import fr.bankwiz.server.domain.model.data.BankAccountDomain.CurrencyEnumDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.data.UserAuthentication;
 
@@ -83,8 +83,8 @@ public class DomainUnitTestFactory {
         return this.getBankAccount(group);
     }
 
-    public Transaction getTransaction(BankAccountDomain bankAccount) {
-        return Transaction.builder()
+    public TransactionDomain getTransaction(BankAccountDomain bankAccount) {
+        return TransactionDomain.builder()
                 .bankAccount(bankAccount)
                 .id(UUID.randomUUID())
                 .comment(this.faker.superhero().name())
@@ -92,7 +92,7 @@ public class DomainUnitTestFactory {
                 .build();
     }
 
-    public Transaction getTransaction() {
+    public TransactionDomain getTransaction() {
         final BankAccountDomain bankAccount = this.getBankAccount();
         return this.getTransaction(bankAccount);
     }

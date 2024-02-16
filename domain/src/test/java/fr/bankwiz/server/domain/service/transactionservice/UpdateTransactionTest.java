@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.exception.TransactionNotExistException;
 import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.domain.model.input.UpdateTransactionInput;
 import fr.bankwiz.server.domain.service.TransactionDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
@@ -27,7 +27,7 @@ class UpdateTransactionTest extends DomainUnitTestBase {
 
     @Test
     void updateAll() {
-        final Transaction transaction = this.factory.getTransaction();
+        final TransactionDomain transaction = this.factory.getTransaction();
         final UUID transactionId = transaction.getId();
         this.mockTransactionSpi
                 .mockFindById(transactionId, Optional.of(transaction))
@@ -41,7 +41,7 @@ class UpdateTransactionTest extends DomainUnitTestBase {
                 .decimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
                 .build();
 
-        final Transaction transactionUpdated =
+        final TransactionDomain transactionUpdated =
                 this.transactionDomainService.updateTransaction(transactionId, updateTransactionInput);
 
         this.mockTransactionSpi.verifySave(transactionUpdated);
@@ -57,7 +57,7 @@ class UpdateTransactionTest extends DomainUnitTestBase {
 
     @Test
     void updateDecimalAmount() {
-        final Transaction transaction = this.factory.getTransaction();
+        final TransactionDomain transaction = this.factory.getTransaction();
         final UUID transactionId = transaction.getId();
         this.mockTransactionSpi
                 .mockFindById(transactionId, Optional.of(transaction))
@@ -70,7 +70,7 @@ class UpdateTransactionTest extends DomainUnitTestBase {
                 .decimalAmount(this.faker.random().nextInt(Integer.MAX_VALUE))
                 .build();
 
-        final Transaction transactionUpdated =
+        final TransactionDomain transactionUpdated =
                 this.transactionDomainService.updateTransaction(transactionId, updateTransactionInput);
 
         this.mockTransactionSpi.verifySave(transactionUpdated);
@@ -85,7 +85,7 @@ class UpdateTransactionTest extends DomainUnitTestBase {
 
     @Test
     void updateComment() {
-        final Transaction transaction = this.factory.getTransaction();
+        final TransactionDomain transaction = this.factory.getTransaction();
         final UUID transactionId = transaction.getId();
         this.mockTransactionSpi
                 .mockFindById(transactionId, Optional.of(transaction))
@@ -98,7 +98,7 @@ class UpdateTransactionTest extends DomainUnitTestBase {
                 .comment(this.faker.rickAndMorty().quote())
                 .build();
 
-        final Transaction transactionUpdated =
+        final TransactionDomain transactionUpdated =
                 this.transactionDomainService.updateTransaction(transactionId, updateTransactionInput);
 
         this.mockTransactionSpi.verifySave(transactionUpdated);
@@ -112,7 +112,7 @@ class UpdateTransactionTest extends DomainUnitTestBase {
 
     @Test
     void noWriteRight() {
-        final Transaction transaction = this.factory.getTransaction();
+        final TransactionDomain transaction = this.factory.getTransaction();
         final UUID transactionId = transaction.getId();
         this.mockTransactionSpi.mockFindById(transactionId, Optional.of(transaction));
 

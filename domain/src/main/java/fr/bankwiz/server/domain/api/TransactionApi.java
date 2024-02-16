@@ -2,17 +2,17 @@ package fr.bankwiz.server.domain.api;
 
 import java.util.UUID;
 
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.domain.model.input.TransactionCreationInput;
 import fr.bankwiz.server.domain.model.input.UpdateTransactionInput;
 import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
 
 public interface TransactionApi {
-    Transaction createTransaction(TransactionCreationInput transactionCreationInput);
+    TransactionDomain createTransaction(TransactionCreationInput transactionCreationInput);
 
     BankAccountTransactions getAllTransactionOfBankAccount(UUID bankaccountId);
 
-    Transaction updateTransaction(UUID bankaccountId, UpdateTransactionInput updateTransactionInput);
+    TransactionDomain updateTransaction(UUID bankaccountId, UpdateTransactionInput updateTransactionInput);
 
     void deleteTransaction(UUID bankaccountId);
 }

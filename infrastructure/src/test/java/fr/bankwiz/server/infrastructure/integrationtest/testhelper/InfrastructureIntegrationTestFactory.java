@@ -7,7 +7,7 @@ import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.testhelper.tools.DomainUnitTestFactory;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
@@ -95,8 +95,8 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
     }
 
     @Override
-    public Transaction getTransaction(BankAccountDomain bankAccount) {
-        final Transaction transaction = super.getTransaction(bankAccount);
+    public TransactionDomain getTransaction(BankAccountDomain bankAccount) {
+        final TransactionDomain transaction = super.getTransaction(bankAccount);
         final TransactionEntity transactionEntity = TransactionTransformer.toTransactionEntity(transaction);
         this.transactionEntityRepository.save(transactionEntity);
         return transaction;

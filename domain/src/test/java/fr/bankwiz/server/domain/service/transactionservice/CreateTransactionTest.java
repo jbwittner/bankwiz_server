@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.domain.model.input.TransactionCreationInput;
 import fr.bankwiz.server.domain.service.TransactionDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
@@ -37,7 +37,7 @@ class CreateTransactionTest extends DomainUnitTestBase {
         this.mockCheckRightTool.mockCheckCurrentUserCanWrite(bankAccount.getGroup(), true);
         this.mockTransactionSpi.mockSave();
 
-        final Transaction transaction = this.transactionDomainService.createTransaction(transactionCreationInput);
+        final TransactionDomain transaction = this.transactionDomainService.createTransaction(transactionCreationInput);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(transactionCreationInput.getComment(), transaction.getComment()),

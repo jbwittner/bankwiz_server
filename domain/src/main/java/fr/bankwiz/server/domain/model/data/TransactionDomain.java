@@ -9,7 +9,7 @@ import lombok.ToString;
 @Builder
 @Getter
 @ToString
-public class Transaction {
+public class TransactionDomain {
     private UUID id;
     private Integer decimalAmount;
     private String comment;

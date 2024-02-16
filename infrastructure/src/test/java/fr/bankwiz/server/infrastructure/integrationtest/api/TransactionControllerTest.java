@@ -19,7 +19,7 @@ import fr.bankwiz.openapi.model.UpdateTransactionRequest;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
 import fr.bankwiz.server.infrastructure.spi.database.entity.TransactionEntity;
@@ -91,7 +91,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
         final GroupDomain group = this.factory.getGroup();
         this.factory.getGroupRight(group, user, GroupRightEnum.READ);
         final BankAccountDomain bankAccount = this.factory.getBankAccount(group);
-        final List<Transaction> transactions = new ArrayList<>();
+        final List<TransactionDomain> transactions = new ArrayList<>();
         transactions.add(this.factory.getTransaction(bankAccount));
         transactions.add(this.factory.getTransaction(bankAccount));
         transactions.add(this.factory.getTransaction(bankAccount));
@@ -113,7 +113,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
         final var transactionIndexDTOs = response.getTransactions();
 
         transactionIndexDTOs.forEach(transactionIndexDTO -> {
-            final Transaction transactionFinded = transactions.stream()
+            final TransactionDomain transactionFinded = transactions.stream()
                     .filter(transaction -> transaction.getId().equals(transactionIndexDTO.getTransactionId()))
                     .findFirst()
                     .orElseThrow();
@@ -132,7 +132,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
         this.factory.getGroupRight(group, user, GroupRightEnum.WRITE);
         final BankAccountDomain bankAccount = this.factory.getBankAccount(group);
 
-        final Transaction transaction = this.factory.getTransaction(bankAccount);
+        final TransactionDomain transaction = this.factory.getTransaction(bankAccount);
         final UUID transactionId = transaction.getId();
 
         final UpdateTransactionRequest updateTransactionRequest = new UpdateTransactionRequest();
@@ -176,7 +176,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
         this.factory.getGroupRight(group, user, GroupRightEnum.WRITE);
         final BankAccountDomain bankAccount = this.factory.getBankAccount(group);
 
-        final Transaction transaction = this.factory.getTransaction(bankAccount);
+        final TransactionDomain transaction = this.factory.getTransaction(bankAccount);
         final UUID transactionId = transaction.getId();
 
         given().auth()

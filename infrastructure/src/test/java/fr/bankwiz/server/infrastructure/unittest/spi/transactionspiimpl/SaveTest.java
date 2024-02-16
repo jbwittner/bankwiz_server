@@ -3,7 +3,7 @@ package fr.bankwiz.server.infrastructure.unittest.spi.transactionspiimpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.domain.spi.TransactionSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.TransactionEntity;
 import fr.bankwiz.server.infrastructure.transformer.TransactionTransformer;
@@ -23,9 +23,9 @@ class SaveTest extends InfrastructureUnitTestBase {
 
         this.transactionRepositoryMockFactory.mockSave();
 
-        final Transaction transaction = this.factory.getTransaction();
+        final TransactionDomain transaction = this.factory.getTransaction();
 
-        final Transaction transactionSaved = this.transactionSpi.save(transaction);
+        final TransactionDomain transactionSaved = this.transactionSpi.save(transaction);
 
         final var argumentCaptor = this.transactionRepositoryMockFactory.verifySaveCalled(TransactionEntity.class);
 

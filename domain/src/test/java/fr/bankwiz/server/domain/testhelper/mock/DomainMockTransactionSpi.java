@@ -8,7 +8,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.domain.spi.TransactionSpi;
 
 public class DomainMockTransactionSpi extends DomainMockHelper<TransactionSpi> {
@@ -17,7 +17,7 @@ public class DomainMockTransactionSpi extends DomainMockHelper<TransactionSpi> {
         super(TransactionSpi.class);
     }
 
-    public DomainMockTransactionSpi verifySave(Transaction transaction) {
+    public DomainMockTransactionSpi verifySave(TransactionDomain transaction) {
         Mockito.verify(this.mock, Mockito.times(1)).save(transaction);
         return this;
     }
@@ -29,17 +29,17 @@ public class DomainMockTransactionSpi extends DomainMockHelper<TransactionSpi> {
 
     public DomainMockTransactionSpi mockSave() {
         Mockito.when(this.mock.save(ArgumentMatchers.any())).thenAnswer(invocation -> {
-            return invocation.<Transaction>getArgument(0);
+            return invocation.<TransactionDomain>getArgument(0);
         });
         return this;
     }
 
-    public DomainMockTransactionSpi mockFindByBankAccount(BankAccountDomain bankAccount, List<Transaction> transactions) {
+    public DomainMockTransactionSpi mockFindByBankAccount(BankAccountDomain bankAccount, List<TransactionDomain> transactions) {
         Mockito.when(this.mock.findByBankAccount(bankAccount)).thenReturn(transactions);
         return this;
     }
 
-    public DomainMockTransactionSpi mockFindById(UUID id, Optional<Transaction> optionalTransaction) {
+    public DomainMockTransactionSpi mockFindById(UUID id, Optional<TransactionDomain> optionalTransaction) {
         Mockito.when(this.mock.findById(id)).thenReturn(optionalTransaction);
         return this;
     }

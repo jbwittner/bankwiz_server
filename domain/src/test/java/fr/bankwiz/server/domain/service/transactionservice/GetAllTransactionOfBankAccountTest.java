@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.exception.UserNoReadRightException;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.domain.model.other.BankAccountTransactions;
 import fr.bankwiz.server.domain.service.TransactionDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
@@ -30,7 +30,7 @@ class GetAllTransactionOfBankAccountTest extends DomainUnitTestBase {
     @Test
     void getAll() {
         final BankAccountDomain bankAccount = this.factory.getBankAccount();
-        final List<Transaction> transactions = new ArrayList<>();
+        final List<TransactionDomain> transactions = new ArrayList<>();
         transactions.add(this.factory.getTransaction(bankAccount));
         transactions.add(this.factory.getTransaction(bankAccount));
         transactions.add(this.factory.getTransaction(bankAccount));
@@ -50,7 +50,7 @@ class GetAllTransactionOfBankAccountTest extends DomainUnitTestBase {
                         bankAccountTransactions.getTransactions().size()),
                 () -> {
                     bankAccountTransactions.getTransactions().forEach(transactionFinded -> {
-                        Transaction transactionInput = transactions.stream()
+                        TransactionDomain transactionInput = transactions.stream()
                                 .filter(transaction -> transaction.getId().equals(transactionFinded.getId()))
                                 .findAny()
                                 .orElseThrow();

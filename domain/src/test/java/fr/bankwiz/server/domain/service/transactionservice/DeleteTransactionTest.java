@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.exception.TransactionNotExistException;
 import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
-import fr.bankwiz.server.domain.model.data.Transaction;
+import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.domain.service.TransactionDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 
@@ -26,7 +26,7 @@ class DeleteTransactionTest extends DomainUnitTestBase {
 
     @Test
     void ok() {
-        final Transaction transaction = this.factory.getTransaction();
+        final TransactionDomain transaction = this.factory.getTransaction();
         final UUID transactionId = transaction.getId();
         this.mockTransactionSpi.mockFindById(transactionId, Optional.of(transaction));
 
@@ -40,7 +40,7 @@ class DeleteTransactionTest extends DomainUnitTestBase {
 
     @Test
     void noWriteRight() {
-        final Transaction transaction = this.factory.getTransaction();
+        final TransactionDomain transaction = this.factory.getTransaction();
         final UUID transactionId = transaction.getId();
         this.mockTransactionSpi.mockFindById(transactionId, Optional.of(transaction));
 
