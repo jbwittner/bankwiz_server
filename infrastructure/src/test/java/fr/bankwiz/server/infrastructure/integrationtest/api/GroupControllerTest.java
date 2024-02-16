@@ -14,7 +14,7 @@ import fr.bankwiz.openapi.model.GroupDetailsDTO;
 import fr.bankwiz.openapi.model.GroupIndexDTO;
 import fr.bankwiz.openapi.model.UserGroupRightDTO;
 import fr.bankwiz.openapi.model.UserGroupRightEnum;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -136,7 +136,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
         final GroupRight groupRight = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
 
-        final Group group = groupRight.getGroup();
+        final GroupDomain group = groupRight.getGroup();
 
         final GroupDetailsDTO response = given().auth()
                 .oauth2(jwt.getTokenValue())
@@ -158,7 +158,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
 
         final GroupRight groupRight = this.factory.getGroupRight(user, GroupRightEnum.ADMIN);
 
-        final Group group = groupRight.getGroup();
+        final GroupDomain group = groupRight.getGroup();
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
 
         final User anotherUser = this.factory.getUser();
@@ -213,7 +213,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
         final Jwt jwt = this.mockAuthentification(user);
         final User anotherUser = this.factory.getUser();
 
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         this.factory.getGroupRight(group, user, GroupRightEnum.ADMIN);
         this.factory.getGroupRight(group, anotherUser, GroupRightEnum.WRITE);
 
@@ -240,7 +240,7 @@ class GroupControllerTest extends InfrastructureIntegrationTestBase {
         final User user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         this.factory.getGroupRight(group, user, GroupRightEnum.ADMIN);
 
         final String path = "/group/" + group.getId();

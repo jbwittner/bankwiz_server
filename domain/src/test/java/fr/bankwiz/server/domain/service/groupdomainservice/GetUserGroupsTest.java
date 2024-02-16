@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -45,7 +45,7 @@ class GetUserGroupsTest extends DomainUnitTestBase {
 
         this.mockGroupRightSpi.mockFindByUser(user, groupRights);
 
-        final List<Group> groups = this.groupDomainService.getUserGroups();
+        final List<GroupDomain> groups = this.groupDomainService.getUserGroups();
 
         Assertions.assertEquals(groupRights.size(), groups.size());
 

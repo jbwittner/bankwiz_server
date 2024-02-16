@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
@@ -40,7 +40,7 @@ public class GroupRightSpiImpl implements GroupRightSpi {
     }
 
     @Override
-    public List<GroupRight> findByGroup(Group group) {
+    public List<GroupRight> findByGroup(GroupDomain group) {
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
         final List<GroupRightEntity> groupRightEntities =
                 this.groupRightEntityRepository.findByGroupEntity(groupEntity);
@@ -48,14 +48,14 @@ public class GroupRightSpiImpl implements GroupRightSpi {
     }
 
     @Override
-    public void deleteByGroupAndUser(Group group, User user) {
+    public void deleteByGroupAndUser(GroupDomain group, User user) {
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
         final UserEntity userEntity = UserTransformer.toUserEntity(user);
         this.groupRightEntityRepository.deleteByGroupEntityAndUserEntity(groupEntity, userEntity);
     }
 
     @Override
-    public void deleteAllByGroup(Group group) {
+    public void deleteAllByGroup(GroupDomain group) {
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
         this.groupRightEntityRepository.deleteAllByGroupEntity(groupEntity);
     }

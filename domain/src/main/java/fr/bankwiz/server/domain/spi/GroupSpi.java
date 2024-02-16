@@ -3,12 +3,12 @@ package fr.bankwiz.server.domain.spi;
 import java.util.Optional;
 import java.util.UUID;
 
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 
 public interface GroupSpi {
-    Group save(Group group);
+    GroupDomain save(GroupDomain group);
 
-    Optional<Group> findById(UUID id);
+    Optional<GroupDomain> findById(UUID id);
 
     void deleteById(UUID id);
 }

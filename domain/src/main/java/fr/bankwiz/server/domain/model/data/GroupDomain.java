@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @EqualsAndHashCode
 @ToString
-public class Group {
+public class GroupDomain {
 
     private UUID id;
     private String groupName;

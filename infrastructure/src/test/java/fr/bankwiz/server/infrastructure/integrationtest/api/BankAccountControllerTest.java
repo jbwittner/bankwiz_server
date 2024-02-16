@@ -15,7 +15,7 @@ import fr.bankwiz.openapi.model.BankAccountUpdateRequest;
 import fr.bankwiz.openapi.model.CurrencyEnum;
 import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
@@ -40,7 +40,7 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
         final User user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         this.factory.getGroupRight(group, user, GroupRightEnum.ADMIN);
 
         final BankAccountCreationRequest bankAccountCreationRequest = new BankAccountCreationRequest(
@@ -85,12 +85,12 @@ class BankAccountControllerTest extends InfrastructureIntegrationTestBase {
         final User user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
-        final List<Group> groups = new ArrayList<>();
-        final Group group1 = this.factory.getGroup();
+        final List<GroupDomain> groups = new ArrayList<>();
+        final GroupDomain group1 = this.factory.getGroup();
         groups.add(group1);
         this.factory.getGroupRight(group1, user, GroupRightEnum.READ);
 
-        final Group group2 = this.factory.getGroup();
+        final GroupDomain group2 = this.factory.getGroup();
         groups.add(group2);
         this.factory.getGroupRight(group2, user, GroupRightEnum.READ);
 

@@ -13,5 +13,5 @@ import lombok.Setter;
 @EqualsAndHashCode
 public abstract class GroupRelated {
     private UUID id;
-    protected Group group;
+    protected GroupDomain group;
 }

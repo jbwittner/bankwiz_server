@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.transformer.BankAccountTransformer;
@@ -24,7 +24,7 @@ class SaveTest extends InfrastructureUnitTestBase {
 
         this.bankAccountRepositoryMockFactory.mockSave();
 
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         final BankAccountDomain bankAccount = this.factory.getBankAccount(group);
 
         final BankAccountDomain bankAccountSaved = this.bankAccountSpi.save(bankAccount);

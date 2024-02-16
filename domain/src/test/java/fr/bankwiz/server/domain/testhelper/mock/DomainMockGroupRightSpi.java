@@ -6,7 +6,7 @@ import java.util.List;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
@@ -38,7 +38,7 @@ public class DomainMockGroupRightSpi extends DomainMockHelper<GroupRightSpi> {
         return this;
     }
 
-    public DomainMockGroupRightSpi mockFindByGroup(final Group group, final List<GroupRight> groupRights) {
+    public DomainMockGroupRightSpi mockFindByGroup(final GroupDomain group, final List<GroupRight> groupRights) {
         Mockito.when(this.mock.findByGroup(group)).thenReturn(groupRights);
         return this;
     }

@@ -3,7 +3,7 @@ package fr.bankwiz.server.infrastructure.unittest.transformer.grouprighttransfor
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -37,7 +37,7 @@ class ToGroupRightEntityTest extends InfrastructureUnitTestBase {
                 },
                 () -> {
                     final GroupEntity groupEntity = groupRightEntity.getGroupEntity();
-                    final Group group = groupRight.getGroup();
+                    final GroupDomain group = groupRight.getGroup();
 
                     Assertions.assertAll(
                             () -> Assertions.assertEquals(group.getGroupName(), groupEntity.getGroupName()),

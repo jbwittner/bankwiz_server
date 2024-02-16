@@ -7,7 +7,7 @@ import fr.bankwiz.server.domain.api.BankAccountApi;
 import fr.bankwiz.server.domain.exception.BankAccountNotExistException;
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.model.input.BankAccountCreationInput;
@@ -43,7 +43,7 @@ public class BankAccountService implements BankAccountApi {
     @Override
     public BankAccountDomain createBankAccount(BankAccountCreationInput bankAccountCreationInput) {
 
-        final Group group = this.groupSpi
+        final GroupDomain group = this.groupSpi
                 .findById(bankAccountCreationInput.getGroupId())
                 .orElseThrow(() -> new GroupNotExistException(bankAccountCreationInput.getGroupId()));
         final User user = this.authenticationSpi.getCurrentUser();
@@ -86,7 +86,7 @@ public class BankAccountService implements BankAccountApi {
                 .findById(bankAccountId)
                 .orElseThrow(() -> new BankAccountNotExistException(bankAccountId));
 
-        final Group group = bankAccount.getGroup();
+        final GroupDomain group = bankAccount.getGroup();
         this.checkRightTools.checkIsAdmin(user, group);
 
         this.bankAccountSpi.deleteById(bankAccountId);
@@ -100,7 +100,7 @@ public class BankAccountService implements BankAccountApi {
                 .findById(bankAccountId)
                 .orElseThrow(() -> new BankAccountNotExistException(bankAccountId));
 
-        final Group group = bankAccount.getGroup();
+        final GroupDomain group = bankAccount.getGroup();
         this.checkRightTools.checkIsAdmin(user, group);
 
         if (bankAccountUpdateInput.getBankAccountName() != null) {
@@ -113,7 +113,7 @@ public class BankAccountService implements BankAccountApi {
 
         if (bankAccountUpdateInput.getGroupId() != null) {
             final UUID otherGroupId = bankAccountUpdateInput.getGroupId();
-            final Group otherGroup =
+            final GroupDomain otherGroup =
                     this.groupSpi.findById(otherGroupId).orElseThrow(() -> new GroupNotExistException(otherGroupId));
             this.checkRightTools.checkCanWrite(user, otherGroup);
             bankAccount.setGroup(otherGroup);

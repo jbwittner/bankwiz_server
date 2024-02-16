@@ -6,7 +6,7 @@ import java.util.List;
 import fr.bankwiz.openapi.model.BankAccountIndexDTO;
 import fr.bankwiz.openapi.model.CurrencyIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 
@@ -28,7 +28,7 @@ public class BankAccountTransformer {
     }
 
     public static BankAccountDomain fromBankAccountEntity(final BankAccountEntity bankAccountEntity) {
-        final Group group = GroupTransformer.fromGroupEntity(bankAccountEntity.getGroupEntity());
+        final GroupDomain group = GroupTransformer.fromGroupEntity(bankAccountEntity.getGroupEntity());
         final BankAccountDomain.CurrencyEnumDomain currencyEnumDomain = BankAccountDomain.CurrencyEnumDomain.valueOf(
                 bankAccountEntity.getCurrencyEntityEnum().toString());
         return BankAccountDomain.builder()

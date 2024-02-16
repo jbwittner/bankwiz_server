@@ -12,7 +12,7 @@ import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserAlreadyAccessGroupException;
 import fr.bankwiz.server.domain.exception.UserNotAdminException;
 import fr.bankwiz.server.domain.exception.UserNotExistException;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -41,7 +41,7 @@ class AddUserToGroupTest extends DomainUnitTestBase {
     @Test
     void addUserOk() {
         final User admin = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
 
@@ -68,7 +68,7 @@ class AddUserToGroupTest extends DomainUnitTestBase {
     @Test
     void userHaveAlreadyAccess() {
         final User admin = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
 
@@ -95,7 +95,7 @@ class AddUserToGroupTest extends DomainUnitTestBase {
     @Test
     void userNotAdmin() {
         final User admin = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.WRITE));
 
@@ -113,7 +113,7 @@ class AddUserToGroupTest extends DomainUnitTestBase {
     @Test
     void userNotExist() {
         final User admin = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, admin, GroupRightEnum.ADMIN));
 

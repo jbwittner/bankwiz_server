@@ -17,7 +17,7 @@ import fr.bankwiz.openapi.model.TransactionDTO;
 import fr.bankwiz.openapi.model.TransactionIndexDTO;
 import fr.bankwiz.openapi.model.UpdateTransactionRequest;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.Transaction;
 import fr.bankwiz.server.domain.model.data.User;
@@ -42,7 +42,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
         final User user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         this.factory.getGroupRight(group, user, GroupRightEnum.WRITE);
         final BankAccountDomain bankAccount = this.factory.getBankAccount(group);
 
@@ -88,7 +88,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
         final User user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         this.factory.getGroupRight(group, user, GroupRightEnum.READ);
         final BankAccountDomain bankAccount = this.factory.getBankAccount(group);
         final List<Transaction> transactions = new ArrayList<>();
@@ -128,7 +128,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
         final User user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         this.factory.getGroupRight(group, user, GroupRightEnum.WRITE);
         final BankAccountDomain bankAccount = this.factory.getBankAccount(group);
 
@@ -172,7 +172,7 @@ class TransactionControllerTest extends InfrastructureIntegrationTestBase {
         final User user = this.factory.getUser();
         final Jwt jwt = this.mockAuthentification(user);
 
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         this.factory.getGroupRight(group, user, GroupRightEnum.WRITE);
         final BankAccountDomain bankAccount = this.factory.getBankAccount(group);
 

@@ -12,7 +12,7 @@ import lombok.ToString;
 public class GroupRight {
 
     private UUID id;
-    private Group group;
+    private GroupDomain group;
     private User user;
     private GroupRightEnum groupRightEnum;
 

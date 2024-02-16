@@ -3,7 +3,7 @@ package fr.bankwiz.server.infrastructure.unittest.spi.bankaccountspiimpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
@@ -21,7 +21,7 @@ class ExistsByGroupTest extends InfrastructureUnitTestBase {
     @Test
     void bankAccountExist() {
 
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
 
         this.bankAccountRepositoryMockFactory.mockExistByGroupEntity(groupEntity, true);
@@ -34,7 +34,7 @@ class ExistsByGroupTest extends InfrastructureUnitTestBase {
     @Test
     void bankAccountNotExist() {
 
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
 
         this.bankAccountRepositoryMockFactory.mockExistByGroupEntity(groupEntity, false);

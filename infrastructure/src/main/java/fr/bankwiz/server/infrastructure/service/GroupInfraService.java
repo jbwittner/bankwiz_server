@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.bankwiz.server.domain.api.GroupApi;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.input.AddUserGroupInput;
 import fr.bankwiz.server.domain.model.input.GroupCreationInput;
@@ -23,12 +23,12 @@ public class GroupInfraService {
     }
 
     @Transactional
-    public Group createGroup(GroupCreationInput groupCreationInput) {
+    public GroupDomain createGroup(GroupCreationInput groupCreationInput) {
         return this.groupApi.groupCreation(groupCreationInput);
     }
 
     @Transactional(readOnly = true)
-    public List<Group> getUserGroups() {
+    public List<GroupDomain> getUserGroups() {
         return this.groupApi.getUserGroups();
     }
 

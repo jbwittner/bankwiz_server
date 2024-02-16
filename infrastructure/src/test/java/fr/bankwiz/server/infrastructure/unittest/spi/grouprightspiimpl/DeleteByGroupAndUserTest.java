@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
@@ -26,7 +26,7 @@ class DeleteByGroupAndUserTest extends InfrastructureUnitTestBase {
     @Test
     void delete() {
         final GroupEntity groupEntity = this.factory.getGroupEntity();
-        final Group group = GroupTransformer.fromGroupEntity(groupEntity);
+        final GroupDomain group = GroupTransformer.fromGroupEntity(groupEntity);
 
         final UserEntity userEntity = this.factory.getUserEntity();
         final User user = UserTransformer.fromUserEntity(userEntity);

@@ -3,7 +3,7 @@ package fr.bankwiz.server.domain.service.groupdomainservice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -41,7 +41,7 @@ class GroupCreationTest extends DomainUnitTestBase {
         final User user = this.factory.getUser();
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final Group group = this.groupDomainService.groupCreation(groupCreationRequest);
+        final GroupDomain group = this.groupDomainService.groupCreation(groupCreationRequest);
 
         Assertions.assertEquals(groupCreationRequest.getGroupName(), group.getGroupName());
         Assertions.assertNotNull(group.getId());

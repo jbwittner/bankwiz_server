@@ -12,7 +12,7 @@ import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain.CurrencyEnumDomain;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -40,7 +40,7 @@ class CreateBankAccountTest extends DomainUnitTestBase {
     @Test
     void createBankAccountOk() {
         final User user = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(user, GroupRightEnum.WRITE));
 
@@ -70,7 +70,7 @@ class CreateBankAccountTest extends DomainUnitTestBase {
     @Test
     void userCantWrite() {
         final User user = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(user, GroupRightEnum.READ));
 

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.Transaction;
@@ -55,15 +55,15 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
     }
 
     @Override
-    public Group getGroup() {
-        final Group group = super.getGroup();
+    public GroupDomain getGroup() {
+        final GroupDomain group = super.getGroup();
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
         this.groupEntityRepository.save(groupEntity);
         return group;
     }
 
     @Override
-    public GroupRight getGroupRight(final Group group, final User user, final GroupRightEnum groupRightEnum) {
+    public GroupRight getGroupRight(final GroupDomain group, final User user, final GroupRightEnum groupRightEnum) {
         final GroupRight groupRight = super.getGroupRight(group, user, groupRightEnum);
         final GroupRightEntity groupRightEntity = GroupRightTransformer.toGroupRightEntity(groupRight);
         this.groupRightEntityRepository.save(groupRightEntity);
@@ -81,7 +81,7 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
     }
 
     @Override
-    public BankAccountDomain getBankAccount(final Group group) {
+    public BankAccountDomain getBankAccount(final GroupDomain group) {
         final BankAccountDomain bankAccount = super.getBankAccount(group);
         final BankAccountEntity bankAccountEntity = BankAccountTransformer.toBankAccountEntity(bankAccount);
         this.bankAccountEntityRepository.save(bankAccountEntity);
@@ -90,7 +90,7 @@ public class InfrastructureIntegrationTestFactory extends DomainUnitTestFactory 
 
     @Override
     public BankAccountDomain getBankAccount() {
-        final Group group = this.getGroup();
+        final GroupDomain group = this.getGroup();
         return this.getBankAccount(group);
     }
 

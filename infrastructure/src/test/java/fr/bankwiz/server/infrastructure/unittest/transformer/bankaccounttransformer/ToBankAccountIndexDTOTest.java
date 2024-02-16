@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.openapi.model.BankAccountIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.infrastructure.transformer.BankAccountTransformer;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
 
@@ -20,7 +20,7 @@ class ToBankAccountIndexDTOTest extends InfrastructureUnitTestBase {
 
     @Test
     void toBankAccountIndexDTOSingle() {
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         final BankAccountDomain bankAccount = this.factory.getBankAccount(group);
         final BankAccountIndexDTO bankAccountIndexDTO = BankAccountTransformer.toBankAccountIndexDTO(bankAccount);
 
@@ -32,7 +32,7 @@ class ToBankAccountIndexDTOTest extends InfrastructureUnitTestBase {
 
     @Test
     void toBankAccountIndexDTOList() {
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         final List<BankAccountDomain> bankAccounts = new ArrayList<>();
         bankAccounts.add(this.factory.getBankAccount(group));
         bankAccounts.add(this.factory.getBankAccount(group));

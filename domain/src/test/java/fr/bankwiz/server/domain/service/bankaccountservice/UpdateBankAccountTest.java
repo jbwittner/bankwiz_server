@@ -13,7 +13,7 @@ import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
 import fr.bankwiz.server.domain.exception.UserNotAdminException;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -126,7 +126,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(bankAccount.getGroup(), user, GroupRightEnum.ADMIN));
 
-        final Group newGroup = this.factory.getGroup();
+        final GroupDomain newGroup = this.factory.getGroup();
 
         this.mockGroupSpi.mockFindById(newGroup.getId(), Optional.of(newGroup));
 
@@ -137,7 +137,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
                 .mockFindByGroup(bankAccount.getGroup(), groupRights)
                 .mockFindByGroup(newGroup, newGroupRights);
 
-        final Group groupBefore = bankAccount.getGroup();
+        final GroupDomain groupBefore = bankAccount.getGroup();
 
         BankAccountUpdateInput bankAccountUpdateInput =
                 BankAccountUpdateInput.builder().groupId(newGroup.getId()).build();
@@ -172,7 +172,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(bankAccount.getGroup(), user, GroupRightEnum.ADMIN));
 
-        final Group newGroup = this.factory.getGroup();
+        final GroupDomain newGroup = this.factory.getGroup();
 
         this.mockGroupSpi.mockFindById(newGroup.getId(), Optional.of(newGroup));
 
@@ -204,7 +204,7 @@ class UpdateBankAccountTest extends DomainUnitTestBase {
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(bankAccount.getGroup(), user, GroupRightEnum.ADMIN));
 
-        final Group newGroup = this.factory.getGroup();
+        final GroupDomain newGroup = this.factory.getGroup();
 
         this.mockGroupSpi.mockFindById(newGroup.getId(), Optional.empty());
 

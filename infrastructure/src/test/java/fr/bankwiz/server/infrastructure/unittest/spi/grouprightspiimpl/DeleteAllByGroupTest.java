@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.spi.GroupRightSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
 import fr.bankwiz.server.infrastructure.transformer.GroupTransformer;
@@ -22,7 +22,7 @@ class DeleteAllByGroupTest extends InfrastructureUnitTestBase {
 
     @Test
     void ok() {
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
 
         this.groupRightSpi.deleteAllByGroup(group);
 

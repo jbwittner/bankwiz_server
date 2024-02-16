@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.exception.GroupNotExistException;
 import fr.bankwiz.server.domain.exception.UserNoReadRightException;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -42,7 +42,7 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
 
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
 
         final UUID groupUuid = group.getId();
 
@@ -82,7 +82,7 @@ class GetGroupDetailsTest extends DomainUnitTestBase {
 
         this.mockAuthenticationSpi.mockGetCurrentUser(user);
 
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
 
         final UUID groupUuid = group.getId();
 

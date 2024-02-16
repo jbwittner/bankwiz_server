@@ -5,7 +5,7 @@ import java.util.List;
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.openapi.model.UserGroupRightDTO;
 import fr.bankwiz.openapi.model.UserGroupRightEnum;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -21,7 +21,7 @@ public final class GroupRightTransformer {
     public static GroupRight fromGroupRightEntity(final GroupRightEntity groupRightEntity) {
 
         final User user = UserTransformer.fromUserEntity(groupRightEntity.getUserEntity());
-        final Group group = GroupTransformer.fromGroupEntity(groupRightEntity.getGroupEntity());
+        final GroupDomain group = GroupTransformer.fromGroupEntity(groupRightEntity.getGroupEntity());
 
         return GroupRight.builder()
                 .id(groupRightEntity.getId())

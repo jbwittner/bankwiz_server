@@ -3,7 +3,7 @@ package fr.bankwiz.server.domain.model.other;
 import java.util.List;
 
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,5 +11,5 @@ import lombok.Getter;
 @Getter
 public class GroupBankAccount {
     private List<BankAccountDomain> bankAccounts;
-    private Group group;
+    private GroupDomain group;
 }

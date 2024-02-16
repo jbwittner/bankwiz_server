@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -28,7 +28,7 @@ class CanWriteTest extends DomainUnitTestBase {
     @Test
     void noRight() {
         final User user = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
 
         final List<GroupRight> groupRights = new ArrayList<>();
 
@@ -41,7 +41,7 @@ class CanWriteTest extends DomainUnitTestBase {
     @Test
     void canNotWrite() {
         final User user = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
 
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, user, GroupRightEnum.READ));
@@ -58,7 +58,7 @@ class CanWriteTest extends DomainUnitTestBase {
             names = {"ADMIN", "WRITE"})
     void canWrite(final GroupRightEnum right) {
         final User user = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
 
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, user, right));

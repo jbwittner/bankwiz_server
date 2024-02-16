@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.GroupRight;
 import fr.bankwiz.server.domain.model.data.GroupRight.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.User;
@@ -29,7 +29,7 @@ class HasAnyRightTest extends DomainUnitTestBase {
     @EnumSource(value = GroupRightEnum.class)
     void hasRight(final GroupRightEnum right) {
         final User user = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
 
         final List<GroupRight> groupRights = new ArrayList<>();
         groupRights.add(this.factory.getGroupRight(group, user, right));
@@ -43,7 +43,7 @@ class HasAnyRightTest extends DomainUnitTestBase {
     @Test
     void hasNotRight() {
         final User user = this.factory.getUser();
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
 
         final List<GroupRight> groupRights = new ArrayList<>();
 

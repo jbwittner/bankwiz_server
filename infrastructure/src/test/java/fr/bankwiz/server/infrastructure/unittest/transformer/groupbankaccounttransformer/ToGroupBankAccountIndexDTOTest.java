@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.openapi.model.GroupBankAccountIndexDTO;
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.other.GroupBankAccount;
 import fr.bankwiz.server.infrastructure.transformer.GroupBankAccountTransformer;
 import fr.bankwiz.server.infrastructure.unittest.testhelper.InfrastructureUnitTestBase;
@@ -50,7 +50,7 @@ class ToGroupBankAccountIndexDTOTest extends InfrastructureUnitTestBase {
 
     @Test
     void toBankAccountIndexDTOSingle() {
-        final Group group = this.factory.getGroup();
+        final GroupDomain group = this.factory.getGroup();
         final List<BankAccountDomain> bankAccounts = new ArrayList<>();
         bankAccounts.add(this.factory.getBankAccount(group));
         bankAccounts.add(this.factory.getBankAccount(group));
@@ -69,7 +69,7 @@ class ToGroupBankAccountIndexDTOTest extends InfrastructureUnitTestBase {
 
     @Test
     void toBankAccountIndexDTOSList() {
-        final Group groupOne = this.factory.getGroup();
+        final GroupDomain groupOne = this.factory.getGroup();
         final List<BankAccountDomain> bankAccountsOne = new ArrayList<>();
         bankAccountsOne.add(this.factory.getBankAccount(groupOne));
         bankAccountsOne.add(this.factory.getBankAccount(groupOne));
@@ -80,7 +80,7 @@ class ToGroupBankAccountIndexDTOTest extends InfrastructureUnitTestBase {
                 .group(groupOne)
                 .build();
 
-        final Group groupTwo = this.factory.getGroup();
+        final GroupDomain groupTwo = this.factory.getGroup();
         final List<BankAccountDomain> bankAccountsTwo = new ArrayList<>();
         bankAccountsTwo.add(this.factory.getBankAccount(groupTwo));
         bankAccountsTwo.add(this.factory.getBankAccount(groupTwo));

@@ -4,7 +4,7 @@ import java.util.List;
 
 import fr.bankwiz.openapi.model.GroupDetailsDTO;
 import fr.bankwiz.openapi.model.UserGroupRightDTO;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.other.GroupDetails;
 
 public class GroupDetailsTransformer {
@@ -12,7 +12,7 @@ public class GroupDetailsTransformer {
     private GroupDetailsTransformer() {}
 
     public static GroupDetailsDTO toGroupDetailsDTO(final GroupDetails groupDetails) {
-        final Group group = groupDetails.getGroup();
+        final GroupDomain group = groupDetails.getGroup();
         final List<UserGroupRightDTO> userGroupRightDTOs =
                 GroupRightTransformer.toGroupRightDTO(groupDetails.getGroupRights());
         return new GroupDetailsDTO(group.getId(), group.getGroupName(), userGroupRightDTOs);

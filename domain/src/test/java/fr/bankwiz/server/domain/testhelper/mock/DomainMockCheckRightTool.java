@@ -6,7 +6,7 @@ import org.mockito.Mockito;
 
 import fr.bankwiz.server.domain.exception.UserNoReadRightException;
 import fr.bankwiz.server.domain.exception.UserNoWriteRightException;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.model.data.User;
 import fr.bankwiz.server.domain.tools.CheckRightTools;
 
@@ -16,7 +16,7 @@ public class DomainMockCheckRightTool extends DomainMockHelper<CheckRightTools> 
         super(CheckRightTools.class);
     }
 
-    public void mockCheckCurrentUserCanWrite(Group group, Boolean canWrite) {
+    public void mockCheckCurrentUserCanWrite(GroupDomain group, Boolean canWrite) {
         if (canWrite == false) {
             final User user = User.builder().id(UUID.randomUUID()).build();
             Mockito.doThrow(new UserNoWriteRightException(user, group))
@@ -25,7 +25,7 @@ public class DomainMockCheckRightTool extends DomainMockHelper<CheckRightTools> 
         }
     }
 
-    public void mockCheckCurrentUserCanRead(Group group, Boolean canRead) {
+    public void mockCheckCurrentUserCanRead(GroupDomain group, Boolean canRead) {
         if (canRead == false) {
             final User user = User.builder().id(UUID.randomUUID()).build();
             Mockito.doThrow(new UserNoReadRightException(user, group))

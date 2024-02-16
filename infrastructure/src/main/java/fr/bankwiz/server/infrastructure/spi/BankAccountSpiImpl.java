@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 import fr.bankwiz.server.domain.model.data.BankAccountDomain;
-import fr.bankwiz.server.domain.model.data.Group;
+import fr.bankwiz.server.domain.model.data.GroupDomain;
 import fr.bankwiz.server.domain.spi.BankAccountSpi;
 import fr.bankwiz.server.infrastructure.spi.database.entity.BankAccountEntity;
 import fr.bankwiz.server.infrastructure.spi.database.entity.GroupEntity;
@@ -32,13 +32,13 @@ public class BankAccountSpiImpl implements BankAccountSpi {
     }
 
     @Override
-    public boolean existsByGroup(Group group) {
+    public boolean existsByGroup(GroupDomain group) {
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
         return this.bankAccountEntityRepository.existsByGroupEntity(groupEntity);
     }
 
     @Override
-    public List<BankAccountDomain> findByGroup(Group group) {
+    public List<BankAccountDomain> findByGroup(GroupDomain group) {
         final GroupEntity groupEntity = GroupTransformer.toGroupEntity(group);
         List<BankAccountEntity> bankAccountEntities = this.bankAccountEntityRepository.findByGroupEntity(groupEntity);
         return BankAccountTransformer.fromBankAccountEntity(bankAccountEntities);
