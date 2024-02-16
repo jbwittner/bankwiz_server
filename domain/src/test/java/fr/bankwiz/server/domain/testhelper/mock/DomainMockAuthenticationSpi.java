@@ -3,7 +3,7 @@ package fr.bankwiz.server.domain.testhelper.mock;
 import org.mockito.Mockito;
 
 import fr.bankwiz.server.domain.model.data.UserDomain;
-import fr.bankwiz.server.domain.model.data.UserAuthentication;
+import fr.bankwiz.server.domain.model.data.UserAuthenticationDomain;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 
 public class DomainMockAuthenticationSpi extends DomainMockHelper<AuthenticationSpi> {
@@ -12,7 +12,7 @@ public class DomainMockAuthenticationSpi extends DomainMockHelper<Authentication
         super(AuthenticationSpi.class);
     }
 
-    public DomainMockAuthenticationSpi mockGetUserAuthentication(final UserAuthentication userAuthentication) {
+    public DomainMockAuthenticationSpi mockGetUserAuthentication(final UserAuthenticationDomain userAuthentication) {
         Mockito.when(this.mock.getUserAuthentication()).thenReturn(userAuthentication);
         return this;
     }

@@ -7,7 +7,7 @@ import lombok.ToString;
 @Builder
 @Getter
 @ToString
-public class UserAuthentication {
+public class UserAuthenticationDomain {
 
     private String sub;
     private String email;

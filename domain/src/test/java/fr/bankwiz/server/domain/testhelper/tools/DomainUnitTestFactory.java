@@ -9,7 +9,7 @@ import fr.bankwiz.server.domain.model.data.GroupRightDomain;
 import fr.bankwiz.server.domain.model.data.GroupRightDomain.GroupRightEnum;
 import fr.bankwiz.server.domain.model.data.TransactionDomain;
 import fr.bankwiz.server.domain.model.data.UserDomain;
-import fr.bankwiz.server.domain.model.data.UserAuthentication;
+import fr.bankwiz.server.domain.model.data.UserAuthenticationDomain;
 
 public class DomainUnitTestFactory {
 
@@ -29,8 +29,8 @@ public class DomainUnitTestFactory {
         return "auth|" + this.faker.random().nextInt(Integer.MAX_VALUE);
     }
 
-    public UserAuthentication getUserAuthentication() {
-        return UserAuthentication.builder()
+    public UserAuthenticationDomain getUserAuthentication() {
+        return UserAuthenticationDomain.builder()
                 .email(this.faker.internet().emailAddress())
                 .sub(this.getAuthId())
                 .build();

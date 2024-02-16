@@ -10,7 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 import fr.bankwiz.openapi.model.UserDTO;
-import fr.bankwiz.server.domain.model.data.UserAuthentication;
+import fr.bankwiz.server.domain.model.data.UserAuthenticationDomain;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.infrastructure.integrationtest.testhelper.InfrastructureIntegrationTestBase;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
@@ -42,7 +42,7 @@ class CheckregistrationTest extends InfrastructureIntegrationTestBase {
         final String sub = this.factory.getAuthId();
 
         Mockito.when(this.authenticationSpi.getUserAuthentication())
-                .thenReturn(UserAuthentication.builder().email(email).sub(sub).build());
+                .thenReturn(UserAuthenticationDomain.builder().email(email).sub(sub).build());
 
         UserDTO response = given().auth()
                 .oauth2(jwt.getTokenValue())

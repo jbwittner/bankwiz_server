@@ -12,7 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import fr.bankwiz.server.domain.exception.UserNotExistException;
 import fr.bankwiz.server.domain.model.data.UserDomain;
-import fr.bankwiz.server.domain.model.data.UserAuthentication;
+import fr.bankwiz.server.domain.model.data.UserAuthenticationDomain;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.UserSpi;
 import lombok.Data;
@@ -37,9 +37,9 @@ public class AuthenticationSpiImpl implements AuthenticationSpi {
     }
 
     @Override
-    public UserAuthentication getUserAuthentication() {
+    public UserAuthenticationDomain getUserAuthentication() {
         final IdData idData = this.getIdData();
-        return UserAuthentication.builder()
+        return UserAuthenticationDomain.builder()
                 .email(idData.getEmail())
                 .sub(idData.getSub())
                 .build();

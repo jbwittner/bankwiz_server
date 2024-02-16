@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import fr.bankwiz.server.domain.api.UserApi;
 import fr.bankwiz.server.domain.model.data.UserDomain;
-import fr.bankwiz.server.domain.model.data.UserAuthentication;
+import fr.bankwiz.server.domain.model.data.UserAuthenticationDomain;
 import fr.bankwiz.server.domain.spi.AuthenticationSpi;
 import fr.bankwiz.server.domain.spi.UserSpi;
 
@@ -20,7 +20,7 @@ public class UserDomainService implements UserApi {
 
     @Override
     public UserDomain checkRegistration() {
-        final UserAuthentication userAuthentication = this.authenticationSpi.getUserAuthentication();
+        final UserAuthenticationDomain userAuthentication = this.authenticationSpi.getUserAuthentication();
 
         final UserDomain user = this.userSpi
                 .findByAuthId(userAuthentication.getSub())

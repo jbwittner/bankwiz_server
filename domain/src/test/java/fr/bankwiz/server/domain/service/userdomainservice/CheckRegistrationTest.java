@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.data.UserDomain;
-import fr.bankwiz.server.domain.model.data.UserAuthentication;
+import fr.bankwiz.server.domain.model.data.UserAuthenticationDomain;
 import fr.bankwiz.server.domain.service.UserDomainService;
 import fr.bankwiz.server.domain.testhelper.DomainUnitTestBase;
 
@@ -23,7 +23,7 @@ class CheckRegistrationTest extends DomainUnitTestBase {
 
     @Test
     void newUserTest() {
-        final UserAuthentication userAuthentication = this.factory.getUserAuthentication();
+        final UserAuthenticationDomain userAuthentication = this.factory.getUserAuthentication();
 
         this.mockAuthenticationSpi.mockGetUserAuthentication(userAuthentication);
         this.mockUserSpi
@@ -39,7 +39,7 @@ class CheckRegistrationTest extends DomainUnitTestBase {
 
     @Test
     void userAlreadyExistTest() {
-        final UserAuthentication userAuthentication = this.factory.getUserAuthentication();
+        final UserAuthenticationDomain userAuthentication = this.factory.getUserAuthentication();
 
         this.mockAuthenticationSpi.mockGetUserAuthentication(userAuthentication);
 
