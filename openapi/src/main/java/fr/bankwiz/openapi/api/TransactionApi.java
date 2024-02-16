@@ -49,7 +49,7 @@ public interface TransactionApi {
      * POST /transaction : Create a new transaction
      *
      * @param createTransactionRequest  (required)
-     * @return Bank account created successfully (status code 200)
+     * @return Bank account created successfully (status code 201)
      *         or Invalid request. Please check the provided data. (status code 400)
      */
     @Operation(
@@ -57,7 +57,7 @@ public interface TransactionApi {
         summary = "Create a new transaction",
         tags = { "TransactionService" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "Bank account created successfully", content = {
+            @ApiResponse(responseCode = "201", description = "Bank account created successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = TransactionDTO.class))
             }),
             @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
@@ -155,7 +155,7 @@ public interface TransactionApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"bankAccountIndex\" : { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"decimalBaseAmount\" : 0 }, \"transactions\" : [ { \"decimalAmount\" : 0, \"comment\" : \"comment\", \"transactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }, { \"decimalAmount\" : 0, \"comment\" : \"comment\", \"transactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" } ] }";
+                    String exampleString = "{ \"bankAccountIndex\" : { \"bankAccountName\" : \"bankAccountName\", \"bankAccountId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"currency\" : { \"symbol\" : \"symbol\", \"displayName\" : \"displayName\" }, \"decimalBaseAmount\" : 0 }, \"transactions\" : [ { \"decimalAmount\" : 0, \"comment\" : \"comment\", \"transactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }, { \"decimalAmount\" : 0, \"comment\" : \"comment\", \"transactionId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" } ] }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

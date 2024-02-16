@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import fr.bankwiz.openapi.model.CurrencyIndexDTO;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -28,6 +29,8 @@ public class BankAccountIndexDTO {
 
   private Integer decimalBaseAmount;
 
+  private CurrencyIndexDTO currency;
+
   public BankAccountIndexDTO() {
     super();
   }
@@ -35,10 +38,11 @@ public class BankAccountIndexDTO {
   /**
    * Constructor with only required parameters
    */
-  public BankAccountIndexDTO(String bankAccountName, UUID bankAccountId, Integer decimalBaseAmount) {
+  public BankAccountIndexDTO(String bankAccountName, UUID bankAccountId, Integer decimalBaseAmount, CurrencyIndexDTO currency) {
     this.bankAccountName = bankAccountName;
     this.bankAccountId = bankAccountId;
     this.decimalBaseAmount = decimalBaseAmount;
+    this.currency = currency;
   }
 
   public BankAccountIndexDTO bankAccountName(String bankAccountName) {
@@ -101,6 +105,26 @@ public class BankAccountIndexDTO {
     this.decimalBaseAmount = decimalBaseAmount;
   }
 
+  public BankAccountIndexDTO currency(CurrencyIndexDTO currency) {
+    this.currency = currency;
+    return this;
+  }
+
+  /**
+   * Get currency
+   * @return currency
+  */
+  @NotNull @Valid 
+  @Schema(name = "currency", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("currency")
+  public CurrencyIndexDTO getCurrency() {
+    return currency;
+  }
+
+  public void setCurrency(CurrencyIndexDTO currency) {
+    this.currency = currency;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -112,12 +136,13 @@ public class BankAccountIndexDTO {
     BankAccountIndexDTO bankAccountIndexDTO = (BankAccountIndexDTO) o;
     return Objects.equals(this.bankAccountName, bankAccountIndexDTO.bankAccountName) &&
         Objects.equals(this.bankAccountId, bankAccountIndexDTO.bankAccountId) &&
-        Objects.equals(this.decimalBaseAmount, bankAccountIndexDTO.decimalBaseAmount);
+        Objects.equals(this.decimalBaseAmount, bankAccountIndexDTO.decimalBaseAmount) &&
+        Objects.equals(this.currency, bankAccountIndexDTO.currency);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bankAccountName, bankAccountId, decimalBaseAmount);
+    return Objects.hash(bankAccountName, bankAccountId, decimalBaseAmount, currency);
   }
 
   @Override
@@ -127,6 +152,7 @@ public class BankAccountIndexDTO {
     sb.append("    bankAccountName: ").append(toIndentedString(bankAccountName)).append("\n");
     sb.append("    bankAccountId: ").append(toIndentedString(bankAccountId)).append("\n");
     sb.append("    decimalBaseAmount: ").append(toIndentedString(decimalBaseAmount)).append("\n");
+    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
     sb.append("}");
     return sb.toString();
   }
