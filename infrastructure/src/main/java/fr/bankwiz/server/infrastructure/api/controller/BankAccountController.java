@@ -24,7 +24,7 @@ import fr.bankwiz.server.infrastructure.transformer.GroupBankAccountTransformer;
 @Controller
 public class BankAccountController implements BankaccountApi {
 
-    private BankAccountInfraService bankAccountInfraService;
+    private final BankAccountInfraService bankAccountInfraService;
 
     public BankAccountController(BankAccountInfraService bankAccountInfraService) {
         this.bankAccountInfraService = bankAccountInfraService;
