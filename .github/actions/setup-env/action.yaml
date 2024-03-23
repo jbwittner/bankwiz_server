@@ -12,7 +12,6 @@ runs:
       env:
         cache-name: cache-maven
       with:
-        # npm cache files are stored in `~/.npm` on Linux/macOS
         path: /home/runner/.m2/repository
         key: maven-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('openapi.yaml') }}-${{ hashFiles('pom.xml') }}-${{ hashFiles('domain/pom.xml') }}-${{ hashFiles('infrastructure/pom.xml') }}
         restore-keys: |
