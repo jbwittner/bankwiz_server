@@ -52,7 +52,7 @@
                         <phase>package</phase>
                         <configuration>
                             <includes>
-                            <include>**/service/*</include>
+                                <include>**/service/*</include>
                             </includes>
                             <excludes></excludes>
                         </configuration>

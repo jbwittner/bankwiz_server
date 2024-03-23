@@ -1,5 +1,3 @@
 package fr.bankwiz.server.domain;
 
-public class TotoDomain {
-    
-}
+public class TotoDomain {}
