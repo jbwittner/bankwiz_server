@@ -24,39 +24,10 @@ jobs:
         run: mvn -B clean install -f openapi/pom.xml
       - name: Dependency go-offline
         run: mvn -B dependency:go-offline
-  check-google-format:
-    runs-on: ubuntu-22.04
-    needs:
-      - resolve-dependencies
-    steps:
-      - name: Checkout Git repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Setup action
-        uses: ./.github/actions/setup-env
-      - name: Spotless Check
-        run: >-
-          mvn -B spotless:check
-  checkstyle:
-    runs-on: ubuntu-22.04
-    needs:
-      - resolve-dependencies
-    steps:
-      - name: Checkout Git repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Setup action
-        uses: ./.github/actions/setup-env
-      - name: Spotless Check
-        run: >-
-          mvn -B checkstyle:checkstyle
   build-install-application:
     runs-on: ubuntu-22.04
     needs:
-      - check-google-format
-      - checkstyle
+      - resolve-dependencies
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v4
@@ -66,10 +37,39 @@ jobs:
         uses: ./.github/actions/setup-env
       - name: Install java part
         run: mvn -B -DskipTests clean install 
-  tests_sonar_domain:
+  check-google-format:
     runs-on: ubuntu-22.04
     needs:
       - build-install-application
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Setup action
+        uses: ./.github/actions/setup-env
+      - name: Spotless check
+        run: >-
+          mvn -B spotless:check
+  checkstyle:
+    runs-on: ubuntu-22.04
+    needs:
+      - build-install-application
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Setup action
+        uses: ./.github/actions/setup-env
+      - name: Checkstyle check
+        run: >-
+          mvn -B checkstyle:checkstyle
+  tests_sonar_domain:
+    runs-on: ubuntu-22.04
+    needs:
+      - checkstyle
+      - check-google-format
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v4
@@ -89,7 +89,8 @@ jobs:
   tests_sonar_infra:
     runs-on: ubuntu-22.04
     needs:
-      - build-install-application
+      - checkstyle
+      - check-google-format
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v4
