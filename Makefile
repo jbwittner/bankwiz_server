@@ -4,14 +4,6 @@ OPENAPI_SPEC = "openapi.yaml"
 CURRENT_GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 DOCKER_BUILDKIT=1
 
-ifndef USER_GITHUB_LOGIN
-$(error USER_GITHUB_LOGIN is not set)
-endif
-
-ifndef USER_GITHUB_KEY
-$(error USER_GITHUB_KEY is not set)
-endif
-
 .PHONY: clean-openapi
 clean-openapi:
 	rm -rf $(GENERATED_DIR_JAVA)

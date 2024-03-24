@@ -11,23 +11,23 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
 jobs:
-  resolve-dependencies:
+  build-install-application:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysiés
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Setup action
         uses: ./.github/actions/setup-env
       - name: Install openapi dependancy
         run: mvn -B clean install -f openapi/pom.xml
-      - name: Dependency go-offline
-        run: mvn -B dependency:go-offline
+      - name: Install java part
+        run: mvn -B -DskipTests clean install 
   check-google-format:
     runs-on: ubuntu-22.04
     needs:
-      - resolve-dependencies
+      - build-install-application
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v4
@@ -35,13 +35,13 @@ jobs:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Setup action
         uses: ./.github/actions/setup-env
-      - name: Spotless Check
+      - name: Spotless check
         run: >-
           mvn -B spotless:check
-  build-application:
+  checkstyle:
     runs-on: ubuntu-22.04
     needs:
-      - check-google-format
+      - build-install-application
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v4
@@ -49,12 +49,14 @@ jobs:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Setup action
         uses: ./.github/actions/setup-env
-      - name: Build java part
-        run: mvn -B compile
-  tests_sonar:
+      - name: Checkstyle check
+        run: >-
+          mvn -B checkstyle:checkstyle
+  tests_sonar_domain:
     runs-on: ubuntu-22.04
     needs:
-      - build-application
+      - checkstyle
+      - check-google-format
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v4
@@ -68,12 +70,35 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-      - name: Test and Analyse
-        run: mvn clean verify sonar:sonar
+      - name: Test and analyse domain
+        working-directory: domain
+        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+  tests_sonar_infra:
+    runs-on: ubuntu-22.04
+    needs:
+      - checkstyle
+      - check-google-format
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Setup action
+        uses: ./.github/actions/setup-env
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Test and analyse infrastructure
+        working-directory: infrastructure
+        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
   package_application:
     runs-on: ubuntu-22.04
     needs:
-      - tests_sonar
+      - tests_sonar_infra
+      - tests_sonar_domain
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v4
