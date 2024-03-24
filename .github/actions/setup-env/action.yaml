@@ -13,9 +13,6 @@ runs:
         cache-name: cache-maven
       with:
         path: /home/runner/.m2/repository
-        key: maven-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('openapi.yaml') }}-${{ hashFiles('pom.xml') }}-${{ hashFiles('domain/pom.xml') }}-${{ hashFiles('infrastructure/pom.xml') }}
-        restore-keys: |
-          maven-${{ runner.os }}-build-${{ env.cache-name }}-
-          maven-${{ runner.os }}-build-
-          maven-${{ runner.os }}-
+        key: primes-${{ runner.os }}-${{ github.run_id }}
+        restore-keys: primes-${{ runner.os }}-${{ github.run_id }}
 
