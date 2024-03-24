@@ -1,4 +1,5 @@
 name: Setup action
+description: Composite for setup actions
 runs:
   using: "composite"
   steps:
