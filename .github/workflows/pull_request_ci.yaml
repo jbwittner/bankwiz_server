@@ -23,7 +23,7 @@ jobs:
       - name: Install openapi dependancy
         run: mvn -B clean install -f openapi/pom.xml
       - name: Install java part
-        run: mvn -B -DskipTests clean install 
+        run: mvn -B -DskipTests clean install -Dcheckstyle.skip
   check-google-format:
     runs-on: ubuntu-22.04
     needs:

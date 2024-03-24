@@ -11,7 +11,7 @@ class CheckRegistrationTest extends UserDomainServiceTestBase {
     @Test
     void checkRegistrationNewUser() {
 
-        final UserAuthenticationDomain userAuthenticationDomain = this.factory.getUserAuthentication();
+        UserAuthenticationDomain userAuthenticationDomain = this.factory.getUserAuthentication();
         this.mockAuthenticationSpi.mockGetUserAuthentication(userAuthenticationDomain);
         final String authId = userAuthenticationDomain.sub();
 
