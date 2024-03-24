@@ -8,7 +8,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 jobs:
-  resolve-dependencies:
+  build-install-application:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout Git repository
@@ -18,13 +18,16 @@ jobs:
       - name: Setup action
         uses: ./.github/actions/setup-env
       - name: Install openapi dependancy
-        run: mvn clean install -f openapi/pom.xml
-  package_application:
+        run: mvn -B clean install -f openapi/pom.xml
+      - name: Install java part
+        run: mvn -B -DskipTests clean install 
+  tests_sonar_domain:
     runs-on: ubuntu-22.04
     needs:
-      - resolve-dependencies
+      - build-install-application
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Git repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Setup action
@@ -35,12 +38,34 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-      - name: Analyse
-        run: mvn clean verify sonar:sonar
+      - name: Test and analyse domain
+        working-directory: domain
+        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+  tests_sonar_infra:
+    runs-on: ubuntu-22.04
+    needs:
+      - build-install-application
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Setup action
+        uses: ./.github/actions/setup-env
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Test and analyse infrastructure
+        working-directory: infrastructure
+        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
   build_docker_and_push:
     runs-on: ubuntu-22.04
     needs:
-      - package_application
+      - tests_sonar_domain
+      - tests_sonar_infra
     permissions:
       packages: write
     steps:
@@ -71,7 +96,8 @@ jobs:
   push_maven:
     runs-on: ubuntu-22.04
     needs:
-      - package_application
+      - tests_sonar_domain
+      - tests_sonar_infra
     permissions:
       packages: write
     steps:
