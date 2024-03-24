@@ -1,11 +1,11 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
   title: BankWiz API
   version: 0.1.0
   description: An API for accessing banking functionalities provided by BankWiz
 servers:
   - url: http://localhost:8080
-    description: Local developpement (server)
+    description: Local development (server)
 tags:
   - name: UserService
     description: API endpoints for managing user information
@@ -37,6 +37,8 @@ paths:
                 $ref: '#/components/schemas/UserDTO'
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
   /user/checkregistration:
     get:
       tags:
@@ -52,7 +54,9 @@ paths:
                 $ref: '#/components/schemas/UserDTO'
         '400':
           description: Invalid request. Please check the provided data.
-#################################### UserService END ############################### 
+        default:
+          description: Unexpected error
+  #################################### UserService END ###############################
 #################################### GroupService START ############################ 
   /group:
     post:
@@ -75,6 +79,8 @@ paths:
                 $ref: '#/components/schemas/GroupIndexDTO'
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
   /group/{id}:
     get:
       tags:
@@ -98,6 +104,8 @@ paths:
                 $ref: '#/components/schemas/GroupDetailsDTO'
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
     delete:
       tags:
         - GroupService
@@ -116,6 +124,8 @@ paths:
           description: Group deleted
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
   /group/{groupId}/user:
     post:
       tags:
@@ -145,6 +155,8 @@ paths:
                 $ref: '#/components/schemas/UserGroupRightDTO'
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
   /group/{groupId}/user/{userId}:
     delete:
       tags:
@@ -171,6 +183,8 @@ paths:
           description: User deleted
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
   /group/groups:
     get:
       tags:
@@ -188,6 +202,8 @@ paths:
                   $ref: '#/components/schemas/GroupIndexDTO'
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
 #################################### GroupService END ############################### 
 #################################### BankAccountService START ####################### 
   /bankaccount:
@@ -211,6 +227,8 @@ paths:
                 $ref: '#/components/schemas/BankAccountIndexDTO'
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
   /bankaccount/{id}:
     delete:
       tags:
@@ -230,6 +248,8 @@ paths:
           description: Bank account deleted
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
     put:
       tags:
         - BankAccountService
@@ -258,6 +278,8 @@ paths:
                 $ref: '#/components/schemas/BankAccountIndexDTO'
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
   /bankaccount/bankaccounts:
     get:
       tags:
@@ -275,6 +297,8 @@ paths:
                   $ref: '#/components/schemas/GroupBankAccountIndexDTO'
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
 #################################### BankAccountService END ######################### 
 #################################### TransactionService START ####################### 
   /transaction:
@@ -298,6 +322,8 @@ paths:
                 $ref: '#/components/schemas/TransactionDTO'
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
   /transaction/{transactionId}:
     put:
       tags:
@@ -327,6 +353,8 @@ paths:
                 $ref: '#/components/schemas/TransactionDTO'
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
     delete:
       tags:
         - TransactionService
@@ -345,6 +373,8 @@ paths:
           description: Transaction deleted successfully
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
   /transaction/bankaccount/{bankaccountId}:
     get:
       tags:
@@ -368,6 +398,8 @@ paths:
                 $ref: '#/components/schemas/BankAccountTransactionsDTO'
         '400':
           description: Invalid request. Please check the provided data.
+        default:
+          description: Unexpected error
 #################################### TransactionService END ######################### 
 components:
   securitySchemes:
