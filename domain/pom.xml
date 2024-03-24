@@ -11,7 +11,6 @@
     <name>Bankwiz Server - Domain</name>
     <description>Domain layer of Bankwiz application</description>
     <properties>
-        <sonar.coverage.jacoco.xmlReportPaths>../target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.projectKey>jbwittner_bankwiz_server_domain</sonar.projectKey>
     </properties>
     <dependencyManagement>
