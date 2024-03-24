@@ -6,11 +6,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.bankwiz.server.domain.model.model.UserDomain;
-import fr.bankwiz.server.domain.service.HelperDomain;
 
 public class TestInfra {
-
-    private HelperDomain helperDomain;
 
     @Test
     void testToto() {
