@@ -7,5 +7,6 @@ import java.util.UUID;
 public class HelperDomain {
     public HelperDomain() {
         final User user = new User(UUID.randomUUID(), "", "");
+        System.out.println(user);
     }
 }
