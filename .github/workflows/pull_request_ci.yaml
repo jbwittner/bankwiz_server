@@ -72,7 +72,7 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
       - name: Test and analyse domain
         working-directory: domain
-        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -f domain/pom.xml
       - name: Archive code coverage results
         uses: actions/upload-artifact@v4
         with:
