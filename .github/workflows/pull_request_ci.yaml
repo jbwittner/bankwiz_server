@@ -70,6 +70,8 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+      - name: Check maven version
+        run: mvn -B --version
       - name: Test and analyse domain
         run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -f domain/pom.xml
       - name: Archive code coverage results

@@ -8,8 +8,6 @@ runs:
       with:
         distribution: 'zulu'
         java-version: '21'
-    - name: Check maven version
-      run: mvn -B --version
     - name: Cache maven
       uses: actions/cache@v4
       env:
