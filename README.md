@@ -42,7 +42,7 @@ Example settings.xml configuration for Maven:
 ```
 
 ## Architecture
-The project uses a parent pom with two sub-modules:
+The project uses a parent pom with two submodules:
 
 Domain Module: Contains the business logic.
 Architecture Module: Implements the domain and manages interactions with external systems.

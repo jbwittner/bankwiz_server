@@ -11,7 +11,7 @@ COPY openapi openapi
 RUN mvn clean install -f openapi/pom.xml
 
 # Stage 2: Build the project
-FROM maven:3.9-eclipse-temurin-21-alpine AS build
+FROM maven:3.9-eclipse-temurin-17-alpine AS build
 
 # Copy the dependencies from the previous stage
 COPY --from=openapi  /root/.m2/repository /root/.m2/repository
@@ -30,7 +30,7 @@ COPY domain domain
 RUN mvn clean package -DskipTests -Dcheckstyle.skip
 
 # Stage 2: Run the application
-FROM openjdk:21-bullseye
+FROM openjdk:17-bullseye
 
 # Set the working directory in the container
 WORKDIR /app

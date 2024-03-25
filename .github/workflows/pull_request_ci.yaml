@@ -23,7 +23,7 @@ jobs:
       - name: Install openapi dependancy
         run: mvn -B clean install -f openapi/pom.xml
       - name: Install java part
-        run: mvn -B -DskipTests clean install 
+        run: mvn -B -DskipTests clean install -Dcheckstyle.skip
   check-google-format:
     runs-on: ubuntu-22.04
     needs:
@@ -36,8 +36,7 @@ jobs:
       - name: Setup action
         uses: ./.github/actions/setup-env
       - name: Spotless check
-        run: >-
-          mvn -B spotless:check
+        run: mvn -B spotless:check
   checkstyle:
     runs-on: ubuntu-22.04
     needs:
@@ -50,8 +49,7 @@ jobs:
       - name: Setup action
         uses: ./.github/actions/setup-env
       - name: Checkstyle check
-        run: >-
-          mvn -B checkstyle:checkstyle
+        run: mvn -B checkstyle:checkstyle
   tests_sonar_domain:
     runs-on: ubuntu-22.04
     needs:
@@ -94,24 +92,11 @@ jobs:
       - name: Test and analyse infrastructure
         working-directory: infrastructure
         run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-  package_application:
+  build_docker:
     runs-on: ubuntu-22.04
     needs:
       - tests_sonar_infra
       - tests_sonar_domain
-    steps:
-      - name: Checkout Git repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Setup action
-        uses: ./.github/actions/setup-env
-      - name: Package application
-        run: mvn -B package -DskipTests
-  build_docker:
-    runs-on: ubuntu-22.04
-    needs:
-      - package_application
     permissions:
       packages: write
     steps:

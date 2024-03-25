@@ -19,7 +19,6 @@
         </repository>
     </distributionManagement>
     <properties>
-        <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/domain/target/site/jacoco.xml,
             ${project.basedir}/infrastructure/target/site/jacoco.xml,</sonar.coverage.jacoco.xmlReportPaths>
@@ -70,9 +69,6 @@
                             <goal>report</goal>
                         </goals>
                         <phase>test</phase>
-                        <configuration>
-                            <excludes></excludes>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -177,7 +173,6 @@
                 <configuration>
                     <configLocation>checkstyle.xml</configLocation>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                    <encoding>UTF-8</encoding>
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                     <linkXRef>false</linkXRef>
