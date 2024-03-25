@@ -36,8 +36,7 @@ jobs:
       - name: Setup action
         uses: ./.github/actions/setup-env
       - name: Spotless check
-        run: >-
-          mvn -B spotless:check
+        run: mvn -B spotless:check
   checkstyle:
     runs-on: ubuntu-22.04
     needs:
@@ -50,8 +49,7 @@ jobs:
       - name: Setup action
         uses: ./.github/actions/setup-env
       - name: Checkstyle check
-        run: >-
-          mvn -B checkstyle:checkstyle
+        run: mvn -B checkstyle:checkstyle
   tests_sonar_domain:
     runs-on: ubuntu-22.04
     needs:
@@ -70,15 +68,9 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-      - name: Check maven version
-        run: mvn -B --version
       - name: Test and analyse domain
-        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -f domain/pom.xml
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v4
-        with:
-          name: code-coverage-report
-          path: ./
+        working-directory: domain
+        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
   tests_sonar_infra:
     runs-on: ubuntu-22.04
     needs:
