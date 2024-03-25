@@ -73,6 +73,11 @@ jobs:
       - name: Test and analyse domain
         working-directory: domain
         run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage-report
+          path: ./
   tests_sonar_infra:
     runs-on: ubuntu-22.04
     needs:
