@@ -1,10 +1,11 @@
 package fr.bankwiz.server.infrastructure.spi;
 
-import fr.bankwiz.server.domain.model.model.UserDomain;
-import fr.bankwiz.server.domain.model.spi.UserDomainSpi;
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+import fr.bankwiz.server.domain.model.model.UserDomain;
+import fr.bankwiz.server.domain.model.spi.UserDomainSpi;
 
 @Component
 public class UserSpiImpl implements UserDomainSpi {
