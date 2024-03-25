@@ -1,7 +1,6 @@
 DOCKER_IMAGE = "openapitools/openapi-generator-cli:v7.2.0"
 GENERATED_DIR_JAVA = "openapi"
 OPENAPI_SPEC = "openapi.yaml"
-CURRENT_GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 DOCKER_BUILDKIT=1
 
 .PHONY: clean-openapi
@@ -40,10 +39,6 @@ spotless-apply:
 .PHONY: spotless-check
 spotless-check:
 	mvn spotless:check
-
-.PHONY: sonar
-sonar:
-	mvn clean verify sonar:sonar -Dsonar.branch.name=$(CURRENT_GIT_BRANCH)
 
 .PHONY: docker-build
 docker-build:
