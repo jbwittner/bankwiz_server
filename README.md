@@ -35,7 +35,7 @@ Server of Bankwiz application
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=jbwittner_bankwiz_server_infrastructure&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=jbwittner_bankwiz_server_infrastructure)
 
 ## Description
-Bankwiz Server is the server component of a bank account management application. Developed in Java 17 and managed with Maven, this server is designed to provide a robust and secure interface for managing banking transactions and user interactions. It uses a hexagonal architecture, integrates with a MySQL database, and utilizes Auth0 for OAuth2 authentication.
+Bankwiz Server is the server component of a bank account management application. Developed in Java 17 and managed with Maven, this server is designed to provide a robust and secure interface for managing banking transactions and user interactions. It uses a hexagonal architecture, integrates with a database, and utilizes Auth0 for OAuth2 authentication.
 
 This is crucial for retrieving the server code generation from the OpenAPI specification at [Bankwiz OpenAPI](https://github.com/jbwittner/bankwiz_openapi).
 
