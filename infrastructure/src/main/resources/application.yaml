@@ -1,11 +1,10 @@
 ---
 application:
-  cors-allowed-origins: "http://localhost:8080"
   server:
     port: 8080
   db:
     host: "dblocalhost"
-    port: 3306
+    port: 5432
     name: "dbname"
     user: "dbuser"
     password: "dbpassword"
@@ -14,25 +13,19 @@ server:
 logging:
   level:
     root: "INFO"
-    org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: "OFF"
-    fr.bankwiz.server.infrastructure.aop:
-      SPIInterceptor: "OFF"
-      ServiceInterceptor: "INFO"
 spring:
-  devtools.add-properties: false
   jpa:
     show-sql: false
-    database-platform: "org.hibernate.dialect.MySQLDialect"
+    database-platform: "org.hibernate.dialect.PostgreSQLDialect"
     hibernate:
       ddl-auto: "validate"
       naming:
         physical-strategy: "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl"
         implicit-strategy: "org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl"
   datasource:
-    url: "jdbc:mysql://${application.db.host}:${application.db.port}/${application.db.name}"
+    url: "jdbc:postgresql://${application.db.host}:${application.db.port}/${application.db.name}"
     username: "${application.db.user}"
     password: "${application.db.password}"
-    driverClassName: "com.mysql.cj.jdbc.Driver"
   security:
     oauth2:
       resourceserver:
