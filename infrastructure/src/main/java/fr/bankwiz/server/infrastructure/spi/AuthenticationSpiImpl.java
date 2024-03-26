@@ -24,7 +24,7 @@ public class AuthenticationSpiImpl implements AuthenticationDomainSpi {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public AuthenticationSpiImpl(
-            @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}") final String domain,) {
+            @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}") final String domain) {
         this.domain = domain;
     }
 
@@ -45,7 +45,8 @@ public class AuthenticationSpiImpl implements AuthenticationDomainSpi {
             final HttpRequest request = HttpRequest.newBuilder().uri(new URI(url)).header("Authorization", "Bearer " + token).GET().build();
             final HttpClient client = HttpClient.newHttpClient();
             final var response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            objectMapper.readValue(response.body(), valueType);
+            final T value = objectMapper.readValue(response.body(), valueType);
+            return value;
         } catch (URISyntaxException | IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }

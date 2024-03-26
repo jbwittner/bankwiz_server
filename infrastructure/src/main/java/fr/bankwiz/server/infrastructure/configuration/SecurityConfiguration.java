@@ -1,4 +1,4 @@
-package fr.bankwiz.server.infrastructure.configurations;
+package fr.bankwiz.server.infrastructure.configuration;
 
 import java.util.List;
 
