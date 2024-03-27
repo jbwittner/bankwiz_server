@@ -8,6 +8,7 @@ application:
     name: "dbname"
     user: "dbuser"
     password: "dbpassword"
+  cors-allowed-origins: ""
 server:
   port: "${application.server.port}"
 logging:
