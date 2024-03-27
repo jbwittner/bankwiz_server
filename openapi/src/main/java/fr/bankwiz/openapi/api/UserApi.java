@@ -46,6 +46,7 @@ public interface UserApi {
      *
      * @return Successfully retrieved user information (status code 200)
      *         or Invalid request. Please check the provided data. (status code 400)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "checkRegistration",
@@ -55,7 +56,8 @@ public interface UserApi {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved user information", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
+            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data."),
+            @ApiResponse(responseCode = "default", description = "Unexpected error")
         },
         security = {
             @SecurityRequirement(name = "oauth2", scopes={ "openid", "profile", "email" })
@@ -89,6 +91,7 @@ public interface UserApi {
      *
      * @return Successfully retrieved user information (status code 200)
      *         or Invalid request. Please check the provided data. (status code 400)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "getCurrentUserInfo",
@@ -98,7 +101,8 @@ public interface UserApi {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved user information", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
+            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data."),
+            @ApiResponse(responseCode = "default", description = "Unexpected error")
         },
         security = {
             @SecurityRequirement(name = "oauth2", scopes={ "openid", "profile", "email" })
