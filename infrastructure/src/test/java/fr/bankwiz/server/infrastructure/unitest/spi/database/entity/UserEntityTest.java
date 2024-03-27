@@ -7,7 +7,7 @@ import fr.bankwiz.server.domain.model.model.UserDomain;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.unitest.InfrastructureUnitTestBase;
 
-public class UserEntityTest extends InfrastructureUnitTestBase {
+class UserEntityTest extends InfrastructureUnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {}

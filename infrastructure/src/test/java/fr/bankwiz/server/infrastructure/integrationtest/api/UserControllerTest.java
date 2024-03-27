@@ -6,25 +6,20 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.domain.model.model.UserAuthenticationDomain;
 import fr.bankwiz.server.infrastructure.integrationtest.InfrastructureIntegrationTestBase;
-import fr.bankwiz.server.infrastructure.spi.AuthenticationSpiImpl;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.spi.database.repository.UserEntityRepository;
 
 import static io.restassured.RestAssured.given;
 
-public class UserControllerTest extends InfrastructureIntegrationTestBase {
+class UserControllerTest extends InfrastructureIntegrationTestBase {
 
     @Autowired
     private UserEntityRepository userEntityRepository;
-
-    @MockBean
-    private AuthenticationSpiImpl authenticationSpi;
 
     @Test
     void checkregistration() throws Exception {

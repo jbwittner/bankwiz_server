@@ -11,7 +11,7 @@ import fr.bankwiz.server.infrastructure.integrationtest.InfrastructureIntegratio
 
 import static io.restassured.RestAssured.given;
 
-public class GetAdminStatusTest extends InfrastructureIntegrationTestBase {
+class GetAdminStatusTest extends InfrastructureIntegrationTestBase {
 
     @Test
     void withoutAuthentification() {

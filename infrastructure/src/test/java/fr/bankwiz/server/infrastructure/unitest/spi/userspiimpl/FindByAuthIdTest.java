@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import fr.bankwiz.server.domain.model.model.UserDomain;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 
-public class FindByAuthIdTest extends UserSpiImplUnitestBase {
+class FindByAuthIdTest extends UserSpiImplUnitestBase {
 
     @Test
     void userFound() {

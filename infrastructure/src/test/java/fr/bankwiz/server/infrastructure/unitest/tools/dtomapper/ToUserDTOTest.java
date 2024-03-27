@@ -8,7 +8,7 @@ import fr.bankwiz.server.domain.model.model.UserDomain;
 import fr.bankwiz.server.infrastructure.tools.DTOMapper;
 import fr.bankwiz.server.infrastructure.unitest.InfrastructureUnitTestBase;
 
-public class ToUserDTOTest extends InfrastructureUnitTestBase {
+class ToUserDTOTest extends InfrastructureUnitTestBase {
 
     @Override
     protected void initDataBeforeEach() {}

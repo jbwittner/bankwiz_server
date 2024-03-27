@@ -23,6 +23,6 @@ public class UserController implements UserApi {
     public ResponseEntity<UserDTO> checkRegistration() {
         final UserDomain userDomain = userDomainApi.checkRegistration();
         final UserDTO userDTO = DTOMapper.toUserDTO(userDomain);
-        return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 }

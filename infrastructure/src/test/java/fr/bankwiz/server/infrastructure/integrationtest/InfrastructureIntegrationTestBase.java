@@ -10,6 +10,7 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 
+import fr.bankwiz.server.infrastructure.spi.AuthenticationSpiImpl;
 import fr.bankwiz.server.infrastructure.testtools.InfrastructureFaker;
 import fr.bankwiz.server.infrastructure.testtools.InfrastructureIntegrationTestFactory;
 import io.restassured.RestAssured;
@@ -27,6 +28,9 @@ public class InfrastructureIntegrationTestBase {
     @MockBean
     // mock the JwtDecoder so that the jwks is not resolved since no AuthZ Server Setup
     protected JwtDecoder jwtDecoder;
+
+    @MockBean
+    protected AuthenticationSpiImpl authenticationSpi;
 
     static PostgreSQLContainer<?> pgContainer;
 

@@ -52,8 +52,7 @@ public class AuthenticationSpiImpl implements AuthenticationDomainSpi {
                     .build();
             final HttpClient client = HttpClient.newHttpClient();
             final var response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            final T value = objectMapper.readValue(response.body(), valueType);
-            return value;
+            return objectMapper.readValue(response.body(), valueType);
         } catch (URISyntaxException | IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -61,5 +60,4 @@ public class AuthenticationSpiImpl implements AuthenticationDomainSpi {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record IdData(String sub, String name, String email) {}
-    ;
 }

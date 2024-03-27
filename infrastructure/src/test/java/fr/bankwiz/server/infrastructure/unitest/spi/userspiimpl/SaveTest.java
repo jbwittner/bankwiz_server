@@ -9,7 +9,7 @@ import org.mockito.stubbing.Answer;
 import fr.bankwiz.server.domain.model.model.UserDomain;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 
-public class SaveTest extends UserSpiImplUnitestBase {
+class SaveTest extends UserSpiImplUnitestBase {
 
     @Test
     void ok() {
