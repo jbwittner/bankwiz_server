@@ -51,3 +51,15 @@ http-coverage-domain:
 .PHONY: http-coverage-infrastructure
 http-coverage-infrastructure:
 	python3 -m http.server 8002 -d infrastructure/target/site/jacoco
+
+.PHONY: package
+package:
+	mvn clean package -Dcheckstyle.skip -DskipTests
+
+.PHONY: test
+test:
+	mvn clean test -Dcheckstyle.skip
+
+.PHONY: checkstyle
+checkstyle:
+	mvn checkstyle:checkstyle
