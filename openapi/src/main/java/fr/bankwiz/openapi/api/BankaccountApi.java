@@ -51,6 +51,7 @@ public interface BankaccountApi {
      * @param bankAccountCreationRequest  (required)
      * @return Bank account created (status code 201)
      *         or Invalid request. Please check the provided data. (status code 400)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "createBankAccount",
@@ -60,7 +61,8 @@ public interface BankaccountApi {
             @ApiResponse(responseCode = "201", description = "Bank account created", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = BankAccountIndexDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
+            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data."),
+            @ApiResponse(responseCode = "default", description = "Unexpected error")
         },
         security = {
             @SecurityRequirement(name = "oauth2", scopes={ "openid", "profile", "email" })
@@ -96,6 +98,7 @@ public interface BankaccountApi {
      * @param id Bank account ID (required)
      * @return Bank account deleted (status code 200)
      *         or Invalid request. Please check the provided data. (status code 400)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "deleteBankAccount",
@@ -103,7 +106,8 @@ public interface BankaccountApi {
         tags = { "BankAccountService" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Bank account deleted"),
-            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
+            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data."),
+            @ApiResponse(responseCode = "default", description = "Unexpected error")
         },
         security = {
             @SecurityRequirement(name = "oauth2", scopes={ "openid", "profile", "email" })
@@ -127,6 +131,7 @@ public interface BankaccountApi {
      *
      * @return Bank account created successfully (status code 200)
      *         or Invalid request. Please check the provided data. (status code 400)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "getAllBankAccount",
@@ -136,7 +141,8 @@ public interface BankaccountApi {
             @ApiResponse(responseCode = "200", description = "Bank account created successfully", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GroupBankAccountIndexDTO.class)))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
+            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data."),
+            @ApiResponse(responseCode = "default", description = "Unexpected error")
         },
         security = {
             @SecurityRequirement(name = "oauth2", scopes={ "openid", "profile", "email" })
@@ -172,6 +178,7 @@ public interface BankaccountApi {
      * @param bankAccountUpdateRequest  (required)
      * @return Bank account updated (status code 200)
      *         or Invalid request. Please check the provided data. (status code 400)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "updateBankAccount",
@@ -181,7 +188,8 @@ public interface BankaccountApi {
             @ApiResponse(responseCode = "200", description = "Bank account updated", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = BankAccountIndexDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
+            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data."),
+            @ApiResponse(responseCode = "default", description = "Unexpected error")
         },
         security = {
             @SecurityRequirement(name = "oauth2", scopes={ "openid", "profile", "email" })

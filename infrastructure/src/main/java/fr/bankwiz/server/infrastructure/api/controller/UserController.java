@@ -1,25 +1,28 @@
 package fr.bankwiz.server.infrastructure.api.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
+
 import fr.bankwiz.openapi.api.UserApi;
 import fr.bankwiz.openapi.model.UserDTO;
 import fr.bankwiz.server.domain.model.api.UserDomainApi;
 import fr.bankwiz.server.domain.model.model.UserDomain;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import fr.bankwiz.server.infrastructure.tools.DTOMapper;
 
 @RestController
 public class UserController implements UserApi {
 
     private final UserDomainApi userDomainApi;
 
-    public  UserController(final UserDomainApi userDomainApi){
+    public UserController(final UserDomainApi userDomainApi) {
         this.userDomainApi = userDomainApi;
     }
 
     @Override
     public ResponseEntity<UserDTO> checkRegistration() {
         final UserDomain userDomain = userDomainApi.checkRegistration();
-        System.out.println(userDomain);
-        return UserApi.super.checkRegistration();
+        final UserDTO userDTO = DTOMapper.toUserDTO(userDomain);
+        return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
     }
 }

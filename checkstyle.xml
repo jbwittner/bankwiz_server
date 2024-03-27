@@ -7,4 +7,7 @@
       <property name="tokens" value="VARIABLE_DEF,PARAMETER_DEF"/>
     </module>
   </module>
+  <module name="TreeWalker">
+    <module name="AvoidStarImport"/>
+  </module>
 </module>

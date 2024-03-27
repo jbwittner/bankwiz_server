@@ -53,6 +53,7 @@ public interface GroupApi {
      * @param addUserGroupRequest  (required)
      * @return User added (status code 200)
      *         or Invalid request. Please check the provided data. (status code 400)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "addUserGroup",
@@ -62,7 +63,8 @@ public interface GroupApi {
             @ApiResponse(responseCode = "200", description = "User added", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = UserGroupRightDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
+            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data."),
+            @ApiResponse(responseCode = "default", description = "Unexpected error")
         },
         security = {
             @SecurityRequirement(name = "oauth2", scopes={ "openid", "profile", "email" })
@@ -99,6 +101,7 @@ public interface GroupApi {
      * @param groupCreationRequest  (required)
      * @return Group created successfully (status code 201)
      *         or Invalid request. Please check the provided data. (status code 400)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "createGroup",
@@ -108,7 +111,8 @@ public interface GroupApi {
             @ApiResponse(responseCode = "201", description = "Group created successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GroupIndexDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
+            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data."),
+            @ApiResponse(responseCode = "default", description = "Unexpected error")
         },
         security = {
             @SecurityRequirement(name = "oauth2", scopes={ "openid", "profile", "email" })
@@ -144,6 +148,7 @@ public interface GroupApi {
      * @param id Group ID (required)
      * @return Group deleted (status code 200)
      *         or Invalid request. Please check the provided data. (status code 400)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "deleteGroup",
@@ -151,7 +156,8 @@ public interface GroupApi {
         tags = { "GroupService" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Group deleted"),
-            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
+            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data."),
+            @ApiResponse(responseCode = "default", description = "Unexpected error")
         },
         security = {
             @SecurityRequirement(name = "oauth2", scopes={ "openid", "profile", "email" })
@@ -177,6 +183,7 @@ public interface GroupApi {
      * @param userId User ID (required)
      * @return User deleted (status code 200)
      *         or Invalid request. Please check the provided data. (status code 400)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "deleteUserFromGroup",
@@ -184,7 +191,8 @@ public interface GroupApi {
         tags = { "GroupService" },
         responses = {
             @ApiResponse(responseCode = "200", description = "User deleted"),
-            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
+            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data."),
+            @ApiResponse(responseCode = "default", description = "Unexpected error")
         },
         security = {
             @SecurityRequirement(name = "oauth2", scopes={ "openid", "profile", "email" })
@@ -210,6 +218,7 @@ public interface GroupApi {
      * @param id Group ID (required)
      * @return Get group (status code 200)
      *         or Invalid request. Please check the provided data. (status code 400)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "getGroupDetails",
@@ -219,7 +228,8 @@ public interface GroupApi {
             @ApiResponse(responseCode = "200", description = "Get group", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GroupDetailsDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
+            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data."),
+            @ApiResponse(responseCode = "default", description = "Unexpected error")
         },
         security = {
             @SecurityRequirement(name = "oauth2", scopes={ "openid", "profile", "email" })
@@ -253,6 +263,7 @@ public interface GroupApi {
      *
      * @return Get all groups of user (status code 200)
      *         or Invalid request. Please check the provided data. (status code 400)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "getUserGroups",
@@ -262,7 +273,8 @@ public interface GroupApi {
             @ApiResponse(responseCode = "200", description = "Get all groups of user", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GroupIndexDTO.class)))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data.")
+            @ApiResponse(responseCode = "400", description = "Invalid request. Please check the provided data."),
+            @ApiResponse(responseCode = "default", description = "Unexpected error")
         },
         security = {
             @SecurityRequirement(name = "oauth2", scopes={ "openid", "profile", "email" })
