@@ -25,4 +25,11 @@ public class UserController implements UserApi {
         final UserDTO userDTO = DTOMapper.toUserDTO(userDomain);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<UserDTO> getCurrentUserInfo() {
+        final UserDomain userDomain = userDomainApi.getCurrentUser();
+        final UserDTO userDTO = DTOMapper.toUserDTO(userDomain);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
 }

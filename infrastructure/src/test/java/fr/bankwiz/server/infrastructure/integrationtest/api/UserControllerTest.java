@@ -34,7 +34,6 @@ class UserControllerTest extends InfrastructureIntegrationTestBase {
         final String sub = this.factory.getAuthId();
 
         final UserAuthenticationDomain userAuthenticationDomain = new UserAuthenticationDomain(sub, email);
-
         Mockito.when(this.authenticationSpi.getUserAuthentication()).thenReturn(userAuthenticationDomain);
 
         final UserDTO response = given().auth()
@@ -54,5 +53,31 @@ class UserControllerTest extends InfrastructureIntegrationTestBase {
                 () -> Assertions.assertTrue(optional.isPresent()),
                 () -> Assertions.assertEquals(email, optional.get().getEmail()),
                 () -> Assertions.assertEquals(sub, optional.get().getAuthId()));
+    }
+
+    @Test
+    void getCurrentUser() throws Exception {
+        final Jwt jwt = Jwt.withTokenValue("token")
+                .header("alg", "none")
+                .claim("scope", "message:read")
+                .build();
+
+        Mockito.when(this.jwtDecoder.decode(jwt.getTokenValue())).thenReturn(jwt);
+
+        final UserEntity userEntity = this.factory.getUserEntity();
+        Mockito.when(this.authenticationSpi.getCurrentUserAuthId()).thenReturn(userEntity.getAuthId());
+
+        final UserDTO response = given().auth()
+                .oauth2(jwt.getTokenValue())
+                .get("/user")
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .extract()
+                .as(UserDTO.class);
+
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(userEntity.getEmail(), response.getEmail()),
+                () -> Assertions.assertEquals(userEntity.getId(), response.getId()));
     }
 }
