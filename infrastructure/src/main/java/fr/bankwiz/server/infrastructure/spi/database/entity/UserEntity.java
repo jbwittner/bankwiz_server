@@ -2,7 +2,7 @@ package fr.bankwiz.server.infrastructure.spi.database.entity;
 
 import java.util.UUID;
 
-import fr.bankwiz.server.domain.model.model.UserDomain;
+import fr.bankwiz.server.domain.model.UserDomain;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

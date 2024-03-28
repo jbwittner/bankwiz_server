@@ -1,13 +1,13 @@
-package fr.bankwiz.server.domain.model.service;
+package fr.bankwiz.server.domain.service;
 
 import java.util.Optional;
 import java.util.UUID;
 
-import fr.bankwiz.server.domain.model.api.UserDomainApi;
-import fr.bankwiz.server.domain.model.model.UserAuthenticationDomain;
-import fr.bankwiz.server.domain.model.model.UserDomain;
-import fr.bankwiz.server.domain.model.spi.AuthenticationDomainSpi;
-import fr.bankwiz.server.domain.model.spi.UserDomainSpi;
+import fr.bankwiz.server.domain.api.UserDomainApi;
+import fr.bankwiz.server.domain.model.UserAuthenticationDomain;
+import fr.bankwiz.server.domain.model.UserDomain;
+import fr.bankwiz.server.domain.spi.AuthenticationDomainSpi;
+import fr.bankwiz.server.domain.spi.UserDomainSpi;
 
 public class UserDomainService implements UserDomainApi {
 

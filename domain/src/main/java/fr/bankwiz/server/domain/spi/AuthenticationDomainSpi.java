@@ -1,6 +1,6 @@
-package fr.bankwiz.server.domain.model.spi;
+package fr.bankwiz.server.domain.spi;
 
-import fr.bankwiz.server.domain.model.model.UserAuthenticationDomain;
+import fr.bankwiz.server.domain.model.UserAuthenticationDomain;
 
 public interface AuthenticationDomainSpi {
     UserAuthenticationDomain getUserAuthentication();

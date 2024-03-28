@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 import fr.bankwiz.openapi.model.UserDTO;
-import fr.bankwiz.server.domain.model.model.UserAuthenticationDomain;
+import fr.bankwiz.server.domain.model.UserAuthenticationDomain;
 import fr.bankwiz.server.infrastructure.integrationtest.InfrastructureIntegrationTestBase;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 import fr.bankwiz.server.infrastructure.spi.database.repository.UserEntityRepository;

@@ -1,6 +1,6 @@
-package fr.bankwiz.server.domain.model.api;
+package fr.bankwiz.server.domain.api;
 
-import fr.bankwiz.server.domain.model.model.UserDomain;
+import fr.bankwiz.server.domain.model.UserDomain;
 
 public interface UserDomainApi {
     UserDomain checkRegistration();

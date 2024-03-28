@@ -2,8 +2,8 @@ package fr.bankwiz.server.domain.testhelper;
 
 import java.util.UUID;
 
-import fr.bankwiz.server.domain.model.model.UserAuthenticationDomain;
-import fr.bankwiz.server.domain.model.model.UserDomain;
+import fr.bankwiz.server.domain.model.UserAuthenticationDomain;
+import fr.bankwiz.server.domain.model.UserDomain;
 
 public class DomainUnitTestFactory {
     private final DomainFaker faker;

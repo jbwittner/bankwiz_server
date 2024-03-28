@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.bankwiz.server.domain.model.model.UserAuthenticationDomain;
-import fr.bankwiz.server.domain.model.spi.AuthenticationDomainSpi;
+import fr.bankwiz.server.domain.model.UserAuthenticationDomain;
+import fr.bankwiz.server.domain.spi.AuthenticationDomainSpi;
 
 @Component
 public class AuthenticationSpiImpl implements AuthenticationDomainSpi {

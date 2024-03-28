@@ -3,8 +3,8 @@ package fr.bankwiz.server.domain.service.userdomainservice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.bankwiz.server.domain.model.model.UserAuthenticationDomain;
-import fr.bankwiz.server.domain.model.model.UserDomain;
+import fr.bankwiz.server.domain.model.UserAuthenticationDomain;
+import fr.bankwiz.server.domain.model.UserDomain;
 
 class CheckRegistrationTest extends UserDomainServiceTestBase {
 

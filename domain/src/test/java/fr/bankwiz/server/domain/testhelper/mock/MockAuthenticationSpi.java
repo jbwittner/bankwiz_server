@@ -2,8 +2,8 @@ package fr.bankwiz.server.domain.testhelper.mock;
 
 import org.mockito.Mockito;
 
-import fr.bankwiz.server.domain.model.model.UserAuthenticationDomain;
-import fr.bankwiz.server.domain.model.spi.AuthenticationDomainSpi;
+import fr.bankwiz.server.domain.model.UserAuthenticationDomain;
+import fr.bankwiz.server.domain.spi.AuthenticationDomainSpi;
 
 public class MockAuthenticationSpi extends MockHelper<AuthenticationDomainSpi> {
 
