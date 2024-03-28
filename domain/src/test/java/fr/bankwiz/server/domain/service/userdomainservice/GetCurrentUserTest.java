@@ -3,6 +3,7 @@ package fr.bankwiz.server.domain.service.userdomainservice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import fr.bankwiz.server.domain.exception.UserNotExistException;
 import fr.bankwiz.server.domain.model.UserDomain;
 
 class GetCurrentUserTest extends UserDomainServiceTestBase {
@@ -18,11 +19,10 @@ class GetCurrentUserTest extends UserDomainServiceTestBase {
 
         final UserDomain userDomain = this.userDomainService.getCurrentUser();
 
-        this.mockAuthenticationSpi.checkGetUserAuthenticationCalled();
+        this.mockAuthenticationSpi.checkGetCurrentUserAuthId();
         this.mockUserSpi.checkFindByAuthId(authId);
 
         Assertions.assertEquals(userdomainToFind, userDomain);
-
     }
 
     @Test
@@ -32,15 +32,11 @@ class GetCurrentUserTest extends UserDomainServiceTestBase {
         final String authId = userdomainToFind.authId();
 
         this.mockAuthenticationSpi.mockGetCurrentUserAuthId(authId);
-        this.mockUserSpi.mockFindByAuthId(authId, userdomainToFind);
+        this.mockUserSpi.mockFindByAuthIdEmpty(authId);
 
-        final UserDomain userDomain = this.userDomainService.getCurrentUser();
+        Assertions.assertThrows(UserNotExistException.class, () -> this.userDomainService.getCurrentUser());
 
-        this.mockAuthenticationSpi.checkGetUserAuthenticationCalled();
+        this.mockAuthenticationSpi.checkGetCurrentUserAuthId();
         this.mockUserSpi.checkFindByAuthId(authId);
-
-        Assertions.assertEquals(userdomainToFind, userDomain);
-
     }
-    
 }

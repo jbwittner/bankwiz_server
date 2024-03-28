@@ -23,7 +23,7 @@ public class MockAuthenticationSpi extends MockHelper<AuthenticationDomainSpi> {
         Mockito.doReturn(userAuthId).when(this.mock).getCurrentUserAuthId();
     }
 
-    public void checkGetCurrentUserAuthId(final String userAuthId) {
+    public void checkGetCurrentUserAuthId() {
         Mockito.verify(this.mock).getCurrentUserAuthId();
     }
 }

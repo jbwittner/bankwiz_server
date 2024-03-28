@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import fr.bankwiz.server.domain.api.UserDomainApi;
+import fr.bankwiz.server.domain.exception.UserNotExistException;
 import fr.bankwiz.server.domain.model.UserAuthenticationDomain;
 import fr.bankwiz.server.domain.model.UserDomain;
 import fr.bankwiz.server.domain.spi.AuthenticationDomainSpi;
@@ -41,6 +42,7 @@ public class UserDomainService implements UserDomainApi {
 
     @Override
     public UserDomain getCurrentUser() {
-        throw new UnsupportedOperationException("Unimplemented method 'getCurrentUser'");
+        final String authId = this.authenticationDomainSpi.getCurrentUserAuthId();
+        return this.userDomainSpi.findByAuthId(authId).orElseThrow(() -> new UserNotExistException(authId));
     }
 }
