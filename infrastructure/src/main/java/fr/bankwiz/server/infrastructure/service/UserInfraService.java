@@ -21,4 +21,9 @@ public class UserInfraService implements UserDomainApi {
     public UserDomain checkRegistration() {
         return this.userDomainApi.checkRegistration();
     }
+
+    @Override
+    public UserDomain getCurrentUser() {
+        return this.userDomainApi.getCurrentUser();
+    }
 }

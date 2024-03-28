@@ -60,4 +60,10 @@ public class AuthenticationSpiImpl implements AuthenticationDomainSpi {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record IdData(String sub, String name, String email) {}
+
+    @Override
+    public String getCurrentUserAuthId() {
+        final JwtAuthenticationToken jwtAuthenticationToken = this.getAuthentication();
+        return jwtAuthenticationToken.getToken().getSubject();
+    }
 }

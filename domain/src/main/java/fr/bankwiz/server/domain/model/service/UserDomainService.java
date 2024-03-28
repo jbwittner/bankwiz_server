@@ -38,4 +38,9 @@ public class UserDomainService implements UserDomainApi {
 
         return this.userDomainSpi.save(userDomain);
     }
+
+    @Override
+    public UserDomain getCurrentUser() {
+        throw new UnsupportedOperationException("Unimplemented method 'getCurrentUser'");
+    }
 }
