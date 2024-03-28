@@ -1,6 +1,7 @@
 package fr.bankwiz.server.infrastructure.integrationtest;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -11,6 +12,7 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 import fr.bankwiz.server.infrastructure.spi.AuthenticationSpiImpl;
+import fr.bankwiz.server.infrastructure.spi.database.repository.UserEntityRepository;
 import fr.bankwiz.server.infrastructure.testtools.InfrastructureFaker;
 import fr.bankwiz.server.infrastructure.testtools.InfrastructureIntegrationTestFactory;
 import io.restassured.RestAssured;
@@ -18,6 +20,9 @@ import io.restassured.RestAssured;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles(value = "test")
 public class InfrastructureIntegrationTestBase {
+
+    @Autowired
+    protected UserEntityRepository userEntityRepository;
 
     protected InfrastructureIntegrationTestFactory factory;
     protected InfrastructureFaker faker;
@@ -49,7 +54,7 @@ public class InfrastructureIntegrationTestBase {
     @BeforeEach
     void setUp() {
         this.faker = new InfrastructureFaker();
-        this.factory = new InfrastructureIntegrationTestFactory(faker);
+        this.factory = new InfrastructureIntegrationTestFactory(faker, userEntityRepository);
         RestAssured.baseURI = "http://localhost:" + port;
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }

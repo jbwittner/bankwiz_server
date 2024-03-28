@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.bankwiz.server.domain.model.model.UserAuthenticationDomain;
-import fr.bankwiz.server.domain.model.spi.AuthenticationDomainSpi;
+import fr.bankwiz.server.domain.model.UserAuthenticationDomain;
+import fr.bankwiz.server.domain.spi.AuthenticationDomainSpi;
 
 @Component
 public class AuthenticationSpiImpl implements AuthenticationDomainSpi {
@@ -60,4 +60,10 @@ public class AuthenticationSpiImpl implements AuthenticationDomainSpi {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record IdData(String sub, String name, String email) {}
+
+    @Override
+    public String getCurrentUserAuthId() {
+        final JwtAuthenticationToken jwtAuthenticationToken = this.getAuthentication();
+        return jwtAuthenticationToken.getToken().getSubject();
+    }
 }

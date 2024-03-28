@@ -6,7 +6,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 
-import fr.bankwiz.server.domain.model.model.UserDomain;
+import fr.bankwiz.server.domain.model.UserDomain;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 
 class SaveTest extends UserSpiImplUnitestBase {

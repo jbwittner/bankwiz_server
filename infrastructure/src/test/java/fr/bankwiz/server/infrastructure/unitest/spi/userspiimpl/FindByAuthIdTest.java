@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import fr.bankwiz.server.domain.model.model.UserDomain;
+import fr.bankwiz.server.domain.model.UserDomain;
 import fr.bankwiz.server.infrastructure.spi.database.entity.UserEntity;
 
 class FindByAuthIdTest extends UserSpiImplUnitestBase {

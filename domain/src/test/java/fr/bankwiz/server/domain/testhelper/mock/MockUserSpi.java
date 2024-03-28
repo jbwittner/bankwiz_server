@@ -7,8 +7,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 
-import fr.bankwiz.server.domain.model.model.UserDomain;
-import fr.bankwiz.server.domain.model.spi.UserDomainSpi;
+import fr.bankwiz.server.domain.model.UserDomain;
+import fr.bankwiz.server.domain.spi.UserDomainSpi;
 
 public class MockUserSpi extends MockHelper<UserDomainSpi> {
 
